@@ -34,25 +34,24 @@ The compiled `.ll` files are now under `-fno-inline_-Os_-S_-emit-llvm/` folder.
 ## Standard Input Format
 The standard input contains CFG, interference graph, and affinity relation, in proper order.
 
-**1. Control-flow Graph (with Liveness Analysis).**
-The first line contains 3 integers $N$, $M$, $k$, which are the \# of nodes on CFG, the \# of variables, and the \# of registers, respectively.
+**1. Control-flow Graph (with Liveness Analysis).**  
+The first line contains 3 integers $N$, $M$, $k$, which are the \# of nodes on CFG, the \# of variables, and the \# of registers, respectively.  
 For each of the following $3N$ lines, let $i=1,2,\cdots,N$:
-The $(3i-2)$-th line first contains an integer $l$, representing the degree of node $i$. The following $l$ integers are the neighors of node $i$.
-The $(3i-1)$-th line first contains an integer $l$, representing $|\text{LiveIn}(i)|$. The following $l$ integers are the variables live before node $i$.
-The $(3i)$-th line first contains an integer $l$, representing $|\text{LiveOut}(i)|$. The following $l$ integers are the variables live after node $i$.
+- The $(3i-2)$-th line first contains an integer $l$, representing the degree of node $i$. The following $l$ integers are the neighors of node $i$.
+- The $(3i-1)$-th line first contains an integer $l$, representing $|\text{LiveIn}(i)|$. The following $l$ integers are the variables live before node $i$.
+- The $(3i)$-th line first contains an integer $l$, representing $|\text{LiveOut}(i)|$. The following $l$ integers are the variables live after node $i$.
 
-**2. Interference Graph.**
-The first line contains 1 integer $n$, representing the \# of variables, i.e., \# of vertices on the interference graph.
+**2. Interference Graph.**  
+The first line contains 1 integer $n$, representing the \# of variables, i.e., \# of vertices on the interference graph.  
 For each of the following $n$ lines, the $i$-th line first contains an integer $l$, representing the degree of vertex $i$; the following $l$ integers are the neighbors of vertex $i$.
 
-**3. Affinity Relation.**
-The first line contains 1 integer $m$, representing the \# of affinity relations.
-For each of the following $m$ lines, each line contains 3 integers $u,v,w$, indicating there's an affinity relation between $u$ and $v$ with weight $w$.
+**3. Affinity Relation.**  
+The first line contains 1 integer $m$, representing the \# of affinity relations.  
+For each of the following $m$ lines, each line contains 3 integers $u,v,w$, indicating there's an affinity relation between $u$ and $v$ with weight $w$.  
 **TODO.** The profiling is not implemented so all weights are set to 1 for now. Need to replace this with profiled frequency later.
 
 ## SPEC2017
 The LLVM pass for constructing CFG, interference graph, and affinity relation is located in `preproc/` folder. Run the following to compile and run the pass. Notice that the generated graph information for each function is output under `tmp/` folder.
-
 ```
 cd preproc
 cmake .

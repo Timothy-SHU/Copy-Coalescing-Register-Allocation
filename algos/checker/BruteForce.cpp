@@ -21,21 +21,18 @@ void DFS(int u) {
         }
         return;
     }
-    for (int c = 1; c <= k; c++) {
+    for (int c = 0; c < k; c++) {
         bool flag = true;
         for (int v : G[u])
             if (c == col[v])
                 { flag = false; break; }
-        if (flag) col[u] = c, DFS(u+1);
+        if (flag) col[u] = c, DFS(u+1), col[u] = -1;
     }
     return;
 }
 
 int main() {
-    freopen("000", "r", stdin);
-    freopen("BruteForce.txt", "w", stdout);
     cin >> n >> m >> k;
-    k = 2;
     for (int i = 1, l, x; i <= n; i++) {
         cin >> l; while (l--) cin >> x;
         cin >> l; while (l--) cin >> x;
@@ -45,16 +42,19 @@ int main() {
     for (int u = 1, v, l; u <= n; u++)
         { cin >> l; while (l--) cin >> v, G[u].push_back(v); }
     cin >> m;
+    long long sum = 0;
     for (int i = 0, u, v, w; i < m; i++)
-        cin >> u >> v >> w, 
+        cin >> u >> v >> w, sum += w, 
         A.push_back(make_pair(make_pair(u, v), w));
+    // cerr << sum << endl;
     if (n <= 30) {
-        DFS(1);
+        memset(col, -1, sizeof(col)), DFS(1);
         cout << mx << endl;
         if (mx != -1)
             for (int i = 1; i <= n; i++)
                 cout << mx_col[i] << " ";
+        cout << endl;
     } else
-        cout << -1;
+        puts("-1");
     return 0;
 }

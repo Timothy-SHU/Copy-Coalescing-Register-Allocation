@@ -1,7 +1,5 @@
 copy-coalescing.pdf
 Copy Coalescing by Graph Recoloring
-graph.txt
-tree.txt
 
 bench/SPEC2017/spec2017/
 bench/SPEC2017/-fno-inline_-Os_-S_-emit-llvm/
@@ -11,7 +9,15 @@ bench/OCC/PrepareOCC
 preproc/libCC.so
 preproc/Preprocess
 
-algos/BruteForce
-algos/TW
+algos/checker/checker
+algos/checker/data
+algos/checker/BruteForce
 
+algos/Treewidth/Treewidth
 pace17/flow_cutter_pace17
+
+graph.txt
+tree.txt
+input.txt
+output.txt
+answer.txt
