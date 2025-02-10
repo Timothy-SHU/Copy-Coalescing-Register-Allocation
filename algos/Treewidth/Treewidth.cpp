@@ -1,6 +1,4 @@
 #include <bits/stdc++.h>
-#include <ctime>
-#include <iomanip>
 #include "TreeDecomp.cpp"
 using namespace std;
 typedef long long lnt;
@@ -158,11 +156,15 @@ vector <lnt> DFS(int u) {
 
 int main() {
     clock_t prev = clock();
+    cerr << fixed << setprecision(6);
     if (!loadGraph(numVar, numReg, H, A)) { puts("-1"); return 0; }
     genDecomp(numBag, tw, TreeEdge, Bag, SOLVER_TIME_LIMIT);
     niceDecomp(numBag, TreeEdge, Bag, Tree);
-    cerr << "Decomposition runtime: " << fixed << setprecision(6) << 1.0*(clock()-prev)/CLOCKS_PER_SEC << " s.\n", prev = clock();
     // printTree(numBag, tw, Bag, Tree);
+
+    double decompTime = 1.0*(clock()-prev)/CLOCKS_PER_SEC+SOLVER_TIME_LIMIT;
+    cerr << "Decomposition runtime: " << decompTime  << " s.\n", prev = clock();
+
     mark.resize(numBag+1);
     lnt ans = 0;
     for (int i = 1; i <= numBag; i++) if (!mark[i]) {
@@ -171,7 +173,11 @@ int main() {
         if (ans == -1 || mx == -1) ans = -1;
         else ans += mx;
     }
-    cerr << "DP runtime: " << fixed << setprecision(6) << 1.0*(clock()-prev)/CLOCKS_PER_SEC << " s.\n";
-    cout << ans << endl;
+
+    double DPTime = 1.0*(clock()-prev)/CLOCKS_PER_SEC;
+    cerr << "DP runtime: " << DPTime << " s.\n";
+
+    cout << fixed << setprecision(6);
+    cout << ans << endl << decompTime+DPTime << endl;
     return 0;
 }

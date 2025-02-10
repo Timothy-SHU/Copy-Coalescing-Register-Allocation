@@ -78,10 +78,35 @@ g++ PrepareOCC.cpp -o PrepareOCC
 ## Visualize CFG (for debugging)
 Given a `.ll` file, one can generate the corresponding CFG with the following commands.
 Notice that `.main.dot` should be replaced to the dot file generated for the specific function to be visualized.
-
 ```
 cd preproc/input
 clang++ -S -emit-llvm -O1 test.cpp
 opt -passes=dot-cfg test.ll
 dot -Tpng -o test.png .main.dot
+```
+
+# Copy Coalescing Algorithms
+
+## Brute-force Checker (for debugging)
+The brute-force solver is implemented under `algos/checker/` folder along with a random data generator and a checker program. The data scale is specified in `config.txt`, where the four integers are the number of variables, the number of edges on integerence graph, the number of affinity relations, and the number of registers allowed. The checker compares the output of treewidth-based parameterized algorithm against brute-force result.
+```
+cd algos/checker
+g++ BruteForce.cpp -o BruteForce
+g++ data.cpp -o data.cpp
+g++ checker.cpp -o checker.cpp
+./checker
+```
+
+## Parameterized Algorithm (w/ Treewidth)
+The treewidth-based parameterized algorithm is implemented under `algos/Treewidth/` folder. Compile `Treewidth.cpp` and feed in standard input files.
+```
+cd algos/Treewidth
+g++ Treewidth.cpp -o Treewidth
+./Treewidth < ../input/000
+```
+
+To experiment by batch, compile and run `ExptTreewidth.cpp`, where `ExptConfig.txt` specifies the folders in the benchmark to be experimented on. Input one or multiple names of folders inside `bench/SPEC2017/input/` into `ExptConfig.txt`, or simply input "all" to run on the whole benchmark.
+```
+g++ ExptTreewidth.cpp -o ExptTreewidth
+./ExptTreewidth < ExptConfig.txt
 ```

@@ -1,0 +1,2637 @@
+tshu@optiplex:~/Documents/CopyCoalescing/algos/Treewidth$ ./ExptTreewidth < ExptConfig.txt 
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_14"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000351 s.
+DP runtime: 0.000099 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_10"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 2]
+Decomposition runtime: 1.000447 s.
+DP runtime: 0.000244 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_9"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_7"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 3]
+Decomposition runtime: 1.000479 s.
+DP runtime: 0.005368 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_3"......
+TL = 1. Solving graph.txt... Completed. [28 bags, tw = 5]
+Decomposition runtime: 1.000629 s.
+DP runtime: 0.383333 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_8"......
+TL = 1. Solving graph.txt... Completed. [32 bags, tw = 5]
+Decomposition runtime: 1.000644 s.
+DP runtime: 0.407654 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_11"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000426 s.
+DP runtime: 0.000216 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_6"......
+TL = 1. Solving graph.txt... Completed. [36 bags, tw = 4]
+Decomposition runtime: 1.000825 s.
+DP runtime: 0.374138 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_12"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_15"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000435 s.
+DP runtime: 0.000104 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_4"......
+TL = 1. Solving graph.txt... Completed. [37 bags, tw = 4]
+Decomposition runtime: 1.000605 s.
+DP runtime: 0.061911 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_1"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 0]
+Decomposition runtime: 1.000484 s.
+DP runtime: 0.000010 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_5"......
+TL = 1. Solving graph.txt... Completed. [37 bags, tw = 4]
+Decomposition runtime: 1.000602 s.
+DP runtime: 0.206612 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_13"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000511 s.
+DP runtime: 0.000028 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-mro-mro/ext-mro-mro_2"......
+TL = 1. Solving graph.txt... Completed. [37 bags, tw = 5]
+Decomposition runtime: 1.000642 s.
+DP runtime: 0.599182 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_11"......
+TL = 1. Solving graph.txt... Completed. [35 bags, tw = 5]
+Decomposition runtime: 1.000594 s.
+DP runtime: 1.311834 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_7"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000423 s.
+DP runtime: 0.000153 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_12"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000375 s.
+DP runtime: 0.000040 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_3"......
+TL = 1. Solving graph.txt... Completed. [49 bags, tw = 6]
+Decomposition runtime: 1.000648 s.
+DP runtime: 5.944617 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_17"......
+TL = 1. Solving graph.txt... Completed. [36 bags, tw = 4]
+Decomposition runtime: 1.000447 s.
+DP runtime: 0.095726 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_25"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 3]
+Decomposition runtime: 1.000337 s.
+DP runtime: 0.001199 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_23"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000522 s.
+DP runtime: 0.000005 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_20"......
+TL = 1. Solving graph.txt... Completed. [62 bags, tw = 7]
+Decomposition runtime: 1.000818 s.
+DP runtime: 59.851309 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_14"......
+TL = 1. Solving graph.txt... Completed. [33 bags, tw = 4]
+Decomposition runtime: 1.000555 s.
+DP runtime: 0.052172 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_22"......
+TL = 1. Solving graph.txt... Completed. [75 bags, tw = 4]
+Decomposition runtime: 1.000720 s.
+DP runtime: 0.106995 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_2"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 3]
+Decomposition runtime: 1.000479 s.
+DP runtime: 0.004136 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_5"......
+TL = 1. Solving graph.txt... Completed. [71 bags, tw = 3]
+Decomposition runtime: 1.000655 s.
+DP runtime: 0.030427 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_19"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000432 s.
+DP runtime: 0.000104 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_21"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 2]
+Decomposition runtime: 1.000348 s.
+DP runtime: 0.000087 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_18"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000390 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_13"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 2]
+Decomposition runtime: 1.000457 s.
+DP runtime: 0.000812 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_1"......
+TL = 1. Solving graph.txt... Completed. [37 bags, tw = 7]
+Decomposition runtime: 1.000700 s.
+DP runtime: 59.666041 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_8"......
+TL = 1. Solving graph.txt... Completed. [21 bags, tw = 6]
+Decomposition runtime: 1.000515 s.
+DP runtime: 4.120473 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_4"......
+TL = 1. Solving graph.txt... Completed. [42 bags, tw = 4]
+Decomposition runtime: 1.000585 s.
+DP runtime: 0.203289 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_9"......
+TL = 1. Solving graph.txt... Completed. [36 bags, tw = 6]
+Decomposition runtime: 1.000470 s.
+DP runtime: 1.967599 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_15"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000419 s.
+DP runtime: 0.000066 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_10"......
+TL = 1. Solving graph.txt... Completed. [25 bags, tw = 5]
+Decomposition runtime: 1.000516 s.
+DP runtime: 0.536206 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_24"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 2]
+Decomposition runtime: 1.000284 s.
+DP runtime: 0.000200 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_6"......
+TL = 1. Solving graph.txt... Completed. [96 bags, tw = 8]
+Decomposition runtime: 1.001213 s.
+DP runtime: 392.516609 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/av/av_16"......
+TL = 1. Solving graph.txt... Completed. [45 bags, tw = 6]
+Decomposition runtime: 1.000648 s.
+DP runtime: 7.630814 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_96"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000409 s.
+DP runtime: 0.000033 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_52"......
+TL = 1. Solving graph.txt... Completed. [28 bags, tw = 6]
+Decomposition runtime: 1.000414 s.
+DP runtime: 7.175159 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_82"......
+TL = 1. Solving graph.txt... Completed. [27 bags, tw = 4]
+Decomposition runtime: 1.000368 s.
+DP runtime: 0.073196 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_25"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000219 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_87"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000293 s.
+DP runtime: 0.000008 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_51"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000298 s.
+DP runtime: 0.000082 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_137"......
+TL = 1. Solving graph.txt... Completed. [52 bags, tw = 6]
+Decomposition runtime: 1.000747 s.
+DP runtime: 5.114686 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_71"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 2]
+Decomposition runtime: 1.000390 s.
+DP runtime: 0.000189 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_69"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000447 s.
+DP runtime: 0.000107 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_32"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000239 s.
+DP runtime: 0.000375 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_136"......
+TL = 1. Solving graph.txt... Completed. [60 bags, tw = 8]
+Decomposition runtime: 1.000859 s.
+DP runtime: 642.961103 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_99"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 2]
+Decomposition runtime: 1.000262 s.
+DP runtime: 0.000185 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_100"......
+TL = 1. Solving graph.txt... Completed. [51 bags, tw = 7]
+Decomposition runtime: 1.000902 s.
+DP runtime: 135.869887 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_39"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 2]
+Decomposition runtime: 1.000570 s.
+DP runtime: 0.000268 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_102"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 3]
+Decomposition runtime: 1.000488 s.
+DP runtime: 0.005976 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_113"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 4]
+Decomposition runtime: 1.000298 s.
+DP runtime: 0.077964 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_138"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000393 s.
+DP runtime: 0.000084 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_35"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000384 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_67"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000283 s.
+DP runtime: 0.000067 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_58"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 4]
+Decomposition runtime: 1.000337 s.
+DP runtime: 0.084335 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_21"......
+TL = 1. Solving graph.txt... Completed. [19 bags, tw = 4]
+Decomposition runtime: 1.000483 s.
+DP runtime: 0.026566 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_16"......
+TL = 1. Solving graph.txt... Completed. [23 bags, tw = 5]
+Decomposition runtime: 1.000370 s.
+DP runtime: 0.843599 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_18"......
+TL = 1. Solving graph.txt... Completed. [25 bags, tw = 4]
+Decomposition runtime: 1.000556 s.
+DP runtime: 0.218911 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_110"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 3]
+Decomposition runtime: 1.000561 s.
+DP runtime: 0.006272 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_8"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 3]
+Decomposition runtime: 1.000435 s.
+DP runtime: 0.007422 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_112"......
+TL = 1. Solving graph.txt... Completed. [72 bags, tw = 6]
+Decomposition runtime: 1.001047 s.
+DP runtime: 11.091675 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_174"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 0]
+Decomposition runtime: 1.000551 s.
+DP runtime: 0.000005 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_62"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000626 s.
+DP runtime: 0.000056 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_101"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000359 s.
+DP runtime: 0.000076 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_93"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000374 s.
+DP runtime: 0.000106 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_55"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000439 s.
+DP runtime: 0.000084 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_103"......
+TL = 1. Solving graph.txt... Completed. [29 bags, tw = 5]
+Decomposition runtime: 1.000515 s.
+DP runtime: 0.702317 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_106"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000428 s.
+DP runtime: 0.000032 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_78"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000303 s.
+DP runtime: 0.000076 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_12"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 4]
+Decomposition runtime: 1.000456 s.
+DP runtime: 0.040084 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_181"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000445 s.
+DP runtime: 0.000060 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_50"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000282 s.
+DP runtime: 0.000044 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_46"......
+TL = 1. Solving graph.txt... Completed. [27 bags, tw = 3]
+Decomposition runtime: 1.000397 s.
+DP runtime: 0.018242 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_64"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000483 s.
+DP runtime: 0.000086 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_146"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 4]
+Decomposition runtime: 1.000487 s.
+DP runtime: 0.070144 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_30"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 2]
+Decomposition runtime: 1.000421 s.
+DP runtime: 0.000504 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_144"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 2]
+Decomposition runtime: 1.000449 s.
+DP runtime: 0.000167 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_54"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000450 s.
+DP runtime: 0.000063 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_158"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 2]
+Decomposition runtime: 1.000272 s.
+DP runtime: 0.000390 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_68"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000472 s.
+DP runtime: 0.000062 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_163"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000386 s.
+DP runtime: 0.000319 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_175"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000427 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_48"......
+TL = 1. Solving graph.txt... Completed. [24 bags, tw = 3]
+Decomposition runtime: 1.000395 s.
+DP runtime: 0.008549 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_29"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 3]
+Decomposition runtime: 1.000321 s.
+DP runtime: 0.002034 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_132"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 2]
+Decomposition runtime: 1.000408 s.
+DP runtime: 0.000396 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_83"......
+TL = 1. Solving graph.txt... Completed. [42 bags, tw = 5]
+Decomposition runtime: 1.000668 s.
+DP runtime: 1.263447 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_183"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000457 s.
+DP runtime: 0.000036 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_166"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000296 s.
+DP runtime: 0.000036 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_53"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000390 s.
+DP runtime: 0.000171 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_172"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000247 s.
+DP runtime: 0.000048 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_37"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 2]
+Decomposition runtime: 1.000244 s.
+DP runtime: 0.000523 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_129"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000353 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_178"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000486 s.
+DP runtime: 0.000012 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_125"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000279 s.
+DP runtime: 0.000044 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_179"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000363 s.
+DP runtime: 0.000061 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_91"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 3]
+Decomposition runtime: 1.000309 s.
+DP runtime: 0.009679 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_1"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000484 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_72"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000370 s.
+DP runtime: 0.000069 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_148"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 2]
+Decomposition runtime: 1.000318 s.
+DP runtime: 0.000137 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_176"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 5]
+Decomposition runtime: 1.000335 s.
+DP runtime: 0.919848 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_27"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000407 s.
+DP runtime: 0.000104 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_3"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000314 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_49"......
+TL = 1. Solving graph.txt... Completed. [55 bags, tw = 8]
+Decomposition runtime: 1.000589 s.
+DP runtime: 788.463500 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_88"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000522 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_98"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000612 s.
+DP runtime: 0.000008 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_109"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 4]
+Decomposition runtime: 1.000325 s.
+DP runtime: 0.013154 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_9"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000509 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_177"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 1]
+Decomposition runtime: 1.000443 s.
+DP runtime: 0.000005 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_22"......
+TL = 1. Solving graph.txt... Completed. [65 bags, tw = 6]
+Decomposition runtime: 1.000959 s.
+DP runtime: 28.459327 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_108"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000652 s.
+DP runtime: 0.000099 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_17"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 2]
+Decomposition runtime: 1.000522 s.
+DP runtime: 0.001202 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_74"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000453 s.
+DP runtime: 0.000134 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_42"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 1]
+Decomposition runtime: 1.000467 s.
+DP runtime: 0.000185 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_161"......
+TL = 1. Solving graph.txt... Completed. [24 bags, tw = 4]
+Decomposition runtime: 1.000587 s.
+DP runtime: 0.058248 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_31"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000544 s.
+DP runtime: 0.000008 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_135"......
+TL = 1. Solving graph.txt... Completed. [34 bags, tw = 4]
+Decomposition runtime: 1.000610 s.
+DP runtime: 0.073207 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_122"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000544 s.
+DP runtime: 0.000047 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_40"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 2]
+Decomposition runtime: 1.000548 s.
+DP runtime: 0.000392 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_139"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_84"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 2]
+Decomposition runtime: 1.000446 s.
+DP runtime: 0.000190 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_128"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 2]
+Decomposition runtime: 1.000460 s.
+DP runtime: 0.000359 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_38"......
+TL = 1. Solving graph.txt... Completed. [21 bags, tw = 3]
+Decomposition runtime: 1.000547 s.
+DP runtime: 0.014606 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_119"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000523 s.
+DP runtime: 0.000046 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_182"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000526 s.
+DP runtime: 0.000012 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_120"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000504 s.
+DP runtime: 0.000213 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_63"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 1]
+Decomposition runtime: 1.000548 s.
+DP runtime: 0.000160 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_140"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 2]
+Decomposition runtime: 1.000588 s.
+DP runtime: 0.000394 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_92"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 2]
+Decomposition runtime: 1.000486 s.
+DP runtime: 0.000602 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_115"......
+TL = 1. Solving graph.txt... Completed. [19 bags, tw = 4]
+Decomposition runtime: 1.000566 s.
+DP runtime: 0.144528 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_5"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 1]
+Decomposition runtime: 1.000450 s.
+DP runtime: 0.000176 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_142"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 3]
+Decomposition runtime: 1.000486 s.
+DP runtime: 0.006748 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_85"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000449 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_133"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 3]
+Decomposition runtime: 1.000459 s.
+DP runtime: 0.004181 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_65"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000485 s.
+DP runtime: 0.000121 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_81"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 2]
+Decomposition runtime: 1.000496 s.
+DP runtime: 0.001501 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_70"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 2]
+Decomposition runtime: 1.000468 s.
+DP runtime: 0.000301 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_44"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 1]
+Decomposition runtime: 1.000464 s.
+DP runtime: 0.000159 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_86"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000252 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_150"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000472 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_23"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000467 s.
+DP runtime: 0.000033 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_79"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 2]
+Decomposition runtime: 1.000479 s.
+DP runtime: 0.000470 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_7"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 3]
+Decomposition runtime: 1.000528 s.
+DP runtime: 0.003037 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_118"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000472 s.
+DP runtime: 0.000047 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_94"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000445 s.
+DP runtime: 0.000154 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_169"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000434 s.
+DP runtime: 0.000048 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_26"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000432 s.
+DP runtime: 0.000022 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_126"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 2]
+Decomposition runtime: 1.000546 s.
+DP runtime: 0.000356 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_19"......
+TL = 1. Solving graph.txt... Completed. [27 bags, tw = 7]
+Decomposition runtime: 1.000668 s.
+DP runtime: 114.162342 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_13"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 6]
+Decomposition runtime: 1.000611 s.
+DP runtime: 3.307580 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_134"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 3]
+Decomposition runtime: 1.000652 s.
+DP runtime: 0.004363 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_164"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 2]
+Decomposition runtime: 1.000417 s.
+DP runtime: 0.000285 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_95"......
+TL = 1. Solving graph.txt... Completed. [30 bags, tw = 4]
+Decomposition runtime: 1.000556 s.
+DP runtime: 0.085520 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_124"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000465 s.
+DP runtime: 0.000032 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_90"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 3]
+Decomposition runtime: 1.000489 s.
+DP runtime: 0.006757 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_75"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000518 s.
+DP runtime: 0.000135 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_141"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 4]
+Decomposition runtime: 1.000475 s.
+DP runtime: 0.023606 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_153"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 3]
+Decomposition runtime: 1.000478 s.
+DP runtime: 0.004567 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_20"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000515 s.
+DP runtime: 0.000059 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_59"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 1]
+Decomposition runtime: 1.000509 s.
+DP runtime: 0.000161 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_6"......
+TL = 1. Solving graph.txt... Completed. [25 bags, tw = 4]
+Decomposition runtime: 1.000799 s.
+DP runtime: 0.186349 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_117"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 2]
+Decomposition runtime: 1.000611 s.
+DP runtime: 0.002240 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_159"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_165"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000501 s.
+DP runtime: 0.000052 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_104"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 3]
+Decomposition runtime: 1.000507 s.
+DP runtime: 0.002680 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_33"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 0]
+Decomposition runtime: 1.000510 s.
+DP runtime: 0.000010 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_11"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000570 s.
+DP runtime: 0.000105 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_105"......
+TL = 1. Solving graph.txt... Completed. [20 bags, tw = 5]
+Decomposition runtime: 1.000605 s.
+DP runtime: 0.704983 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_168"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000495 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_43"......
+TL = 1. Solving graph.txt... Completed. [22 bags, tw = 4]
+Decomposition runtime: 1.000530 s.
+DP runtime: 0.082340 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_152"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 0]
+Decomposition runtime: 1.000446 s.
+DP runtime: 0.000007 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_143"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 4]
+Decomposition runtime: 1.000584 s.
+DP runtime: 0.047960 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_114"......
+TL = 1. Solving graph.txt... Completed. [22 bags, tw = 3]
+Decomposition runtime: 1.000584 s.
+DP runtime: 0.013348 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_24"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_61"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 1]
+Decomposition runtime: 1.000438 s.
+DP runtime: 0.000163 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_149"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000486 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_47"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 2]
+Decomposition runtime: 1.000529 s.
+DP runtime: 0.000595 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_147"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 3]
+Decomposition runtime: 1.000505 s.
+DP runtime: 0.005496 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_154"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000469 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_73"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000497 s.
+DP runtime: 0.000131 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_4"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 3]
+Decomposition runtime: 1.000582 s.
+DP runtime: 0.014965 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_66"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000462 s.
+DP runtime: 0.000231 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_160"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_127"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000514 s.
+DP runtime: 0.000029 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_171"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 2]
+Decomposition runtime: 1.000431 s.
+DP runtime: 0.000298 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_28"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 0]
+Decomposition runtime: 1.000498 s.
+DP runtime: 0.000009 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_10"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 4]
+Decomposition runtime: 1.000456 s.
+DP runtime: 0.037487 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_41"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000437 s.
+DP runtime: 0.000080 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_155"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 4]
+Decomposition runtime: 1.000537 s.
+DP runtime: 0.026041 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_36"......
+TL = 1. Solving graph.txt... Completed. [20 bags, tw = 3]
+Decomposition runtime: 1.000529 s.
+DP runtime: 0.003631 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_180"......
+TL = 1. Solving graph.txt... Completed. [23 bags, tw = 3]
+Decomposition runtime: 1.000652 s.
+DP runtime: 0.027318 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_170"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000457 s.
+DP runtime: 0.000048 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_130"......
+TL = 1. Solving graph.txt... Completed. [23 bags, tw = 2]
+Decomposition runtime: 1.000515 s.
+DP runtime: 0.001972 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_2"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 3]
+Decomposition runtime: 1.000307 s.
+DP runtime: 0.002871 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_57"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000455 s.
+DP runtime: 0.000131 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_167"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000412 s.
+DP runtime: 0.000052 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_80"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000422 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_56"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 1]
+Decomposition runtime: 1.000511 s.
+DP runtime: 0.000091 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_107"......
+TL = 1. Solving graph.txt... Completed. [23 bags, tw = 2]
+Decomposition runtime: 1.000229 s.
+DP runtime: 0.001516 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_15"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 6]
+Decomposition runtime: 1.000465 s.
+DP runtime: 7.305930 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_162"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_173"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000403 s.
+DP runtime: 0.000046 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_123"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000368 s.
+DP runtime: 0.000011 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_157"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 4]
+Decomposition runtime: 1.000441 s.
+DP runtime: 0.047121 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_151"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 0]
+Decomposition runtime: 1.000389 s.
+DP runtime: 0.000007 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_76"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000423 s.
+DP runtime: 0.000128 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_14"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000362 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_111"......
+TL = 1. Solving graph.txt... Completed. [22 bags, tw = 2]
+Decomposition runtime: 1.000417 s.
+DP runtime: 0.001429 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_89"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000422 s.
+DP runtime: 0.000197 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_121"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000443 s.
+DP runtime: 0.000048 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_97"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 3]
+Decomposition runtime: 1.000475 s.
+DP runtime: 0.002101 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_77"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000248 s.
+DP runtime: 0.000077 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_116"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_45"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000420 s.
+DP runtime: 0.000053 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_34"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 0]
+Decomposition runtime: 1.000392 s.
+DP runtime: 0.000007 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_131"......
+TL = 1. Solving graph.txt... Completed. [20 bags, tw = 4]
+Decomposition runtime: 1.000500 s.
+DP runtime: 0.110381 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_156"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 3]
+Decomposition runtime: 1.000432 s.
+DP runtime: 0.002074 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_60"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000371 s.
+DP runtime: 0.000091 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/perlio/perlio_145"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 2]
+Decomposition runtime: 1.000481 s.
+DP runtime: 0.001310 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_87"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_104"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_115"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000420 s.
+DP runtime: 0.000071 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_51"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 2]
+Decomposition runtime: 1.000425 s.
+DP runtime: 0.000388 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_78"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 2]
+Decomposition runtime: 1.000474 s.
+DP runtime: 0.000238 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_94"......
+TL = 1. Solving graph.txt... Completed. [28 bags, tw = 7]
+Decomposition runtime: 1.000330 s.
+DP runtime: 31.797293 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_88"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_109"......
+TL = 1. Solving graph.txt... Completed. [121 bags, tw = 7]
+Decomposition runtime: 1.001312 s.
+DP runtime: 260.525433 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_43"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 5]
+Decomposition runtime: 1.000483 s.
+DP runtime: 0.386599 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_50"......
+TL = 1. Solving graph.txt... Completed. [23 bags, tw = 7]
+Decomposition runtime: 1.000529 s.
+DP runtime: 48.549291 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_69"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000385 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_100"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_86"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 3]
+Decomposition runtime: 1.000385 s.
+DP runtime: 0.005842 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_52"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 2]
+Decomposition runtime: 1.000416 s.
+DP runtime: 0.000162 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_54"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 2]
+Decomposition runtime: 1.000345 s.
+DP runtime: 0.000941 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_4"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_57"......
+TL = 1. Solving graph.txt... Completed. [16 bags, tw = 2]
+Decomposition runtime: 1.000322 s.
+DP runtime: 0.000593 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_45"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000179 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_95"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 3]
+Decomposition runtime: 1.000352 s.
+DP runtime: 0.005999 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_5"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000215 s.
+DP runtime: 0.000027 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_36"......
+TL = 1. Solving graph.txt... Completed. [56 bags, tw = 7]
+Decomposition runtime: 1.000816 s.
+DP runtime: 75.032375 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_38"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_90"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_113"......
+TL = 1. Solving graph.txt... Completed. [29 bags, tw = 7]
+Decomposition runtime: 1.000711 s.
+DP runtime: 109.514387 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_99"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_10"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_42"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000358 s.
+DP runtime: 0.000005 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_112"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000267 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_92"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_37"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000380 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_73"......
+TL = 1. Solving graph.txt... Completed. [19 bags, tw = 4]
+Decomposition runtime: 1.000489 s.
+DP runtime: 0.086677 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_32"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 2]
+Decomposition runtime: 1.000317 s.
+DP runtime: 0.000129 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_30"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 1]
+Decomposition runtime: 1.000380 s.
+DP runtime: 0.000171 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_8"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000356 s.
+DP runtime: 0.000030 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_85"......
+TL = 1. Solving graph.txt... Completed. [106 bags, tw = 8]
+Decomposition runtime: 1.001195 s.
+DP runtime: 402.788077 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_14"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_68"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000379 s.
+DP runtime: 0.000097 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_22"......
+TL = 1. Solving graph.txt... Completed. [19 bags, tw = 3]
+Decomposition runtime: 1.000445 s.
+DP runtime: 0.007807 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_75"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_93"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_31"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_80"......
+TL = 1. Solving graph.txt... Completed. [27 bags, tw = 4]
+Decomposition runtime: 1.000390 s.
+DP runtime: 0.105907 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_21"......
+TL = 1. Solving graph.txt... Completed. [32 bags, tw = 6]
+Decomposition runtime: 1.000547 s.
+DP runtime: 10.334997 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_74"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_96"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_66"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_84"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_41"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_15"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_76"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_40"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 4]
+Decomposition runtime: 1.000267 s.
+DP runtime: 0.030321 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_101"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 4]
+Decomposition runtime: 1.000246 s.
+DP runtime: 0.010819 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_23"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_53"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000311 s.
+DP runtime: 0.000529 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_107"......
+TL = 1. Solving graph.txt... Completed. [20 bags, tw = 4]
+Decomposition runtime: 1.000485 s.
+DP runtime: 0.106914 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_111"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 2]
+Decomposition runtime: 1.000222 s.
+DP runtime: 0.000457 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_63"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000335 s.
+DP runtime: 0.000441 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_82"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 3]
+Decomposition runtime: 1.000527 s.
+DP runtime: 0.005479 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_17"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_20"......
+TL = 1. Solving graph.txt... Completed. [28 bags, tw = 7]
+Decomposition runtime: 1.000494 s.
+DP runtime: 146.385102 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_106"......
+TL = 1. Solving graph.txt... Completed. [16 bags, tw = 4]
+Decomposition runtime: 1.000452 s.
+DP runtime: 0.052798 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_46"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_77"......
+TL = 1. Solving graph.txt... Completed. [30 bags, tw = 6]
+Decomposition runtime: 1.000498 s.
+DP runtime: 4.452326 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_6"......
+TL = 1. Solving graph.txt... Completed. [20 bags, tw = 7]
+Decomposition runtime: 1.000495 s.
+DP runtime: 23.754000 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_44"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_71"......
+TL = 1. Solving graph.txt... Completed. [76 bags, tw = 6]
+Decomposition runtime: 1.000827 s.
+DP runtime: 3.618415 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_91"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_89"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_12"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000379 s.
+DP runtime: 0.000005 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_9"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_1"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000346 s.
+DP runtime: 0.000020 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_60"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_25"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_79"......
+TL = 1. Solving graph.txt... Completed. [45 bags, tw = 7]
+Decomposition runtime: 1.000642 s.
+DP runtime: 93.274404 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_47"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_2"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_33"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 2]
+Decomposition runtime: 1.000317 s.
+DP runtime: 0.000567 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_97"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_7"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000315 s.
+DP runtime: 0.000105 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_64"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000431 s.
+DP runtime: 0.000100 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_105"......
+TL = 1. Solving graph.txt... Completed. [28 bags, tw = 4]
+Decomposition runtime: 1.000515 s.
+DP runtime: 0.050353 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_56"......
+TL = 1. Solving graph.txt... Completed. [36 bags, tw = 4]
+Decomposition runtime: 1.000575 s.
+DP runtime: 0.051820 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_103"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_3"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000374 s.
+DP runtime: 0.000005 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_61"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_98"......
+TL = 1. Solving graph.txt... Completed. [24 bags, tw = 3]
+Decomposition runtime: 1.000348 s.
+DP runtime: 0.009103 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_114"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000334 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_49"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000546 s.
+DP runtime: 0.000123 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_58"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_81"......
+TL = 1. Solving graph.txt... Completed. [23 bags, tw = 5]
+Decomposition runtime: 1.000563 s.
+DP runtime: 2.153468 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_26"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 2]
+Decomposition runtime: 1.000280 s.
+DP runtime: 0.000208 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_39"......
+TL = 1. Solving graph.txt... Completed. [29 bags, tw = 4]
+Decomposition runtime: 1.000536 s.
+DP runtime: 0.045817 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_102"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 2]
+Decomposition runtime: 1.000445 s.
+DP runtime: 0.000156 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_70"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 4]
+Decomposition runtime: 1.000392 s.
+DP runtime: 0.041505 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_11"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_34"......
+TL = 1. Solving graph.txt... Completed. [90 bags, tw = 7]
+Decomposition runtime: 1.000671 s.
+DP runtime: 54.654420 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_27"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_116"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 2]
+Decomposition runtime: 1.000394 s.
+DP runtime: 0.000821 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_59"......
+TL = 1. Solving graph.txt... Completed. [46 bags, tw = 5]
+Decomposition runtime: 1.000441 s.
+DP runtime: 0.986615 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_110"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_55"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000297 s.
+DP runtime: 0.000069 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_67"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000370 s.
+DP runtime: 0.000096 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_108"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000373 s.
+DP runtime: 0.000031 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_13"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000220 s.
+DP runtime: 0.000097 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_29"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000322 s.
+DP runtime: 0.000085 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_16"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000304 s.
+DP runtime: 0.000099 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_62"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 2]
+Decomposition runtime: 1.000320 s.
+DP runtime: 0.000133 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_18"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_19"......
+TL = 1. Solving graph.txt... Completed. [25 bags, tw = 2]
+Decomposition runtime: 1.000358 s.
+DP runtime: 0.000806 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_28"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 2]
+Decomposition runtime: 1.000434 s.
+DP runtime: 0.000412 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_48"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000377 s.
+DP runtime: 0.000306 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_72"......
+TL = 1. Solving graph.txt... Completed. [28 bags, tw = 4]
+Decomposition runtime: 1.000475 s.
+DP runtime: 0.225683 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_65"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000455 s.
+DP runtime: 0.000103 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_24"......
+TL = 1. Solving graph.txt... Completed. [16 bags, tw = 1]
+Decomposition runtime: 1.000243 s.
+DP runtime: 0.000129 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_35"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 0]
+Decomposition runtime: 1.000363 s.
+DP runtime: 0.000006 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-re-re_comp/ext-re-re_comp_83"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 3]
+Decomposition runtime: 1.000324 s.
+DP runtime: 0.003368 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_10"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000304 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_1"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000297 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_2"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000303 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_4"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000322 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_5"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000324 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_7"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000335 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_9"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000447 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_6"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000297 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_8"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 2]
+Decomposition runtime: 1.000513 s.
+DP runtime: 0.000746 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/locale/locale_3"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000299 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_20"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000324 s.
+DP runtime: 0.000202 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_18"......
+TL = 1. Solving graph.txt... Completed. [42 bags, tw = 6]
+Decomposition runtime: 1.000560 s.
+DP runtime: 10.992228 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_23"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000413 s.
+DP runtime: 0.000061 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_16"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000338 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_6"......
+TL = 1. Solving graph.txt... Completed. [25 bags, tw = 5]
+Decomposition runtime: 1.000522 s.
+DP runtime: 1.434389 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_12"......
+TL = 1. Solving graph.txt... Completed. [28 bags, tw = 3]
+Decomposition runtime: 1.000583 s.
+DP runtime: 0.007400 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_19"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_7"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_10"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 3]
+Decomposition runtime: 1.000328 s.
+DP runtime: 0.005353 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_9"......
+TL = 1. Solving graph.txt... Completed. [40 bags, tw = 5]
+Decomposition runtime: 1.000351 s.
+DP runtime: 1.222901 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_14"......
+TL = 1. Solving graph.txt... Completed. [16 bags, tw = 3]
+Decomposition runtime: 1.000424 s.
+DP runtime: 0.003731 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_8"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 3]
+Decomposition runtime: 1.000403 s.
+DP runtime: 0.005865 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_17"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000314 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_15"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000303 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_22"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000206 s.
+DP runtime: 0.000027 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_11"......
+TL = 1. Solving graph.txt... Completed. [27 bags, tw = 3]
+Decomposition runtime: 1.000482 s.
+DP runtime: 0.025689 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_5"......
+TL = 1. Solving graph.txt... Completed. [21 bags, tw = 4]
+Decomposition runtime: 1.000397 s.
+DP runtime: 0.152411 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_2"......
+TL = 1. Solving graph.txt... Completed. [25 bags, tw = 3]
+Decomposition runtime: 1.000305 s.
+DP runtime: 0.013007 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_1"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 1]
+Decomposition runtime: 1.000288 s.
+DP runtime: 0.000089 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_13"......
+TL = 1. Solving graph.txt... Completed. [30 bags, tw = 5]
+Decomposition runtime: 1.000554 s.
+DP runtime: 0.812412 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_4"......
+TL = 1. Solving graph.txt... Completed. [21 bags, tw = 4]
+Decomposition runtime: 1.000405 s.
+DP runtime: 0.153511 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_3"......
+TL = 1. Solving graph.txt... Completed. [21 bags, tw = 4]
+Decomposition runtime: 1.000338 s.
+DP runtime: 0.153756 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-Devel-Peek-Peek/ext-Devel-Peek-Peek_21"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000187 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/taint/taint_1"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 3]
+Decomposition runtime: 1.000426 s.
+DP runtime: 0.017266 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/taint/taint_2"......
+TL = 1. Solving graph.txt... Completed. [105 bags, tw = 5]
+Decomposition runtime: 1.000768 s.
+DP runtime: 1.405752 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_19"......
+TL = 1. Solving graph.txt... Completed. [24 bags, tw = 2]
+Decomposition runtime: 1.000530 s.
+DP runtime: 0.000395 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_6"......
+TL = 1. Solving graph.txt... Completed. [26 bags, tw = 5]
+Decomposition runtime: 1.000310 s.
+DP runtime: 0.646941 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_14"......
+TL = 1. Solving graph.txt... Completed. [57 bags, tw = 6]
+Decomposition runtime: 1.000536 s.
+DP runtime: 8.946206 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_31"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 2]
+Decomposition runtime: 1.000366 s.
+DP runtime: 0.000711 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_5"......
+TL = 1. Solving graph.txt... Completed. [42 bags, tw = 5]
+Decomposition runtime: 1.000521 s.
+DP runtime: 0.290889 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_11"......
+TL = 1. Solving graph.txt... Completed. [44 bags, tw = 8]
+Decomposition runtime: 1.000760 s.
+DP runtime: 618.164848 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_8"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_36"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000364 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_16"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_3"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 3]
+Decomposition runtime: 1.000429 s.
+DP runtime: 0.007230 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_28"......
+TL = 1. Solving graph.txt... Completed. [19 bags, tw = 6]
+Decomposition runtime: 1.000506 s.
+DP runtime: 4.833327 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_32"......
+TL = 1. Solving graph.txt... Completed. [26 bags, tw = 3]
+Decomposition runtime: 1.000621 s.
+DP runtime: 0.017752 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_21"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_13"......
+TL = 1. Solving graph.txt... Completed. [36 bags, tw = 5]
+Decomposition runtime: 1.000541 s.
+DP runtime: 1.692382 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_35"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 2]
+Decomposition runtime: 1.000313 s.
+DP runtime: 0.000180 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_27"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_22"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_4"......
+TL = 1. Solving graph.txt... Completed. [49 bags, tw = 6]
+Decomposition runtime: 1.000631 s.
+DP runtime: 8.424987 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_23"......
+TL = 1. Solving graph.txt... Completed. [20 bags, tw = 2]
+Decomposition runtime: 1.000440 s.
+DP runtime: 0.000379 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_7"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 3]
+Decomposition runtime: 1.000370 s.
+DP runtime: 0.007303 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_26"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_25"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 5]
+Decomposition runtime: 1.000318 s.
+DP runtime: 0.772917 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_9"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_37"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000321 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_39"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 4]
+Decomposition runtime: 1.000274 s.
+DP runtime: 0.023845 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_29"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 7]
+Decomposition runtime: 1.000474 s.
+DP runtime: 100.228523 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_10"......
+TL = 1. Solving graph.txt... Completed. [40 bags, tw = 5]
+Decomposition runtime: 1.000601 s.
+DP runtime: 0.508886 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_1"......
+TL = 1. Solving graph.txt... Completed. [105 bags, tw = 2]
+Decomposition runtime: 1.000487 s.
+DP runtime: 0.008463 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_30"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 6]
+Decomposition runtime: 1.000536 s.
+DP runtime: 12.256034 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_24"......
+TL = 1. Solving graph.txt... Completed. [16 bags, tw = 5]
+Decomposition runtime: 1.000430 s.
+DP runtime: 1.111251 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_38"......
+TL = 1. Solving graph.txt... Completed. [16 bags, tw = 5]
+Decomposition runtime: 1.000491 s.
+DP runtime: 0.515863 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_18"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000347 s.
+DP runtime: 0.000008 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_2"......
+TL = 1. Solving graph.txt... Completed. [40 bags, tw = 5]
+Decomposition runtime: 1.000450 s.
+DP runtime: 0.370972 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_15"......
+TL = 1. Solving graph.txt... Completed. [31 bags, tw = 5]
+Decomposition runtime: 1.000526 s.
+DP runtime: 1.798720 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_12"......
+TL = 1. Solving graph.txt... Completed. [27 bags, tw = 4]
+Decomposition runtime: 1.000393 s.
+DP runtime: 0.079956 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_20"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_33"......
+TL = 1. Solving graph.txt... Completed. [37 bags, tw = 6]
+Decomposition runtime: 1.000732 s.
+DP runtime: 12.333322 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_17"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 2]
+Decomposition runtime: 1.000312 s.
+DP runtime: 0.000360 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/cpan-Digest-SHA-SHA/cpan-Digest-SHA-SHA_34"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000286 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_10"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 3]
+Decomposition runtime: 1.000383 s.
+DP runtime: 0.012838 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_14"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000313 s.
+DP runtime: 0.000048 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_11"......
+TL = 1. Solving graph.txt... Completed. [31 bags, tw = 5]
+Decomposition runtime: 1.000458 s.
+DP runtime: 0.365344 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_1"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 2]
+Decomposition runtime: 1.000321 s.
+DP runtime: 0.000569 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_19"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000293 s.
+DP runtime: 0.000102 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_17"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000293 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_5"......
+TL = 1. Solving graph.txt... Completed. [48 bags, tw = 5]
+Decomposition runtime: 1.000641 s.
+DP runtime: 0.998060 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_21"......
+TL = 1. Solving graph.txt... Completed. [37 bags, tw = 6]
+Decomposition runtime: 1.000737 s.
+DP runtime: 12.294006 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_20"......
+TL = 1. Solving graph.txt... Completed. [60 bags, tw = 6]
+Decomposition runtime: 1.000774 s.
+DP runtime: 5.848353 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_23"......
+TL = 1. Solving graph.txt... Completed. [43 bags, tw = 6]
+Decomposition runtime: 1.000652 s.
+DP runtime: 10.169100 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_3"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 3]
+Decomposition runtime: 1.000293 s.
+DP runtime: 0.007492 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_33"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_6"......
+TL = 1. Solving graph.txt... Completed. [82 bags, tw = 6]
+Decomposition runtime: 1.000857 s.
+DP runtime: 21.685626 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_8"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000362 s.
+DP runtime: 0.000128 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_22"......
+TL = 1. Solving graph.txt... Completed. [29 bags, tw = 7]
+Decomposition runtime: 1.000608 s.
+DP runtime: 56.260190 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_27"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000441 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_28"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000319 s.
+DP runtime: 0.000010 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_4"......
+TL = 1. Solving graph.txt... Completed. [44 bags, tw = 4]
+Decomposition runtime: 1.000562 s.
+DP runtime: 0.111588 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_13"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000249 s.
+DP runtime: 0.000029 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_12"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000290 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_26"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000311 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_9"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 3]
+Decomposition runtime: 1.000341 s.
+DP runtime: 0.004417 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_32"......
+TL = 1. Solving graph.txt... Completed. [16 bags, tw = 3]
+Decomposition runtime: 1.000233 s.
+DP runtime: 0.007857 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_15"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 2]
+Decomposition runtime: 1.000319 s.
+DP runtime: 0.000555 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_31"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 2]
+Decomposition runtime: 1.000315 s.
+DP runtime: 0.000562 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_30"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 3]
+Decomposition runtime: 1.000339 s.
+DP runtime: 0.001739 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_18"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000341 s.
+DP runtime: 0.000058 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_24"......
+TL = 1. Solving graph.txt... Completed. [29 bags, tw = 5]
+Decomposition runtime: 1.000304 s.
+DP runtime: 0.352142 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_7"......
+TL = 1. Solving graph.txt... Completed. [73 bags, tw = 6]
+Decomposition runtime: 1.000586 s.
+DP runtime: 38.806171 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_16"......
+TL = 1. Solving graph.txt... Completed. [20 bags, tw = 2]
+Decomposition runtime: 1.000495 s.
+DP runtime: 0.000596 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_2"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000259 s.
+DP runtime: 0.000096 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_25"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 3]
+Decomposition runtime: 1.000454 s.
+DP runtime: 0.011294 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/ext-arybase-arybase/ext-arybase-arybase_29"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000355 s.
+DP runtime: 0.000032 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/deb/deb_4"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000385 s.
+DP runtime: 0.000070 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/deb/deb_1"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000337 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/deb/deb_2"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000194 s.
+DP runtime: 0.000000 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/deb/deb_5"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000303 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/deb/deb_3"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000148 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_2"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000490 s.
+DP runtime: 0.000100 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_1"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 2]
+Decomposition runtime: 1.000379 s.
+DP runtime: 0.000673 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_3"......
+TL = 1. Solving graph.txt... Completed. [29 bags, tw = 5]
+Decomposition runtime: 1.000458 s.
+DP runtime: 0.305453 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_6"......
+TL = 1. Solving graph.txt... Completed. [19 bags, tw = 3]
+Decomposition runtime: 1.000364 s.
+DP runtime: 0.010170 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_8"......
+TL = 1. Solving graph.txt... Completed. [28 bags, tw = 6]
+Decomposition runtime: 1.000549 s.
+DP runtime: 10.710706 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_12"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_5"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 3]
+Decomposition runtime: 1.000428 s.
+DP runtime: 0.013066 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_11"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_13"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000382 s.
+DP runtime: 0.000130 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_9"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_10"......
+TL = 1. Solving graph.txt... Completed. [34 bags, tw = 6]
+Decomposition runtime: 1.000506 s.
+DP runtime: 5.379673 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_7"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_4"......
+TL = 1. Solving graph.txt... Completed. [44 bags, tw = 5]
+Decomposition runtime: 1.000656 s.
+DP runtime: 1.503791 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dist-PathTools-Cwd/dist-PathTools-Cwd_14"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000233 s.
+DP runtime: 0.000027 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_75"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000193 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_38"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000258 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_49"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 2]
+Decomposition runtime: 1.000330 s.
+DP runtime: 0.000733 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_83"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000472 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_113"......
+TL = 1. Solving graph.txt... Completed. [16 bags, tw = 2]
+Decomposition runtime: 1.000445 s.
+DP runtime: 0.000215 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_82"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000449 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_119"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000285 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_140"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000317 s.
+DP runtime: 0.000058 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_98"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 1]
+Decomposition runtime: 1.000558 s.
+DP runtime: 0.000181 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_120"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000338 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_42"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000179 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_77"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000294 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_94"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000378 s.
+DP runtime: 0.000048 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_151"......
+TL = 1. Solving graph.txt... Completed. [55 bags, tw = 3]
+Decomposition runtime: 1.000304 s.
+DP runtime: 0.007029 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_134"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000321 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_149"......
+TL = 1. Solving graph.txt... Completed. [53 bags, tw = 3]
+Decomposition runtime: 1.000495 s.
+DP runtime: 0.005987 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_13"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000220 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_129"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000368 s.
+DP runtime: 0.000529 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_50"......
+TL = 1. Solving graph.txt... Completed. [23 bags, tw = 6]
+Decomposition runtime: 1.000321 s.
+DP runtime: 6.025955 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_81"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000312 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_122"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000224 s.
+DP runtime: 0.000068 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_145"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 2]
+Decomposition runtime: 1.000420 s.
+DP runtime: 0.000376 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_69"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000358 s.
+DP runtime: 0.000017 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_100"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000424 s.
+DP runtime: 0.000048 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_139"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000335 s.
+DP runtime: 0.000117 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_54"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000219 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_39"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000321 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_48"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 3]
+Decomposition runtime: 1.000239 s.
+DP runtime: 0.003108 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_138"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000368 s.
+DP runtime: 0.000038 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_20"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000449 s.
+DP runtime: 0.000111 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_146"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 2]
+Decomposition runtime: 1.000382 s.
+DP runtime: 0.000377 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_78"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000323 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_37"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000201 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_92"......
+TL = 1. Solving graph.txt... Completed. [26 bags, tw = 2]
+Decomposition runtime: 1.000399 s.
+DP runtime: 0.000470 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_2"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000330 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_35"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000399 s.
+DP runtime: 0.000000 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_109"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000328 s.
+DP runtime: 0.000106 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_135"......
+TL = 1. Solving graph.txt... Completed. [34 bags, tw = 2]
+Decomposition runtime: 1.000415 s.
+DP runtime: 0.000634 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_58"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000329 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_154"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000320 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_25"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000332 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_70"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000332 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_22"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000284 s.
+DP runtime: 0.000084 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_144"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 2]
+Decomposition runtime: 1.000334 s.
+DP runtime: 0.000394 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_126"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000435 s.
+DP runtime: 0.000104 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_31"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000293 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_117"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000192 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_93"......
+TL = 1. Solving graph.txt... Completed. [24 bags, tw = 2]
+Decomposition runtime: 1.000525 s.
+DP runtime: 0.000304 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_8"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000317 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_3"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000357 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_68"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000355 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_26"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000411 s.
+DP runtime: 0.000086 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_16"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000195 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_64"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000450 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_46"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000298 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_141"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 2]
+Decomposition runtime: 1.000486 s.
+DP runtime: 0.000375 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_40"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000351 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_23"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000209 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_33"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000231 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_76"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000325 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_95"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000305 s.
+DP runtime: 0.000048 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_27"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000343 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_97"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000193 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_44"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000389 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_10"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000255 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_99"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 1]
+Decomposition runtime: 1.000296 s.
+DP runtime: 0.000119 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_24"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000301 s.
+DP runtime: 0.000087 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_123"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000316 s.
+DP runtime: 0.000073 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_85"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000184 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_63"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000331 s.
+DP runtime: 0.000151 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_41"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000401 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_14"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000317 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_132"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 2]
+Decomposition runtime: 1.000422 s.
+DP runtime: 0.000366 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_86"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000266 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_17"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000326 s.
+DP runtime: 0.000154 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_4"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000433 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_128"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000316 s.
+DP runtime: 0.000532 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_89"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000371 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_121"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000348 s.
+DP runtime: 0.000110 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_90"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000288 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_53"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000428 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_115"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000295 s.
+DP runtime: 0.000105 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_32"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000418 s.
+DP runtime: 0.000004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_34"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000296 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_133"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 2]
+Decomposition runtime: 1.000330 s.
+DP runtime: 0.000247 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_118"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000332 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_84"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000341 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_147"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 1]
+Decomposition runtime: 1.000454 s.
+DP runtime: 0.000159 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_55"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000271 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_80"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000320 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_88"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000441 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_11"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000350 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_12"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000372 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_66"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000329 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_67"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000309 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_1"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000327 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_19"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000483 s.
+DP runtime: 0.000056 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_9"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000303 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_36"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000283 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_87"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000315 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_130"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000420 s.
+DP runtime: 0.000534 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_152"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000332 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_112"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000297 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_47"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 3]
+Decomposition runtime: 1.000408 s.
+DP runtime: 0.004799 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_30"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000326 s.
+DP runtime: 0.000018 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_114"......
+TL = 1. Solving graph.txt... Completed. [16 bags, tw = 1]
+Decomposition runtime: 1.000427 s.
+DP runtime: 0.000144 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_59"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000325 s.
+DP runtime: 0.000013 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_18"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 1]
+Decomposition runtime: 1.000243 s.
+DP runtime: 0.000098 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_137"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000339 s.
+DP runtime: 0.000057 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_110"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000345 s.
+DP runtime: 0.000123 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_45"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000357 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_28"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000265 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_5"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000324 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_43"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000347 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_61"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000215 s.
+DP runtime: 0.000036 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_105"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000328 s.
+DP runtime: 0.000073 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_72"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000294 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_106"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000386 s.
+DP runtime: 0.000075 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_6"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000248 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_102"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000437 s.
+DP runtime: 0.000075 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_71"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000305 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_127"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 1]
+Decomposition runtime: 1.000335 s.
+DP runtime: 0.000175 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_91"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000284 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_125"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000358 s.
+DP runtime: 0.000106 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_62"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 2]
+Decomposition runtime: 1.000265 s.
+DP runtime: 0.000288 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_148"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000273 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_65"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000294 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_57"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 0]
+Decomposition runtime: 1.000278 s.
+DP runtime: 0.000006 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_60"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000294 s.
+DP runtime: 0.000040 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_79"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000579 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_155"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000306 s.
+DP runtime: 0.000064 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_21"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000368 s.
+DP runtime: 0.000111 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_142"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 2]
+Decomposition runtime: 1.000443 s.
+DP runtime: 0.000379 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_116"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000327 s.
+DP runtime: 0.000012 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_56"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000447 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_15"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000181 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_131"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 2]
+Decomposition runtime: 1.000452 s.
+DP runtime: 0.000238 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_104"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000317 s.
+DP runtime: 0.000049 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_107"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 1]
+Decomposition runtime: 1.000217 s.
+DP runtime: 0.000087 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_74"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000403 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_108"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000261 s.
+DP runtime: 0.000080 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_124"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000438 s.
+DP runtime: 0.000089 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_51"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000287 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_101"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000292 s.
+DP runtime: 0.000073 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_29"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 1]
+Decomposition runtime: 1.000330 s.
+DP runtime: 0.000005 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_7"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000428 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_103"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000264 s.
+DP runtime: 0.000036 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_136"......
+TL = 1. Solving graph.txt... Completed. [36 bags, tw = 2]
+Decomposition runtime: 1.000457 s.
+DP runtime: 0.000594 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_96"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000374 s.
+DP runtime: 0.000047 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_153"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 0]
+Decomposition runtime: 1.000318 s.
+DP runtime: 0.000005 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_143"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 2]
+Decomposition runtime: 1.000391 s.
+DP runtime: 0.000283 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_73"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000297 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_52"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000221 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_111"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000304 s.
+DP runtime: 0.000104 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/mathoms/mathoms_150"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 2]
+Decomposition runtime: 1.000350 s.
+DP runtime: 0.000317 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_26"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 2]
+Decomposition runtime: 1.000367 s.
+DP runtime: 0.000588 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_38"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000305 s.
+DP runtime: 0.000301 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_40"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000231 s.
+DP runtime: 0.000011 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_47"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000308 s.
+DP runtime: 0.000428 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_4"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 3]
+Decomposition runtime: 1.000443 s.
+DP runtime: 0.001961 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_56"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000288 s.
+DP runtime: 0.000204 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_24"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000199 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_3"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 3]
+Decomposition runtime: 1.000379 s.
+DP runtime: 0.014544 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_21"......
+TL = 1. Solving graph.txt... Completed. [41 bags, tw = 6]
+Decomposition runtime: 1.000672 s.
+DP runtime: 8.384637 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_6"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_20"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 3]
+Decomposition runtime: 1.000398 s.
+DP runtime: 0.001940 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_50"......
+TL = 1. Solving graph.txt... Completed. [22 bags, tw = 4]
+Decomposition runtime: 1.000305 s.
+DP runtime: 0.013333 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_43"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 5]
+Decomposition runtime: 1.000307 s.
+DP runtime: 1.138914 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_49"......
+TL = 1. Solving graph.txt... Completed. [25 bags, tw = 4]
+Decomposition runtime: 1.000309 s.
+DP runtime: 0.032062 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_52"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 5]
+Decomposition runtime: 1.000518 s.
+DP runtime: 0.330952 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_5"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 1]
+Decomposition runtime: 1.000358 s.
+DP runtime: 0.000106 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_28"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 2]
+Decomposition runtime: 1.000469 s.
+DP runtime: 0.000832 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_37"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000197 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_45"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000493 s.
+DP runtime: 0.000040 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_39"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 3]
+Decomposition runtime: 1.000376 s.
+DP runtime: 0.003019 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_31"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 3]
+Decomposition runtime: 1.000380 s.
+DP runtime: 0.001883 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_55"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 2]
+Decomposition runtime: 1.000343 s.
+DP runtime: 0.000188 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_42"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 3]
+Decomposition runtime: 1.000371 s.
+DP runtime: 0.002071 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_44"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000354 s.
+DP runtime: 0.000439 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_16"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 6]
+Decomposition runtime: 1.000337 s.
+DP runtime: 4.358898 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_33"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000377 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_19"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000350 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_1"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000240 s.
+DP runtime: 0.000296 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_8"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 1]
+Decomposition runtime: 1.000306 s.
+DP runtime: 0.000094 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_30"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 5]
+Decomposition runtime: 1.000399 s.
+DP runtime: 0.183766 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_48"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 3]
+Decomposition runtime: 1.000383 s.
+DP runtime: 0.007035 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_51"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 2]
+Decomposition runtime: 1.000325 s.
+DP runtime: 0.000228 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_27"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 3]
+Decomposition runtime: 1.000356 s.
+DP runtime: 0.003004 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_17"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 0]
+Decomposition runtime: 1.000224 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_34"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000421 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_11"......
+TL = 1. Solving graph.txt... Completed. [13 bags, tw = 5]
+Decomposition runtime: 1.000384 s.
+DP runtime: 0.394599 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_29"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 2]
+Decomposition runtime: 1.000390 s.
+DP runtime: 0.001265 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_25"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 2]
+Decomposition runtime: 1.000330 s.
+DP runtime: 0.001263 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_15"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 1]
+Decomposition runtime: 1.000283 s.
+DP runtime: 0.000040 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_46"......
+TL = 1. Solving graph.txt... Completed. [6 bags, tw = 2]
+Decomposition runtime: 1.000463 s.
+DP runtime: 0.000457 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_12"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 2]
+Decomposition runtime: 1.000217 s.
+DP runtime: 0.000094 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_36"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000289 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_10"......
+TL = 1. Solving graph.txt... Completed. [8 bags, tw = 1]
+Decomposition runtime: 1.000274 s.
+DP runtime: 0.000136 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_2"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 3]
+Decomposition runtime: 1.000258 s.
+DP runtime: 0.008355 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_53"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 4]
+Decomposition runtime: 1.000359 s.
+DP runtime: 0.033709 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_58"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000294 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_7"......
+TL = 1. Solving graph.txt... Completed. [12 bags, tw = 3]
+Decomposition runtime: 1.000322 s.
+DP runtime: 0.005311 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_35"......
+TL = 1. Solving graph.txt... Completed. [11 bags, tw = 4]
+Decomposition runtime: 1.000342 s.
+DP runtime: 0.034458 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_54"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000282 s.
+DP runtime: 0.000099 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_23"......
+TL = 1. Solving graph.txt... Completed. [23 bags, tw = 3]
+Decomposition runtime: 1.000497 s.
+DP runtime: 0.007320 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_9"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 1]
+Decomposition runtime: 1.000261 s.
+DP runtime: 0.000049 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_22"......
+TL = 1. Solving graph.txt... Completed. [26 bags, tw = 3]
+Decomposition runtime: 1.000399 s.
+DP runtime: 0.016956 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_41"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000400 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_14"......
+TL = 1. Solving graph.txt... Completed. [17 bags, tw = 2]
+Decomposition runtime: 1.000336 s.
+DP runtime: 0.001230 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_32"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000230 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_13"......
+TL = 1. Solving graph.txt... Completed. [7 bags, tw = 2]
+Decomposition runtime: 1.000323 s.
+DP runtime: 0.000571 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_18"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000317 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/scope/scope_57"......
+TL = 1. Solving graph.txt... Completed. [2 bags, tw = 1]
+Decomposition runtime: 1.000360 s.
+DP runtime: 0.000018 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_5"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_21"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_3"......
+TL = 1. Solving graph.txt... Completed. [9 bags, tw = 3]
+Decomposition runtime: 1.000319 s.
+DP runtime: 0.003029 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_1"......
+TL = 1. Solving graph.txt... Completed. [19 bags, tw = 5]
+Decomposition runtime: 1.000593 s.
+DP runtime: 0.492005 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_15"......
+TL = 1. Solving graph.txt... Completed. [39 bags, tw = 6]
+Decomposition runtime: 1.000597 s.
+DP runtime: 6.659787 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_7"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_24"......
+TL = 1. Solving graph.txt... Completed. [10 bags, tw = 3]
+Decomposition runtime: 1.000357 s.
+DP runtime: 0.006276 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_9"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_20"......
+TL = 1. Solving graph.txt... Completed. [3 bags, tw = 2]
+Decomposition runtime: 1.000331 s.
+DP runtime: 0.000157 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_12"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 5]
+Decomposition runtime: 1.000410 s.
+DP runtime: 0.324939 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_6"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 4]
+Decomposition runtime: 1.000378 s.
+DP runtime: 0.099603 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_17"......
+TL = 1. Solving graph.txt... Completed. [21 bags, tw = 6]
+Decomposition runtime: 1.000540 s.
+DP runtime: 1.720568 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_28"......
+TL = 1. Solving graph.txt... Completed. [5 bags, tw = 2]
+Decomposition runtime: 1.000364 s.
+DP runtime: 0.000287 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_2"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 4]
+Decomposition runtime: 1.000486 s.
+DP runtime: 0.115370 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_11"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_26"......
+TL = 1. Solving graph.txt... Completed. [28 bags, tw = 5]
+Decomposition runtime: 1.000545 s.
+DP runtime: 1.451608 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_16"......
+TL = 1. Solving graph.txt... Completed. [4 bags, tw = 1]
+Decomposition runtime: 1.000219 s.
+DP runtime: 0.000031 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_13"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000341 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_25"......
+TL = 1. Solving graph.txt... Completed. [20 bags, tw = 8]
+Decomposition runtime: 1.000514 s.
+DP runtime: 362.843731 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_18"......
+TL = 1. Solving graph.txt... Completed. [22 bags, tw = 5]
+Decomposition runtime: 1.000431 s.
+DP runtime: 0.530503 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_23"......
+TL = 1. Solving graph.txt... Completed. [26 bags, tw = 3]
+Decomposition runtime: 1.000413 s.
+DP runtime: 0.012175 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_22"......
+TL = 1. Solving graph.txt... Completed. [15 bags, tw = 3]
+Decomposition runtime: 1.000341 s.
+DP runtime: 0.008038 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_4"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_19"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_14"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000361 s.
+DP runtime: 0.000001 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_10"......
+TL = 1. Solving graph.txt... Completed. [14 bags, tw = 3]
+Decomposition runtime: 1.000389 s.
+DP runtime: 0.007427 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_8"......
+Solving "../../bench/SPEC2017/input/500.perlbench_r/pp_pack/pp_pack_27"......
+TL = 1. Solving graph.txt... Completed. [64 bags, tw = 6]
+Decomposition runtime: 1.000595 s.
+DP runtime: 20.880799 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dump/dump_12"......
+TL = 1. Solving graph.txt... Completed. [51 bags, tw = 8]
+Decomposition runtime: 1.000573 s.
+DP runtime: 472.265761 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dump/dump_30"......
+TL = 1. Solving graph.txt... Completed. [18 bags, tw = 5]
+Decomposition runtime: 1.000387 s.
+DP runtime: 0.409166 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dump/dump_14"......
+TL = 1. Solving graph.txt... Completed. [37 bags, tw = 7]
+Decomposition runtime: 1.000571 s.
+DP runtime: 14.846065 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dump/dump_29"......
+TL = 1. Solving graph.txt... Completed. [53 bags, tw = 6]
+Decomposition runtime: 1.000530 s.
+DP runtime: 27.495521 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dump/dump_7"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000440 s.
+DP runtime: 0.000002 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dump/dump_17"......
+TL = 1. Solving graph.txt... Completed. [1 bags, tw = 0]
+Decomposition runtime: 1.000361 s.
+DP runtime: 0.000003 s.
+Solving "../../bench/SPEC2017/input/500.perlbench_r/dump/dump_39"......
+TL = 1. Solving graph.txt... Completed. [25 bags, tw = 8]
+Decomposition runtime: 1.000319 s.
+Killed
