@@ -5,6 +5,8 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Analysis/BlockFrequencyInfo.h"
 
+const int numReg = 6;
+
 namespace {
 using namespace llvm;
 
@@ -72,7 +74,7 @@ void outputInfo(std::ofstream &output, int cntNode, int cntVar,
     if (!output.is_open())
         errs() << "Can't open output file!\n";
 
-    output << cntNode << " " << cntVar << " 8" << std::endl;
+    output << cntNode << " " << cntVar << " " << numReg << std::endl;
     for (int u = 1; u <= cntNode; u++) {
         output << CFG[u].size() << " ";
         for (int v : CFG[u])
