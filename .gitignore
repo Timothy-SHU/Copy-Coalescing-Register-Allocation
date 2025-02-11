@@ -2,15 +2,13 @@ copy-coalescing.pdf
 Copy Coalescing by Graph Recoloring
 
 bench/SPEC2017/input/
-bench/SPEC2017/input_per_func/
 bench/SPEC2017/spec2017/
-bench/SPEC2017/-fno-inline_-Os_-S_-emit-llvm/
 bench/SPEC2017/cpu2017-1_0_5.iso
 bench/OCC/PrepareOCC
 
 preproc/libCC.so
 preproc/Preprocess
-preproc/Preprocess_per_func
+preproc/Preprocess-per-func
 
 algos/checker/checker
 algos/checker/data
