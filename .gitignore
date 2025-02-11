@@ -17,6 +17,8 @@ algos/Treewidth/Treewidth
 algos/Treewidth/ExptTreewidth
 pace17/flow_cutter_pace17
 
+algos/Heuristic/Heuristic
+
 graph.txt
 tree.txt
 input.txt
