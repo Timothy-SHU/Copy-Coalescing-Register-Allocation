@@ -11,7 +11,10 @@ map <pii, lnt> A;
 vector <pii> TreeEdge;
 vector <vector <int>> Bag;
 vector <vector <int>> Tree;
+
+vector <int> color;
 vector <bool> mark;
+map <int, vector <int>> witness;
 
 map <int, int> getAlloc(int s, const vector <int> &b) {
     map <int, int> alloc;
@@ -85,9 +88,10 @@ vector <lnt> DFS(int u) {
         if (Bag[u].size() == Bag[v].size()+1) {             // Introduce Bag
             int x = -1;
             for (int y : Bag[u])
-                if (find(Bag[v].begin(), Bag[v].end(), y) == Bag[v].end())
+                if (find(Bag[v].begin(), Bag[v].end(), y) == Bag[v].end()) {
                     if (x == -1) x = y;
                     else cerr << "E: Bags " << u << " and " << v << " are not nice!\n";
+                }
             getRelevantEdges(x, Bag[u], curH, curA);
             vector <lnt> g = DFS(v);
             for (int s = 0; s < STA; s++) {
@@ -105,15 +109,17 @@ vector <lnt> DFS(int u) {
         } else if (Bag[u].size() == Bag[v].size()-1) {      // Forget Bag
             int x = -1;
             for (int y : Bag[v])
-                if (find(Bag[u].begin(), Bag[u].end(), y) == Bag[u].end())
+                if (find(Bag[u].begin(), Bag[u].end(), y) == Bag[u].end()) {
                     if (x == -1) x = y;
                     else cerr << "E: Bags " << u << " and " << v << " are not nice!\n";
+                }
             vector <lnt> g = DFS(v);
             for (int s = 0; s < STA; s++) f[s] = -1;
+            witness[u] = vector <int> (), witness[u].resize(STA, -1);
             for (int t = 0; t < (int)g.size(); t++) {
                 map <int, int> alloc = getAlloc(t, Bag[v]);
                 int s = getCompatible(alloc, Bag[u]);
-                f[s] = max(f[s], g[t]);
+                if (f[s] < g[t]) f[s] = g[t], witness[u][s] = t;
             }
         } else if (Bag[u] == Bag[v])                        // Dummy Bag
             f = DFS(v);
@@ -154,30 +160,58 @@ vector <lnt> DFS(int u) {
     return f;
 }
 
+void traceCol(int u, int s, int fa) {
+    map <int, int> alloc = getAlloc(s, Bag[u]);
+    for (pii p : alloc)
+        if (color[p.first] != -1 && color[p.first] != p.second)
+            cerr << "E: Color mismatch of node " << p.first << " during reconstruction!\n";
+        else color[p.first] = p.second;
+    if (witness.find(u) != witness.end()) {
+        for (int v : Tree[u]) if (v != fa)
+            traceCol(v, witness[u][s], u);
+    } else {
+        for (int v : Tree[u]) if (v != fa)
+            traceCol(v, getCompatible(alloc, Bag[v]), u);
+    }
+}
+
 int main() {
     clock_t prev = clock();
     cerr << fixed << setprecision(6);
-    if (!loadGraph(numVar, numReg, H, A)) { puts("-1"); return 0; }
+    bool isValid = loadGraph(numVar, numReg, H, A);
     genDecomp(numBag, tw, TreeEdge, Bag, SOLVER_TIME_LIMIT);
+    cout << tw << endl;
+    if (!isValid) { puts("-1"); return 0; }
     niceDecomp(numBag, TreeEdge, Bag, Tree);
     // printTree(numBag, tw, Bag, Tree);
 
     double decompTime = 1.0*(clock()-prev)/CLOCKS_PER_SEC+SOLVER_TIME_LIMIT;
-    cerr << "Decomposition runtime: " << decompTime  << " s.\n", prev = clock();
+    // cerr << "Decomposition runtime: " << decompTime  << " s.\n", prev = clock();
 
-    mark.resize(numBag+1);
+    mark.resize(numBag+1), color.resize(numVar+1, -1);
     lnt ans = 0;
     for (int i = 1; i <= numBag; i++) if (!mark[i]) {
         vector <lnt> dp = DFS(i);
-        lnt mx = *max_element(dp.begin(), dp.end());
-        if (ans == -1 || mx == -1) ans = -1;
-        else ans += mx;
+        vector <lnt>::iterator mx = max_element(dp.begin(), dp.end());
+        if (ans == -1 || *mx == -1) ans = -1;
+        else traceCol(i, (int)distance(dp.begin(), mx), 0), ans += *mx;
     }
 
     double DPTime = 1.0*(clock()-prev)/CLOCKS_PER_SEC;
-    cerr << "DP runtime: " << DPTime << " s.\n";
+    // cerr << "DP runtime: " << DPTime << " s.\n";
 
-    cout << fixed << setprecision(6);
-    cout << ans << endl << decompTime+DPTime << endl;
+    lnt totalWeight = 0, validWeight = 0;
+    for (pii e : H)
+        if (color[e.first] == color[e.second])
+            cerr << "E: " << e.first << " and " << e.second << " are of the same color!\n";
+    for (pair <pii, lnt> e : A) {
+        totalWeight += e.second;
+        if (color[e.first.first] == color[e.first.second])
+            validWeight += e.second;
+    }
+    if (validWeight != ans)
+        cerr << "E: Answer doesn't match allocation!\n";
+    cout << ans << " " << totalWeight << " " << decompTime+DPTime << endl;
+    for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
     return 0;
 }

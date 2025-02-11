@@ -16,16 +16,16 @@ void printTree(const int numBag, const int tw, const vector <vector <int>> &Bag,
 }
 
 bool loadGraph(int &numVar, int &numReg, set <pii> &H, map <pii, lnt> &A) {
-    int n, m, k, l;
+    int n, m, k, l; bool flag = true;
     cin >> n >> m >> k, numReg = k;
     for (int i = 1, x; i <= n; i++) {
         cin >> l;     // CFG
         while (l--) cin >> x;
         cin >> l;     // LiveIn
-        if (l > k) return false;
+        if (l > k) flag = false;
         while (l--) cin >> x;
         cin >> l;     // LiveOut
-        if (l > k) return false;
+        if (l > k) flag = false;
         while (l--) cin >> x;
     }
     cin >> n, numVar = n;
@@ -60,16 +60,17 @@ bool loadGraph(int &numVar, int &numReg, set <pii> &H, map <pii, lnt> &A) {
     }
     graphFile.close();
 
+    cout << numVar << " " << 2.0*m/n << " ";
 
-    return true;
+    return flag;
 }
 
 void genDecomp(int &numBag, int &tw, vector <pii> &TreeEdge, vector <vector <int>> &Bag, int TL) {
-    cerr << "TL = " << TL << ". Solving graph.txt... ";
+    // cerr << "TL = " << TL << ". Solving graph.txt... ";
     system("../../pace17/flow_cutter_pace17 < graph.txt > tree.txt &");
     sleep(TL);
     system("pkill -INT -f ../../pace17/flow_cutter_pace17");
-    cerr << "Completed.";
+    // cerr << "Completed.";
 
     std::ifstream treeFile("tree.txt");
     if (treeFile.is_open()) {
@@ -103,7 +104,7 @@ void genDecomp(int &numBag, int &tw, vector <pii> &TreeEdge, vector <vector <int
         cerr << "E: Unable to open file 'tree.txt'!\n";
     treeFile.close();
 
-    cerr << " [" << numBag << " bags, tw = " << tw << "]\n";
+    // cerr << " [" << numBag << " bags, tw = " << tw << "]\n";
     system("rm graph.txt tree.txt");
 }
 
