@@ -10,7 +10,7 @@ int main() {
         long long output = 0, answer = 0;
         ifstream outputFile("output.txt");
         ifstream answerFile("answer.txt");
-        outputFile >> output, answerFile >> answer;
+        outputFile >> output >> output >> output >> output, answerFile >> answer;
         cerr << "Outputed " << output << ", answer is " << answer << ". ";
         if (output == answer) cerr << "Correct.\n";
         else { cerr << "Incorrect!\n"; break; }
