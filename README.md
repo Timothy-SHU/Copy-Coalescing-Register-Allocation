@@ -130,4 +130,14 @@ g++ Heuristic.cpp -o Heuristic
 ./Heuristic < ../input/000
 ```
 
-The output format is almost the same as that of the parameterized algorithm, except that there's no "$tw$" output in the first line. 
+The output format is almost the same as that of the parameterized algorithm, except that there's no treewidth output in the first line. 
+
+## ILP-based Algorithm
+Copy coalescing by solving ILP is implmented under `algos/ILP/` folder. It requires CPLEX ILOG Optimizer (academic version 2211). `make.sh` links the libraries and compiles the code. The default location of CPLEX is under `/opt/ibm/ILOG/CPLEX_Studio2211/`. Change it in `make.sh` if it is not the case.
+```
+chmod u+x make.sh
+./make.sh
+./ILP < ../input/000
+```
+
+The output format is the same as that of the Hack's heuristic.
