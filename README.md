@@ -60,10 +60,16 @@ mkdir tmp
 opt -load-pass-plugin ./libCC.so -passes=CC -disable-output input/deb.ll
 ```
 
-Compile and run `Preprocess.cpp` to generate graph information for all `.ll` files insider SPEC2017 benchmark. The standard input generated are located under `bench/SPEC2017/input/` folder.
+Compile and run `Preprocess.cpp` to generate graph information for all `.ll` files insider SPEC2017 benchmark. The standard input generated are located under `bench/SPEC2017/input/` folder. Each `.ll` file is separated into multiple graph files, where each file corresponds to a function.
 ```
 g++ Preprocess.cpp -o Preprocess
 ./Preprocess
+```
+
+`Preprocess_merged.cpp` generates the graph information of each `.ll` as one merged graph file (instead of one file per function) under `bench/SPEC2017/input_merged/` folder. Since we kept the information of CFG and the labeling of nodes and variables are accumulative, the generated graph files are huge, with total size around 97GB.
+```
+g++ Preprocess_merged.cpp -o Preprocess_merged
+./Preprocess_merged
 ```
 
 ## Optimal Coalescing Challenge (Princeton)
@@ -105,8 +111,23 @@ g++ Treewidth.cpp -o Treewidth
 ./Treewidth < ../input/000
 ```
 
+The output consists of three lines.  
+The first line contains three integers $n$, $\text{avgAff}$, and $tw$, which are the number of vertices in the interference graph, the average affinity degree, and the treewidth (given by the flow-cutter solver).  
+The second line contains two integers $ans$, $\text{totalWeight}$, and a float $t$, where $ans$ is the max sum of satisfied affinity relations, $\text{totalWeight}$ is the total sum of all affinity relations, and $t$ is the run time.  
+The third line contains $n$ integers in $[0,k-1]$, representing the register allocated for each variable.
+
 To experiment by batch, compile and run `ExptTreewidth.cpp`, where `ExptConfig.txt` specifies the folders in the benchmark to be experimented on. Input one or multiple names of folders inside `bench/SPEC2017/input/` into `ExptConfig.txt`, or simply input "all" to run on the whole benchmark.
 ```
 g++ ExptTreewidth.cpp -o ExptTreewidth
 ./ExptTreewidth < ExptConfig.txt
 ```
+
+## Hack's Heuristic
+The Hack's heuristic is implemented under `algos/Heuristic/` folder. The parameter $\alpha$ is set to 0.1, as in the original paper. There is no time or depth limit implemented. Compile `Heuristic.cpp` and feed in standard input files.
+```
+cd algos/Heuristic
+g++ Heuristic.cpp -o Heuristic
+./Heuristic < ../input/000
+```
+
+The output format is almost the same as that of the parameterized algorithm, except that there's no "$tw$" output in the first line. 
