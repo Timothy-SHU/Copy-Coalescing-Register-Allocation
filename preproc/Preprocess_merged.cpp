@@ -6,7 +6,7 @@ using namespace std;
 const string DIR = "../bench/SPEC2017/input_merged/";
 
 int numNode, numVar, numReg, numAff;
-vector <vector <int>> CFG, LiveIn, LiveOut, H;
+vector <vector <int>> H;
 vector <pair <pair <int, int>, int>> aff;
 
 bool isValid(string path) {
@@ -27,12 +27,9 @@ void loadGraph(string path) {
     ifstream graphFile(path);
     graphFile >> n >> m >> k, numReg = k;
     for (int i = 1, x; i <= n; i++) {
-        CFG.push_back(vector <int> ());
-        LiveIn.push_back(vector <int> ());
-        LiveOut.push_back(vector <int> ());
-        graphFile >> l; while (l--) graphFile >> x, CFG[numNode+i].push_back(numNode+x);
-        graphFile >> l; while (l--) graphFile >> x, LiveIn[numNode+i].push_back(numVar+x);
-        graphFile >> l; while (l--) graphFile >> x, LiveOut[numNode+i].push_back(numVar+x);
+        graphFile >> l; while (l--) graphFile >> x;
+        graphFile >> l; while (l--) graphFile >> x;
+        graphFile >> l; while (l--) graphFile >> x;
     }
     numNode += n;
     graphFile >> n;
@@ -52,19 +49,7 @@ void loadGraph(string path) {
 
 void outputGraph(string folderName, string fileStem) {
     ofstream outputFile(DIR+folderName+"/"+fileStem);
-    outputFile << numNode << " " << numVar << " " << numReg << endl;
-    for (int i = 1; i <= numNode; i++) {
-        outputFile << CFG[i].size();
-        for (int x : CFG[i]) outputFile << " " << x;
-        outputFile << endl;
-        outputFile << LiveIn[i].size();
-        for (int x : LiveIn[i]) outputFile << " " << x;
-        outputFile << endl;
-        outputFile << LiveOut[i].size();
-        for (int x : LiveOut[i]) outputFile << " " << x;
-        outputFile << endl;
-    }
-    outputFile << endl << numVar << endl;
+    outputFile << "0 " << numVar << " " << numReg << endl << endl << numVar << endl;
     for (int i = 1; i <= numVar; i++) {
         outputFile << H[i].size();
         for (int x : H[i]) outputFile << " " << x;
@@ -80,17 +65,14 @@ void outputGraph(string folderName, string fileStem) {
 }
 
 int main() {
-    CFG.push_back(vector <int> ());
-    LiveIn.push_back(vector <int> ());
-    LiveOut.push_back(vector <int> ());
     H.push_back(vector <int> ());
     filesystem::remove_all(DIR);
     mkdir(DIR.c_str(), 0777);
-    for (auto &folder : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os_-S_-emit-llvm")) {
+    for (auto &folder : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os")) {
         filesystem::path inputFolder(folder.path());
         string folderName = inputFolder.filename();
         mkdir((DIR+folderName).c_str(), 0777);
-        for (auto &file : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os_-S_-emit-llvm/"+folderName+"/units")) {
+        for (auto &file : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os/"+folderName+"/units")) {
             cerr << "Preprocessing " << file.path() << "......";
             filesystem::path inputFile(file.path());
             string fileStem = inputFile.filename().stem();

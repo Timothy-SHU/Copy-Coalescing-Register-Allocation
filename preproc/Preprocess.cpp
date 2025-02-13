@@ -3,16 +3,16 @@
 #include <filesystem>
 using namespace std;
 
-const string DIR = "../bench/SPEC2017/";
+const string DIR = "../bench/SPEC2017/input/";
 
 int main() {
     filesystem::remove_all(DIR);
     mkdir(DIR.c_str(), 0777);
-    for (auto &folder : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os_-S_-emit-llvm")) {
+    for (auto &folder : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os")) {
         filesystem::path inputFolder(folder.path());
         string folderName = inputFolder.filename();
         mkdir((DIR+folderName).c_str(), 0777);
-        for (auto &file : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os_-S_-emit-llvm/"+folderName+"/units")) {
+        for (auto &file : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os/"+folderName+"/units")) {
             cerr << "Preprocessing " << file.path() << "......";
             filesystem::path inputFile(file.path());
             string fileStem = inputFile.filename().stem();

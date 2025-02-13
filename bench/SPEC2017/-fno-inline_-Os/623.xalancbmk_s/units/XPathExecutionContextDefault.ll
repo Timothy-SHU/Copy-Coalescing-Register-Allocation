@@ -1,0 +1,6103 @@
+; ModuleID = 'XPathExecutionContextDefault.cpp'
+source_filename = "XPathExecutionContextDefault.cpp"
+target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-linux-gnu"
+
+%"class.xalanc_1_10::NodeRefList" = type { %"class.xalanc_1_10::NodeRefListBase", %"class.xalanc_1_10::XalanVector" }
+%"class.xalanc_1_10::NodeRefListBase" = type { ptr }
+%"class.xalanc_1_10::XalanVector" = type { ptr, i64, i64, ptr }
+%"union.xalanc_1_10::DoubleSupport::NumberUnion" = type { double }
+%"class.xalanc_1_10::XalanDOMString" = type <{ %"class.xalanc_1_10::XalanVector.1", i32, [4 x i8] }>
+%"class.xalanc_1_10::XalanVector.1" = type { ptr, i64, i64, ptr }
+%"class.xalanc_1_10::XPathExecutionContextDefault" = type { %"class.xalanc_1_10::XPathExecutionContext", ptr, ptr, %"class.xalanc_1_10::XalanVector", %"class.xalanc_1_10::XalanVector.0", ptr, %"class.xalanc_1_10::XalanDOMString", %"class.xalanc_1_10::XalanObjectCache", %"class.xalanc_1_10::XalanDOMStringCache", %"struct.xalanc_1_10::XPathExecutionContextDefault::ContextNodeListPositionCache", %"class.xalanc_1_10::XalanQNameByValue" }
+%"class.xalanc_1_10::XPathExecutionContext" = type { %"class.xalanc_1_10::ExecutionContext", ptr }
+%"class.xalanc_1_10::ExecutionContext" = type { ptr, ptr }
+%"class.xalanc_1_10::XalanVector.0" = type { ptr, i64, i64, ptr }
+%"class.xalanc_1_10::XalanObjectCache" = type { %"class.xalanc_1_10::DefaultCacheCreateFunctorMemMgr", %"struct.xalanc_1_10::DeleteFunctor", %"class.xalanc_1_10::ClearCacheResetFunctor", %"class.xalanc_1_10::XalanVector.2" }
+%"class.xalanc_1_10::DefaultCacheCreateFunctorMemMgr" = type { i8 }
+%"struct.xalanc_1_10::DeleteFunctor" = type { ptr }
+%"class.xalanc_1_10::ClearCacheResetFunctor" = type { i8 }
+%"class.xalanc_1_10::XalanVector.2" = type { ptr, i64, i64, ptr }
+%"class.xalanc_1_10::XalanDOMStringCache" = type { %"class.xalanc_1_10::XalanVector.3", %"class.xalanc_1_10::XalanVector.3", i32, [4 x i8], %"class.xalanc_1_10::XalanDOMStringReusableAllocator" }
+%"class.xalanc_1_10::XalanVector.3" = type { ptr, i64, i64, ptr }
+%"class.xalanc_1_10::XalanDOMStringReusableAllocator" = type { %"class.xalanc_1_10::ReusableArenaAllocator" }
+%"class.xalanc_1_10::ReusableArenaAllocator" = type <{ %"class.xalanc_1_10::ArenaAllocator", i8, [7 x i8] }>
+%"class.xalanc_1_10::ArenaAllocator" = type { ptr, i16, %"class.xalanc_1_10::XalanList" }
+%"class.xalanc_1_10::XalanList" = type { ptr, ptr, ptr }
+%"struct.xalanc_1_10::XPathExecutionContextDefault::ContextNodeListPositionCache" = type <{ ptr, i32, [4 x i8] }>
+%"class.xalanc_1_10::XalanQNameByValue" = type { %"class.xalanc_1_10::XalanQName", %"class.xalanc_1_10::XalanDOMString", %"class.xalanc_1_10::XalanDOMString" }
+%"class.xalanc_1_10::XalanQName" = type { ptr }
+%"class.xalanc_1_10::XObjectPtr" = type { ptr }
+%"class.xalanc_1_10::XPathExecutionContext::GetAndReleaseCachedString" = type { ptr, ptr }
+%"class.xalanc_1_10::XObjectFactory" = type { ptr, ptr }
+%"struct.xalanc_1_10::XalanDestroyFunctor" = type { i8 }
+%"class.xalanc_1_10::XalanMemMgrAutoPtr" = type { %"class.xalanc_1_10::XalanMemMgrAutoPtr<xalanc_1_10::XPathExecutionContextDefault, false>::MemMgrAutoPtrData" }
+%"class.xalanc_1_10::XalanMemMgrAutoPtr<xalanc_1_10::XPathExecutionContextDefault, false>::MemMgrAutoPtrData" = type { %"struct.std::pair" }
+%"struct.std::pair" = type { ptr, ptr }
+%"class.xalanc_1_10::XalanMemMgrAutoPtr.5" = type { %"class.xalanc_1_10::XalanMemMgrAutoPtr<xalanc_1_10::MutableNodeRefList, false>::MemMgrAutoPtrData" }
+%"class.xalanc_1_10::XalanMemMgrAutoPtr<xalanc_1_10::MutableNodeRefList, false>::MemMgrAutoPtrData" = type { %"struct.std::pair.6" }
+%"struct.std::pair.6" = type { ptr, ptr }
+%"class.xalanc_1_10::XalanDecimalFormatSymbols" = type { %"class.xalanc_1_10::XalanDOMString", i16, i16, i16, [2 x i8], %"class.xalanc_1_10::XalanDOMString", %"class.xalanc_1_10::XalanDOMString", i16, i16, [4 x i8], %"class.xalanc_1_10::XalanDOMString", i16, i16, i16, i16 }
+%struct.anon = type { i32, i32 }
+
+$_ZN11xalanc_1_1014XObjectFactory16getMemoryManagerEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm = comdat any
+
+$_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEEC2ERN11xercesc_2_713MemoryManagerEj = comdat any
+
+$_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCacheC2Ev = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_ = comdat any
+
+$_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMStringD2Ev = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8allocateEm = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv = comdat any
+
+$_ZN11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEC2ERN11xercesc_2_713MemoryManagerE = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7reserveEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9local_maxEmm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_ = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm = comdat any
+
+$_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_18MutableNodeRefListEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_ = comdat any
+
+$_ZSt4copyIPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET0_T_S7_S6_ = comdat any
+
+$_ZSt13copy_backwardIPPN11xalanc_1_1018MutableNodeRefListES3_ET0_T_S5_S4_ = comdat any
+
+$_ZSt8distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_ = comdat any
+
+$_ZSt10__distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_St26random_access_iterator_tag = comdat any
+
+$_ZSt19__iterator_categoryIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E17iterator_categoryERKS6_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv = comdat any
+
+$_ZSt13__copy_move_aILb0EPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET1_T0_S7_S6_ = comdat any
+
+$_ZSt12__miter_baseIPKPN11xalanc_1_1018MutableNodeRefListEET_S5_ = comdat any
+
+$_ZSt12__niter_wrapIPPN11xalanc_1_1018MutableNodeRefListEET_RKS4_S4_ = comdat any
+
+$_ZSt14__copy_move_a1ILb0EPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET1_T0_S7_S6_ = comdat any
+
+$_ZSt12__niter_baseIPKPN11xalanc_1_1018MutableNodeRefListEET_S5_ = comdat any
+
+$_ZSt12__niter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_ = comdat any
+
+$_ZSt14__copy_move_a2ILb0EPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET1_T0_S7_S6_ = comdat any
+
+$_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIPN11xalanc_1_1018MutableNodeRefListEEEPT_PKS6_S9_S7_ = comdat any
+
+$_ZSt22__copy_move_backward_aILb0EPPN11xalanc_1_1018MutableNodeRefListES3_ET1_T0_S5_S4_ = comdat any
+
+$_ZSt12__miter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_ = comdat any
+
+$_ZSt23__copy_move_backward_a1ILb0EPPN11xalanc_1_1018MutableNodeRefListES3_ET1_T0_S5_S4_ = comdat any
+
+$_ZSt23__copy_move_backward_a2ILb0EPPN11xalanc_1_1018MutableNodeRefListES3_ET1_T0_S5_S4_ = comdat any
+
+$_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bIPN11xalanc_1_1018MutableNodeRefListEEEPT_PKS6_S9_S7_ = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_ = comdat any
+
+$__clang_call_terminate = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10deallocateEPS2_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_ = comdat any
+
+$_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_9XalanNodeEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9local_maxEmm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_ = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv = comdat any
+
+$_ZSt4copyIPKPN11xalanc_1_109XalanNodeEPS2_ET0_T_S7_S6_ = comdat any
+
+$_ZSt13copy_backwardIPPN11xalanc_1_109XalanNodeES3_ET0_T_S5_S4_ = comdat any
+
+$_ZSt8distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_ = comdat any
+
+$_ZSt10__distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_St26random_access_iterator_tag = comdat any
+
+$_ZSt19__iterator_categoryIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E17iterator_categoryERKS6_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm = comdat any
+
+$_ZSt13__copy_move_aILb0EPKPN11xalanc_1_109XalanNodeEPS2_ET1_T0_S7_S6_ = comdat any
+
+$_ZSt12__miter_baseIPKPN11xalanc_1_109XalanNodeEET_S5_ = comdat any
+
+$_ZSt12__niter_wrapIPPN11xalanc_1_109XalanNodeEET_RKS4_S4_ = comdat any
+
+$_ZSt14__copy_move_a1ILb0EPKPN11xalanc_1_109XalanNodeEPS2_ET1_T0_S7_S6_ = comdat any
+
+$_ZSt12__niter_baseIPKPN11xalanc_1_109XalanNodeEET_S5_ = comdat any
+
+$_ZSt12__niter_baseIPPN11xalanc_1_109XalanNodeEET_S4_ = comdat any
+
+$_ZSt14__copy_move_a2ILb0EPKPN11xalanc_1_109XalanNodeEPS2_ET1_T0_S7_S6_ = comdat any
+
+$_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIPN11xalanc_1_109XalanNodeEEEPT_PKS6_S9_S7_ = comdat any
+
+$_ZSt22__copy_move_backward_aILb0EPPN11xalanc_1_109XalanNodeES3_ET1_T0_S5_S4_ = comdat any
+
+$_ZSt12__miter_baseIPPN11xalanc_1_109XalanNodeEET_S4_ = comdat any
+
+$_ZSt23__copy_move_backward_a1ILb0EPPN11xalanc_1_109XalanNodeES3_ET1_T0_S5_S4_ = comdat any
+
+$_ZSt23__copy_move_backward_a2ILb0EPPN11xalanc_1_109XalanNodeES3_ET1_T0_S5_S4_ = comdat any
+
+$_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bIPN11xalanc_1_109XalanNodeEEEPT_PKS6_S9_S7_ = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_ = comdat any
+
+$_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPKNS_15NodeRefListBaseEE9constructEPS3_RKS3_RN11xercesc_2_713MemoryManagerE = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4swapERS6_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9local_maxEmm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14local_distanceEPKS3_S8_ = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4sizeEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14ensureCapacityEm = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8capacityEv = comdat any
+
+$_ZSt4copyIPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET0_T_S8_S7_ = comdat any
+
+$_ZSt13copy_backwardIPPKN11xalanc_1_1015NodeRefListBaseES4_ET0_T_S6_S5_ = comdat any
+
+$_ZSt8distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_ = comdat any
+
+$_ZSt10__distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_St26random_access_iterator_tag = comdat any
+
+$_ZSt19__iterator_categoryIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E17iterator_categoryERKS7_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9doReserveEm = comdat any
+
+$_ZSt13__copy_move_aILb0EPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET1_T0_S8_S7_ = comdat any
+
+$_ZSt12__miter_baseIPKPKN11xalanc_1_1015NodeRefListBaseEET_S6_ = comdat any
+
+$_ZSt12__niter_wrapIPPKN11xalanc_1_1015NodeRefListBaseEET_RKS5_S5_ = comdat any
+
+$_ZSt14__copy_move_a1ILb0EPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET1_T0_S8_S7_ = comdat any
+
+$_ZSt12__niter_baseIPKPKN11xalanc_1_1015NodeRefListBaseEET_S6_ = comdat any
+
+$_ZSt12__niter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_ = comdat any
+
+$_ZSt14__copy_move_a2ILb0EPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET1_T0_S8_S7_ = comdat any
+
+$_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIPKN11xalanc_1_1015NodeRefListBaseEEEPT_PKS7_SA_S8_ = comdat any
+
+$_ZSt22__copy_move_backward_aILb0EPPKN11xalanc_1_1015NodeRefListBaseES4_ET1_T0_S6_S5_ = comdat any
+
+$_ZSt12__miter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_ = comdat any
+
+$_ZSt23__copy_move_backward_a1ILb0EPPKN11xalanc_1_1015NodeRefListBaseES4_ET1_T0_S6_S5_ = comdat any
+
+$_ZSt23__copy_move_backward_a2ILb0EPPKN11xalanc_1_1015NodeRefListBaseES4_ET1_T0_S6_S5_ = comdat any
+
+$_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bIPKN11xalanc_1_1015NodeRefListBaseEEEPT_PKS7_SA_S8_ = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv = comdat any
+
+$_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE5resetEv = comdat any
+
+$_ZSt8for_eachIPPN11xalanc_1_1018MutableNodeRefListENS0_13DeleteFunctorIS1_EEET0_T_S7_S6_ = comdat any
+
+$_ZNK11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEclEPKS1_ = comdat any
+
+$_ZN11xalanc_1_1023makeXalanDestroyFunctorINS_18MutableNodeRefListEEENS_19XalanDestroyFunctorIT_EEPKS3_ = comdat any
+
+$_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPKS1_RN11xercesc_2_713MemoryManagerE = comdat any
+
+$_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPS1_RN11xercesc_2_713MemoryManagerE = comdat any
+
+$_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclERS1_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyEPtS4_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10deallocateEPt = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyERt = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyEPS3_S7_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10deallocateEPS3_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyERS3_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10deallocateEPS2_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_ = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EEC2ERN11xercesc_2_713MemoryManagerEPS1_ = comdat any
+
+$_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE3getEv = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE7releaseEv = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EED2Ev = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrDataC2EPN11xercesc_2_713MemoryManagerEPS1_ = comdat any
+
+$_ZNSt4pairIPN11xercesc_2_713MemoryManagerEPN11xalanc_1_1028XPathExecutionContextDefaultEEC2IRS2_RS5_TnNSt9enable_ifIXaaclsr5_PCCPE22_MoveConstructiblePairIT_T0_EEclsr5_PCCPE30_ImplicitlyMoveConvertiblePairISB_SC_EEEbE4typeELb1EEEOSB_OSC_ = comdat any
+
+$_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData10invariantsEv = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData5resetEPN11xercesc_2_713MemoryManagerEPS1_ = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData10deallocateEv = comdat any
+
+$_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData12isInitilizedEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5clearEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5clearEv = comdat any
+
+$_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCache5clearEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE12shrinkToSizeEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE12shrinkToSizeEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8pop_backEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4backEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4backEv = comdat any
+
+$_ZNK11xalanc_1_1028XPathExecutionContextDefault15getScratchQNameEv = comdat any
+
+$_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE3getEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5emptyEv = comdat any
+
+$_ZNK11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEclERN11xercesc_2_713MemoryManagerE = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE16getMemoryManagerEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4backEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EEC2ERN11xercesc_2_713MemoryManagerEPS1_ = comdat any
+
+$_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE3getEv = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE7releaseEv = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EED2Ev = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrDataC2EPN11xercesc_2_713MemoryManagerEPS1_ = comdat any
+
+$_ZNSt4pairIPN11xercesc_2_713MemoryManagerEPN11xalanc_1_1018MutableNodeRefListEEC2IRS2_RS5_TnNSt9enable_ifIXaaclsr5_PCCPE22_MoveConstructiblePairIT_T0_EEclsr5_PCCPE30_ImplicitlyMoveConvertiblePairISB_SC_EEEbE4typeELb1EEEOSB_OSC_ = comdat any
+
+$_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10invariantsEv = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData5resetEPN11xercesc_2_713MemoryManagerEPS1_ = comdat any
+
+$_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10deallocateEv = comdat any
+
+$_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData12isInitilizedEv = comdat any
+
+$_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE7releaseEPS1_ = comdat any
+
+$_ZNK11xalanc_1_1022ClearCacheResetFunctorINS_18MutableNodeRefListEEclEPS1_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_ = comdat any
+
+$_ZN11xalanc_1_1012XalanLocator15getUnknownValueEv = comdat any
+
+$_ZN11xalanc_1_1016ExecutionContext16getMemoryManagerEv = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMStringaSEPKt = comdat any
+
+$_ZN11xalanc_1_106c_wstrERKNS_14XalanDOMStringE = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMString6assignEPKt = comdat any
+
+$_ZNK11xalanc_1_1014XalanDOMString10invariantsEv = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMString6appendEPKt = comdat any
+
+$_ZNK11xalanc_1_1014XalanDOMString5c_strEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5emptyEv = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEixEm = comdat any
+
+$_ZN11xalanc_1_1013DoubleSupport5isNaNEd = comdat any
+
+$_ZNK11xalanc_1_1025XalanDecimalFormatSymbols6getNaNEv = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMStringaSERKS0_ = comdat any
+
+$_ZN11xalanc_1_1013DoubleSupport18isNegativeInfinityEd = comdat any
+
+$_ZNK11xalanc_1_1025XalanDecimalFormatSymbols12getMinusSignEv = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMStringaSEt = comdat any
+
+$_ZNK11xalanc_1_1025XalanDecimalFormatSymbols11getInfinityEv = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMStringpLERKS0_ = comdat any
+
+$_ZN11xalanc_1_1013DoubleSupport18isPositiveInfinityEd = comdat any
+
+$_ZN11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedStringC2ERS0_ = comdat any
+
+$_ZNK11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedString3getEv = comdat any
+
+$_ZN11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedStringD2Ev = comdat any
+
+$_ZNK11xalanc_1_1013DoubleSupport11NumberUnioneqEd = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMString6assignERKS0_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_ = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE12shrinkToSizeEm = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_ = comdat any
+
+$_ZSt4copyIPKtPtET0_T_S4_S3_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9local_maxEmm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERN11xercesc_2_713MemoryManagerEm = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8allocateEm = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8pop_backEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14local_distanceEPKtS5_ = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4sizeEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14ensureCapacityEm = comdat any
+
+$_ZN11xalanc_1_1028ConstructWithNoMemoryManagerItE9constructEPtRKtRN11xercesc_2_713MemoryManagerE = comdat any
+
+$_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8capacityEv = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt = comdat any
+
+$_ZSt13copy_backwardIPtS0_ET0_T_S2_S1_ = comdat any
+
+$_ZSt8distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_ = comdat any
+
+$_ZSt10__distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag = comdat any
+
+$_ZSt19__iterator_categoryIPKtENSt15iterator_traitsIT_E17iterator_categoryERKS3_ = comdat any
+
+$_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9doReserveEm = comdat any
+
+$_ZSt22__copy_move_backward_aILb0EPtS0_ET1_T0_S2_S1_ = comdat any
+
+$_ZSt12__miter_baseIPtET_S1_ = comdat any
+
+$_ZSt12__niter_wrapIPtET_RKS1_S1_ = comdat any
+
+$_ZSt23__copy_move_backward_a1ILb0EPtS0_ET1_T0_S2_S1_ = comdat any
+
+$_ZSt12__niter_baseIPtET_S1_ = comdat any
+
+$_ZSt23__copy_move_backward_a2ILb0EPtS0_ET1_T0_S2_S1_ = comdat any
+
+$_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bItEEPT_PKS3_S6_S4_ = comdat any
+
+$_ZSt13__copy_move_aILb0EPKtPtET1_T0_S4_S3_ = comdat any
+
+$_ZSt12__miter_baseIPKtET_S2_ = comdat any
+
+$_ZSt14__copy_move_a1ILb0EPKtPtET1_T0_S4_S3_ = comdat any
+
+$_ZSt12__niter_baseIPKtET_S2_ = comdat any
+
+$_ZSt14__copy_move_a2ILb0EPKtPtET1_T0_S4_S3_ = comdat any
+
+$_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_ = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMString6assignEjt = comdat any
+
+$_ZN11xalanc_1_1014XalanDOMString6appendERKS0_ = comdat any
+
+$_ZNK11xalanc_1_1014XalanDOMString6lengthEv = comdat any
+
+$_ZNK11xalanc_1_1014XalanDOMString4sizeEv = comdat any
+
+@_ZTVN11xalanc_1_1028XPathExecutionContextDefaultE = dso_local unnamed_addr constant { [42 x ptr] } { [42 x ptr] [ptr null, ptr @_ZTIN11xalanc_1_1028XPathExecutionContextDefaultE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD0Ev, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault5errorERKNS_14XalanDOMStringEPKNS_9XalanNodeEPKN11xercesc_2_77LocatorE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault4warnERKNS_14XalanDOMStringEPKNS_9XalanNodeEPKN11xercesc_2_77LocatorE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault7messageERKNS_14XalanDOMStringEPKNS_9XalanNodeEPKN11xercesc_2_77LocatorE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault14getCurrentNodeEv, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault15pushCurrentNodeEPNS_9XalanNodeE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault14popCurrentNodeEv, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault11isNodeAfterERKNS_9XalanNodeES3_, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault19pushContextNodeListERKNS_15NodeRefListBaseE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault18popContextNodeListEv, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault18getContextNodeListEv, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault24getContextNodeListLengthEv, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault26getContextNodeListPositionERKNS_9XalanNodeE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault16elementAvailableERKNS_10XalanQNameE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault16elementAvailableERKNS_14XalanDOMStringEPKN11xercesc_2_77LocatorE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault17functionAvailableERKNS_10XalanQNameE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault17functionAvailableERKNS_14XalanDOMStringEPKN11xercesc_2_77LocatorE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault11extFunctionERKNS_14XalanDOMStringES3_PNS_9XalanNodeERKNS_11XalanVectorINS_10XObjectPtrENS_31MemoryManagedConstructionTraitsIS7_EEEEPKN11xercesc_2_77LocatorE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault8parseXMLERN11xercesc_2_713MemoryManagerERKNS_14XalanDOMStringES6_, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault24borrowMutableNodeRefListEv, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault24returnMutableNodeRefListEPNS_18MutableNodeRefListE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault15getCachedStringEv, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault19releaseCachedStringERNS_14XalanDOMStringE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault24createMutableNodeRefListERN11xercesc_2_713MemoryManagerE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault15getNodeSetByKeyEPNS_13XalanDocumentERKNS_10XalanQNameERKNS_14XalanDOMStringERNS_18MutableNodeRefListE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault15getNodeSetByKeyEPNS_13XalanDocumentERKNS_14XalanDOMStringES5_PKN11xercesc_2_77LocatorERNS_18MutableNodeRefListE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault11getVariableERKNS_10XalanQNameEPKN11xercesc_2_77LocatorE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault17getPrefixResolverEv, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault17setPrefixResolverEPKNS_14PrefixResolverE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault21getNamespaceForPrefixERKNS_14XalanDOMStringE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault14findURIFromDocEPKNS_13XalanDocumentE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault20getUnparsedEntityURIERKNS_14XalanDOMStringERKNS_13XalanDocumentE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault21shouldStripSourceNodeERKNS_9XalanTextE, ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault17getSourceDocumentERKNS_14XalanDOMStringE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault17setSourceDocumentERKNS_14XalanDOMStringEPNS_13XalanDocumentE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault12formatNumberEdRKNS_14XalanDOMStringERS1_PKNS_9XalanNodeEPKN11xercesc_2_77LocatorE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault12formatNumberEdRKNS_14XalanDOMStringES3_RS1_PKNS_9XalanNodeEPKN11xercesc_2_77LocatorE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault14doFormatNumberEdRKNS_14XalanDOMStringEPKNS_25XalanDecimalFormatSymbolsERS1_PKNS_9XalanNodeEPKN11xercesc_2_77LocatorE] }, align 8
+@_ZTVN10__cxxabiv120__si_class_type_infoE = external global [0 x ptr]
+@_ZTSN11xalanc_1_1028XPathExecutionContextDefaultE = dso_local constant [46 x i8] c"N11xalanc_1_1028XPathExecutionContextDefaultE\00", align 1
+@_ZTIN11xalanc_1_1021XPathExecutionContextE = external constant ptr
+@_ZTIN11xalanc_1_1028XPathExecutionContextDefaultE = dso_local constant { ptr, ptr, ptr } { ptr getelementptr inbounds (ptr, ptr @_ZTVN10__cxxabiv120__si_class_type_infoE, i64 2), ptr @_ZTSN11xalanc_1_1028XPathExecutionContextDefaultE, ptr @_ZTIN11xalanc_1_1021XPathExecutionContextE }, align 8
+@_ZN11xalanc_1_1028XPathExecutionContextDefault11s_dummyListE = dso_local global %"class.xalanc_1_10::NodeRefList" zeroinitializer, align 8
+@__dso_handle = external hidden global i8
+@_ZTIN11xalanc_1_1019XalanXPathExceptionE = external constant ptr
+@_ZN11xalanc_1_1014XalanDOMString7s_emptyE = external constant i16, align 2
+@.str = private unnamed_addr constant [16 x i8] c"format-number()\00", align 1
+@_ZN11xalanc_1_1013DoubleSupport5s_NaNE = external global %"union.xalanc_1_10::DoubleSupport::NumberUnion", align 8
+@_ZN11xalanc_1_1013DoubleSupport18s_negativeInfinityE = external global %"union.xalanc_1_10::DoubleSupport::NumberUnion", align 8
+@_ZN11xalanc_1_1013DoubleSupport18s_positiveInfinityE = external global %"union.xalanc_1_10::DoubleSupport::NumberUnion", align 8
+@llvm.global_ctors = appending global [1 x { i32, ptr, ptr }] [{ i32, ptr, ptr } { i32 65535, ptr @_GLOBAL__sub_I_XPathExecutionContextDefault.cpp, ptr null }]
+
+@_ZN11xalanc_1_1028XPathExecutionContextDefaultC1ERNS_15XPathEnvSupportERNS_10DOMSupportERNS_14XObjectFactoryEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE = dso_local unnamed_addr alias void (ptr, ptr, ptr, ptr, ptr, ptr, ptr), ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERNS_15XPathEnvSupportERNS_10DOMSupportERNS_14XObjectFactoryEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE
+@_ZN11xalanc_1_1028XPathExecutionContextDefaultC1ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE = dso_local unnamed_addr alias void (ptr, ptr, ptr, ptr, ptr), ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE
+@_ZN11xalanc_1_1028XPathExecutionContextDefaultD1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefaultD0Ev(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #0 align 2 {
+  tail call void @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev(ptr noundef nonnull align 8 dereferenceable(432) %0) #16
+  tail call void @_ZdlPv(ptr noundef nonnull %0) #17
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZNK11xalanc_1_1028XPathExecutionContextDefault5errorERKNS_14XalanDOMStringEPKNS_9XalanNodeEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %2, ptr noundef %3) unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 !prof !390 {
+  %5 = alloca %"class.xalanc_1_10::XalanDOMString", align 8
+  %6 = tail call noundef i64 @_ZN11xalanc_1_1012XalanLocator15getUnknownValueEv() #18
+  %7 = tail call noundef i64 @_ZN11xalanc_1_1012XalanLocator15getUnknownValueEv() #18
+  %8 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1016ExecutionContext16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %5) #19
+  call void @_ZN11xalanc_1_1014XalanDOMStringC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(36) %5, ptr noundef nonnull align 8 dereferenceable(8) %8) #18
+  %9 = icmp eq ptr %3, null
+  br i1 %9, label %41, label %10
+
+10:                                               ; preds = %4
+  %11 = load ptr, ptr %3, align 8, !tbaa !391
+  %12 = getelementptr inbounds ptr, ptr %11, i64 4
+  %13 = load ptr, ptr %12, align 8
+  %14 = invoke noundef i64 %13(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %15 unwind label %27
+
+15:                                               ; preds = %10
+  %16 = load ptr, ptr %3, align 8, !tbaa !391
+  %17 = getelementptr inbounds ptr, ptr %16, i64 5
+  %18 = load ptr, ptr %17, align 8
+  %19 = invoke noundef i64 %18(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %20 unwind label %27
+
+20:                                               ; preds = %15
+  %21 = load ptr, ptr %3, align 8, !tbaa !391
+  %22 = getelementptr inbounds ptr, ptr %21, i64 2
+  %23 = load ptr, ptr %22, align 8
+  %24 = invoke noundef ptr %23(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %25 unwind label %29
+
+25:                                               ; preds = %20
+  %26 = icmp eq ptr %24, null
+  br i1 %26, label %31, label %38
+
+27:                                               ; preds = %59, %49, %41, %15, %10
+  %28 = landingpad { ptr, i32 }
+          cleanup
+  br label %63
+
+29:                                               ; preds = %38, %31, %20
+  %30 = landingpad { ptr, i32 }
+          cleanup
+  br label %63
+
+31:                                               ; preds = %25
+  %32 = load ptr, ptr %3, align 8, !tbaa !391
+  %33 = getelementptr inbounds ptr, ptr %32, i64 3
+  %34 = load ptr, ptr %33, align 8
+  %35 = invoke noundef ptr %34(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %36 unwind label %29
+
+36:                                               ; preds = %31
+  %37 = icmp eq ptr %35, null
+  br i1 %37, label %41, label %38
+
+38:                                               ; preds = %25, %36
+  %39 = phi ptr [ %35, %36 ], [ %24, %25 ]
+  %40 = invoke noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringaSEPKt(ptr noundef nonnull align 8 dereferenceable(36) %5, ptr noundef nonnull %39) #18
+          to label %41 unwind label %29
+
+41:                                               ; preds = %38, %36, %4
+  %42 = phi i64 [ %7, %4 ], [ %19, %36 ], [ %19, %38 ]
+  %43 = phi i64 [ %6, %4 ], [ %14, %36 ], [ %14, %38 ]
+  %44 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %45 = load ptr, ptr %44, align 8, !tbaa !394
+  %46 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  %47 = load ptr, ptr %46, align 8, !tbaa !422
+  %48 = invoke noundef ptr @_ZN11xalanc_1_106c_wstrERKNS_14XalanDOMStringE(ptr noundef nonnull align 8 dereferenceable(36) %5) #18
+          to label %49 unwind label %27
+
+49:                                               ; preds = %41
+  %50 = trunc i64 %43 to i32
+  %51 = trunc i64 %42 to i32
+  %52 = load ptr, ptr %45, align 8, !tbaa !391
+  %53 = getelementptr inbounds ptr, ptr %52, i64 9
+  %54 = load ptr, ptr %53, align 8
+  %55 = invoke noundef zeroext i1 %54(ptr noundef nonnull align 8 dereferenceable(8) %45, i32 noundef 4, i32 noundef 2, ptr noundef %47, ptr noundef %2, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %48, i32 noundef %50, i32 noundef %51) #18
+          to label %56 unwind label %27
+
+56:                                               ; preds = %49
+  br i1 %55, label %57, label %62
+
+57:                                               ; preds = %56
+  %58 = call ptr @__cxa_allocate_exception(i64 112) #19
+  invoke void @_ZN11xalanc_1_1019XalanXPathExceptionC1ERKNS_14XalanDOMStringES3_iiRN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(112) %58, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef nonnull align 8 dereferenceable(36) %5, i32 noundef %50, i32 noundef %51, ptr noundef nonnull align 8 dereferenceable(8) %8) #18
+          to label %59 unwind label %60
+
+59:                                               ; preds = %57
+  invoke void @__cxa_throw(ptr nonnull %58, ptr nonnull @_ZTIN11xalanc_1_1019XalanXPathExceptionE, ptr nonnull @_ZN11xalanc_1_1019XalanXPathExceptionD1Ev) #20
+          to label %65 unwind label %27
+
+60:                                               ; preds = %57
+  %61 = landingpad { ptr, i32 }
+          cleanup
+  call void @__cxa_free_exception(ptr %58) #19
+  br label %63
+
+62:                                               ; preds = %56
+  call void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %5) #16
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %5) #19
+  ret void
+
+63:                                               ; preds = %60, %29, %27
+  %64 = phi { ptr, i32 } [ %28, %27 ], [ %61, %60 ], [ %30, %29 ]
+  call void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %5) #16
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %5) #19
+  resume { ptr, i32 } %64
+
+65:                                               ; preds = %59
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZNK11xalanc_1_1028XPathExecutionContextDefault4warnERKNS_14XalanDOMStringEPKNS_9XalanNodeEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %2, ptr noundef %3) unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 !prof !390 {
+  %5 = alloca %"class.xalanc_1_10::XalanDOMString", align 8
+  %6 = tail call noundef i64 @_ZN11xalanc_1_1012XalanLocator15getUnknownValueEv() #18
+  %7 = tail call noundef i64 @_ZN11xalanc_1_1012XalanLocator15getUnknownValueEv() #18
+  %8 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1016ExecutionContext16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %5) #19
+  call void @_ZN11xalanc_1_1014XalanDOMStringC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(36) %5, ptr noundef nonnull align 8 dereferenceable(8) %8) #18
+  %9 = icmp eq ptr %3, null
+  br i1 %9, label %41, label %10
+
+10:                                               ; preds = %4
+  %11 = load ptr, ptr %3, align 8, !tbaa !391
+  %12 = getelementptr inbounds ptr, ptr %11, i64 4
+  %13 = load ptr, ptr %12, align 8
+  %14 = invoke noundef i64 %13(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %15 unwind label %27
+
+15:                                               ; preds = %10
+  %16 = load ptr, ptr %3, align 8, !tbaa !391
+  %17 = getelementptr inbounds ptr, ptr %16, i64 5
+  %18 = load ptr, ptr %17, align 8
+  %19 = invoke noundef i64 %18(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %20 unwind label %27
+
+20:                                               ; preds = %15
+  %21 = load ptr, ptr %3, align 8, !tbaa !391
+  %22 = getelementptr inbounds ptr, ptr %21, i64 2
+  %23 = load ptr, ptr %22, align 8
+  %24 = invoke noundef ptr %23(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %25 unwind label %29
+
+25:                                               ; preds = %20
+  %26 = icmp eq ptr %24, null
+  br i1 %26, label %31, label %38
+
+27:                                               ; preds = %59, %49, %41, %15, %10
+  %28 = landingpad { ptr, i32 }
+          cleanup
+  br label %63
+
+29:                                               ; preds = %38, %31, %20
+  %30 = landingpad { ptr, i32 }
+          cleanup
+  br label %63
+
+31:                                               ; preds = %25
+  %32 = load ptr, ptr %3, align 8, !tbaa !391
+  %33 = getelementptr inbounds ptr, ptr %32, i64 3
+  %34 = load ptr, ptr %33, align 8
+  %35 = invoke noundef ptr %34(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %36 unwind label %29
+
+36:                                               ; preds = %31
+  %37 = icmp eq ptr %35, null
+  br i1 %37, label %41, label %38
+
+38:                                               ; preds = %25, %36
+  %39 = phi ptr [ %35, %36 ], [ %24, %25 ]
+  %40 = invoke noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringaSEPKt(ptr noundef nonnull align 8 dereferenceable(36) %5, ptr noundef nonnull %39) #18
+          to label %41 unwind label %29
+
+41:                                               ; preds = %38, %36, %4
+  %42 = phi i64 [ %7, %4 ], [ %19, %36 ], [ %19, %38 ]
+  %43 = phi i64 [ %6, %4 ], [ %14, %36 ], [ %14, %38 ]
+  %44 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %45 = load ptr, ptr %44, align 8, !tbaa !394
+  %46 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  %47 = load ptr, ptr %46, align 8, !tbaa !422
+  %48 = invoke noundef ptr @_ZN11xalanc_1_106c_wstrERKNS_14XalanDOMStringE(ptr noundef nonnull align 8 dereferenceable(36) %5) #18
+          to label %49 unwind label %27
+
+49:                                               ; preds = %41
+  %50 = trunc i64 %43 to i32
+  %51 = trunc i64 %42 to i32
+  %52 = load ptr, ptr %45, align 8, !tbaa !391
+  %53 = getelementptr inbounds ptr, ptr %52, i64 9
+  %54 = load ptr, ptr %53, align 8
+  %55 = invoke noundef zeroext i1 %54(ptr noundef nonnull align 8 dereferenceable(8) %45, i32 noundef 4, i32 noundef 1, ptr noundef %47, ptr noundef %2, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %48, i32 noundef %50, i32 noundef %51) #18
+          to label %56 unwind label %27
+
+56:                                               ; preds = %49
+  br i1 %55, label %57, label %62
+
+57:                                               ; preds = %56
+  %58 = call ptr @__cxa_allocate_exception(i64 112) #19
+  invoke void @_ZN11xalanc_1_1019XalanXPathExceptionC1ERKNS_14XalanDOMStringES3_iiRN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(112) %58, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef nonnull align 8 dereferenceable(36) %5, i32 noundef %50, i32 noundef %51, ptr noundef nonnull align 8 dereferenceable(8) %8) #18
+          to label %59 unwind label %60
+
+59:                                               ; preds = %57
+  invoke void @__cxa_throw(ptr nonnull %58, ptr nonnull @_ZTIN11xalanc_1_1019XalanXPathExceptionE, ptr nonnull @_ZN11xalanc_1_1019XalanXPathExceptionD1Ev) #20
+          to label %65 unwind label %27
+
+60:                                               ; preds = %57
+  %61 = landingpad { ptr, i32 }
+          cleanup
+  call void @__cxa_free_exception(ptr %58) #19
+  br label %63
+
+62:                                               ; preds = %56
+  call void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %5) #16
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %5) #19
+  ret void
+
+63:                                               ; preds = %60, %29, %27
+  %64 = phi { ptr, i32 } [ %28, %27 ], [ %61, %60 ], [ %30, %29 ]
+  call void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %5) #16
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %5) #19
+  resume { ptr, i32 } %64
+
+65:                                               ; preds = %59
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZNK11xalanc_1_1028XPathExecutionContextDefault7messageERKNS_14XalanDOMStringEPKNS_9XalanNodeEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %2, ptr noundef %3) unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 !prof !390 {
+  %5 = alloca %"class.xalanc_1_10::XalanDOMString", align 8
+  %6 = tail call noundef i64 @_ZN11xalanc_1_1012XalanLocator15getUnknownValueEv() #18
+  %7 = tail call noundef i64 @_ZN11xalanc_1_1012XalanLocator15getUnknownValueEv() #18
+  %8 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1016ExecutionContext16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  call void @llvm.lifetime.start.p0(i64 40, ptr nonnull %5) #19
+  call void @_ZN11xalanc_1_1014XalanDOMStringC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(36) %5, ptr noundef nonnull align 8 dereferenceable(8) %8) #18
+  %9 = icmp eq ptr %3, null
+  br i1 %9, label %41, label %10
+
+10:                                               ; preds = %4
+  %11 = load ptr, ptr %3, align 8, !tbaa !391
+  %12 = getelementptr inbounds ptr, ptr %11, i64 4
+  %13 = load ptr, ptr %12, align 8
+  %14 = invoke noundef i64 %13(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %15 unwind label %27
+
+15:                                               ; preds = %10
+  %16 = load ptr, ptr %3, align 8, !tbaa !391
+  %17 = getelementptr inbounds ptr, ptr %16, i64 5
+  %18 = load ptr, ptr %17, align 8
+  %19 = invoke noundef i64 %18(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %20 unwind label %27
+
+20:                                               ; preds = %15
+  %21 = load ptr, ptr %3, align 8, !tbaa !391
+  %22 = getelementptr inbounds ptr, ptr %21, i64 2
+  %23 = load ptr, ptr %22, align 8
+  %24 = invoke noundef ptr %23(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %25 unwind label %29
+
+25:                                               ; preds = %20
+  %26 = icmp eq ptr %24, null
+  br i1 %26, label %31, label %38
+
+27:                                               ; preds = %59, %49, %41, %15, %10
+  %28 = landingpad { ptr, i32 }
+          cleanup
+  br label %63
+
+29:                                               ; preds = %38, %31, %20
+  %30 = landingpad { ptr, i32 }
+          cleanup
+  br label %63
+
+31:                                               ; preds = %25
+  %32 = load ptr, ptr %3, align 8, !tbaa !391
+  %33 = getelementptr inbounds ptr, ptr %32, i64 3
+  %34 = load ptr, ptr %33, align 8
+  %35 = invoke noundef ptr %34(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+          to label %36 unwind label %29
+
+36:                                               ; preds = %31
+  %37 = icmp eq ptr %35, null
+  br i1 %37, label %41, label %38
+
+38:                                               ; preds = %25, %36
+  %39 = phi ptr [ %35, %36 ], [ %24, %25 ]
+  %40 = invoke noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringaSEPKt(ptr noundef nonnull align 8 dereferenceable(36) %5, ptr noundef nonnull %39) #18
+          to label %41 unwind label %29
+
+41:                                               ; preds = %38, %36, %4
+  %42 = phi i64 [ %7, %4 ], [ %19, %36 ], [ %19, %38 ]
+  %43 = phi i64 [ %6, %4 ], [ %14, %36 ], [ %14, %38 ]
+  %44 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %45 = load ptr, ptr %44, align 8, !tbaa !394
+  %46 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  %47 = load ptr, ptr %46, align 8, !tbaa !422
+  %48 = invoke noundef ptr @_ZN11xalanc_1_106c_wstrERKNS_14XalanDOMStringE(ptr noundef nonnull align 8 dereferenceable(36) %5) #18
+          to label %49 unwind label %27
+
+49:                                               ; preds = %41
+  %50 = trunc i64 %43 to i32
+  %51 = trunc i64 %42 to i32
+  %52 = load ptr, ptr %45, align 8, !tbaa !391
+  %53 = getelementptr inbounds ptr, ptr %52, i64 9
+  %54 = load ptr, ptr %53, align 8
+  %55 = invoke noundef zeroext i1 %54(ptr noundef nonnull align 8 dereferenceable(8) %45, i32 noundef 4, i32 noundef 0, ptr noundef %47, ptr noundef %2, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %48, i32 noundef %50, i32 noundef %51) #18
+          to label %56 unwind label %27
+
+56:                                               ; preds = %49
+  br i1 %55, label %57, label %62
+
+57:                                               ; preds = %56
+  %58 = call ptr @__cxa_allocate_exception(i64 112) #19
+  invoke void @_ZN11xalanc_1_1019XalanXPathExceptionC1ERKNS_14XalanDOMStringES3_iiRN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(112) %58, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef nonnull align 8 dereferenceable(36) %5, i32 noundef %50, i32 noundef %51, ptr noundef nonnull align 8 dereferenceable(8) %8) #18
+          to label %59 unwind label %60
+
+59:                                               ; preds = %57
+  invoke void @__cxa_throw(ptr nonnull %58, ptr nonnull @_ZTIN11xalanc_1_1019XalanXPathExceptionE, ptr nonnull @_ZN11xalanc_1_1019XalanXPathExceptionD1Ev) #20
+          to label %65 unwind label %27
+
+60:                                               ; preds = %57
+  %61 = landingpad { ptr, i32 }
+          cleanup
+  call void @__cxa_free_exception(ptr %58) #19
+  br label %63
+
+62:                                               ; preds = %56
+  call void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %5) #16
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %5) #19
+  ret void
+
+63:                                               ; preds = %60, %29, %27
+  %64 = phi { ptr, i32 } [ %28, %27 ], [ %61, %60 ], [ %30, %29 ]
+  call void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %5) #16
+  call void @llvm.lifetime.end.p0(i64 40, ptr nonnull %5) #19
+  resume { ptr, i32 } %64
+
+65:                                               ; preds = %59
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #1 align 2 !prof !423 {
+  %2 = alloca ptr, align 8
+  %3 = alloca ptr, align 8
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %5 = load ptr, ptr %4, align 8, !tbaa !394
+  %6 = icmp eq ptr %5, null
+  br i1 %6, label %11, label %7, !prof !424
+
+7:                                                ; preds = %1
+  %8 = load ptr, ptr %5, align 8, !tbaa !391
+  %9 = getelementptr inbounds ptr, ptr %8, i64 10
+  %10 = load ptr, ptr %9, align 8
+  tail call void %10(ptr noundef nonnull align 8 dereferenceable(8) %5) #18
+  br label %11
+
+11:                                               ; preds = %7, %1
+  %12 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 2
+  %13 = load ptr, ptr %12, align 8, !tbaa !425
+  %14 = icmp eq ptr %13, null
+  br i1 %14, label %19, label %15, !prof !424
+
+15:                                               ; preds = %11
+  %16 = load ptr, ptr %13, align 8, !tbaa !391
+  %17 = getelementptr inbounds ptr, ptr %16, i64 2
+  %18 = load ptr, ptr %17, align 8
+  tail call void %18(ptr noundef nonnull align 8 dereferenceable(8) %13) #18
+  br label %19
+
+19:                                               ; preds = %15, %11
+  %20 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContext", ptr %0, i64 0, i32 1
+  %21 = load ptr, ptr %20, align 8, !tbaa !426
+  %22 = icmp eq ptr %21, null
+  br i1 %22, label %27, label %23, !prof !424
+
+23:                                               ; preds = %19
+  %24 = load ptr, ptr %21, align 8, !tbaa !391
+  %25 = getelementptr inbounds ptr, ptr %24, i64 2
+  %26 = load ptr, ptr %25, align 8
+  tail call void %26(ptr noundef nonnull align 8 dereferenceable(16) %21) #18
+  br label %27
+
+27:                                               ; preds = %23, %19
+  %28 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 3
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5clearEv(ptr noundef nonnull align 8 dereferenceable(32) %28) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %2) #19
+  store ptr null, ptr %2, align 8, !tbaa !427
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %28, ptr noundef nonnull align 8 dereferenceable(8) %2) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %2) #19
+  %29 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 4
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5clearEv(ptr noundef nonnull align 8 dereferenceable(32) %29) #18
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #19
+  store ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault11s_dummyListE, ptr %3, align 8, !tbaa !427
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %29, ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #19
+  %30 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  store ptr null, ptr %30, align 8, !tbaa !422
+  %31 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 7
+  call void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE5resetEv(ptr noundef nonnull align 8 dereferenceable(56) %31) #18
+  %32 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 8
+  call void @_ZN11xalanc_1_1019XalanDOMStringCache5resetEv(ptr noundef nonnull align 8 dereferenceable(120) %32) #18
+  %33 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 9
+  call void @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCache5clearEv(ptr noundef nonnull align 8 dereferenceable(12) %33) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define dso_local noundef ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault14getCurrentNodeEv(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #0 align 2 !prof !428 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 3
+  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4backEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+  %4 = load ptr, ptr %3, align 8, !tbaa !427
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault15pushCurrentNodeEPNS_9XalanNodeE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef %1) unnamed_addr #1 align 2 !prof !429 {
+  %3 = alloca ptr, align 8
+  store ptr %1, ptr %3, align 8, !tbaa !427
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 3
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %4, ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault14popCurrentNodeEv(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #0 align 2 !prof !429 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 3
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef zeroext i1 @_ZNK11xalanc_1_1028XPathExecutionContextDefault11isNodeAfterERKNS_9XalanNodeES3_(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) unnamed_addr #1 align 2 !prof !390 {
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 2
+  %5 = load ptr, ptr %4, align 8, !tbaa !425
+  %6 = load ptr, ptr %5, align 8, !tbaa !391
+  %7 = getelementptr inbounds ptr, ptr %6, i64 4
+  %8 = load ptr, ptr %7, align 8
+  %9 = tail call noundef zeroext i1 %8(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) #18
+  ret i1 %9
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault19pushContextNodeListERKNS_15NodeRefListBaseE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #1 align 2 !prof !430 {
+  %3 = alloca ptr, align 8
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 9
+  tail call void @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCache5clearEv(ptr noundef nonnull align 8 dereferenceable(12) %4) #18
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 4
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #19
+  store ptr %1, ptr %3, align 8, !tbaa !427
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #19
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault18popContextNodeListEv(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #0 align 2 !prof !430 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 9
+  tail call void @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCache5clearEv(ptr noundef nonnull align 8 dereferenceable(12) %2) #18
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 4
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault18getContextNodeListEv(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #0 align 2 !prof !431 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 4
+  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4backEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+  %4 = load ptr, ptr %3, align 8, !tbaa !427
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef i32 @_ZNK11xalanc_1_1028XPathExecutionContextDefault24getContextNodeListLengthEv(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #1 align 2 !prof !390 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 4
+  %3 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4backEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+  %4 = load ptr, ptr %3, align 8, !tbaa !427
+  %5 = load ptr, ptr %4, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 3
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef i32 %7(ptr noundef nonnull align 8 dereferenceable(8) %4) #18
+  ret i32 %8
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef i32 @_ZNK11xalanc_1_1028XPathExecutionContextDefault26getContextNodeListPositionERKNS_9XalanNodeE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #1 align 2 !prof !432 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 9
+  %4 = load ptr, ptr %3, align 8, !tbaa !433
+  %5 = icmp eq ptr %4, %1
+  br i1 %5, label %6, label %9, !prof !434
+
+6:                                                ; preds = %2
+  %7 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 9, i32 1
+  %8 = load i32, ptr %7, align 8, !tbaa !435
+  br label %19
+
+9:                                                ; preds = %2
+  %10 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 4
+  %11 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4backEv(ptr noundef nonnull align 8 dereferenceable(32) %10) #18
+  %12 = load ptr, ptr %11, align 8, !tbaa !427
+  %13 = load ptr, ptr %12, align 8, !tbaa !391
+  %14 = getelementptr inbounds ptr, ptr %13, i64 4
+  %15 = load ptr, ptr %14, align 8
+  %16 = tail call noundef i32 %15(ptr noundef nonnull align 8 dereferenceable(8) %12, ptr noundef nonnull %1) #18
+  %17 = add i32 %16, 1
+  %18 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 9, i32 1
+  store i32 %17, ptr %18, align 8, !tbaa !435
+  store ptr %1, ptr %3, align 8, !tbaa !433
+  br label %19
+
+19:                                               ; preds = %6, %9
+  %20 = phi i32 [ %8, %6 ], [ %17, %9 ]
+  ret i32 %20
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef zeroext i1 @_ZNK11xalanc_1_1028XPathExecutionContextDefault16elementAvailableERKNS_10XalanQNameE(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #1 align 2 !prof !390 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %4 = load ptr, ptr %3, align 8, !tbaa !394
+  %5 = load ptr, ptr %1, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 3
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef nonnull align 8 dereferenceable(36) ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  %9 = load ptr, ptr %1, align 8, !tbaa !391
+  %10 = getelementptr inbounds ptr, ptr %9, i64 2
+  %11 = load ptr, ptr %10, align 8
+  %12 = tail call noundef nonnull align 8 dereferenceable(36) ptr %11(ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  %13 = load ptr, ptr %4, align 8, !tbaa !391
+  %14 = getelementptr inbounds ptr, ptr %13, i64 6
+  %15 = load ptr, ptr %14, align 8
+  %16 = tail call noundef zeroext i1 %15(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull align 8 dereferenceable(36) %8, ptr noundef nonnull align 8 dereferenceable(36) %12) #18
+  ret i1 %16
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef zeroext i1 @_ZNK11xalanc_1_1028XPathExecutionContextDefault16elementAvailableERKNS_14XalanDOMStringEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %2) unnamed_addr #1 align 2 !prof !390 {
+  %4 = tail call noundef nonnull align 8 dereferenceable(88) ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault15getScratchQNameEv(ptr noundef nonnull align 8 dereferenceable(432) %0) #18
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  %6 = load ptr, ptr %5, align 8, !tbaa !422
+  tail call void @_ZN11xalanc_1_1017XalanQNameByValue3setERKNS_14XalanDOMStringEPKNS_14PrefixResolverEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(88) %4, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %6, ptr noundef %2) #18
+  %7 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 10
+  %8 = load ptr, ptr %0, align 8, !tbaa !391
+  %9 = getelementptr inbounds ptr, ptr %8, i64 15
+  %10 = load ptr, ptr %9, align 8
+  %11 = tail call noundef zeroext i1 %10(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %7) #18
+  ret i1 %11
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef zeroext i1 @_ZNK11xalanc_1_1028XPathExecutionContextDefault17functionAvailableERKNS_10XalanQNameE(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #1 align 2 !prof !390 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %4 = load ptr, ptr %3, align 8, !tbaa !394
+  %5 = load ptr, ptr %1, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 3
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef nonnull align 8 dereferenceable(36) ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  %9 = load ptr, ptr %1, align 8, !tbaa !391
+  %10 = getelementptr inbounds ptr, ptr %9, i64 2
+  %11 = load ptr, ptr %10, align 8
+  %12 = tail call noundef nonnull align 8 dereferenceable(36) ptr %11(ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  %13 = load ptr, ptr %4, align 8, !tbaa !391
+  %14 = getelementptr inbounds ptr, ptr %13, i64 7
+  %15 = load ptr, ptr %14, align 8
+  %16 = tail call noundef zeroext i1 %15(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull align 8 dereferenceable(36) %8, ptr noundef nonnull align 8 dereferenceable(36) %12) #18
+  ret i1 %16
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef zeroext i1 @_ZNK11xalanc_1_1028XPathExecutionContextDefault17functionAvailableERKNS_14XalanDOMStringEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %2) unnamed_addr #1 align 2 !prof !390 {
+  %4 = tail call noundef nonnull align 8 dereferenceable(88) ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault15getScratchQNameEv(ptr noundef nonnull align 8 dereferenceable(432) %0) #18
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  %6 = load ptr, ptr %5, align 8, !tbaa !422
+  tail call void @_ZN11xalanc_1_1017XalanQNameByValue3setERKNS_14XalanDOMStringEPKNS_14PrefixResolverEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(88) %4, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %6, ptr noundef %2) #18
+  %7 = load ptr, ptr %0, align 8, !tbaa !391
+  %8 = getelementptr inbounds ptr, ptr %7, i64 17
+  %9 = load ptr, ptr %8, align 8
+  %10 = tail call noundef zeroext i1 %9(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %4) #18
+  ret i1 %10
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault11extFunctionERKNS_14XalanDOMStringES3_PNS_9XalanNodeERKNS_11XalanVectorINS_10XObjectPtrENS_31MemoryManagedConstructionTraitsIS7_EEEEPKN11xercesc_2_77LocatorE(ptr dead_on_unwind noalias writable sret(%"class.xalanc_1_10::XObjectPtr") align 8 %0, ptr noundef nonnull align 8 dereferenceable(432) %1, ptr noundef nonnull align 8 dereferenceable(36) %2, ptr noundef nonnull align 8 dereferenceable(36) %3, ptr noundef %4, ptr noundef nonnull align 1 %5, ptr noundef %6) unnamed_addr #1 align 2 !prof !390 {
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %1, i64 0, i32 1
+  %9 = load ptr, ptr %8, align 8, !tbaa !394
+  %10 = load ptr, ptr %9, align 8, !tbaa !391
+  %11 = getelementptr inbounds ptr, ptr %10, i64 8
+  %12 = load ptr, ptr %11, align 8
+  tail call void %12(ptr dead_on_unwind writable sret(%"class.xalanc_1_10::XObjectPtr") align 8 %0, ptr noundef nonnull align 8 dereferenceable(8) %9, ptr noundef nonnull align 8 dereferenceable(24) %1, ptr noundef nonnull align 8 dereferenceable(36) %2, ptr noundef nonnull align 8 dereferenceable(36) %3, ptr noundef %4, ptr noundef nonnull align 1 %5, ptr noundef %6) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault8parseXMLERN11xercesc_2_713MemoryManagerERKNS_14XalanDOMStringES6_(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(36) %2, ptr noundef nonnull align 8 dereferenceable(36) %3) unnamed_addr #1 align 2 !prof !390 {
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %6 = load ptr, ptr %5, align 8, !tbaa !394
+  %7 = load ptr, ptr %6, align 8, !tbaa !391
+  %8 = getelementptr inbounds ptr, ptr %7, i64 2
+  %9 = load ptr, ptr %8, align 8
+  %10 = tail call noundef ptr %9(ptr noundef nonnull align 8 dereferenceable(8) %6, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(36) %2, ptr noundef nonnull align 8 dereferenceable(36) %3) #18
+  ret ptr %10
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault24borrowMutableNodeRefListEv(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #1 align 2 !prof !436 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 7
+  %3 = tail call noundef ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE3getEv(ptr noundef nonnull align 8 dereferenceable(56) %2) #18
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef zeroext i1 @_ZN11xalanc_1_1028XPathExecutionContextDefault24returnMutableNodeRefListEPNS_18MutableNodeRefListE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef %1) unnamed_addr #1 align 2 !prof !436 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 7
+  %4 = tail call noundef zeroext i1 @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE7releaseEPS1_(ptr noundef nonnull align 8 dereferenceable(56) %3, ptr noundef %1) #18
+  ret i1 %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault15getCachedStringEv(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #1 align 2 !prof !437 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 8
+  %3 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1019XalanDOMStringCache3getEv(ptr noundef nonnull align 8 dereferenceable(120) %2) #18
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef zeroext i1 @_ZN11xalanc_1_1028XPathExecutionContextDefault19releaseCachedStringERNS_14XalanDOMStringE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1) unnamed_addr #1 align 2 !prof !437 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 8
+  %4 = tail call noundef zeroext i1 @_ZN11xalanc_1_1019XalanDOMStringCache7releaseERNS_14XalanDOMStringE(ptr noundef nonnull align 8 dereferenceable(120) %3, ptr noundef nonnull align 8 dereferenceable(36) %1) #18
+  ret i1 %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault24createMutableNodeRefListERN11xercesc_2_713MemoryManagerE(ptr nocapture nonnull readnone align 8 %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #1 align 2 !prof !390 {
+  %3 = tail call noundef ptr @_ZN11xalanc_1_1018MutableNodeRefList6createERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault15getNodeSetByKeyEPNS_13XalanDocumentERKNS_10XalanQNameERKNS_14XalanDOMStringERNS_18MutableNodeRefListE(ptr nocapture nonnull readnone align 8 %0, ptr nocapture readnone %1, ptr nocapture nonnull readnone align 8 %2, ptr nocapture nonnull readnone align 8 %3, ptr nocapture nonnull readnone align 8 %4) unnamed_addr #2 align 2 !prof !390 {
+  ret void
+}
+
+; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault15getNodeSetByKeyEPNS_13XalanDocumentERKNS_14XalanDOMStringES5_PKN11xercesc_2_77LocatorERNS_18MutableNodeRefListE(ptr nocapture nonnull readnone align 8 %0, ptr nocapture readnone %1, ptr nocapture nonnull readnone align 8 %2, ptr nocapture nonnull readnone align 8 %3, ptr nocapture readnone %4, ptr nocapture nonnull readnone align 8 %5) unnamed_addr #2 align 2 !prof !390 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault11getVariableERKNS_10XalanQNameEPKN11xercesc_2_77LocatorE(ptr dead_on_unwind noalias writable sret(%"class.xalanc_1_10::XObjectPtr") align 8 %0, ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %1, ptr noundef nonnull align 8 dereferenceable(8) %2, ptr nocapture readnone %3) unnamed_addr #1 align 2 !prof !390 {
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContext", ptr %1, i64 0, i32 1
+  %6 = load ptr, ptr %5, align 8, !tbaa !426
+  %7 = load ptr, ptr %2, align 8, !tbaa !391
+  %8 = getelementptr inbounds ptr, ptr %7, i64 2
+  %9 = load ptr, ptr %8, align 8
+  %10 = tail call noundef nonnull align 8 dereferenceable(36) ptr %9(ptr noundef nonnull align 8 dereferenceable(8) %2) #18
+  %11 = load ptr, ptr %6, align 8, !tbaa !391
+  %12 = getelementptr inbounds ptr, ptr %11, i64 16
+  %13 = load ptr, ptr %12, align 8
+  tail call void %13(ptr dead_on_unwind writable sret(%"class.xalanc_1_10::XObjectPtr") align 8 %0, ptr noundef nonnull align 8 dereferenceable(16) %6, ptr noundef nonnull align 8 dereferenceable(36) %10) #18
+  ret void
+}
+
+; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: read) uwtable
+define dso_local noundef ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault17getPrefixResolverEv(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0) unnamed_addr #3 align 2 !prof !438 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  %3 = load ptr, ptr %2, align 8, !tbaa !422
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: write) uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault17setPrefixResolverEPKNS_14PrefixResolverE(ptr nocapture noundef nonnull writeonly align 8 dereferenceable(432) %0, ptr noundef %1) unnamed_addr #4 align 2 !prof !439 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  store ptr %1, ptr %3, align 8, !tbaa !422
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault21getNamespaceForPrefixERKNS_14XalanDOMStringE(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1) unnamed_addr #1 align 2 !prof !390 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  %4 = load ptr, ptr %3, align 8, !tbaa !422
+  %5 = load ptr, ptr %4, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 2
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull align 8 dereferenceable(36) %1) #18
+  ret ptr %8
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault14findURIFromDocEPKNS_13XalanDocumentE(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0, ptr noundef %1) unnamed_addr #1 align 2 !prof !390 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %4 = load ptr, ptr %3, align 8, !tbaa !394
+  %5 = load ptr, ptr %4, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 5
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef nonnull align 8 dereferenceable(36) ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %1) #18
+  ret ptr %8
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault20getUnparsedEntityURIERKNS_14XalanDOMStringERKNS_13XalanDocumentE(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) unnamed_addr #1 align 2 !prof !390 {
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 2
+  %5 = load ptr, ptr %4, align 8, !tbaa !425
+  %6 = load ptr, ptr %5, align 8, !tbaa !391
+  %7 = getelementptr inbounds ptr, ptr %6, i64 3
+  %8 = load ptr, ptr %7, align 8
+  %9 = tail call noundef nonnull align 8 dereferenceable(36) ptr %8(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) #18
+  ret ptr %9
+}
+
+; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable
+define dso_local noundef zeroext i1 @_ZN11xalanc_1_1028XPathExecutionContextDefault21shouldStripSourceNodeERKNS_9XalanTextE(ptr nocapture nonnull readnone align 8 %0, ptr nocapture nonnull readnone align 8 %1) unnamed_addr #2 align 2 !prof !390 {
+  ret i1 false
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault17getSourceDocumentERKNS_14XalanDOMStringE(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1) unnamed_addr #1 align 2 !prof !390 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %4 = load ptr, ptr %3, align 8, !tbaa !394
+  %5 = load ptr, ptr %4, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 3
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull align 8 dereferenceable(36) %1) #18
+  ret ptr %8
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault17setSourceDocumentERKNS_14XalanDOMStringEPNS_13XalanDocumentE(ptr nocapture noundef nonnull readonly align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %2) unnamed_addr #1 align 2 !prof !390 {
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %5 = load ptr, ptr %4, align 8, !tbaa !394
+  %6 = load ptr, ptr %5, align 8, !tbaa !391
+  %7 = getelementptr inbounds ptr, ptr %6, i64 4
+  %8 = load ptr, ptr %7, align 8
+  tail call void %8(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull align 8 dereferenceable(36) %1, ptr noundef %2) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault12formatNumberEdRKNS_14XalanDOMStringERS1_PKNS_9XalanNodeEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(432) %0, double noundef %1, ptr noundef nonnull align 8 dereferenceable(36) %2, ptr noundef nonnull align 8 dereferenceable(36) %3, ptr noundef %4, ptr noundef %5) unnamed_addr #1 align 2 !prof !390 {
+  %7 = load ptr, ptr %0, align 8, !tbaa !391
+  %8 = getelementptr inbounds ptr, ptr %7, i64 39
+  %9 = load ptr, ptr %8, align 8
+  tail call void %9(ptr noundef nonnull align 8 dereferenceable(432) %0, double noundef %1, ptr noundef nonnull align 8 dereferenceable(36) %2, ptr noundef null, ptr noundef nonnull align 8 dereferenceable(36) %3, ptr noundef %4, ptr noundef %5) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault12formatNumberEdRKNS_14XalanDOMStringES3_RS1_PKNS_9XalanNodeEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(432) %0, double noundef %1, ptr noundef nonnull align 8 dereferenceable(36) %2, ptr nocapture nonnull readnone align 8 %3, ptr noundef nonnull align 8 dereferenceable(36) %4, ptr noundef %5, ptr noundef %6) unnamed_addr #1 align 2 !prof !390 {
+  %8 = load ptr, ptr %0, align 8, !tbaa !391
+  %9 = getelementptr inbounds ptr, ptr %8, i64 39
+  %10 = load ptr, ptr %9, align 8
+  tail call void %10(ptr noundef nonnull align 8 dereferenceable(432) %0, double noundef %1, ptr noundef nonnull align 8 dereferenceable(36) %2, ptr noundef null, ptr noundef nonnull align 8 dereferenceable(36) %4, ptr noundef %5, ptr noundef %6) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault14doFormatNumberEdRKNS_14XalanDOMStringEPKNS_25XalanDecimalFormatSymbolsERS1_PKNS_9XalanNodeEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(432) %0, double noundef %1, ptr nocapture nonnull readnone align 8 %2, ptr noundef %3, ptr noundef nonnull align 8 dereferenceable(36) %4, ptr noundef %5, ptr noundef %6) unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 !prof !390 {
+  %8 = alloca %"class.xalanc_1_10::XPathExecutionContext::GetAndReleaseCachedString", align 8
+  %9 = tail call noundef zeroext i1 @_ZN11xalanc_1_1013DoubleSupport5isNaNEd(double noundef %1) #18
+  br i1 %9, label %10, label %17
+
+10:                                               ; preds = %7
+  %11 = icmp eq ptr %3, null
+  br i1 %11, label %15, label %12
+
+12:                                               ; preds = %10
+  %13 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZNK11xalanc_1_1025XalanDecimalFormatSymbols6getNaNEv(ptr noundef nonnull align 8 dereferenceable(184) %3) #18
+  %14 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringaSERKS0_(ptr noundef nonnull align 8 dereferenceable(36) %4, ptr noundef nonnull align 8 dereferenceable(36) %13) #18
+  br label %49
+
+15:                                               ; preds = %10
+  %16 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1017DoubleToDOMStringEdRNS_14XalanDOMStringE(double noundef %1, ptr noundef nonnull align 8 dereferenceable(36) %4) #18
+  br label %49
+
+17:                                               ; preds = %7
+  %18 = tail call noundef zeroext i1 @_ZN11xalanc_1_1013DoubleSupport18isNegativeInfinityEd(double noundef %1) #18
+  br i1 %18, label %19, label %28
+
+19:                                               ; preds = %17
+  %20 = icmp eq ptr %3, null
+  br i1 %20, label %26, label %21
+
+21:                                               ; preds = %19
+  %22 = tail call noundef zeroext i16 @_ZNK11xalanc_1_1025XalanDecimalFormatSymbols12getMinusSignEv(ptr noundef nonnull align 8 dereferenceable(184) %3) #18
+  %23 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringaSEt(ptr noundef nonnull align 8 dereferenceable(36) %4, i16 noundef zeroext %22) #18
+  %24 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZNK11xalanc_1_1025XalanDecimalFormatSymbols11getInfinityEv(ptr noundef nonnull align 8 dereferenceable(184) %3) #18
+  %25 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringpLERKS0_(ptr noundef nonnull align 8 dereferenceable(36) %4, ptr noundef nonnull align 8 dereferenceable(36) %24) #18
+  br label %49
+
+26:                                               ; preds = %19
+  %27 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1017DoubleToDOMStringEdRNS_14XalanDOMStringE(double noundef %1, ptr noundef nonnull align 8 dereferenceable(36) %4) #18
+  br label %49
+
+28:                                               ; preds = %17
+  %29 = tail call noundef zeroext i1 @_ZN11xalanc_1_1013DoubleSupport18isPositiveInfinityEd(double noundef %1) #18
+  br i1 %29, label %30, label %37
+
+30:                                               ; preds = %28
+  %31 = icmp eq ptr %3, null
+  br i1 %31, label %35, label %32
+
+32:                                               ; preds = %30
+  %33 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZNK11xalanc_1_1025XalanDecimalFormatSymbols11getInfinityEv(ptr noundef nonnull align 8 dereferenceable(184) %3) #18
+  %34 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringaSERKS0_(ptr noundef nonnull align 8 dereferenceable(36) %4, ptr noundef nonnull align 8 dereferenceable(36) %33) #18
+  br label %49
+
+35:                                               ; preds = %30
+  %36 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1017DoubleToDOMStringEdRNS_14XalanDOMStringE(double noundef %1, ptr noundef nonnull align 8 dereferenceable(36) %4) #18
+  br label %49
+
+37:                                               ; preds = %28
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %8) #19
+  call void @_ZN11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedStringC2ERS0_(ptr noundef nonnull align 8 dereferenceable(16) %8, ptr noundef nonnull align 8 dereferenceable(24) %0) #18
+  %38 = call noundef nonnull align 8 dereferenceable(36) ptr @_ZNK11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedString3getEv(ptr noundef nonnull align 8 dereferenceable(16) %8) #18
+  %39 = invoke noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1018XalanMessageLoader10getMessageERNS_14XalanDOMStringENS_13XalanMessages5CodesEPKcS6_S6_S6_(ptr noundef nonnull align 8 dereferenceable(36) %38, i32 noundef 19, ptr noundef nonnull @.str, ptr noundef null, ptr noundef null, ptr noundef null) #18
+          to label %40 unwind label %47
+
+40:                                               ; preds = %37
+  %41 = load ptr, ptr %0, align 8, !tbaa !391
+  %42 = getelementptr inbounds ptr, ptr %41, i64 3
+  %43 = load ptr, ptr %42, align 8
+  invoke void %43(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(36) %39, ptr noundef %5, ptr noundef %6) #18
+          to label %44 unwind label %47
+
+44:                                               ; preds = %40
+  %45 = invoke noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1017DoubleToDOMStringEdRNS_14XalanDOMStringE(double noundef %1, ptr noundef nonnull align 8 dereferenceable(36) %4) #18
+          to label %46 unwind label %47
+
+46:                                               ; preds = %44
+  call void @_ZN11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedStringD2Ev(ptr noundef nonnull align 8 dereferenceable(16) %8) #16
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %8) #19
+  br label %49
+
+47:                                               ; preds = %44, %40, %37
+  %48 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedStringD2Ev(ptr noundef nonnull align 8 dereferenceable(16) %8) #16
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %8) #19
+  resume { ptr, i32 } %48
+
+49:                                               ; preds = %26, %21, %32, %35, %46, %12, %15
+  ret void
+}
+
+; Function Attrs: noinline optsize uwtable
+define internal fastcc void @__cxx_global_var_init() unnamed_addr #5 section ".text.startup" {
+  %1 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1012XalanMemMgrs14getDummyMemMgrEv() #18
+  tail call void @_ZN11xalanc_1_1011NodeRefListC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(40) @_ZN11xalanc_1_1028XPathExecutionContextDefault11s_dummyListE, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  %2 = tail call i32 @__cxa_atexit(ptr nonnull @_ZN11xalanc_1_1011NodeRefListD1Ev, ptr nonnull @_ZN11xalanc_1_1028XPathExecutionContextDefault11s_dummyListE, ptr nonnull @__dso_handle) #19
+  ret void
+}
+
+; Function Attrs: optsize
+declare noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1012XalanMemMgrs14getDummyMemMgrEv() local_unnamed_addr #6
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1011NodeRefListC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(40), ptr noundef nonnull align 8 dereferenceable(8)) unnamed_addr #6
+
+; Function Attrs: nounwind optsize
+declare void @_ZN11xalanc_1_1011NodeRefListD1Ev(ptr noundef nonnull align 8 dereferenceable(40)) unnamed_addr #7
+
+; Function Attrs: nofree nounwind
+declare i32 @__cxa_atexit(ptr, ptr, ptr) local_unnamed_addr #8
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERNS_15XPathEnvSupportERNS_10DOMSupportERNS_14XObjectFactoryEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull align 8 dereferenceable(16) %3, ptr noundef %4, ptr noundef %5, ptr noundef %6) unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 !prof !390 {
+  %8 = alloca ptr, align 8
+  %9 = alloca ptr, align 8
+  store ptr %4, ptr %8, align 8, !tbaa !427
+  %10 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1014XObjectFactory16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %3) #18
+  tail call void @_ZN11xalanc_1_1021XPathExecutionContextC2ERN11xercesc_2_713MemoryManagerEPNS_14XObjectFactoryE(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull align 8 dereferenceable(8) %10, ptr noundef nonnull %3) #18
+  store ptr getelementptr inbounds ({ [42 x ptr] }, ptr @_ZTVN11xalanc_1_1028XPathExecutionContextDefaultE, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !391
+  %11 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  store ptr %1, ptr %11, align 8, !tbaa !394
+  %12 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 2
+  store ptr %2, ptr %12, align 8, !tbaa !425
+  %13 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 3
+  %14 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1014XObjectFactory16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %3) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %13, ptr noundef nonnull align 8 dereferenceable(8) %14, i64 noundef 0) #18
+          to label %15 unwind label %37
+
+15:                                               ; preds = %7
+  %16 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 4
+  %17 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1014XObjectFactory16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %3) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %16, ptr noundef nonnull align 8 dereferenceable(8) %17, i64 noundef 0) #18
+          to label %18 unwind label %39
+
+18:                                               ; preds = %15
+  %19 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  store ptr %6, ptr %19, align 8, !tbaa !422
+  %20 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 6
+  %21 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1014XObjectFactory16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %3) #18
+  invoke void @_ZN11xalanc_1_1014XalanDOMStringC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(36) %20, ptr noundef nonnull align 8 dereferenceable(8) %21) #18
+          to label %22 unwind label %41
+
+22:                                               ; preds = %18
+  %23 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 7
+  %24 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1014XObjectFactory16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %3) #18
+  invoke void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEEC2ERN11xercesc_2_713MemoryManagerEj(ptr noundef nonnull align 8 dereferenceable(56) %23, ptr noundef nonnull align 8 dereferenceable(8) %24, i32 noundef 50) #18
+          to label %25 unwind label %43
+
+25:                                               ; preds = %22
+  %26 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 8
+  %27 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1014XObjectFactory16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %3) #18
+  invoke void @_ZN11xalanc_1_1019XalanDOMStringCacheC1ERN11xercesc_2_713MemoryManagerEj(ptr noundef nonnull align 8 dereferenceable(120) %26, ptr noundef nonnull align 8 dereferenceable(8) %27, i32 noundef 100) #18
+          to label %28 unwind label %45
+
+28:                                               ; preds = %25
+  %29 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 9
+  tail call void @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCacheC2Ev(ptr noundef nonnull align 8 dereferenceable(12) %29) #18
+  %30 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 10
+  %31 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1014XObjectFactory16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %3) #18
+  invoke void @_ZN11xalanc_1_1017XalanQNameByValueC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(88) %30, ptr noundef nonnull align 8 dereferenceable(8) %31) #18
+          to label %32 unwind label %47
+
+32:                                               ; preds = %28
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %13, ptr noundef nonnull align 8 dereferenceable(8) %8) #18
+          to label %33 unwind label %49
+
+33:                                               ; preds = %32
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %9) #19
+  %34 = icmp eq ptr %5, null
+  %35 = select i1 %34, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault11s_dummyListE, ptr %5
+  store ptr %35, ptr %9, align 8, !tbaa !427
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %16, ptr noundef nonnull align 8 dereferenceable(8) %9) #18
+          to label %36 unwind label %51
+
+36:                                               ; preds = %33
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #19
+  ret void
+
+37:                                               ; preds = %7
+  %38 = landingpad { ptr, i32 }
+          cleanup
+  br label %65
+
+39:                                               ; preds = %15
+  %40 = landingpad { ptr, i32 }
+          cleanup
+  br label %63
+
+41:                                               ; preds = %18
+  %42 = landingpad { ptr, i32 }
+          cleanup
+  br label %61
+
+43:                                               ; preds = %22
+  %44 = landingpad { ptr, i32 }
+          cleanup
+  br label %59
+
+45:                                               ; preds = %25
+  %46 = landingpad { ptr, i32 }
+          cleanup
+  br label %57
+
+47:                                               ; preds = %28
+  %48 = landingpad { ptr, i32 }
+          cleanup
+  br label %55
+
+49:                                               ; preds = %32
+  %50 = landingpad { ptr, i32 }
+          cleanup
+  br label %53
+
+51:                                               ; preds = %33
+  %52 = landingpad { ptr, i32 }
+          cleanup
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %9) #19
+  br label %53
+
+53:                                               ; preds = %51, %49
+  %54 = phi { ptr, i32 } [ %52, %51 ], [ %50, %49 ]
+  call void @_ZN11xalanc_1_1017XalanQNameByValueD1Ev(ptr noundef nonnull align 8 dereferenceable(88) %30) #16
+  br label %55
+
+55:                                               ; preds = %53, %47
+  %56 = phi { ptr, i32 } [ %54, %53 ], [ %48, %47 ]
+  call void @_ZN11xalanc_1_1019XalanDOMStringCacheD1Ev(ptr noundef nonnull align 8 dereferenceable(120) %26) #16
+  br label %57
+
+57:                                               ; preds = %55, %45
+  %58 = phi { ptr, i32 } [ %56, %55 ], [ %46, %45 ]
+  call void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(56) %23) #16
+  br label %59
+
+59:                                               ; preds = %57, %43
+  %60 = phi { ptr, i32 } [ %58, %57 ], [ %44, %43 ]
+  call void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %20) #16
+  br label %61
+
+61:                                               ; preds = %59, %41
+  %62 = phi { ptr, i32 } [ %60, %59 ], [ %42, %41 ]
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %16) #16
+  br label %63
+
+63:                                               ; preds = %61, %39
+  %64 = phi { ptr, i32 } [ %62, %61 ], [ %40, %39 ]
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %13) #16
+  br label %65
+
+65:                                               ; preds = %63, %37
+  %66 = phi { ptr, i32 } [ %64, %63 ], [ %38, %37 ]
+  call void @_ZN11xalanc_1_1021XPathExecutionContextD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) #16
+  resume { ptr, i32 } %66
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1014XObjectFactory16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XObjectFactory", ptr %0, i64 0, i32 1
+  %3 = load ptr, ptr %2, align 8, !tbaa !440
+  ret ptr %3
+}
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1021XPathExecutionContextC2ERN11xercesc_2_713MemoryManagerEPNS_14XObjectFactoryE(ptr noundef nonnull align 8 dereferenceable(24), ptr noundef nonnull align 8 dereferenceable(8), ptr noundef) unnamed_addr #6
+
+declare i32 @__gxx_personality_v0(...)
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, i64 noundef %2) unnamed_addr #1 comdat align 2 !prof !442 {
+  store ptr %1, ptr %0, align 8, !tbaa !443
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  store i64 0, ptr %4, align 8, !tbaa !444
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 2
+  store i64 %2, ptr %5, align 8, !tbaa !445
+  %6 = icmp eq i64 %2, 0
+  br i1 %6, label %9, label %7, !prof !446
+
+7:                                                ; preds = %3
+  %8 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %2) #18
+  br label %9
+
+9:                                                ; preds = %3, %7
+  %10 = phi ptr [ %8, %7 ], [ null, %3 ]
+  %11 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  store ptr %10, ptr %11, align 8, !tbaa !447
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, i64 noundef %2) unnamed_addr #1 comdat align 2 !prof !448 {
+  store ptr %1, ptr %0, align 8, !tbaa !449
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  store i64 0, ptr %4, align 8, !tbaa !450
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 2
+  store i64 %2, ptr %5, align 8, !tbaa !451
+  %6 = icmp eq i64 %2, 0
+  br i1 %6, label %9, label %7, !prof !452
+
+7:                                                ; preds = %3
+  %8 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %2) #18
+  br label %9
+
+9:                                                ; preds = %3, %7
+  %10 = phi ptr [ %8, %7 ], [ null, %3 ]
+  %11 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  store ptr %10, ptr %11, align 8, !tbaa !453
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1014XalanDOMStringC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(36), ptr noundef nonnull align 8 dereferenceable(8)) unnamed_addr #6
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEEC2ERN11xercesc_2_713MemoryManagerEj(ptr noundef nonnull align 8 dereferenceable(56) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, i32 noundef %2) unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !454 {
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanObjectCache", ptr %0, i64 0, i32 1
+  tail call void @_ZN11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEC2ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanObjectCache", ptr %0, i64 0, i32 3
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %1, i64 noundef 0) #18
+  %6 = zext i32 %2 to i64
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7reserveEm(ptr noundef nonnull align 8 dereferenceable(32) %5, i64 noundef %6) #18
+          to label %7 unwind label %8
+
+7:                                                ; preds = %3
+  ret void
+
+8:                                                ; preds = %3
+  %9 = landingpad { ptr, i32 }
+          cleanup
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  resume { ptr, i32 } %9
+}
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1019XalanDOMStringCacheC1ERN11xercesc_2_713MemoryManagerEj(ptr noundef nonnull align 8 dereferenceable(120), ptr noundef nonnull align 8 dereferenceable(8), i32 noundef) unnamed_addr #6
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCacheC2Ev(ptr noundef nonnull align 8 dereferenceable(12) %0) unnamed_addr #0 comdat align 2 !prof !454 {
+  store ptr null, ptr %0, align 8, !tbaa !455
+  %2 = getelementptr inbounds %"struct.xalanc_1_10::XPathExecutionContextDefault::ContextNodeListPositionCache", ptr %0, i64 0, i32 1
+  store i32 0, ptr %2, align 8, !tbaa !456
+  ret void
+}
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1017XalanQNameByValueC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(88), ptr noundef nonnull align 8 dereferenceable(8)) unnamed_addr #6
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) local_unnamed_addr #1 comdat align 2 !prof !457 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) local_unnamed_addr #1 comdat align 2 !prof !458 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #9
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #9
+
+; Function Attrs: nounwind optsize
+declare void @_ZN11xalanc_1_1017XalanQNameByValueD1Ev(ptr noundef nonnull align 8 dereferenceable(88)) unnamed_addr #7
+
+; Function Attrs: nounwind optsize
+declare void @_ZN11xalanc_1_1019XalanDOMStringCacheD1Ev(ptr noundef nonnull align 8 dereferenceable(120)) unnamed_addr #7
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(56) %0) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 !prof !454 {
+  tail call void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE5resetEv(ptr noundef nonnull align 8 dereferenceable(56) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanObjectCache", ptr %0, i64 0, i32 3
+  %3 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+  %4 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+          to label %5 unwind label %10
+
+5:                                                ; preds = %1
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanObjectCache", ptr %0, i64 0, i32 1
+  %7 = load ptr, ptr %6, align 8
+  %8 = invoke ptr @_ZSt8for_eachIPPN11xalanc_1_1018MutableNodeRefListENS0_13DeleteFunctorIS1_EEET0_T_S7_S6_(ptr noundef %3, ptr noundef %4, ptr %7) #18
+          to label %9 unwind label %10
+
+9:                                                ; preds = %5
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %2) #16
+  ret void
+
+10:                                               ; preds = %5, %1
+  %11 = landingpad { ptr, i32 }
+          catch ptr null
+  %12 = extractvalue { ptr, i32 } %11, 0
+  tail call void @__clang_call_terminate(ptr %12) #21
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %0) unnamed_addr #0 comdat align 2 !prof !459 {
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) #16
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 !prof !460 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 2
+  %3 = load i64, ptr %2, align 8, !tbaa !451
+  %4 = icmp eq i64 %3, 0
+  br i1 %4, label %11, label %5, !prof !461
+
+5:                                                ; preds = %1
+  %6 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %7 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyEPS3_S7_(ptr noundef %6, ptr noundef %7) #18
+          to label %8 unwind label %12
+
+8:                                                ; preds = %5
+  %9 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  %10 = load ptr, ptr %9, align 8, !tbaa !453
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10deallocateEPS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %10) #18
+          to label %11 unwind label %12
+
+11:                                               ; preds = %8, %1
+  ret void
+
+12:                                               ; preds = %8, %5
+  %13 = landingpad { ptr, i32 }
+          catch ptr null
+  %14 = extractvalue { ptr, i32 } %13, 0
+  tail call void @__clang_call_terminate(ptr %14) #21
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 !prof !462 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 2
+  %3 = load i64, ptr %2, align 8, !tbaa !445
+  %4 = icmp eq i64 %3, 0
+  br i1 %4, label %11, label %5, !prof !463
+
+5:                                                ; preds = %1
+  %6 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %7 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_(ptr noundef %6, ptr noundef %7) #18
+          to label %8 unwind label %12
+
+8:                                                ; preds = %5
+  %9 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  %10 = load ptr, ptr %9, align 8, !tbaa !447
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10deallocateEPS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %10) #18
+          to label %11 unwind label %12
+
+11:                                               ; preds = %8, %1
+  ret void
+
+12:                                               ; preds = %8, %5
+  %13 = landingpad { ptr, i32 }
+          catch ptr null
+  %14 = extractvalue { ptr, i32 } %13, 0
+  tail call void @__clang_call_terminate(ptr %14) #21
+  unreachable
+}
+
+; Function Attrs: nounwind optsize
+declare void @_ZN11xalanc_1_1021XPathExecutionContextD2Ev(ptr noundef nonnull align 8 dereferenceable(24)) unnamed_addr #7
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !464 {
+  %3 = shl i64 %1, 3
+  %4 = load ptr, ptr %0, align 8, !tbaa !443
+  %5 = load ptr, ptr %4, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 2
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef %3) #18
+  ret ptr %8
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !465 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !448 {
+  %3 = shl i64 %1, 3
+  %4 = load ptr, ptr %0, align 8, !tbaa !449
+  %5 = load ptr, ptr %4, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 2
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef %3) #18
+  ret ptr %8
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !466 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEC2ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) unnamed_addr #0 comdat align 2 !prof !467 {
+  store ptr %1, ptr %0, align 8, !tbaa !427
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, i64 noundef %2) unnamed_addr #1 comdat align 2 !prof !468 {
+  store ptr %1, ptr %0, align 8, !tbaa !469
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  store i64 0, ptr %4, align 8, !tbaa !470
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 2
+  store i64 %2, ptr %5, align 8, !tbaa !471
+  %6 = icmp eq i64 %2, 0
+  br i1 %6, label %9, label %7, !prof !472
+
+7:                                                ; preds = %3
+  %8 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %2) #18
+  br label %9
+
+9:                                                ; preds = %3, %7
+  %10 = phi ptr [ %8, %7 ], [ null, %3 ]
+  %11 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  store ptr %10, ptr %11, align 8, !tbaa !473
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7reserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !467 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 2
+  %4 = load i64, ptr %3, align 8, !tbaa !471
+  %5 = icmp ult i64 %4, %1
+  br i1 %5, label %6, label %7, !prof !474
+
+6:                                                ; preds = %2
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) #18
+  br label %7
+
+7:                                                ; preds = %6, %2
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 !prof !475 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 2
+  %3 = load i64, ptr %2, align 8, !tbaa !471
+  %4 = icmp eq i64 %3, 0
+  br i1 %4, label %12, label %5, !prof !476
+
+5:                                                ; preds = %1
+  %6 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %7 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+          to label %8 unwind label %13
+
+8:                                                ; preds = %5
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_(ptr noundef %6, ptr noundef %7) #18
+          to label %9 unwind label %13
+
+9:                                                ; preds = %8
+  %10 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  %11 = load ptr, ptr %10, align 8, !tbaa !473
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10deallocateEPS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %11) #18
+          to label %12 unwind label %13
+
+12:                                               ; preds = %9, %1
+  ret void
+
+13:                                               ; preds = %9, %8, %5
+  %14 = landingpad { ptr, i32 }
+          catch ptr null
+  %15 = extractvalue { ptr, i32 } %14, 0
+  tail call void @__clang_call_terminate(ptr %15) #21
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !468 {
+  %3 = shl i64 %1, 3
+  %4 = load ptr, ptr %0, align 8, !tbaa !469
+  %5 = load ptr, ptr %4, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 2
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef %3) #18
+  ret ptr %8
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !477 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !454 {
+  %3 = alloca %"class.xalanc_1_10::XalanVector.2", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #19
+  %4 = load ptr, ptr %0, align 8, !tbaa !469
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef %1) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef %3) unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !468 {
+  %5 = alloca %"class.xalanc_1_10::XalanVector.2", align 8
+  store ptr %2, ptr %0, align 8, !tbaa !469
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  %7 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 2
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  %9 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %1, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %6, i8 0, i64 24, i1 false)
+  %10 = load i64, ptr %9, align 8, !tbaa !470
+  %11 = icmp eq i64 %10, 0
+  br i1 %11, label %21, label %12, !prof !478
+
+12:                                               ; preds = %4
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #19
+  %13 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9local_maxEmm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %10, i64 noundef %3) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef %13) #18
+  %14 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  %15 = call noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+  %16 = invoke noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+          to label %17 unwind label %19
+
+17:                                               ; preds = %12
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %14, ptr noundef %15, ptr noundef %16) #18
+          to label %18 unwind label %19
+
+18:                                               ; preds = %17
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  br label %25
+
+19:                                               ; preds = %17, %12
+  %20 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  resume { ptr, i32 } %20
+
+21:                                               ; preds = %4
+  %22 = icmp eq i64 %3, 0
+  br i1 %22, label %25, label %23, !prof !479
+
+23:                                               ; preds = %21
+  %24 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %3) #18
+  store ptr %24, ptr %8, align 8, !tbaa !473
+  store i64 %3, ptr %7, align 8, !tbaa !471
+  br label %25
+
+25:                                               ; preds = %21, %23, %18
+  call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1) local_unnamed_addr #0 comdat align 2 !prof !460 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %3 = load ptr, ptr %0, align 8, !tbaa !469
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !473
+  %7 = load ptr, ptr %1, align 8, !tbaa !469
+  store ptr %7, ptr %0, align 8, !tbaa !469
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %1, i64 0, i32 1
+  %9 = load <2 x i64>, ptr %8, align 8, !tbaa !480
+  %10 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %1, i64 0, i32 3
+  %11 = load ptr, ptr %10, align 8, !tbaa !473
+  store ptr %11, ptr %5, align 8, !tbaa !473
+  store ptr %3, ptr %1, align 8, !tbaa !469
+  %12 = load <2 x i64>, ptr %4, align 8, !tbaa !480
+  store <2 x i64> %9, ptr %4, align 8, !tbaa !480
+  store <2 x i64> %12, ptr %8, align 8, !tbaa !480
+  store ptr %6, ptr %10, align 8, !tbaa !473
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9local_maxEmm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  %4 = tail call i64 @llvm.umax.i64(i64 %1, i64 %2)
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !481 {
+  %5 = alloca %"class.xalanc_1_10::XalanVector.2", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %6 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %2, ptr noundef %3) #18
+  %7 = icmp eq i64 %6, 0
+  br i1 %7, label %80, label %8, !prof !482
+
+8:                                                ; preds = %4
+  %9 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %10 = add i64 %9, %6
+  %11 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %12 = icmp eq ptr %11, %1
+  br i1 %12, label %13, label %28, !prof !483
+
+13:                                               ; preds = %8
+  %14 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %10) #18
+  %15 = icmp eq ptr %2, %3
+  br i1 %15, label %79, label %16, !prof !484
+
+16:                                               ; preds = %13
+  %17 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  br label %18
+
+18:                                               ; preds = %16, %18
+  %19 = phi ptr [ %2, %16 ], [ %26, %18 ]
+  %20 = phi ptr [ %14, %16 ], [ %23, %18 ]
+  %21 = load ptr, ptr %0, align 8, !tbaa !469
+  %22 = tail call noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_18MutableNodeRefListEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE(ptr noundef %20, ptr noundef nonnull align 8 dereferenceable(8) %19, ptr noundef nonnull align 8 dereferenceable(8) %21) #18
+  %23 = getelementptr inbounds ptr, ptr %20, i64 1
+  %24 = load i64, ptr %17, align 8, !tbaa !470
+  %25 = add i64 %24, 1
+  store i64 %25, ptr %17, align 8, !tbaa !470
+  %26 = getelementptr inbounds ptr, ptr %19, i64 1
+  %27 = icmp eq ptr %26, %3
+  br i1 %27, label %79, label %18, !prof !485, !llvm.loop !486
+
+28:                                               ; preds = %8
+  %29 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %30 = icmp ugt i64 %10, %29
+  br i1 %30, label %31, label %47
+
+31:                                               ; preds = %28
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #19
+  %32 = load ptr, ptr %0, align 8, !tbaa !469
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %32, i64 noundef %10) #18
+  %33 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+          to label %34 unwind label %45
+
+34:                                               ; preds = %31
+  %35 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %33, ptr noundef %35, ptr noundef %1) #18
+          to label %36 unwind label %45
+
+36:                                               ; preds = %34
+  %37 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+          to label %38 unwind label %45
+
+38:                                               ; preds = %36
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %37, ptr noundef %2, ptr noundef %3) #18
+          to label %39 unwind label %45
+
+39:                                               ; preds = %38
+  %40 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+          to label %41 unwind label %45
+
+41:                                               ; preds = %39
+  %42 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+          to label %43 unwind label %45
+
+43:                                               ; preds = %41
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %40, ptr noundef %1, ptr noundef %42) #18
+          to label %44 unwind label %45
+
+44:                                               ; preds = %43
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  br label %79
+
+45:                                               ; preds = %43, %41, %39, %38, %36, %34, %31
+  %46 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  resume { ptr, i32 } %46
+
+47:                                               ; preds = %28
+  %48 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %49 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %48) #18
+  %50 = icmp ugt i64 %49, %6
+  br i1 %50, label %66, label %51
+
+51:                                               ; preds = %47
+  %52 = getelementptr inbounds ptr, ptr %2, i64 %49
+  %53 = icmp eq ptr %52, %3
+  br i1 %53, label %54, label %56
+
+54:                                               ; preds = %56, %51
+  %55 = icmp eq ptr %48, %1
+  br i1 %55, label %64, label %60
+
+56:                                               ; preds = %51, %56
+  %57 = phi ptr [ %58, %56 ], [ %52, %51 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %57) #18
+  %58 = getelementptr inbounds ptr, ptr %57, i64 1
+  %59 = icmp eq ptr %58, %3
+  br i1 %59, label %54, label %56, !llvm.loop !488
+
+60:                                               ; preds = %54, %60
+  %61 = phi ptr [ %62, %60 ], [ %1, %54 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %61) #18
+  %62 = getelementptr inbounds ptr, ptr %61, i64 1
+  %63 = icmp eq ptr %62, %48
+  br i1 %63, label %64, label %60, !llvm.loop !489
+
+64:                                               ; preds = %60, %54
+  %65 = tail call noundef ptr @_ZSt4copyIPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET0_T_S7_S6_(ptr noundef %2, ptr noundef %52, ptr noundef %1) #18
+  br label %79
+
+66:                                               ; preds = %47
+  %67 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %68 = sub i64 0, %6
+  %69 = getelementptr inbounds ptr, ptr %67, i64 %68
+  %70 = icmp eq ptr %69, %48
+  br i1 %70, label %75, label %71
+
+71:                                               ; preds = %66, %71
+  %72 = phi ptr [ %73, %71 ], [ %69, %66 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %72) #18
+  %73 = getelementptr inbounds ptr, ptr %72, i64 1
+  %74 = icmp eq ptr %73, %48
+  br i1 %74, label %75, label %71, !llvm.loop !490
+
+75:                                               ; preds = %71, %66
+  %76 = getelementptr inbounds ptr, ptr %48, i64 %68
+  %77 = tail call noundef ptr @_ZSt13copy_backwardIPPN11xalanc_1_1018MutableNodeRefListES3_ET0_T_S5_S4_(ptr noundef %1, ptr noundef nonnull %76, ptr noundef %48) #18
+  %78 = tail call noundef ptr @_ZSt4copyIPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET0_T_S7_S6_(ptr noundef %2, ptr noundef %3, ptr noundef %1) #18
+  br label %79
+
+79:                                               ; preds = %18, %13, %64, %75, %44
+  call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  br label %80
+
+80:                                               ; preds = %4, %79
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !491 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !473
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !473
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 comdat align 2 !prof !481 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = tail call noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat align 2 !prof !481 {
+  %4 = tail call noundef i64 @_ZSt8distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_(ptr noundef %1, ptr noundef %2) #18
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !492 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !470
+  ret i64 %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 comdat align 2 !prof !493 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !481 {
+  %3 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %4 = icmp ult i64 %3, %1
+  br i1 %4, label %5, label %6, !prof !482
+
+5:                                                ; preds = %2
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) #18
+  br label %6
+
+6:                                                ; preds = %5, %2
+  %7 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %7
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_18MutableNodeRefListEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE(ptr noundef %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) local_unnamed_addr #0 comdat align 2 !prof !494 {
+  %4 = load ptr, ptr %1, align 8, !tbaa !427
+  store ptr %4, ptr %0, align 8, !tbaa !427
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 2
+  %3 = load i64, ptr %2, align 8, !tbaa !471
+  ret i64 %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !495 {
+  %3 = alloca %"class.xalanc_1_10::XalanVector.2", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !470
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 2
+  %7 = load i64, ptr %6, align 8, !tbaa !471
+  %8 = icmp ult i64 %5, %7
+  br i1 %8, label %9, label %15, !prof !496
+
+9:                                                ; preds = %2
+  %10 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %11 = load ptr, ptr %0, align 8, !tbaa !469
+  %12 = tail call noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_18MutableNodeRefListEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE(ptr noundef %10, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %11) #18
+  %13 = load i64, ptr %4, align 8, !tbaa !470
+  %14 = add i64 %13, 1
+  store i64 %14, ptr %4, align 8, !tbaa !470
+  br label %25
+
+15:                                               ; preds = %2
+  %16 = icmp eq i64 %5, 0
+  %17 = uitofp i64 %5 to double
+  %18 = tail call double @llvm.fmuladd.f64(double %17, double 1.600000e+00, double 5.000000e-01)
+  %19 = fptoui double %18 to i64
+  %20 = select i1 %16, i64 1, i64 %19, !prof !497
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #19
+  %21 = load ptr, ptr %0, align 8, !tbaa !469
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %21, i64 noundef %20) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+          to label %22 unwind label %23
+
+22:                                               ; preds = %15
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  br label %25
+
+23:                                               ; preds = %15
+  %24 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  resume { ptr, i32 } %24
+
+25:                                               ; preds = %22, %9
+  call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt4copyIPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET0_T_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt12__miter_baseIPKPN11xalanc_1_1018MutableNodeRefListEET_S5_(ptr noundef %0) #18
+  %5 = tail call noundef ptr @_ZSt12__miter_baseIPKPN11xalanc_1_1018MutableNodeRefListEET_S5_(ptr noundef %1) #18
+  %6 = tail call noundef ptr @_ZSt13__copy_move_aILb0EPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET1_T0_S7_S6_(ptr noundef %4, ptr noundef %5, ptr noundef %2) #18
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt13copy_backwardIPPN11xalanc_1_1018MutableNodeRefListES3_ET0_T_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt12__miter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_(ptr noundef %0) #18
+  %5 = tail call noundef ptr @_ZSt12__miter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_(ptr noundef %1) #18
+  %6 = tail call noundef ptr @_ZSt22__copy_move_backward_aILb0EPPN11xalanc_1_1018MutableNodeRefListES3_ET1_T0_S5_S4_(ptr noundef %4, ptr noundef %5, ptr noundef %2) #18
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZSt8distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 comdat !prof !481 {
+  %3 = alloca ptr, align 8
+  store ptr %0, ptr %3, align 8, !tbaa !427
+  call void @_ZSt19__iterator_categoryIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E17iterator_categoryERKS6_(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+  %4 = call noundef i64 @_ZSt10__distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_St26random_access_iterator_tag(ptr noundef %0, ptr noundef %1) #18
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZSt10__distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_St26random_access_iterator_tag(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 comdat !prof !481 {
+  %3 = ptrtoint ptr %1 to i64
+  %4 = ptrtoint ptr %0 to i64
+  %5 = sub i64 %3, %4
+  %6 = ashr exact i64 %5, 3
+  ret i64 %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZSt19__iterator_categoryIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E17iterator_categoryERKS6_(ptr noundef nonnull align 8 dereferenceable(8) %0) local_unnamed_addr #0 comdat !prof !481 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !498 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !473
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !470
+  %6 = getelementptr inbounds ptr, ptr %3, i64 %5
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare double @llvm.fmuladd.f64(double, double, double) #10
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt13__copy_move_aILb0EPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET1_T0_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = alloca ptr, align 8
+  store ptr %2, ptr %4, align 8, !tbaa !427
+  %5 = tail call noundef ptr @_ZSt12__niter_baseIPKPN11xalanc_1_1018MutableNodeRefListEET_S5_(ptr noundef %0) #16
+  %6 = tail call noundef ptr @_ZSt12__niter_baseIPKPN11xalanc_1_1018MutableNodeRefListEET_S5_(ptr noundef %1) #16
+  %7 = tail call noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_(ptr noundef %2) #16
+  %8 = tail call noundef ptr @_ZSt14__copy_move_a1ILb0EPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET1_T0_S7_S6_(ptr noundef %5, ptr noundef %6, ptr noundef %7) #18
+  %9 = call noundef ptr @_ZSt12__niter_wrapIPPN11xalanc_1_1018MutableNodeRefListEET_RKS4_S4_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %8) #18
+  ret ptr %9
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__miter_baseIPKPN11xalanc_1_1018MutableNodeRefListEET_S5_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_wrapIPPN11xalanc_1_1018MutableNodeRefListEET_RKS4_S4_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %1) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %1
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt14__copy_move_a1ILb0EPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET1_T0_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt14__copy_move_a2ILb0EPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET1_T0_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_baseIPKPN11xalanc_1_1018MutableNodeRefListEET_S5_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt14__copy_move_a2ILb0EPKPN11xalanc_1_1018MutableNodeRefListEPS2_ET1_T0_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIPN11xalanc_1_1018MutableNodeRefListEEEPT_PKS6_S9_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIPN11xalanc_1_1018MutableNodeRefListEEEPT_PKS6_S9_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %4 = ptrtoint ptr %1 to i64
+  %5 = ptrtoint ptr %0 to i64
+  %6 = sub i64 %4, %5
+  %7 = icmp eq ptr %1, %0
+  br i1 %7, label %9, label %8
+
+8:                                                ; preds = %3
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %2, ptr align 8 %0, i64 %6, i1 false)
+  br label %9
+
+9:                                                ; preds = %8, %3
+  %10 = getelementptr inbounds i8, ptr %2, i64 %6
+  ret ptr %10
+}
+
+; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memmove.p0.p0.i64(ptr nocapture writeonly, ptr nocapture readonly, i64, i1 immarg) #11
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt22__copy_move_backward_aILb0EPPN11xalanc_1_1018MutableNodeRefListES3_ET1_T0_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = alloca ptr, align 8
+  store ptr %2, ptr %4, align 8, !tbaa !427
+  %5 = tail call noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_(ptr noundef %0) #16
+  %6 = tail call noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_(ptr noundef %1) #16
+  %7 = tail call noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_(ptr noundef %2) #16
+  %8 = tail call noundef ptr @_ZSt23__copy_move_backward_a1ILb0EPPN11xalanc_1_1018MutableNodeRefListES3_ET1_T0_S5_S4_(ptr noundef %5, ptr noundef %6, ptr noundef %7) #18
+  %9 = call noundef ptr @_ZSt12__niter_wrapIPPN11xalanc_1_1018MutableNodeRefListEET_RKS4_S4_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %8) #18
+  ret ptr %9
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__miter_baseIPPN11xalanc_1_1018MutableNodeRefListEET_S4_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt23__copy_move_backward_a1ILb0EPPN11xalanc_1_1018MutableNodeRefListES3_ET1_T0_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt23__copy_move_backward_a2ILb0EPPN11xalanc_1_1018MutableNodeRefListES3_ET1_T0_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt23__copy_move_backward_a2ILb0EPPN11xalanc_1_1018MutableNodeRefListES3_ET1_T0_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bIPN11xalanc_1_1018MutableNodeRefListEEEPT_PKS6_S9_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bIPN11xalanc_1_1018MutableNodeRefListEEEPT_PKS6_S9_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %4 = ptrtoint ptr %1 to i64
+  %5 = ptrtoint ptr %0 to i64
+  %6 = sub i64 %4, %5
+  %7 = ashr exact i64 %6, 3
+  %8 = icmp eq ptr %1, %0
+  %9 = sub nsw i64 0, %7
+  br i1 %8, label %12, label %10
+
+10:                                               ; preds = %3
+  %11 = getelementptr inbounds ptr, ptr %2, i64 %9
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %11, ptr align 8 %0, i64 %6, i1 false)
+  br label %12
+
+12:                                               ; preds = %3, %10
+  %13 = getelementptr inbounds ptr, ptr %2, i64 %9
+  ret ptr %13
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !473
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !470
+  %6 = getelementptr inbounds ptr, ptr %3, i64 %5
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !468 {
+  %3 = icmp eq ptr %0, %1
+  br i1 %3, label %8, label %4, !prof !499
+
+4:                                                ; preds = %2, %4
+  %5 = phi ptr [ %6, %4 ], [ %0, %2 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_(ptr noundef nonnull align 8 dereferenceable(8) %5) #18
+  %6 = getelementptr inbounds ptr, ptr %5, i64 1
+  %7 = icmp eq ptr %6, %1
+  br i1 %7, label %8, label %4, !prof !500, !llvm.loop !501
+
+8:                                                ; preds = %4, %2
+  ret void
+}
+
+; Function Attrs: noinline noreturn nounwind optsize uwtable
+define linkonce_odr hidden void @__clang_call_terminate(ptr noundef %0) local_unnamed_addr #12 comdat {
+  %2 = tail call ptr @__cxa_begin_catch(ptr %0) #19
+  tail call void @_ZSt9terminatev() #21
+  unreachable
+}
+
+declare ptr @__cxa_begin_catch(ptr) local_unnamed_addr
+
+declare void @_ZSt9terminatev() local_unnamed_addr
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10deallocateEPS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !468 {
+  %3 = load ptr, ptr %0, align 8, !tbaa !469
+  %4 = load ptr, ptr %3, align 8, !tbaa !391
+  %5 = getelementptr inbounds ptr, ptr %4, i64 3
+  %6 = load ptr, ptr %5, align 8
+  tail call void %6(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %1) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_(ptr noundef nonnull align 8 dereferenceable(8) %0) local_unnamed_addr #0 comdat align 2 !prof !494 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !502 {
+  %3 = alloca %"class.xalanc_1_10::XalanVector", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !444
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 2
+  %7 = load i64, ptr %6, align 8, !tbaa !445
+  %8 = icmp ult i64 %5, %7
+  br i1 %8, label %9, label %15, !prof !503
+
+9:                                                ; preds = %2
+  %10 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %11 = load ptr, ptr %0, align 8, !tbaa !443
+  %12 = tail call noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_9XalanNodeEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE(ptr noundef %10, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %11) #18
+  %13 = load i64, ptr %4, align 8, !tbaa !444
+  %14 = add i64 %13, 1
+  store i64 %14, ptr %4, align 8, !tbaa !444
+  br label %25
+
+15:                                               ; preds = %2
+  %16 = icmp eq i64 %5, 0
+  %17 = uitofp i64 %5 to double
+  %18 = tail call double @llvm.fmuladd.f64(double %17, double 1.600000e+00, double 5.000000e-01)
+  %19 = fptoui double %18 to i64
+  %20 = select i1 %16, i64 1, i64 %19, !prof !504
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #19
+  %21 = load ptr, ptr %0, align 8, !tbaa !443
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %21, i64 noundef %20) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+          to label %22 unwind label %23
+
+22:                                               ; preds = %15
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  br label %25
+
+23:                                               ; preds = %15
+  %24 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  resume { ptr, i32 } %24
+
+25:                                               ; preds = %22, %9
+  call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_9XalanNodeEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE(ptr noundef %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) local_unnamed_addr #0 comdat align 2 !prof !505 {
+  %4 = load ptr, ptr %1, align 8, !tbaa !427
+  store ptr %4, ptr %0, align 8, !tbaa !427
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !506 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !447
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !444
+  %6 = getelementptr inbounds ptr, ptr %3, i64 %5
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef %3) unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !464 {
+  %5 = alloca %"class.xalanc_1_10::XalanVector", align 8
+  store ptr %2, ptr %0, align 8, !tbaa !443
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  %7 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 2
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  %9 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %1, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %6, i8 0, i64 24, i1 false)
+  %10 = load i64, ptr %9, align 8, !tbaa !444
+  %11 = icmp eq i64 %10, 0
+  br i1 %11, label %21, label %12, !prof !507
+
+12:                                               ; preds = %4
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #19
+  %13 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9local_maxEmm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %10, i64 noundef %3) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef %13) #18
+  %14 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  %15 = call noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+  %16 = invoke noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+          to label %17 unwind label %19
+
+17:                                               ; preds = %12
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %14, ptr noundef %15, ptr noundef %16) #18
+          to label %18 unwind label %19
+
+18:                                               ; preds = %17
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  br label %25
+
+19:                                               ; preds = %17, %12
+  %20 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  resume { ptr, i32 } %20
+
+21:                                               ; preds = %4
+  %22 = icmp eq i64 %3, 0
+  br i1 %22, label %25, label %23, !prof !508
+
+23:                                               ; preds = %21
+  %24 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %3) #18
+  store ptr %24, ptr %8, align 8, !tbaa !447
+  store i64 %3, ptr %7, align 8, !tbaa !445
+  br label %25
+
+25:                                               ; preds = %21, %23, %18
+  call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1) local_unnamed_addr #0 comdat align 2 !prof !509 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %3 = load ptr, ptr %0, align 8, !tbaa !443
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !447
+  %7 = load ptr, ptr %1, align 8, !tbaa !443
+  store ptr %7, ptr %0, align 8, !tbaa !443
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %1, i64 0, i32 1
+  %9 = load <2 x i64>, ptr %8, align 8, !tbaa !480
+  %10 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %1, i64 0, i32 3
+  %11 = load ptr, ptr %10, align 8, !tbaa !447
+  store ptr %11, ptr %5, align 8, !tbaa !447
+  store ptr %3, ptr %1, align 8, !tbaa !443
+  %12 = load <2 x i64>, ptr %4, align 8, !tbaa !480
+  store <2 x i64> %9, ptr %4, align 8, !tbaa !480
+  store <2 x i64> %12, ptr %8, align 8, !tbaa !480
+  store ptr %6, ptr %10, align 8, !tbaa !447
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9local_maxEmm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #0 comdat align 2 !prof !510 {
+  %4 = tail call i64 @llvm.umax.i64(i64 %1, i64 %2)
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !510 {
+  %5 = alloca %"class.xalanc_1_10::XalanVector", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %6 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %2, ptr noundef %3) #18
+  %7 = icmp eq i64 %6, 0
+  br i1 %7, label %76, label %8, !prof !511
+
+8:                                                ; preds = %4
+  %9 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %10 = add i64 %9, %6
+  %11 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %12 = icmp eq ptr %11, %1
+  br i1 %12, label %13, label %28, !prof !512
+
+13:                                               ; preds = %8
+  %14 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %10) #18
+  %15 = icmp eq ptr %2, %3
+  br i1 %15, label %75, label %16, !prof !513
+
+16:                                               ; preds = %13
+  %17 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  br label %18
+
+18:                                               ; preds = %16, %18
+  %19 = phi ptr [ %2, %16 ], [ %26, %18 ]
+  %20 = phi ptr [ %14, %16 ], [ %23, %18 ]
+  %21 = load ptr, ptr %0, align 8, !tbaa !443
+  %22 = tail call noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_9XalanNodeEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE(ptr noundef %20, ptr noundef nonnull align 8 dereferenceable(8) %19, ptr noundef nonnull align 8 dereferenceable(8) %21) #18
+  %23 = getelementptr inbounds ptr, ptr %20, i64 1
+  %24 = load i64, ptr %17, align 8, !tbaa !444
+  %25 = add i64 %24, 1
+  store i64 %25, ptr %17, align 8, !tbaa !444
+  %26 = getelementptr inbounds ptr, ptr %19, i64 1
+  %27 = icmp eq ptr %26, %3
+  br i1 %27, label %75, label %18, !prof !514, !llvm.loop !515
+
+28:                                               ; preds = %8
+  %29 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %30 = icmp ugt i64 %10, %29
+  br i1 %30, label %31, label %43
+
+31:                                               ; preds = %28
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #19
+  %32 = load ptr, ptr %0, align 8, !tbaa !443
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %32, i64 noundef %10) #18
+  %33 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  %34 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %33, ptr noundef %34, ptr noundef %1) #18
+          to label %35 unwind label %41
+
+35:                                               ; preds = %31
+  %36 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %36, ptr noundef %2, ptr noundef %3) #18
+          to label %37 unwind label %41
+
+37:                                               ; preds = %35
+  %38 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  %39 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %38, ptr noundef %1, ptr noundef %39) #18
+          to label %40 unwind label %41
+
+40:                                               ; preds = %37
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  br label %75
+
+41:                                               ; preds = %37, %35, %31
+  %42 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  resume { ptr, i32 } %42
+
+43:                                               ; preds = %28
+  %44 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %45 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %44) #18
+  %46 = icmp ugt i64 %45, %6
+  br i1 %46, label %62, label %47
+
+47:                                               ; preds = %43
+  %48 = getelementptr inbounds ptr, ptr %2, i64 %45
+  %49 = icmp eq ptr %48, %3
+  br i1 %49, label %50, label %52
+
+50:                                               ; preds = %52, %47
+  %51 = icmp eq ptr %44, %1
+  br i1 %51, label %60, label %56
+
+52:                                               ; preds = %47, %52
+  %53 = phi ptr [ %54, %52 ], [ %48, %47 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %53) #18
+  %54 = getelementptr inbounds ptr, ptr %53, i64 1
+  %55 = icmp eq ptr %54, %3
+  br i1 %55, label %50, label %52, !llvm.loop !516
+
+56:                                               ; preds = %50, %56
+  %57 = phi ptr [ %58, %56 ], [ %1, %50 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %57) #18
+  %58 = getelementptr inbounds ptr, ptr %57, i64 1
+  %59 = icmp eq ptr %58, %44
+  br i1 %59, label %60, label %56, !llvm.loop !517
+
+60:                                               ; preds = %56, %50
+  %61 = tail call noundef ptr @_ZSt4copyIPKPN11xalanc_1_109XalanNodeEPS2_ET0_T_S7_S6_(ptr noundef %2, ptr noundef %48, ptr noundef %1) #18
+  br label %75
+
+62:                                               ; preds = %43
+  %63 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %64 = sub i64 0, %6
+  %65 = getelementptr inbounds ptr, ptr %63, i64 %64
+  %66 = icmp eq ptr %65, %44
+  br i1 %66, label %71, label %67
+
+67:                                               ; preds = %62, %67
+  %68 = phi ptr [ %69, %67 ], [ %65, %62 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %68) #18
+  %69 = getelementptr inbounds ptr, ptr %68, i64 1
+  %70 = icmp eq ptr %69, %44
+  br i1 %70, label %71, label %67, !llvm.loop !518
+
+71:                                               ; preds = %67, %62
+  %72 = getelementptr inbounds ptr, ptr %44, i64 %64
+  %73 = tail call noundef ptr @_ZSt13copy_backwardIPPN11xalanc_1_109XalanNodeES3_ET0_T_S5_S4_(ptr noundef %1, ptr noundef nonnull %72, ptr noundef %44) #18
+  %74 = tail call noundef ptr @_ZSt4copyIPKPN11xalanc_1_109XalanNodeEPS2_ET0_T_S7_S6_(ptr noundef %2, ptr noundef %3, ptr noundef %1) #18
+  br label %75
+
+75:                                               ; preds = %18, %13, %60, %71, %40
+  call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  br label %76
+
+76:                                               ; preds = %4, %75
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !519 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !447
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !520 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !447
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 comdat align 2 !prof !520 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = tail call noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat align 2 !prof !521 {
+  %4 = tail call noundef i64 @_ZSt8distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_(ptr noundef %1, ptr noundef %2) #18
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !522 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !444
+  ret i64 %3
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !523 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !524 {
+  %3 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %4 = icmp ult i64 %3, %1
+  br i1 %4, label %5, label %6, !prof !525
+
+5:                                                ; preds = %2
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) #18
+  br label %6
+
+6:                                                ; preds = %5, %2
+  %7 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %7
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !524 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 2
+  %3 = load i64, ptr %2, align 8, !tbaa !445
+  ret i64 %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt4copyIPKPN11xalanc_1_109XalanNodeEPS2_ET0_T_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt12__miter_baseIPKPN11xalanc_1_109XalanNodeEET_S5_(ptr noundef %0) #18
+  %5 = tail call noundef ptr @_ZSt12__miter_baseIPKPN11xalanc_1_109XalanNodeEET_S5_(ptr noundef %1) #18
+  %6 = tail call noundef ptr @_ZSt13__copy_move_aILb0EPKPN11xalanc_1_109XalanNodeEPS2_ET1_T0_S7_S6_(ptr noundef %4, ptr noundef %5, ptr noundef %2) #18
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt13copy_backwardIPPN11xalanc_1_109XalanNodeES3_ET0_T_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt12__miter_baseIPPN11xalanc_1_109XalanNodeEET_S4_(ptr noundef %0) #18
+  %5 = tail call noundef ptr @_ZSt12__miter_baseIPPN11xalanc_1_109XalanNodeEET_S4_(ptr noundef %1) #18
+  %6 = tail call noundef ptr @_ZSt22__copy_move_backward_aILb0EPPN11xalanc_1_109XalanNodeES3_ET1_T0_S5_S4_(ptr noundef %4, ptr noundef %5, ptr noundef %2) #18
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZSt8distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 comdat !prof !521 {
+  %3 = alloca ptr, align 8
+  store ptr %0, ptr %3, align 8, !tbaa !427
+  call void @_ZSt19__iterator_categoryIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E17iterator_categoryERKS6_(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+  %4 = call noundef i64 @_ZSt10__distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_St26random_access_iterator_tag(ptr noundef %0, ptr noundef %1) #18
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZSt10__distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_St26random_access_iterator_tag(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 comdat !prof !521 {
+  %3 = ptrtoint ptr %1 to i64
+  %4 = ptrtoint ptr %0 to i64
+  %5 = sub i64 %3, %4
+  %6 = ashr exact i64 %5, 3
+  ret i64 %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZSt19__iterator_categoryIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E17iterator_categoryERKS6_(ptr noundef nonnull align 8 dereferenceable(8) %0) local_unnamed_addr #0 comdat !prof !526 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !527 {
+  %3 = alloca %"class.xalanc_1_10::XalanVector", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #19
+  %4 = load ptr, ptr %0, align 8, !tbaa !443
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef %1) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt13__copy_move_aILb0EPKPN11xalanc_1_109XalanNodeEPS2_ET1_T0_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = alloca ptr, align 8
+  store ptr %2, ptr %4, align 8, !tbaa !427
+  %5 = tail call noundef ptr @_ZSt12__niter_baseIPKPN11xalanc_1_109XalanNodeEET_S5_(ptr noundef %0) #16
+  %6 = tail call noundef ptr @_ZSt12__niter_baseIPKPN11xalanc_1_109XalanNodeEET_S5_(ptr noundef %1) #16
+  %7 = tail call noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_109XalanNodeEET_S4_(ptr noundef %2) #16
+  %8 = tail call noundef ptr @_ZSt14__copy_move_a1ILb0EPKPN11xalanc_1_109XalanNodeEPS2_ET1_T0_S7_S6_(ptr noundef %5, ptr noundef %6, ptr noundef %7) #18
+  %9 = call noundef ptr @_ZSt12__niter_wrapIPPN11xalanc_1_109XalanNodeEET_RKS4_S4_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %8) #18
+  ret ptr %9
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__miter_baseIPKPN11xalanc_1_109XalanNodeEET_S5_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_wrapIPPN11xalanc_1_109XalanNodeEET_RKS4_S4_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %1) local_unnamed_addr #0 comdat !prof !528 {
+  ret ptr %1
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt14__copy_move_a1ILb0EPKPN11xalanc_1_109XalanNodeEPS2_ET1_T0_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt14__copy_move_a2ILb0EPKPN11xalanc_1_109XalanNodeEPS2_ET1_T0_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_baseIPKPN11xalanc_1_109XalanNodeEET_S5_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_109XalanNodeEET_S4_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !529 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt14__copy_move_a2ILb0EPKPN11xalanc_1_109XalanNodeEPS2_ET1_T0_S7_S6_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIPN11xalanc_1_109XalanNodeEEEPT_PKS6_S9_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIPN11xalanc_1_109XalanNodeEEEPT_PKS6_S9_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !528 {
+  %4 = ptrtoint ptr %1 to i64
+  %5 = ptrtoint ptr %0 to i64
+  %6 = sub i64 %4, %5
+  %7 = icmp eq ptr %1, %0
+  br i1 %7, label %9, label %8, !prof !530
+
+8:                                                ; preds = %3
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %2, ptr align 8 %0, i64 %6, i1 false)
+  br label %9
+
+9:                                                ; preds = %8, %3
+  %10 = getelementptr inbounds i8, ptr %2, i64 %6
+  ret ptr %10
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt22__copy_move_backward_aILb0EPPN11xalanc_1_109XalanNodeES3_ET1_T0_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = alloca ptr, align 8
+  store ptr %2, ptr %4, align 8, !tbaa !427
+  %5 = tail call noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_109XalanNodeEET_S4_(ptr noundef %0) #16
+  %6 = tail call noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_109XalanNodeEET_S4_(ptr noundef %1) #16
+  %7 = tail call noundef ptr @_ZSt12__niter_baseIPPN11xalanc_1_109XalanNodeEET_S4_(ptr noundef %2) #16
+  %8 = tail call noundef ptr @_ZSt23__copy_move_backward_a1ILb0EPPN11xalanc_1_109XalanNodeES3_ET1_T0_S5_S4_(ptr noundef %5, ptr noundef %6, ptr noundef %7) #18
+  %9 = call noundef ptr @_ZSt12__niter_wrapIPPN11xalanc_1_109XalanNodeEET_RKS4_S4_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %8) #18
+  ret ptr %9
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__miter_baseIPPN11xalanc_1_109XalanNodeEET_S4_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !531 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt23__copy_move_backward_a1ILb0EPPN11xalanc_1_109XalanNodeES3_ET1_T0_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt23__copy_move_backward_a2ILb0EPPN11xalanc_1_109XalanNodeES3_ET1_T0_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt23__copy_move_backward_a2ILb0EPPN11xalanc_1_109XalanNodeES3_ET1_T0_S5_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bIPN11xalanc_1_109XalanNodeEEEPT_PKS6_S9_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bIPN11xalanc_1_109XalanNodeEEEPT_PKS6_S9_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %4 = ptrtoint ptr %1 to i64
+  %5 = ptrtoint ptr %0 to i64
+  %6 = sub i64 %4, %5
+  %7 = ashr exact i64 %6, 3
+  %8 = icmp eq ptr %1, %0
+  %9 = sub nsw i64 0, %7
+  br i1 %8, label %12, label %10
+
+10:                                               ; preds = %3
+  %11 = getelementptr inbounds ptr, ptr %2, i64 %9
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %11, ptr align 8 %0, i64 %6, i1 false)
+  br label %12
+
+12:                                               ; preds = %3, %10
+  %13 = getelementptr inbounds ptr, ptr %2, i64 %9
+  ret ptr %13
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !520 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !447
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !444
+  %6 = getelementptr inbounds ptr, ptr %3, i64 %5
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !532 {
+  %3 = alloca %"class.xalanc_1_10::XalanVector.0", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !450
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 2
+  %7 = load i64, ptr %6, align 8, !tbaa !451
+  %8 = icmp ult i64 %5, %7
+  br i1 %8, label %9, label %15, !prof !533
+
+9:                                                ; preds = %2
+  %10 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %11 = load ptr, ptr %0, align 8, !tbaa !449
+  %12 = tail call noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPKNS_15NodeRefListBaseEE9constructEPS3_RKS3_RN11xercesc_2_713MemoryManagerE(ptr noundef %10, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %11) #18
+  %13 = load i64, ptr %4, align 8, !tbaa !450
+  %14 = add i64 %13, 1
+  store i64 %14, ptr %4, align 8, !tbaa !450
+  br label %25
+
+15:                                               ; preds = %2
+  %16 = icmp eq i64 %5, 0
+  %17 = uitofp i64 %5 to double
+  %18 = tail call double @llvm.fmuladd.f64(double %17, double 1.600000e+00, double 5.000000e-01)
+  %19 = fptoui double %18 to i64
+  %20 = select i1 %16, i64 1, i64 %19, !prof !497
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #19
+  %21 = load ptr, ptr %0, align 8, !tbaa !449
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %21, i64 noundef %20) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+          to label %22 unwind label %23
+
+22:                                               ; preds = %15
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4swapERS6_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  br label %25
+
+23:                                               ; preds = %15
+  %24 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  resume { ptr, i32 } %24
+
+25:                                               ; preds = %22, %9
+  call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPKNS_15NodeRefListBaseEE9constructEPS3_RKS3_RN11xercesc_2_713MemoryManagerE(ptr noundef %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) local_unnamed_addr #0 comdat align 2 !prof !534 {
+  %4 = load ptr, ptr %1, align 8, !tbaa !427
+  store ptr %4, ptr %0, align 8, !tbaa !427
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !535 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !453
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !450
+  %6 = getelementptr inbounds ptr, ptr %3, i64 %5
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef %3) unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !448 {
+  %5 = alloca %"class.xalanc_1_10::XalanVector.0", align 8
+  store ptr %2, ptr %0, align 8, !tbaa !449
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  %7 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 2
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  %9 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %1, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %6, i8 0, i64 24, i1 false)
+  %10 = load i64, ptr %9, align 8, !tbaa !450
+  %11 = icmp eq i64 %10, 0
+  br i1 %11, label %21, label %12, !prof !497
+
+12:                                               ; preds = %4
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #19
+  %13 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9local_maxEmm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %10, i64 noundef %3) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef %13) #18
+  %14 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  %15 = call noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+  %16 = invoke noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+          to label %17 unwind label %19
+
+17:                                               ; preds = %12
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %14, ptr noundef %15, ptr noundef %16) #18
+          to label %18 unwind label %19
+
+18:                                               ; preds = %17
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4swapERS6_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  br label %25
+
+19:                                               ; preds = %17, %12
+  %20 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  resume { ptr, i32 } %20
+
+21:                                               ; preds = %4
+  %22 = icmp eq i64 %3, 0
+  br i1 %22, label %25, label %23, !prof !536
+
+23:                                               ; preds = %21
+  %24 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %3) #18
+  store ptr %24, ptr %8, align 8, !tbaa !453
+  store i64 %3, ptr %7, align 8, !tbaa !451
+  br label %25
+
+25:                                               ; preds = %21, %23, %18
+  call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4swapERS6_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1) local_unnamed_addr #0 comdat align 2 !prof !537 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %3 = load ptr, ptr %0, align 8, !tbaa !449
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !453
+  %7 = load ptr, ptr %1, align 8, !tbaa !449
+  store ptr %7, ptr %0, align 8, !tbaa !449
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %1, i64 0, i32 1
+  %9 = load <2 x i64>, ptr %8, align 8, !tbaa !480
+  %10 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %1, i64 0, i32 3
+  %11 = load ptr, ptr %10, align 8, !tbaa !453
+  store ptr %11, ptr %5, align 8, !tbaa !453
+  store ptr %3, ptr %1, align 8, !tbaa !449
+  %12 = load <2 x i64>, ptr %4, align 8, !tbaa !480
+  store <2 x i64> %9, ptr %4, align 8, !tbaa !480
+  store <2 x i64> %12, ptr %8, align 8, !tbaa !480
+  store ptr %6, ptr %10, align 8, !tbaa !453
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9local_maxEmm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  %4 = tail call i64 @llvm.umax.i64(i64 %1, i64 %2)
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !481 {
+  %5 = alloca %"class.xalanc_1_10::XalanVector.0", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %6 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14local_distanceEPKS3_S8_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %2, ptr noundef %3) #18
+  %7 = icmp eq i64 %6, 0
+  br i1 %7, label %76, label %8, !prof !482
+
+8:                                                ; preds = %4
+  %9 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4sizeEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %10 = add i64 %9, %6
+  %11 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %12 = icmp eq ptr %11, %1
+  br i1 %12, label %13, label %28, !prof !483
+
+13:                                               ; preds = %8
+  %14 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14ensureCapacityEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %10) #18
+  %15 = icmp eq ptr %2, %3
+  br i1 %15, label %75, label %16, !prof !484
+
+16:                                               ; preds = %13
+  %17 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  br label %18
+
+18:                                               ; preds = %16, %18
+  %19 = phi ptr [ %2, %16 ], [ %26, %18 ]
+  %20 = phi ptr [ %14, %16 ], [ %23, %18 ]
+  %21 = load ptr, ptr %0, align 8, !tbaa !449
+  %22 = tail call noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPKNS_15NodeRefListBaseEE9constructEPS3_RKS3_RN11xercesc_2_713MemoryManagerE(ptr noundef %20, ptr noundef nonnull align 8 dereferenceable(8) %19, ptr noundef nonnull align 8 dereferenceable(8) %21) #18
+  %23 = getelementptr inbounds ptr, ptr %20, i64 1
+  %24 = load i64, ptr %17, align 8, !tbaa !450
+  %25 = add i64 %24, 1
+  store i64 %25, ptr %17, align 8, !tbaa !450
+  %26 = getelementptr inbounds ptr, ptr %19, i64 1
+  %27 = icmp eq ptr %26, %3
+  br i1 %27, label %75, label %18, !prof !485, !llvm.loop !538
+
+28:                                               ; preds = %8
+  %29 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %30 = icmp ugt i64 %10, %29
+  br i1 %30, label %31, label %43
+
+31:                                               ; preds = %28
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #19
+  %32 = load ptr, ptr %0, align 8, !tbaa !449
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %32, i64 noundef %10) #18
+  %33 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  %34 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %33, ptr noundef %34, ptr noundef %1) #18
+          to label %35 unwind label %41
+
+35:                                               ; preds = %31
+  %36 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %36, ptr noundef %2, ptr noundef %3) #18
+          to label %37 unwind label %41
+
+37:                                               ; preds = %35
+  %38 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  %39 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %38, ptr noundef %1, ptr noundef %39) #18
+          to label %40 unwind label %41
+
+40:                                               ; preds = %37
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4swapERS6_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  br label %75
+
+41:                                               ; preds = %37, %35, %31
+  %42 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  resume { ptr, i32 } %42
+
+43:                                               ; preds = %28
+  %44 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %45 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14local_distanceEPKS3_S8_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %44) #18
+  %46 = icmp ugt i64 %45, %6
+  br i1 %46, label %62, label %47
+
+47:                                               ; preds = %43
+  %48 = getelementptr inbounds ptr, ptr %2, i64 %45
+  %49 = icmp eq ptr %48, %3
+  br i1 %49, label %50, label %52
+
+50:                                               ; preds = %52, %47
+  %51 = icmp eq ptr %44, %1
+  br i1 %51, label %60, label %56
+
+52:                                               ; preds = %47, %52
+  %53 = phi ptr [ %54, %52 ], [ %48, %47 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %53) #18
+  %54 = getelementptr inbounds ptr, ptr %53, i64 1
+  %55 = icmp eq ptr %54, %3
+  br i1 %55, label %50, label %52, !llvm.loop !539
+
+56:                                               ; preds = %50, %56
+  %57 = phi ptr [ %58, %56 ], [ %1, %50 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %57) #18
+  %58 = getelementptr inbounds ptr, ptr %57, i64 1
+  %59 = icmp eq ptr %58, %44
+  br i1 %59, label %60, label %56, !llvm.loop !540
+
+60:                                               ; preds = %56, %50
+  %61 = tail call noundef ptr @_ZSt4copyIPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET0_T_S8_S7_(ptr noundef %2, ptr noundef %48, ptr noundef %1) #18
+  br label %75
+
+62:                                               ; preds = %43
+  %63 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %64 = sub i64 0, %6
+  %65 = getelementptr inbounds ptr, ptr %63, i64 %64
+  %66 = icmp eq ptr %65, %44
+  br i1 %66, label %71, label %67
+
+67:                                               ; preds = %62, %67
+  %68 = phi ptr [ %69, %67 ], [ %65, %62 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %68) #18
+  %69 = getelementptr inbounds ptr, ptr %68, i64 1
+  %70 = icmp eq ptr %69, %44
+  br i1 %70, label %71, label %67, !llvm.loop !541
+
+71:                                               ; preds = %67, %62
+  %72 = getelementptr inbounds ptr, ptr %44, i64 %64
+  %73 = tail call noundef ptr @_ZSt13copy_backwardIPPKN11xalanc_1_1015NodeRefListBaseES4_ET0_T_S6_S5_(ptr noundef %1, ptr noundef nonnull %72, ptr noundef %44) #18
+  %74 = tail call noundef ptr @_ZSt4copyIPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET0_T_S8_S7_(ptr noundef %2, ptr noundef %3, ptr noundef %1) #18
+  br label %75
+
+75:                                               ; preds = %18, %13, %60, %71, %40
+  call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  br label %76
+
+76:                                               ; preds = %4, %75
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !537 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !453
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !453
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 comdat align 2 !prof !481 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = tail call noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14local_distanceEPKS3_S8_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat align 2 !prof !481 {
+  %4 = tail call noundef i64 @_ZSt8distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_(ptr noundef %1, ptr noundef %2) #18
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4sizeEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !450
+  ret i64 %3
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !537 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14ensureCapacityEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !481 {
+  %3 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %4 = icmp ult i64 %3, %1
+  br i1 %4, label %5, label %6, !prof !482
+
+5:                                                ; preds = %2
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9doReserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) #18
+  br label %6
+
+6:                                                ; preds = %5, %2
+  %7 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %7
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 2
+  %3 = load i64, ptr %2, align 8, !tbaa !451
+  ret i64 %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt4copyIPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET0_T_S8_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt12__miter_baseIPKPKN11xalanc_1_1015NodeRefListBaseEET_S6_(ptr noundef %0) #18
+  %5 = tail call noundef ptr @_ZSt12__miter_baseIPKPKN11xalanc_1_1015NodeRefListBaseEET_S6_(ptr noundef %1) #18
+  %6 = tail call noundef ptr @_ZSt13__copy_move_aILb0EPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET1_T0_S8_S7_(ptr noundef %4, ptr noundef %5, ptr noundef %2) #18
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt13copy_backwardIPPKN11xalanc_1_1015NodeRefListBaseES4_ET0_T_S6_S5_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt12__miter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_(ptr noundef %0) #18
+  %5 = tail call noundef ptr @_ZSt12__miter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_(ptr noundef %1) #18
+  %6 = tail call noundef ptr @_ZSt22__copy_move_backward_aILb0EPPKN11xalanc_1_1015NodeRefListBaseES4_ET1_T0_S6_S5_(ptr noundef %4, ptr noundef %5, ptr noundef %2) #18
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZSt8distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 comdat !prof !481 {
+  %3 = alloca ptr, align 8
+  store ptr %0, ptr %3, align 8, !tbaa !427
+  call void @_ZSt19__iterator_categoryIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E17iterator_categoryERKS7_(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+  %4 = call noundef i64 @_ZSt10__distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_St26random_access_iterator_tag(ptr noundef %0, ptr noundef %1) #18
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZSt10__distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_St26random_access_iterator_tag(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 comdat !prof !481 {
+  %3 = ptrtoint ptr %1 to i64
+  %4 = ptrtoint ptr %0 to i64
+  %5 = sub i64 %3, %4
+  %6 = ashr exact i64 %5, 3
+  ret i64 %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZSt19__iterator_categoryIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E17iterator_categoryERKS7_(ptr noundef nonnull align 8 dereferenceable(8) %0) local_unnamed_addr #0 comdat !prof !481 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9doReserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !390 {
+  %3 = alloca %"class.xalanc_1_10::XalanVector.0", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #19
+  %4 = load ptr, ptr %0, align 8, !tbaa !449
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef %1) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4swapERS6_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt13__copy_move_aILb0EPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET1_T0_S8_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = alloca ptr, align 8
+  store ptr %2, ptr %4, align 8, !tbaa !427
+  %5 = tail call noundef ptr @_ZSt12__niter_baseIPKPKN11xalanc_1_1015NodeRefListBaseEET_S6_(ptr noundef %0) #16
+  %6 = tail call noundef ptr @_ZSt12__niter_baseIPKPKN11xalanc_1_1015NodeRefListBaseEET_S6_(ptr noundef %1) #16
+  %7 = tail call noundef ptr @_ZSt12__niter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_(ptr noundef %2) #16
+  %8 = tail call noundef ptr @_ZSt14__copy_move_a1ILb0EPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET1_T0_S8_S7_(ptr noundef %5, ptr noundef %6, ptr noundef %7) #18
+  %9 = call noundef ptr @_ZSt12__niter_wrapIPPKN11xalanc_1_1015NodeRefListBaseEET_RKS5_S5_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %8) #18
+  ret ptr %9
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__miter_baseIPKPKN11xalanc_1_1015NodeRefListBaseEET_S6_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_wrapIPPKN11xalanc_1_1015NodeRefListBaseEET_RKS5_S5_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %1) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %1
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt14__copy_move_a1ILb0EPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET1_T0_S8_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt14__copy_move_a2ILb0EPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET1_T0_S8_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_baseIPKPKN11xalanc_1_1015NodeRefListBaseEET_S6_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt14__copy_move_a2ILb0EPKPKN11xalanc_1_1015NodeRefListBaseEPS3_ET1_T0_S8_S7_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIPKN11xalanc_1_1015NodeRefListBaseEEEPT_PKS7_SA_S8_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mIPKN11xalanc_1_1015NodeRefListBaseEEEPT_PKS7_SA_S8_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %4 = ptrtoint ptr %1 to i64
+  %5 = ptrtoint ptr %0 to i64
+  %6 = sub i64 %4, %5
+  %7 = icmp eq ptr %1, %0
+  br i1 %7, label %9, label %8
+
+8:                                                ; preds = %3
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %2, ptr align 8 %0, i64 %6, i1 false)
+  br label %9
+
+9:                                                ; preds = %8, %3
+  %10 = getelementptr inbounds i8, ptr %2, i64 %6
+  ret ptr %10
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt22__copy_move_backward_aILb0EPPKN11xalanc_1_1015NodeRefListBaseES4_ET1_T0_S6_S5_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = alloca ptr, align 8
+  store ptr %2, ptr %4, align 8, !tbaa !427
+  %5 = tail call noundef ptr @_ZSt12__niter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_(ptr noundef %0) #16
+  %6 = tail call noundef ptr @_ZSt12__niter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_(ptr noundef %1) #16
+  %7 = tail call noundef ptr @_ZSt12__niter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_(ptr noundef %2) #16
+  %8 = tail call noundef ptr @_ZSt23__copy_move_backward_a1ILb0EPPKN11xalanc_1_1015NodeRefListBaseES4_ET1_T0_S6_S5_(ptr noundef %5, ptr noundef %6, ptr noundef %7) #18
+  %9 = call noundef ptr @_ZSt12__niter_wrapIPPKN11xalanc_1_1015NodeRefListBaseEET_RKS5_S5_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %8) #18
+  ret ptr %9
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__miter_baseIPPKN11xalanc_1_1015NodeRefListBaseEET_S5_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !390 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt23__copy_move_backward_a1ILb0EPPKN11xalanc_1_1015NodeRefListBaseES4_ET1_T0_S6_S5_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt23__copy_move_backward_a2ILb0EPPKN11xalanc_1_1015NodeRefListBaseES4_ET1_T0_S6_S5_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt23__copy_move_backward_a2ILb0EPPKN11xalanc_1_1015NodeRefListBaseES4_ET1_T0_S6_S5_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bIPKN11xalanc_1_1015NodeRefListBaseEEEPT_PKS7_SA_S8_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bIPKN11xalanc_1_1015NodeRefListBaseEEEPT_PKS7_SA_S8_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %4 = ptrtoint ptr %1 to i64
+  %5 = ptrtoint ptr %0 to i64
+  %6 = sub i64 %4, %5
+  %7 = ashr exact i64 %6, 3
+  %8 = icmp eq ptr %1, %0
+  %9 = sub nsw i64 0, %7
+  br i1 %8, label %12, label %10
+
+10:                                               ; preds = %3
+  %11 = getelementptr inbounds ptr, ptr %2, i64 %9
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 8 %11, ptr align 8 %0, i64 %6, i1 false)
+  br label %12
+
+12:                                               ; preds = %3, %10
+  %13 = getelementptr inbounds ptr, ptr %2, i64 %9
+  ret ptr %13
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !453
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !450
+  %6 = getelementptr inbounds ptr, ptr %3, i64 %5
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE5resetEv(ptr noundef nonnull align 8 dereferenceable(56) %0) local_unnamed_addr #0 comdat align 2 !prof !481 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local ptr @_ZSt8for_eachIPPN11xalanc_1_1018MutableNodeRefListENS0_13DeleteFunctorIS1_EEET0_T_S7_S6_(ptr noundef %0, ptr noundef %1, ptr %2) local_unnamed_addr #1 comdat !prof !467 {
+  %4 = alloca %"struct.xalanc_1_10::DeleteFunctor", align 8
+  store ptr %2, ptr %4, align 8
+  %5 = icmp eq ptr %0, %1
+  br i1 %5, label %13, label %6, !prof !484
+
+6:                                                ; preds = %3, %6
+  %7 = phi ptr [ %9, %6 ], [ %0, %3 ]
+  %8 = load ptr, ptr %7, align 8, !tbaa !427
+  call void @_ZNK11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEclEPKS1_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %8) #18
+  %9 = getelementptr inbounds ptr, ptr %7, i64 1
+  %10 = icmp eq ptr %9, %1
+  br i1 %10, label %11, label %6, !prof !542, !llvm.loop !543
+
+11:                                               ; preds = %6
+  %12 = load ptr, ptr %4, align 8
+  br label %13
+
+13:                                               ; preds = %11, %3
+  %14 = phi ptr [ %12, %11 ], [ %2, %3 ]
+  ret ptr %14
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZNK11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEclEPKS1_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !491 {
+  %3 = alloca %"struct.xalanc_1_10::XalanDestroyFunctor", align 1
+  call void @llvm.lifetime.start.p0(i64 1, ptr nonnull %3) #19
+  tail call void @_ZN11xalanc_1_1023makeXalanDestroyFunctorINS_18MutableNodeRefListEEENS_19XalanDestroyFunctorIT_EEPKS3_(ptr noundef %1) #18
+  %4 = load ptr, ptr %0, align 8, !tbaa !544
+  call void @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPKS1_RN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 1 dereferenceable(1) %3, ptr noundef %1, ptr noundef nonnull align 8 dereferenceable(8) %4) #18
+  call void @llvm.lifetime.end.p0(i64 1, ptr nonnull %3) #19
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1023makeXalanDestroyFunctorINS_18MutableNodeRefListEEENS_19XalanDestroyFunctorIT_EEPKS3_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !491 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPKS1_RN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 1 dereferenceable(1) %0, ptr noundef %1, ptr noundef nonnull align 8 dereferenceable(8) %2) local_unnamed_addr #1 comdat align 2 !prof !491 {
+  tail call void @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPS1_RN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 1 dereferenceable(1) %0, ptr noundef %1, ptr noundef nonnull align 8 dereferenceable(8) %2) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPS1_RN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 1 dereferenceable(1) %0, ptr noundef %1, ptr noundef nonnull align 8 dereferenceable(8) %2) local_unnamed_addr #1 comdat align 2 !prof !491 {
+  %4 = icmp eq ptr %1, null
+  br i1 %4, label %9, label %5, !prof !545
+
+5:                                                ; preds = %3
+  tail call void @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclERS1_(ptr noundef nonnull align 1 dereferenceable(1) %0, ptr noundef nonnull align 8 dereferenceable(44) %1) #18
+  %6 = load ptr, ptr %2, align 8, !tbaa !391
+  %7 = getelementptr inbounds ptr, ptr %6, i64 3
+  %8 = load ptr, ptr %7, align 8
+  tail call void %8(ptr noundef nonnull align 8 dereferenceable(8) %2, ptr noundef nonnull %1) #18
+  br label %9
+
+9:                                                ; preds = %5, %3
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclERS1_(ptr noundef nonnull align 1 dereferenceable(1) %0, ptr noundef nonnull align 8 dereferenceable(44) %1) local_unnamed_addr #0 comdat align 2 !prof !491 {
+  %3 = load ptr, ptr %1, align 8, !tbaa !391
+  %4 = load ptr, ptr %3, align 8
+  tail call void %4(ptr noundef nonnull align 8 dereferenceable(44) %1) #16
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %0) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 !prof !546 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 2
+  %3 = load i64, ptr %2, align 8, !tbaa !547
+  %4 = icmp eq i64 %3, 0
+  br i1 %4, label %12, label %5, !prof !548
+
+5:                                                ; preds = %1
+  %6 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %7 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+          to label %8 unwind label %13
+
+8:                                                ; preds = %5
+  invoke void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyEPtS4_(ptr noundef %6, ptr noundef %7) #18
+          to label %9 unwind label %13
+
+9:                                                ; preds = %8
+  %10 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  %11 = load ptr, ptr %10, align 8, !tbaa !549
+  invoke void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10deallocateEPt(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %11) #18
+          to label %12 unwind label %13
+
+12:                                               ; preds = %9, %1
+  ret void
+
+13:                                               ; preds = %9, %8, %5
+  %14 = landingpad { ptr, i32 }
+          catch ptr null
+  %15 = extractvalue { ptr, i32 } %14, 0
+  tail call void @__clang_call_terminate(ptr %15) #21
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !550 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyEPtS4_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !551 {
+  %3 = icmp eq ptr %0, %1
+  br i1 %3, label %8, label %4, !prof !552
+
+4:                                                ; preds = %2, %4
+  %5 = phi ptr [ %6, %4 ], [ %0, %2 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyERt(ptr noundef nonnull align 2 dereferenceable(2) %5) #18
+  %6 = getelementptr inbounds i16, ptr %5, i64 1
+  %7 = icmp eq ptr %6, %1
+  br i1 %7, label %8, label %4, !prof !553, !llvm.loop !554
+
+8:                                                ; preds = %4, %2
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !555 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !549
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 comdat align 2 !prof !556 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10deallocateEPt(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !551 {
+  %3 = load ptr, ptr %0, align 8, !tbaa !557
+  %4 = load ptr, ptr %3, align 8, !tbaa !391
+  %5 = getelementptr inbounds ptr, ptr %4, i64 3
+  %6 = load ptr, ptr %5, align 8
+  tail call void %6(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %1) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyERt(ptr noundef nonnull align 2 dereferenceable(2) %0) local_unnamed_addr #0 comdat align 2 !prof !558 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !559 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !549
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !560
+  %6 = getelementptr inbounds i16, ptr %3, i64 %5
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyEPS3_S7_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !448 {
+  %3 = icmp eq ptr %0, %1
+  br i1 %3, label %8, label %4, !prof !561
+
+4:                                                ; preds = %2, %4
+  %5 = phi ptr [ %6, %4 ], [ %0, %2 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyERS3_(ptr noundef nonnull align 8 dereferenceable(8) %5) #18
+  %6 = getelementptr inbounds ptr, ptr %5, i64 1
+  %7 = icmp eq ptr %6, %1
+  br i1 %7, label %8, label %4, !prof !562, !llvm.loop !563
+
+8:                                                ; preds = %4, %2
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10deallocateEPS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !448 {
+  %3 = load ptr, ptr %0, align 8, !tbaa !449
+  %4 = load ptr, ptr %3, align 8, !tbaa !391
+  %5 = getelementptr inbounds ptr, ptr %4, i64 3
+  %6 = load ptr, ptr %5, align 8
+  tail call void %6(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %1) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyERS3_(ptr noundef nonnull align 8 dereferenceable(8) %0) local_unnamed_addr #0 comdat align 2 !prof !534 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !464 {
+  %3 = icmp eq ptr %0, %1
+  br i1 %3, label %8, label %4, !prof !564
+
+4:                                                ; preds = %2, %4
+  %5 = phi ptr [ %6, %4 ], [ %0, %2 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_(ptr noundef nonnull align 8 dereferenceable(8) %5) #18
+  %6 = getelementptr inbounds ptr, ptr %5, i64 1
+  %7 = icmp eq ptr %6, %1
+  br i1 %7, label %8, label %4, !prof !565, !llvm.loop !566
+
+8:                                                ; preds = %4, %2
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10deallocateEPS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !464 {
+  %3 = load ptr, ptr %0, align 8, !tbaa !443
+  %4 = load ptr, ptr %3, align 8, !tbaa !391
+  %5 = getelementptr inbounds ptr, ptr %4, i64 3
+  %6 = load ptr, ptr %5, align 8
+  tail call void %6(ptr noundef nonnull align 8 dereferenceable(8) %3, ptr noundef %1) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_(ptr noundef nonnull align 8 dereferenceable(8) %0) local_unnamed_addr #0 comdat align 2 !prof !505 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE(ptr noundef nonnull align 8 dereferenceable(432) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %2, ptr noundef %3, ptr noundef %4) unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 !prof !454 {
+  %6 = alloca ptr, align 8
+  %7 = alloca ptr, align 8
+  store ptr %2, ptr %6, align 8, !tbaa !427
+  tail call void @_ZN11xalanc_1_1021XPathExecutionContextC2ERN11xercesc_2_713MemoryManagerEPNS_14XObjectFactoryE(ptr noundef nonnull align 8 dereferenceable(24) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef null) #18
+  store ptr getelementptr inbounds ({ [42 x ptr] }, ptr @_ZTVN11xalanc_1_1028XPathExecutionContextDefaultE, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !391
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 1
+  %9 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 3
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %8, i8 0, i64 16, i1 false)
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %9, ptr noundef nonnull align 8 dereferenceable(8) %1, i64 noundef 0) #18
+          to label %10 unwind label %27
+
+10:                                               ; preds = %5
+  %11 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 4
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %11, ptr noundef nonnull align 8 dereferenceable(8) %1, i64 noundef 0) #18
+          to label %12 unwind label %29
+
+12:                                               ; preds = %10
+  %13 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 5
+  store ptr %4, ptr %13, align 8, !tbaa !422
+  %14 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 6
+  invoke void @_ZN11xalanc_1_1014XalanDOMStringC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(36) %14, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+          to label %15 unwind label %31
+
+15:                                               ; preds = %12
+  %16 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 7
+  invoke void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEEC2ERN11xercesc_2_713MemoryManagerEj(ptr noundef nonnull align 8 dereferenceable(56) %16, ptr noundef nonnull align 8 dereferenceable(8) %1, i32 noundef 50) #18
+          to label %17 unwind label %33
+
+17:                                               ; preds = %15
+  %18 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 8
+  invoke void @_ZN11xalanc_1_1019XalanDOMStringCacheC1ERN11xercesc_2_713MemoryManagerEj(ptr noundef nonnull align 8 dereferenceable(120) %18, ptr noundef nonnull align 8 dereferenceable(8) %1, i32 noundef 100) #18
+          to label %19 unwind label %35
+
+19:                                               ; preds = %17
+  %20 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 9
+  tail call void @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCacheC2Ev(ptr noundef nonnull align 8 dereferenceable(12) %20) #18
+  %21 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 10
+  invoke void @_ZN11xalanc_1_1017XalanQNameByValueC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(88) %21, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+          to label %22 unwind label %37
+
+22:                                               ; preds = %19
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %9, ptr noundef nonnull align 8 dereferenceable(8) %6) #18
+          to label %23 unwind label %39
+
+23:                                               ; preds = %22
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #19
+  %24 = icmp eq ptr %3, null
+  %25 = select i1 %24, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault11s_dummyListE, ptr %3, !prof !567
+  store ptr %25, ptr %7, align 8, !tbaa !427
+  invoke void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %11, ptr noundef nonnull align 8 dereferenceable(8) %7) #18
+          to label %26 unwind label %41
+
+26:                                               ; preds = %23
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #19
+  ret void
+
+27:                                               ; preds = %5
+  %28 = landingpad { ptr, i32 }
+          cleanup
+  br label %55
+
+29:                                               ; preds = %10
+  %30 = landingpad { ptr, i32 }
+          cleanup
+  br label %53
+
+31:                                               ; preds = %12
+  %32 = landingpad { ptr, i32 }
+          cleanup
+  br label %51
+
+33:                                               ; preds = %15
+  %34 = landingpad { ptr, i32 }
+          cleanup
+  br label %49
+
+35:                                               ; preds = %17
+  %36 = landingpad { ptr, i32 }
+          cleanup
+  br label %47
+
+37:                                               ; preds = %19
+  %38 = landingpad { ptr, i32 }
+          cleanup
+  br label %45
+
+39:                                               ; preds = %22
+  %40 = landingpad { ptr, i32 }
+          cleanup
+  br label %43
+
+41:                                               ; preds = %23
+  %42 = landingpad { ptr, i32 }
+          cleanup
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #19
+  br label %43
+
+43:                                               ; preds = %41, %39
+  %44 = phi { ptr, i32 } [ %42, %41 ], [ %40, %39 ]
+  call void @_ZN11xalanc_1_1017XalanQNameByValueD1Ev(ptr noundef nonnull align 8 dereferenceable(88) %21) #16
+  br label %45
+
+45:                                               ; preds = %43, %37
+  %46 = phi { ptr, i32 } [ %44, %43 ], [ %38, %37 ]
+  call void @_ZN11xalanc_1_1019XalanDOMStringCacheD1Ev(ptr noundef nonnull align 8 dereferenceable(120) %18) #16
+  br label %47
+
+47:                                               ; preds = %45, %35
+  %48 = phi { ptr, i32 } [ %46, %45 ], [ %36, %35 ]
+  call void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(56) %16) #16
+  br label %49
+
+49:                                               ; preds = %47, %33
+  %50 = phi { ptr, i32 } [ %48, %47 ], [ %34, %33 ]
+  call void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %14) #16
+  br label %51
+
+51:                                               ; preds = %49, %31
+  %52 = phi { ptr, i32 } [ %50, %49 ], [ %32, %31 ]
+  call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %11) #16
+  br label %53
+
+53:                                               ; preds = %51, %29
+  %54 = phi { ptr, i32 } [ %52, %51 ], [ %30, %29 ]
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %9) #16
+  br label %55
+
+55:                                               ; preds = %53, %27
+  %56 = phi { ptr, i32 } [ %54, %53 ], [ %28, %27 ]
+  call void @_ZN11xalanc_1_1021XPathExecutionContextD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) #16
+  resume { ptr, i32 } %56
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local noundef ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault6createERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #1 align 2 personality ptr @__gxx_personality_v0 !prof !390 {
+  %5 = alloca %"class.xalanc_1_10::XalanMemMgrAutoPtr", align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %5) #19
+  %6 = load ptr, ptr %0, align 8, !tbaa !391
+  %7 = getelementptr inbounds ptr, ptr %6, i64 2
+  %8 = load ptr, ptr %7, align 8
+  %9 = tail call noundef ptr %8(ptr noundef nonnull align 8 dereferenceable(8) %0, i64 noundef 432) #18
+  call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EEC2ERN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %5, ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %9) #18
+  %10 = call noundef ptr @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE3getEv(ptr noundef nonnull align 8 dereferenceable(16) %5) #18
+  invoke void @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE(ptr noundef nonnull align 8 dereferenceable(432) %10, ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) #18
+          to label %11 unwind label %14
+
+11:                                               ; preds = %4
+  %12 = invoke { ptr, ptr } @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE7releaseEv(ptr noundef nonnull align 8 dereferenceable(16) %5) #18
+          to label %13 unwind label %14
+
+13:                                               ; preds = %11
+  call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EED2Ev(ptr noundef nonnull align 8 dereferenceable(16) %5) #16
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #19
+  ret ptr %10
+
+14:                                               ; preds = %11, %4
+  %15 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EED2Ev(ptr noundef nonnull align 8 dereferenceable(16) %5) #16
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %5) #19
+  resume { ptr, i32 } %15
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EEC2ERN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %2) unnamed_addr #1 comdat align 2 !prof !390 {
+  tail call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrDataC2EPN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull %1, ptr noundef %2) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE3getEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %2 = getelementptr inbounds %"struct.std::pair", ptr %0, i64 0, i32 1
+  %3 = load ptr, ptr %2, align 8, !tbaa !568
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local { ptr, ptr } @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE7releaseEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #1 comdat align 2 !prof !390 {
+  %2 = load ptr, ptr %0, align 8
+  %3 = getelementptr inbounds i8, ptr %0, i64 8
+  %4 = load ptr, ptr %3, align 8
+  tail call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData5resetEPN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef null, ptr noundef null) #18
+  %5 = insertvalue { ptr, ptr } poison, ptr %2, 0
+  %6 = insertvalue { ptr, ptr } %5, ptr %4, 1
+  ret { ptr, ptr } %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EED2Ev(ptr noundef nonnull align 8 dereferenceable(16) %0) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 !prof !390 {
+  invoke void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData10deallocateEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+          to label %2 unwind label %3
+
+2:                                                ; preds = %1
+  ret void
+
+3:                                                ; preds = %1
+  %4 = landingpad { ptr, i32 }
+          catch ptr null
+  %5 = extractvalue { ptr, i32 } %4, 0
+  tail call void @__clang_call_terminate(ptr %5) #21
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrDataC2EPN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef %1, ptr noundef %2) unnamed_addr #1 comdat align 2 !prof !390 {
+  %4 = alloca ptr, align 8
+  %5 = alloca ptr, align 8
+  store ptr %1, ptr %4, align 8, !tbaa !427
+  store ptr %2, ptr %5, align 8, !tbaa !427
+  call void @_ZNSt4pairIPN11xercesc_2_713MemoryManagerEPN11xalanc_1_1028XPathExecutionContextDefaultEEC2IRS2_RS5_TnNSt9enable_ifIXaaclsr5_PCCPE22_MoveConstructiblePairIT_T0_EEclsr5_PCCPE30_ImplicitlyMoveConvertiblePairISB_SC_EEEbE4typeELb1EEEOSB_OSC_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull align 8 dereferenceable(8) %5) #18
+  call void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZNSt4pairIPN11xercesc_2_713MemoryManagerEPN11xalanc_1_1028XPathExecutionContextDefaultEEC2IRS2_RS5_TnNSt9enable_ifIXaaclsr5_PCCPE22_MoveConstructiblePairIT_T0_EEclsr5_PCCPE30_ImplicitlyMoveConvertiblePairISB_SC_EEEbE4typeELb1EEEOSB_OSC_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) unnamed_addr #0 comdat align 2 !prof !390 {
+  %4 = load ptr, ptr %1, align 8, !tbaa !427
+  store ptr %4, ptr %0, align 8, !tbaa !570
+  %5 = getelementptr inbounds %"struct.std::pair", ptr %0, i64 0, i32 1
+  %6 = load ptr, ptr %2, align 8, !tbaa !427
+  store ptr %6, ptr %5, align 8, !tbaa !568
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData5resetEPN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  tail call void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  store ptr %1, ptr %0, align 8, !tbaa !570
+  %4 = getelementptr inbounds %"struct.std::pair", ptr %0, i64 0, i32 1
+  store ptr %2, ptr %4, align 8, !tbaa !568
+  tail call void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData10deallocateEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #1 comdat align 2 !prof !390 {
+  tail call void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  %2 = tail call noundef zeroext i1 @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData12isInitilizedEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  br i1 %2, label %3, label %10
+
+3:                                                ; preds = %1
+  %4 = load ptr, ptr %0, align 8, !tbaa !570
+  %5 = getelementptr inbounds %"struct.std::pair", ptr %0, i64 0, i32 1
+  %6 = load ptr, ptr %5, align 8, !tbaa !568
+  %7 = load ptr, ptr %4, align 8, !tbaa !391
+  %8 = getelementptr inbounds ptr, ptr %7, i64 3
+  %9 = load ptr, ptr %8, align 8
+  tail call void %9(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %6) #18
+  br label %10
+
+10:                                               ; preds = %3, %1
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef zeroext i1 @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_28XPathExecutionContextDefaultELb0EE17MemMgrAutoPtrData12isInitilizedEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %2 = load ptr, ptr %0, align 8, !tbaa !570
+  %3 = icmp ne ptr %2, null
+  %4 = getelementptr inbounds %"struct.std::pair", ptr %0, i64 0, i32 1
+  %5 = load ptr, ptr %4, align 8
+  %6 = icmp ne ptr %5, null
+  %7 = select i1 %3, i1 %6, i1 false
+  ret i1 %7
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev(ptr noundef nonnull align 8 dereferenceable(432) %0) unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 !prof !454 {
+  store ptr getelementptr inbounds ({ [42 x ptr] }, ptr @_ZTVN11xalanc_1_1028XPathExecutionContextDefaultE, i64 0, inrange i32 0, i64 2), ptr %0, align 8, !tbaa !391
+  invoke void @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv(ptr noundef nonnull align 8 dereferenceable(432) %0) #18
+          to label %2 unwind label %9
+
+2:                                                ; preds = %1
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 10
+  tail call void @_ZN11xalanc_1_1017XalanQNameByValueD1Ev(ptr noundef nonnull align 8 dereferenceable(88) %3) #16
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 8
+  tail call void @_ZN11xalanc_1_1019XalanDOMStringCacheD1Ev(ptr noundef nonnull align 8 dereferenceable(120) %4) #16
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 7
+  tail call void @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(56) %5) #16
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 6
+  tail call void @_ZN11xalanc_1_1014XalanDOMStringD2Ev(ptr noundef nonnull align 8 dereferenceable(36) %6) #16
+  %7 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 4
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %7) #16
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 3
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %8) #16
+  tail call void @_ZN11xalanc_1_1021XPathExecutionContextD2Ev(ptr noundef nonnull align 8 dereferenceable(24) %0) #16
+  ret void
+
+9:                                                ; preds = %1
+  %10 = landingpad { ptr, i32 }
+          catch ptr null
+  %11 = extractvalue { ptr, i32 } %10, 0
+  tail call void @__clang_call_terminate(ptr %11) #21
+  unreachable
+}
+
+; Function Attrs: nobuiltin nounwind optsize
+declare void @_ZdlPv(ptr noundef) local_unnamed_addr #13
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5clearEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 comdat align 2 !prof !571 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !444
+  %4 = icmp eq i64 %3, 0
+  br i1 %4, label %6, label %5, !prof !572
+
+5:                                                ; preds = %1
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE12shrinkToSizeEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef 0) #18
+  br label %6
+
+6:                                                ; preds = %5, %1
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5clearEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 comdat align 2 !prof !423 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !450
+  %4 = icmp eq i64 %3, 0
+  br i1 %4, label %6, label %5, !prof !573
+
+5:                                                ; preds = %1
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE12shrinkToSizeEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef 0) #18
+  br label %6
+
+6:                                                ; preds = %5, %1
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1019XalanDOMStringCache5resetEv(ptr noundef nonnull align 8 dereferenceable(120)) local_unnamed_addr #6
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCache5clearEv(ptr noundef nonnull align 8 dereferenceable(12) %0) local_unnamed_addr #0 comdat align 2 !prof !574 {
+  %2 = load ptr, ptr %0, align 8, !tbaa !455
+  %3 = icmp eq ptr %2, null
+  br i1 %3, label %5, label %4, !prof !575
+
+4:                                                ; preds = %1
+  store ptr null, ptr %0, align 8, !tbaa !455
+  br label %5
+
+5:                                                ; preds = %4, %1
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE12shrinkToSizeEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !576 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  br label %4
+
+4:                                                ; preds = %4, %2
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %5 = load i64, ptr %3, align 8, !tbaa !444
+  %6 = icmp ugt i64 %5, %1
+  br i1 %6, label %4, label %7, !prof !577, !llvm.loop !578
+
+7:                                                ; preds = %4
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !579 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !444
+  %4 = add i64 %3, -1
+  store i64 %4, ptr %2, align 8, !tbaa !444
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !447
+  %7 = getelementptr inbounds ptr, ptr %6, i64 %4
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_(ptr noundef nonnull align 8 dereferenceable(8) %7) #18
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE12shrinkToSizeEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !423 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  br label %4
+
+4:                                                ; preds = %4, %2
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %5 = load i64, ptr %3, align 8, !tbaa !450
+  %6 = icmp ugt i64 %5, %1
+  br i1 %6, label %4, label %7, !prof !573, !llvm.loop !580
+
+7:                                                ; preds = %4
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !581 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !450
+  %4 = add i64 %3, -1
+  store i64 %4, ptr %2, align 8, !tbaa !450
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !453
+  %7 = getelementptr inbounds ptr, ptr %6, i64 %4
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyERS3_(ptr noundef nonnull align 8 dereferenceable(8) %7) #18
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !428 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !447
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !444
+  %6 = getelementptr ptr, ptr %3, i64 %5
+  %7 = getelementptr ptr, ptr %6, i64 -1
+  ret ptr %7
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !582 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !453
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.0", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !450
+  %6 = getelementptr ptr, ptr %3, i64 %5
+  %7 = getelementptr ptr, ptr %6, i64 -1
+  ret ptr %7
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(88) ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault15getScratchQNameEv(ptr noundef nonnull align 8 dereferenceable(432) %0) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContextDefault", ptr %0, i64 0, i32 10
+  ret ptr %2
+}
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1017XalanQNameByValue3setERKNS_14XalanDOMStringEPKNS_14PrefixResolverEPKN11xercesc_2_77LocatorE(ptr noundef nonnull align 8 dereferenceable(88), ptr noundef nonnull align 8 dereferenceable(36), ptr noundef, ptr noundef) local_unnamed_addr #6
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE3getEv(ptr noundef nonnull align 8 dereferenceable(56) %0) local_unnamed_addr #1 comdat align 2 !prof !436 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanObjectCache", ptr %0, i64 0, i32 3
+  %3 = tail call noundef zeroext i1 @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5emptyEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+  br i1 %3, label %4, label %7, !prof !583
+
+4:                                                ; preds = %1
+  %5 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+  %6 = tail call noundef ptr @_ZNK11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEclERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 1 dereferenceable(1) %0, ptr noundef nonnull align 8 dereferenceable(8) %5) #18
+  br label %10
+
+7:                                                ; preds = %1
+  %8 = tail call noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4backEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+  %9 = load ptr, ptr %8, align 8, !tbaa !427
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %2) #18
+  br label %10
+
+10:                                               ; preds = %7, %4
+  %11 = phi ptr [ %6, %4 ], [ %9, %7 ]
+  ret ptr %11
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef zeroext i1 @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5emptyEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !436 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !470
+  %4 = icmp eq i64 %3, 0
+  ret i1 %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEclERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 1 dereferenceable(1) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !491 {
+  %3 = alloca %"class.xalanc_1_10::XalanMemMgrAutoPtr.5", align 8
+  call void @llvm.lifetime.start.p0(i64 16, ptr nonnull %3) #19
+  %4 = load ptr, ptr %1, align 8, !tbaa !391
+  %5 = getelementptr inbounds ptr, ptr %4, i64 2
+  %6 = load ptr, ptr %5, align 8
+  %7 = tail call noundef ptr %6(ptr noundef nonnull align 8 dereferenceable(8) %1, i64 noundef 48) #18
+  call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EEC2ERN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %3, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %7) #18
+  %8 = call noundef ptr @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE3getEv(ptr noundef nonnull align 8 dereferenceable(16) %3) #18
+  invoke void @_ZN11xalanc_1_1018MutableNodeRefListC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(44) %8, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+          to label %9 unwind label %12
+
+9:                                                ; preds = %2
+  %10 = invoke { ptr, ptr } @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE7releaseEv(ptr noundef nonnull align 8 dereferenceable(16) %3) #18
+          to label %11 unwind label %12
+
+11:                                               ; preds = %9
+  call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EED2Ev(ptr noundef nonnull align 8 dereferenceable(16) %3) #16
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #19
+  ret ptr %8
+
+12:                                               ; preds = %9, %2
+  %13 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EED2Ev(ptr noundef nonnull align 8 dereferenceable(16) %3) #16
+  call void @llvm.lifetime.end.p0(i64 16, ptr nonnull %3) #19
+  resume { ptr, i32 } %13
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !491 {
+  %2 = load ptr, ptr %0, align 8, !tbaa !469
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !584 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !473
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !470
+  %6 = getelementptr ptr, ptr %3, i64 %5
+  %7 = getelementptr ptr, ptr %6, i64 -1
+  ret ptr %7
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !584 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !470
+  %4 = add i64 %3, -1
+  store i64 %4, ptr %2, align 8, !tbaa !470
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.2", ptr %0, i64 0, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !473
+  %7 = getelementptr inbounds ptr, ptr %6, i64 %4
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_(ptr noundef nonnull align 8 dereferenceable(8) %7) #18
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EEC2ERN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef %2) unnamed_addr #1 comdat align 2 !prof !491 {
+  tail call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrDataC2EPN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull %1, ptr noundef %2) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE3getEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #0 comdat align 2 !prof !491 {
+  %2 = getelementptr inbounds %"struct.std::pair.6", ptr %0, i64 0, i32 1
+  %3 = load ptr, ptr %2, align 8, !tbaa !585
+  ret ptr %3
+}
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1018MutableNodeRefListC1ERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(44), ptr noundef nonnull align 8 dereferenceable(8)) unnamed_addr #6
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local { ptr, ptr } @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE7releaseEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #1 comdat align 2 !prof !491 {
+  %2 = load ptr, ptr %0, align 8
+  %3 = getelementptr inbounds i8, ptr %0, i64 8
+  %4 = load ptr, ptr %3, align 8
+  tail call void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData5resetEPN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef null, ptr noundef null) #18
+  %5 = insertvalue { ptr, ptr } poison, ptr %2, 0
+  %6 = insertvalue { ptr, ptr } %5, ptr %4, 1
+  ret { ptr, ptr } %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EED2Ev(ptr noundef nonnull align 8 dereferenceable(16) %0) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 !prof !491 {
+  invoke void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10deallocateEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+          to label %2 unwind label %3
+
+2:                                                ; preds = %1
+  ret void
+
+3:                                                ; preds = %1
+  %4 = landingpad { ptr, i32 }
+          catch ptr null
+  %5 = extractvalue { ptr, i32 } %4, 0
+  tail call void @__clang_call_terminate(ptr %5) #21
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrDataC2EPN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef %1, ptr noundef %2) unnamed_addr #1 comdat align 2 !prof !491 {
+  %4 = alloca ptr, align 8
+  %5 = alloca ptr, align 8
+  store ptr %1, ptr %4, align 8, !tbaa !427
+  store ptr %2, ptr %5, align 8, !tbaa !427
+  call void @_ZNSt4pairIPN11xercesc_2_713MemoryManagerEPN11xalanc_1_1018MutableNodeRefListEEC2IRS2_RS5_TnNSt9enable_ifIXaaclsr5_PCCPE22_MoveConstructiblePairIT_T0_EEclsr5_PCCPE30_ImplicitlyMoveConvertiblePairISB_SC_EEEbE4typeELb1EEEOSB_OSC_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef nonnull align 8 dereferenceable(8) %5) #18
+  call void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZNSt4pairIPN11xercesc_2_713MemoryManagerEPN11xalanc_1_1018MutableNodeRefListEEC2IRS2_RS5_TnNSt9enable_ifIXaaclsr5_PCCPE22_MoveConstructiblePairIT_T0_EEclsr5_PCCPE30_ImplicitlyMoveConvertiblePairISB_SC_EEEbE4typeELb1EEEOSB_OSC_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) unnamed_addr #0 comdat align 2 !prof !491 {
+  %4 = load ptr, ptr %1, align 8, !tbaa !427
+  store ptr %4, ptr %0, align 8, !tbaa !587
+  %5 = getelementptr inbounds %"struct.std::pair.6", ptr %0, i64 0, i32 1
+  %6 = load ptr, ptr %2, align 8, !tbaa !427
+  store ptr %6, ptr %5, align 8, !tbaa !585
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #0 comdat align 2 !prof !588 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData5resetEPN11xercesc_2_713MemoryManagerEPS1_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !491 {
+  tail call void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  store ptr %1, ptr %0, align 8, !tbaa !587
+  %4 = getelementptr inbounds %"struct.std::pair.6", ptr %0, i64 0, i32 1
+  store ptr %2, ptr %4, align 8, !tbaa !585
+  tail call void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10deallocateEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #1 comdat align 2 !prof !491 {
+  tail call void @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10invariantsEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  %2 = tail call noundef zeroext i1 @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData12isInitilizedEv(ptr noundef nonnull align 8 dereferenceable(16) %0) #18
+  br i1 %2, label %3, label %10, !prof !545
+
+3:                                                ; preds = %1
+  %4 = load ptr, ptr %0, align 8, !tbaa !587
+  %5 = getelementptr inbounds %"struct.std::pair.6", ptr %0, i64 0, i32 1
+  %6 = load ptr, ptr %5, align 8, !tbaa !585
+  %7 = load ptr, ptr %4, align 8, !tbaa !391
+  %8 = getelementptr inbounds ptr, ptr %7, i64 3
+  %9 = load ptr, ptr %8, align 8
+  tail call void %9(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %6) #18
+  br label %10
+
+10:                                               ; preds = %3, %1
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef zeroext i1 @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData12isInitilizedEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #0 comdat align 2 !prof !491 {
+  %2 = load ptr, ptr %0, align 8, !tbaa !587
+  %3 = icmp ne ptr %2, null
+  %4 = getelementptr inbounds %"struct.std::pair.6", ptr %0, i64 0, i32 1
+  %5 = load ptr, ptr %4, align 8
+  %6 = icmp ne ptr %5, null
+  %7 = select i1 %3, i1 %6, i1 false
+  ret i1 %7
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef zeroext i1 @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE7releaseEPS1_(ptr noundef nonnull align 8 dereferenceable(56) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !436 {
+  %3 = alloca ptr, align 8
+  store ptr %1, ptr %3, align 8, !tbaa !427
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanObjectCache", ptr %0, i64 0, i32 2
+  tail call void @_ZNK11xalanc_1_1022ClearCacheResetFunctorINS_18MutableNodeRefListEEclEPS1_(ptr noundef nonnull align 1 dereferenceable(1) %4, ptr noundef %1) #18
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanObjectCache", ptr %0, i64 0, i32 3
+  call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+  ret i1 true
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZNK11xalanc_1_1022ClearCacheResetFunctorINS_18MutableNodeRefListEEclEPS1_(ptr noundef nonnull align 1 dereferenceable(1) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !436 {
+  tail call void @_ZN11xalanc_1_1018MutableNodeRefList5clearEv(ptr noundef nonnull align 8 dereferenceable(44) %1) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) local_unnamed_addr #1 comdat align 2 !prof !589 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  tail call void @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1) #18
+  tail call void @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1018MutableNodeRefList5clearEv(ptr noundef nonnull align 8 dereferenceable(44)) local_unnamed_addr #6
+
+; Function Attrs: optsize
+declare noundef ptr @_ZN11xalanc_1_1018MutableNodeRefList6createERN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(8)) local_unnamed_addr #6
+
+; Function Attrs: optsize
+declare noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1019XalanDOMStringCache3getEv(ptr noundef nonnull align 8 dereferenceable(120)) local_unnamed_addr #6
+
+; Function Attrs: optsize
+declare noundef zeroext i1 @_ZN11xalanc_1_1019XalanDOMStringCache7releaseERNS_14XalanDOMStringE(ptr noundef nonnull align 8 dereferenceable(120), ptr noundef nonnull align 8 dereferenceable(36)) local_unnamed_addr #6
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZN11xalanc_1_1012XalanLocator15getUnknownValueEv() local_unnamed_addr #0 comdat align 2 !prof !590 {
+  ret i64 -1
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(8) ptr @_ZN11xalanc_1_1016ExecutionContext16getMemoryManagerEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #0 comdat align 2 !prof !591 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::ExecutionContext", ptr %0, i64 0, i32 1
+  %3 = load ptr, ptr %2, align 8, !tbaa !592
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringaSEPKt(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !593 {
+  %3 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6assignEPKt(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1) #18
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_106c_wstrERKNS_14XalanDOMStringE(ptr noundef nonnull align 8 dereferenceable(36) %0) local_unnamed_addr #1 comdat !prof !594 {
+  %2 = tail call noundef ptr @_ZNK11xalanc_1_1014XalanDOMString5c_strEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  ret ptr %2
+}
+
+declare ptr @__cxa_allocate_exception(i64) local_unnamed_addr
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1019XalanXPathExceptionC1ERKNS_14XalanDOMStringES3_iiRN11xercesc_2_713MemoryManagerE(ptr noundef nonnull align 8 dereferenceable(112), ptr noundef nonnull align 8 dereferenceable(36), ptr noundef nonnull align 8 dereferenceable(36), i32 noundef, i32 noundef, ptr noundef nonnull align 8 dereferenceable(8)) unnamed_addr #6
+
+declare void @__cxa_free_exception(ptr) local_unnamed_addr
+
+; Function Attrs: nounwind optsize
+declare void @_ZN11xalanc_1_1019XalanXPathExceptionD1Ev(ptr noundef nonnull align 8 dereferenceable(112)) unnamed_addr #7
+
+declare void @__cxa_throw(ptr, ptr, ptr) local_unnamed_addr
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6assignEPKt(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !595 {
+  tail call void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  tail call void @_ZN11xalanc_1_1014XalanDOMString5eraseEjj(ptr noundef nonnull align 8 dereferenceable(36) %0, i32 noundef 0, i32 noundef -1) #18
+  tail call void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  %3 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKt(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1) #18
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) local_unnamed_addr #0 comdat align 2 !prof !596 {
+  ret void
+}
+
+; Function Attrs: optsize
+declare void @_ZN11xalanc_1_1014XalanDOMString5eraseEjj(ptr noundef nonnull align 8 dereferenceable(36), i32 noundef, i32 noundef) local_unnamed_addr #6
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKt(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1) local_unnamed_addr #1 comdat align 2 !prof !597 {
+  %3 = tail call noundef i32 @_ZN11xalanc_1_1014XalanDOMString6lengthEPKt(ptr noundef %1) #18
+  %4 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKtj(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %1, i32 noundef %3) #18
+  ret ptr %4
+}
+
+; Function Attrs: optsize
+declare noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKtj(ptr noundef nonnull align 8 dereferenceable(36), ptr noundef, i32 noundef) local_unnamed_addr #6
+
+; Function Attrs: optsize
+declare noundef i32 @_ZN11xalanc_1_1014XalanDOMString6lengthEPKt(ptr noundef) local_unnamed_addr #6
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1014XalanDOMString5c_strEv(ptr noundef nonnull align 8 dereferenceable(36) %0) local_unnamed_addr #1 comdat align 2 !prof !598 {
+  tail call void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  %2 = tail call noundef zeroext i1 @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5emptyEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  br i1 %2, label %5, label %3, !prof !599
+
+3:                                                ; preds = %1
+  %4 = tail call noundef nonnull align 2 dereferenceable(2) ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEixEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef 0) #18
+  br label %5
+
+5:                                                ; preds = %1, %3
+  %6 = phi ptr [ %4, %3 ], [ @_ZN11xalanc_1_1014XalanDOMString7s_emptyE, %1 ]
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef zeroext i1 @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5emptyEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !600 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !560
+  %4 = icmp eq i64 %3, 0
+  ret i1 %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 2 dereferenceable(2) ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEixEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #0 comdat align 2 !prof !601 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  %4 = load ptr, ptr %3, align 8, !tbaa !549
+  %5 = getelementptr inbounds i16, ptr %4, i64 %1
+  ret ptr %5
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef zeroext i1 @_ZN11xalanc_1_1013DoubleSupport5isNaNEd(double noundef %0) local_unnamed_addr #1 comdat align 2 !prof !602 {
+  %2 = tail call noundef zeroext i1 @_ZNK11xalanc_1_1013DoubleSupport11NumberUnioneqEd(ptr noundef nonnull align 8 dereferenceable(8) @_ZN11xalanc_1_1013DoubleSupport5s_NaNE, double noundef %0) #18
+  ret i1 %2
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZNK11xalanc_1_1025XalanDecimalFormatSymbols6getNaNEv(ptr noundef nonnull align 8 dereferenceable(184) %0) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanDecimalFormatSymbols", ptr %0, i64 0, i32 10
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringaSERKS0_(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef nonnull align 8 dereferenceable(36) %1) local_unnamed_addr #1 comdat align 2 !prof !603 {
+  %3 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6assignERKS0_(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef nonnull align 8 dereferenceable(36) %1) #18
+  ret ptr %3
+}
+
+; Function Attrs: optsize
+declare noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1017DoubleToDOMStringEdRNS_14XalanDOMStringE(double noundef, ptr noundef nonnull align 8 dereferenceable(36)) local_unnamed_addr #6
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef zeroext i1 @_ZN11xalanc_1_1013DoubleSupport18isNegativeInfinityEd(double noundef %0) local_unnamed_addr #0 comdat align 2 !prof !604 {
+  %2 = tail call noundef zeroext i1 @_ZNK11xalanc_1_1013DoubleSupport11NumberUnioneqEd(ptr noundef nonnull align 8 dereferenceable(8) @_ZN11xalanc_1_1013DoubleSupport18s_negativeInfinityE, double noundef %0) #18
+  ret i1 %2
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef zeroext i16 @_ZNK11xalanc_1_1025XalanDecimalFormatSymbols12getMinusSignEv(ptr noundef nonnull align 8 dereferenceable(184) %0) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanDecimalFormatSymbols", ptr %0, i64 0, i32 7
+  %3 = load i16, ptr %2, align 8, !tbaa !605
+  ret i16 %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringaSEt(ptr noundef nonnull align 8 dereferenceable(36) %0, i16 noundef zeroext %1) local_unnamed_addr #1 comdat align 2 !prof !390 {
+  %3 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6assignEjt(ptr noundef nonnull align 8 dereferenceable(36) %0, i32 noundef 1, i16 noundef zeroext %1) #18
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZNK11xalanc_1_1025XalanDecimalFormatSymbols11getInfinityEv(ptr noundef nonnull align 8 dereferenceable(184) %0) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanDecimalFormatSymbols", ptr %0, i64 0, i32 5
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMStringpLERKS0_(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef nonnull align 8 dereferenceable(36) %1) local_unnamed_addr #1 comdat align 2 !prof !607 {
+  %3 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6appendERKS0_(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef nonnull align 8 dereferenceable(36) %1) #18
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef zeroext i1 @_ZN11xalanc_1_1013DoubleSupport18isPositiveInfinityEd(double noundef %0) local_unnamed_addr #0 comdat align 2 !prof !608 {
+  %2 = tail call noundef zeroext i1 @_ZNK11xalanc_1_1013DoubleSupport11NumberUnioneqEd(ptr noundef nonnull align 8 dereferenceable(8) @_ZN11xalanc_1_1013DoubleSupport18s_positiveInfinityE, double noundef %0) #18
+  ret i1 %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedStringC2ERS0_(ptr noundef nonnull align 8 dereferenceable(16) %0, ptr noundef nonnull align 8 dereferenceable(24) %1) unnamed_addr #1 comdat align 2 !prof !437 {
+  store ptr %1, ptr %0, align 8, !tbaa !609
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContext::GetAndReleaseCachedString", ptr %0, i64 0, i32 1
+  %4 = load ptr, ptr %1, align 8, !tbaa !391
+  %5 = getelementptr inbounds ptr, ptr %4, i64 23
+  %6 = load ptr, ptr %5, align 8
+  %7 = tail call noundef nonnull align 8 dereferenceable(36) ptr %6(ptr noundef nonnull align 8 dereferenceable(24) %1) #18
+  store ptr %7, ptr %3, align 8, !tbaa !611
+  ret void
+}
+
+; Function Attrs: optsize
+declare noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1018XalanMessageLoader10getMessageERNS_14XalanDOMStringENS_13XalanMessages5CodesEPKcS6_S6_S6_(ptr noundef nonnull align 8 dereferenceable(36), i32 noundef, ptr noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #6
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZNK11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedString3getEv(ptr noundef nonnull align 8 dereferenceable(16) %0) local_unnamed_addr #0 comdat align 2 !prof !612 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContext::GetAndReleaseCachedString", ptr %0, i64 0, i32 1
+  %3 = load ptr, ptr %2, align 8, !tbaa !611
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedStringD2Ev(ptr noundef nonnull align 8 dereferenceable(16) %0) unnamed_addr #0 comdat align 2 personality ptr @__gxx_personality_v0 !prof !613 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XPathExecutionContext::GetAndReleaseCachedString", ptr %0, i64 0, i32 1
+  %3 = load ptr, ptr %2, align 8, !tbaa !611
+  %4 = icmp eq ptr %3, null
+  br i1 %4, label %11, label %5, !prof !614
+
+5:                                                ; preds = %1
+  %6 = load ptr, ptr %0, align 8, !tbaa !609
+  %7 = load ptr, ptr %6, align 8, !tbaa !391
+  %8 = getelementptr inbounds ptr, ptr %7, i64 24
+  %9 = load ptr, ptr %8, align 8
+  %10 = invoke noundef zeroext i1 %9(ptr noundef nonnull align 8 dereferenceable(24) %6, ptr noundef nonnull align 8 dereferenceable(36) %3) #18
+          to label %11 unwind label %12
+
+11:                                               ; preds = %5, %1
+  ret void
+
+12:                                               ; preds = %5
+  %13 = landingpad { ptr, i32 }
+          catch ptr null
+  %14 = extractvalue { ptr, i32 } %13, 0
+  tail call void @__clang_call_terminate(ptr %14) #21
+  unreachable
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef zeroext i1 @_ZNK11xalanc_1_1013DoubleSupport11NumberUnioneqEd(ptr noundef nonnull align 8 dereferenceable(8) %0, double noundef %1) local_unnamed_addr #0 comdat align 2 !prof !615 {
+  %3 = load i32, ptr %0, align 8, !tbaa !616
+  %4 = bitcast double %1 to i64
+  %5 = trunc i64 %4 to i32
+  %6 = icmp eq i32 %3, %5
+  %7 = getelementptr inbounds %struct.anon, ptr %0, i64 0, i32 1
+  %8 = load i32, ptr %7, align 4
+  %9 = lshr i64 %4, 32
+  %10 = trunc i64 %9 to i32
+  %11 = icmp eq i32 %8, %10
+  %12 = select i1 %6, i1 %11, i1 false, !prof !617
+  ret i1 %12
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6assignERKS0_(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef nonnull align 8 dereferenceable(36) %1) local_unnamed_addr #1 comdat align 2 !prof !603 {
+  tail call void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  %3 = icmp eq ptr %1, %0
+  br i1 %3, label %9, label %4, !prof !618
+
+4:                                                ; preds = %2
+  %5 = tail call noundef nonnull align 8 dereferenceable(32) ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanDOMString", ptr %1, i64 0, i32 1
+  %7 = load i32, ptr %6, align 8, !tbaa !619
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanDOMString", ptr %0, i64 0, i32 1
+  store i32 %7, ptr %8, align 8, !tbaa !619
+  br label %9
+
+9:                                                ; preds = %4, %2
+  tail call void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(32) ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !603 {
+  %3 = alloca %"class.xalanc_1_10::XalanVector.1", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %4 = icmp eq ptr %1, %0
+  br i1 %4, label %33, label %5, !prof !618
+
+5:                                                ; preds = %2
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 2
+  %7 = load i64, ptr %6, align 8, !tbaa !547
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %1, i64 0, i32 1
+  %9 = load i64, ptr %8, align 8, !tbaa !560
+  %10 = icmp ult i64 %7, %9
+  br i1 %10, label %11, label %13, !prof !620
+
+11:                                               ; preds = %5
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #19
+  %12 = load ptr, ptr %0, align 8, !tbaa !557
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(32) %1, ptr noundef nonnull align 8 dereferenceable(8) %12, i64 noundef 0) #18
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  br label %33
+
+13:                                               ; preds = %5
+  %14 = tail call noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+  %15 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  %16 = load i64, ptr %15, align 8, !tbaa !560
+  %17 = load i64, ptr %8, align 8, !tbaa !560
+  %18 = icmp ugt i64 %16, %17
+  br i1 %18, label %19, label %20, !prof !621
+
+19:                                               ; preds = %13
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE12shrinkToSizeEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %17) #18
+  br label %28
+
+20:                                               ; preds = %13
+  %21 = icmp ult i64 %16, %17
+  br i1 %21, label %22, label %28, !prof !622
+
+22:                                               ; preds = %20
+  %23 = tail call noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+  %24 = load i64, ptr %15, align 8, !tbaa !560
+  %25 = getelementptr inbounds i16, ptr %23, i64 %24
+  %26 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %27 = tail call noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %26, ptr noundef %25, ptr noundef %27) #18
+  br label %28
+
+28:                                               ; preds = %20, %22, %19
+  %29 = phi ptr [ %14, %19 ], [ %25, %22 ], [ %14, %20 ]
+  %30 = tail call noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+  %31 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %32 = tail call noundef ptr @_ZSt4copyIPKtPtET0_T_S4_S3_(ptr noundef %30, ptr noundef %29, ptr noundef %31) #18
+  br label %33
+
+33:                                               ; preds = %11, %28, %2
+  call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef %3) unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !623 {
+  %5 = alloca %"class.xalanc_1_10::XalanVector.1", align 8
+  store ptr %2, ptr %0, align 8, !tbaa !557
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  %7 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 2
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  %9 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %1, i64 0, i32 1
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %6, i8 0, i64 24, i1 false)
+  %10 = load i64, ptr %9, align 8, !tbaa !560
+  %11 = icmp eq i64 %10, 0
+  br i1 %11, label %21, label %12, !prof !624
+
+12:                                               ; preds = %4
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #19
+  %13 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9local_maxEmm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %10, i64 noundef %3) #18
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %2, i64 noundef %13) #18
+  %14 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  %15 = call noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+  %16 = invoke noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %1) #18
+          to label %17 unwind label %19
+
+17:                                               ; preds = %12
+  invoke void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %14, ptr noundef %15, ptr noundef %16) #18
+          to label %18 unwind label %19
+
+18:                                               ; preds = %17
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  br label %25
+
+19:                                               ; preds = %17, %12
+  %20 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  resume { ptr, i32 } %20
+
+21:                                               ; preds = %4
+  %22 = icmp eq i64 %3, 0
+  br i1 %22, label %25, label %23, !prof !625
+
+23:                                               ; preds = %21
+  %24 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %3) #18
+  store ptr %24, ptr %8, align 8, !tbaa !549
+  store i64 %3, ptr %7, align 8, !tbaa !547
+  br label %25
+
+25:                                               ; preds = %21, %23, %18
+  call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %1) local_unnamed_addr #0 comdat align 2 !prof !626 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %3 = load ptr, ptr %0, align 8, !tbaa !557
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !549
+  %7 = load ptr, ptr %1, align 8, !tbaa !557
+  store ptr %7, ptr %0, align 8, !tbaa !557
+  %8 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %1, i64 0, i32 1
+  %9 = load <2 x i64>, ptr %8, align 8, !tbaa !480
+  %10 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %1, i64 0, i32 3
+  %11 = load ptr, ptr %10, align 8, !tbaa !549
+  store ptr %11, ptr %5, align 8, !tbaa !549
+  store ptr %3, ptr %1, align 8, !tbaa !557
+  %12 = load <2 x i64>, ptr %4, align 8, !tbaa !480
+  store <2 x i64> %9, ptr %4, align 8, !tbaa !480
+  store <2 x i64> %12, ptr %8, align 8, !tbaa !480
+  store ptr %6, ptr %10, align 8, !tbaa !549
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #1 comdat align 2 !prof !627 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = tail call noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %2
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE12shrinkToSizeEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !628 {
+  %3 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  br label %4
+
+4:                                                ; preds = %4, %2
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %5 = load i64, ptr %3, align 8, !tbaa !560
+  %6 = icmp ugt i64 %5, %1
+  br i1 %6, label %4, label %7, !prof !629, !llvm.loop !630
+
+7:                                                ; preds = %4
+  ret void
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !627 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !549
+  ret ptr %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !631 {
+  %5 = alloca %"class.xalanc_1_10::XalanVector.1", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %6 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14local_distanceEPKtS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %2, ptr noundef %3) #18
+  %7 = icmp eq i64 %6, 0
+  br i1 %7, label %80, label %8, !prof !632
+
+8:                                                ; preds = %4
+  %9 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4sizeEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %10 = add i64 %9, %6
+  %11 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %12 = icmp eq ptr %11, %1
+  br i1 %12, label %13, label %28, !prof !633
+
+13:                                               ; preds = %8
+  %14 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14ensureCapacityEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %10) #18
+  %15 = icmp eq ptr %2, %3
+  br i1 %15, label %79, label %16, !prof !634
+
+16:                                               ; preds = %13
+  %17 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  br label %18
+
+18:                                               ; preds = %16, %18
+  %19 = phi ptr [ %2, %16 ], [ %26, %18 ]
+  %20 = phi ptr [ %14, %16 ], [ %23, %18 ]
+  %21 = load ptr, ptr %0, align 8, !tbaa !557
+  %22 = tail call noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerItE9constructEPtRKtRN11xercesc_2_713MemoryManagerE(ptr noundef %20, ptr noundef nonnull align 2 dereferenceable(2) %19, ptr noundef nonnull align 8 dereferenceable(8) %21) #18
+  %23 = getelementptr inbounds i16, ptr %20, i64 1
+  %24 = load i64, ptr %17, align 8, !tbaa !560
+  %25 = add i64 %24, 1
+  store i64 %25, ptr %17, align 8, !tbaa !560
+  %26 = getelementptr inbounds i16, ptr %19, i64 1
+  %27 = icmp eq ptr %26, %3
+  br i1 %27, label %79, label %18, !prof !635, !llvm.loop !636
+
+28:                                               ; preds = %8
+  %29 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %30 = icmp ugt i64 %10, %29
+  br i1 %30, label %31, label %47, !prof !637
+
+31:                                               ; preds = %28
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %5) #19
+  %32 = load ptr, ptr %0, align 8, !tbaa !557
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef nonnull align 8 dereferenceable(8) %32, i64 noundef %10) #18
+  %33 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+          to label %34 unwind label %45
+
+34:                                               ; preds = %31
+  %35 = call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %33, ptr noundef %35, ptr noundef %1) #18
+          to label %36 unwind label %45
+
+36:                                               ; preds = %34
+  %37 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+          to label %38 unwind label %45
+
+38:                                               ; preds = %36
+  invoke void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %37, ptr noundef %2, ptr noundef %3) #18
+          to label %39 unwind label %45
+
+39:                                               ; preds = %38
+  %40 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+          to label %41 unwind label %45
+
+41:                                               ; preds = %39
+  %42 = invoke noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+          to label %43 unwind label %45
+
+43:                                               ; preds = %41
+  invoke void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_(ptr noundef nonnull align 8 dereferenceable(32) %5, ptr noundef %40, ptr noundef %1, ptr noundef %42) #18
+          to label %44 unwind label %45
+
+44:                                               ; preds = %43
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %5) #18
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  br label %79
+
+45:                                               ; preds = %43, %41, %39, %38, %36, %34, %31
+  %46 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %5) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %5) #19
+  resume { ptr, i32 } %46
+
+47:                                               ; preds = %28
+  %48 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %49 = tail call noundef i64 @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14local_distanceEPKtS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %48) #18
+  %50 = icmp ugt i64 %49, %6
+  br i1 %50, label %66, label %51, !prof !638
+
+51:                                               ; preds = %47
+  %52 = getelementptr inbounds i16, ptr %2, i64 %49
+  %53 = icmp eq ptr %52, %3
+  br i1 %53, label %54, label %56, !prof !639
+
+54:                                               ; preds = %56, %51
+  %55 = icmp eq ptr %48, %1
+  br i1 %55, label %64, label %60, !prof !639
+
+56:                                               ; preds = %51, %56
+  %57 = phi ptr [ %58, %56 ], [ %52, %51 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 2 dereferenceable(2) %57) #18
+  %58 = getelementptr inbounds i16, ptr %57, i64 1
+  %59 = icmp eq ptr %58, %3
+  br i1 %59, label %54, label %56, !prof !640, !llvm.loop !641
+
+60:                                               ; preds = %54, %60
+  %61 = phi ptr [ %62, %60 ], [ %1, %54 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 2 dereferenceable(2) %61) #18
+  %62 = getelementptr inbounds i16, ptr %61, i64 1
+  %63 = icmp eq ptr %62, %48
+  br i1 %63, label %64, label %60, !prof !642, !llvm.loop !643
+
+64:                                               ; preds = %60, %54
+  %65 = tail call noundef ptr @_ZSt4copyIPKtPtET0_T_S4_S3_(ptr noundef %2, ptr noundef %52, ptr noundef %1) #18
+  br label %79
+
+66:                                               ; preds = %47
+  %67 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %68 = sub i64 0, %6
+  %69 = getelementptr inbounds i16, ptr %67, i64 %68
+  %70 = icmp eq ptr %69, %48
+  br i1 %70, label %75, label %71
+
+71:                                               ; preds = %66, %71
+  %72 = phi ptr [ %73, %71 ], [ %69, %66 ]
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 2 dereferenceable(2) %72) #18
+  %73 = getelementptr inbounds i16, ptr %72, i64 1
+  %74 = icmp eq ptr %73, %48
+  br i1 %74, label %75, label %71, !llvm.loop !644
+
+75:                                               ; preds = %71, %66
+  %76 = getelementptr inbounds i16, ptr %48, i64 %68
+  %77 = tail call noundef ptr @_ZSt13copy_backwardIPtS0_ET0_T_S2_S1_(ptr noundef %1, ptr noundef nonnull %76, ptr noundef %48) #18
+  %78 = tail call noundef ptr @_ZSt4copyIPKtPtET0_T_S4_S3_(ptr noundef %2, ptr noundef %3, ptr noundef %1) #18
+  br label %79
+
+79:                                               ; preds = %18, %13, %64, %75, %44
+  call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  br label %80
+
+80:                                               ; preds = %4, %79
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt4copyIPKtPtET0_T_S4_S3_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !645 {
+  %4 = tail call noundef ptr @_ZSt12__miter_baseIPKtET_S2_(ptr noundef %0) #18
+  %5 = tail call noundef ptr @_ZSt12__miter_baseIPKtET_S2_(ptr noundef %1) #18
+  %6 = tail call noundef ptr @_ZSt13__copy_move_aILb0EPKtPtET1_T0_S4_S3_(ptr noundef %4, ptr noundef %5, ptr noundef %2) #18
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9local_maxEmm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1, i64 noundef %2) local_unnamed_addr #0 comdat align 2 !prof !646 {
+  %4 = tail call i64 @llvm.umax.i64(i64 %1, i64 %2)
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %1, i64 noundef %2) unnamed_addr #1 comdat align 2 !prof !647 {
+  store ptr %1, ptr %0, align 8, !tbaa !557
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  store i64 0, ptr %4, align 8, !tbaa !560
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 2
+  store i64 %2, ptr %5, align 8, !tbaa !547
+  %6 = icmp eq i64 %2, 0
+  br i1 %6, label %9, label %7, !prof !648
+
+7:                                                ; preds = %3
+  %8 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %2) #18
+  br label %9
+
+9:                                                ; preds = %3, %7
+  %10 = phi ptr [ %8, %7 ], [ null, %3 ]
+  %11 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  store ptr %10, ptr %11, align 8, !tbaa !549
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8allocateEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !551 {
+  %3 = shl i64 %1, 1
+  %4 = load ptr, ptr %0, align 8, !tbaa !557
+  %5 = load ptr, ptr %4, align 8, !tbaa !391
+  %6 = getelementptr inbounds ptr, ptr %5, i64 2
+  %7 = load ptr, ptr %6, align 8
+  %8 = tail call noundef ptr %7(ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef %3) #18
+  ret ptr %8
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !627 {
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  %3 = load ptr, ptr %2, align 8, !tbaa !549
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !560
+  %6 = getelementptr inbounds i16, ptr %3, i64 %5
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8pop_backEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !649 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !560
+  %4 = add i64 %3, -1
+  store i64 %4, ptr %2, align 8, !tbaa !560
+  %5 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 3
+  %6 = load ptr, ptr %5, align 8, !tbaa !549
+  %7 = getelementptr inbounds i16, ptr %6, i64 %4
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyERt(ptr noundef nonnull align 2 dereferenceable(2) %7) #18
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14local_distanceEPKtS5_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat align 2 !prof !650 {
+  %4 = tail call noundef i64 @_ZSt8distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_(ptr noundef %1, ptr noundef %2) #18
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4sizeEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !651 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  %3 = load i64, ptr %2, align 8, !tbaa !560
+  ret i64 %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14ensureCapacityEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !652 {
+  %3 = tail call noundef i64 @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %4 = icmp ult i64 %3, %1
+  br i1 %4, label %5, label %6, !prof !653
+
+5:                                                ; preds = %2
+  tail call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9doReserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) #18
+  br label %6
+
+6:                                                ; preds = %5, %2
+  %7 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret ptr %7
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerItE9constructEPtRKtRN11xercesc_2_713MemoryManagerE(ptr noundef %0, ptr noundef nonnull align 2 dereferenceable(2) %1, ptr noundef nonnull align 8 dereferenceable(8) %2) local_unnamed_addr #0 comdat align 2 !prof !558 {
+  %4 = load i16, ptr %1, align 2, !tbaa !654
+  store i16 %4, ptr %0, align 2, !tbaa !654
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8capacityEv(ptr noundef nonnull align 8 dereferenceable(32) %0) local_unnamed_addr #0 comdat align 2 !prof !655 {
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 2
+  %3 = load i64, ptr %2, align 8, !tbaa !547
+  ret i64 %3
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 2 dereferenceable(2) %1) local_unnamed_addr #1 comdat align 2 personality ptr @__gxx_personality_v0 !prof !656 {
+  %3 = alloca %"class.xalanc_1_10::XalanVector.1", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %4 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 1
+  %5 = load i64, ptr %4, align 8, !tbaa !560
+  %6 = getelementptr inbounds %"class.xalanc_1_10::XalanVector.1", ptr %0, i64 0, i32 2
+  %7 = load i64, ptr %6, align 8, !tbaa !547
+  %8 = icmp ult i64 %5, %7
+  br i1 %8, label %9, label %15, !prof !657
+
+9:                                                ; preds = %2
+  %10 = tail call noundef ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  %11 = load ptr, ptr %0, align 8, !tbaa !557
+  %12 = tail call noundef ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerItE9constructEPtRKtRN11xercesc_2_713MemoryManagerE(ptr noundef %10, ptr noundef nonnull align 2 dereferenceable(2) %1, ptr noundef nonnull align 8 dereferenceable(8) %11) #18
+  %13 = load i64, ptr %4, align 8, !tbaa !560
+  %14 = add i64 %13, 1
+  store i64 %14, ptr %4, align 8, !tbaa !560
+  br label %25
+
+15:                                               ; preds = %2
+  %16 = icmp eq i64 %5, 0
+  %17 = uitofp i64 %5 to double
+  %18 = tail call double @llvm.fmuladd.f64(double %17, double 1.600000e+00, double 5.000000e-01)
+  %19 = fptoui double %18 to i64
+  %20 = select i1 %16, i64 1, i64 %19
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #19
+  %21 = load ptr, ptr %0, align 8, !tbaa !557
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %21, i64 noundef %20) #18
+  invoke void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 2 dereferenceable(2) %1) #18
+          to label %22 unwind label %23
+
+22:                                               ; preds = %15
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  br label %25
+
+23:                                               ; preds = %15
+  %24 = landingpad { ptr, i32 }
+          cleanup
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  resume { ptr, i32 } %24
+
+25:                                               ; preds = %22, %9
+  call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt13copy_backwardIPtS0_ET0_T_S2_S1_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt12__miter_baseIPtET_S1_(ptr noundef %0) #18
+  %5 = tail call noundef ptr @_ZSt12__miter_baseIPtET_S1_(ptr noundef %1) #18
+  %6 = tail call noundef ptr @_ZSt22__copy_move_backward_aILb0EPtS0_ET1_T0_S2_S1_(ptr noundef %4, ptr noundef %5, ptr noundef %2) #18
+  ret ptr %6
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZSt8distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_(ptr noundef %0, ptr noundef %1) local_unnamed_addr #1 comdat !prof !650 {
+  %3 = alloca ptr, align 8
+  store ptr %0, ptr %3, align 8, !tbaa !427
+  call void @_ZSt19__iterator_categoryIPKtENSt15iterator_traitsIT_E17iterator_categoryERKS3_(ptr noundef nonnull align 8 dereferenceable(8) %3) #18
+  %4 = call noundef i64 @_ZSt10__distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag(ptr noundef %0, ptr noundef %1) #18
+  ret i64 %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i64 @_ZSt10__distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 comdat !prof !650 {
+  %3 = ptrtoint ptr %1 to i64
+  %4 = ptrtoint ptr %0 to i64
+  %5 = sub i64 %3, %4
+  %6 = ashr exact i64 %5, 1
+  ret i64 %6
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local void @_ZSt19__iterator_categoryIPKtENSt15iterator_traitsIT_E17iterator_categoryERKS3_(ptr noundef nonnull align 8 dereferenceable(8) %0) local_unnamed_addr #0 comdat !prof !650 {
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9doReserveEm(ptr noundef nonnull align 8 dereferenceable(32) %0, i64 noundef %1) local_unnamed_addr #1 comdat align 2 !prof !658 {
+  %3 = alloca %"class.xalanc_1_10::XalanVector.1", align 8
+  tail call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  call void @llvm.lifetime.start.p0(i64 32, ptr nonnull %3) #19
+  %4 = load ptr, ptr %0, align 8, !tbaa !557
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm(ptr noundef nonnull align 8 dereferenceable(32) %3, ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(8) %4, i64 noundef %1) #18
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_(ptr noundef nonnull align 8 dereferenceable(32) %0, ptr noundef nonnull align 8 dereferenceable(32) %3) #18
+  call void @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv(ptr noundef nonnull align 8 dereferenceable(32) %0) #18
+  call void @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev(ptr noundef nonnull align 8 dereferenceable(32) %3) #16
+  call void @llvm.lifetime.end.p0(i64 32, ptr nonnull %3) #19
+  ret void
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt22__copy_move_backward_aILb0EPtS0_ET1_T0_S2_S1_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = alloca ptr, align 8
+  store ptr %2, ptr %4, align 8, !tbaa !427
+  %5 = tail call noundef ptr @_ZSt12__niter_baseIPtET_S1_(ptr noundef %0) #16
+  %6 = tail call noundef ptr @_ZSt12__niter_baseIPtET_S1_(ptr noundef %1) #16
+  %7 = tail call noundef ptr @_ZSt12__niter_baseIPtET_S1_(ptr noundef %2) #16
+  %8 = tail call noundef ptr @_ZSt23__copy_move_backward_a1ILb0EPtS0_ET1_T0_S2_S1_(ptr noundef %5, ptr noundef %6, ptr noundef %7) #18
+  %9 = call noundef ptr @_ZSt12__niter_wrapIPtET_RKS1_S1_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %8) #18
+  ret ptr %9
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__miter_baseIPtET_S1_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !659 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_wrapIPtET_RKS1_S1_(ptr noundef nonnull align 8 dereferenceable(8) %0, ptr noundef %1) local_unnamed_addr #0 comdat !prof !660 {
+  ret ptr %1
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt23__copy_move_backward_a1ILb0EPtS0_ET1_T0_S2_S1_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZSt23__copy_move_backward_a2ILb0EPtS0_ET1_T0_S2_S1_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_baseIPtET_S1_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !661 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt23__copy_move_backward_a2ILb0EPtS0_ET1_T0_S2_S1_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !390 {
+  %4 = tail call noundef ptr @_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bItEEPT_PKS3_S6_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNSt20__copy_move_backwardILb0ELb1ESt26random_access_iterator_tagE13__copy_move_bItEEPT_PKS3_S6_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !390 {
+  %4 = ptrtoint ptr %1 to i64
+  %5 = ptrtoint ptr %0 to i64
+  %6 = sub i64 %4, %5
+  %7 = ashr exact i64 %6, 1
+  %8 = icmp eq ptr %1, %0
+  %9 = sub nsw i64 0, %7
+  br i1 %8, label %12, label %10
+
+10:                                               ; preds = %3
+  %11 = getelementptr inbounds i16, ptr %2, i64 %9
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 2 %11, ptr align 2 %0, i64 %6, i1 false)
+  br label %12
+
+12:                                               ; preds = %3, %10
+  %13 = getelementptr inbounds i16, ptr %2, i64 %9
+  ret ptr %13
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt13__copy_move_aILb0EPKtPtET1_T0_S4_S3_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !645 {
+  %4 = alloca ptr, align 8
+  store ptr %2, ptr %4, align 8, !tbaa !427
+  %5 = tail call noundef ptr @_ZSt12__niter_baseIPKtET_S2_(ptr noundef %0) #16
+  %6 = tail call noundef ptr @_ZSt12__niter_baseIPKtET_S2_(ptr noundef %1) #16
+  %7 = tail call noundef ptr @_ZSt12__niter_baseIPtET_S1_(ptr noundef %2) #16
+  %8 = tail call noundef ptr @_ZSt14__copy_move_a1ILb0EPKtPtET1_T0_S4_S3_(ptr noundef %5, ptr noundef %6, ptr noundef %7) #18
+  %9 = call noundef ptr @_ZSt12__niter_wrapIPtET_RKS1_S1_(ptr noundef nonnull align 8 dereferenceable(8) %4, ptr noundef %8) #18
+  ret ptr %9
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__miter_baseIPKtET_S2_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !662 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt14__copy_move_a1ILb0EPKtPtET1_T0_S4_S3_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !645 {
+  %4 = tail call noundef ptr @_ZSt14__copy_move_a2ILb0EPKtPtET1_T0_S4_S3_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt12__niter_baseIPKtET_S2_(ptr noundef %0) local_unnamed_addr #0 comdat !prof !662 {
+  ret ptr %0
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZSt14__copy_move_a2ILb0EPKtPtET1_T0_S4_S3_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #1 comdat !prof !645 {
+  %4 = tail call noundef ptr @_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef ptr @_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_(ptr noundef %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 comdat align 2 !prof !660 {
+  %4 = ptrtoint ptr %1 to i64
+  %5 = ptrtoint ptr %0 to i64
+  %6 = sub i64 %4, %5
+  %7 = icmp eq ptr %1, %0
+  br i1 %7, label %9, label %8, !prof !663
+
+8:                                                ; preds = %3
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 2 %2, ptr align 2 %0, i64 %6, i1 false)
+  br label %9
+
+9:                                                ; preds = %8, %3
+  %10 = getelementptr inbounds i8, ptr %2, i64 %6
+  ret ptr %10
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6assignEjt(ptr noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1, i16 noundef zeroext %2) local_unnamed_addr #1 comdat align 2 !prof !390 {
+  tail call void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  tail call void @_ZN11xalanc_1_1014XalanDOMString5eraseEjj(ptr noundef nonnull align 8 dereferenceable(36) %0, i32 noundef 0, i32 noundef -1) #18
+  tail call void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  %4 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6appendEjt(ptr noundef nonnull align 8 dereferenceable(36) %0, i32 noundef %1, i16 noundef zeroext %2) #18
+  ret ptr %4
+}
+
+; Function Attrs: optsize
+declare noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6appendEjt(ptr noundef nonnull align 8 dereferenceable(36), i32 noundef, i16 noundef zeroext) local_unnamed_addr #6
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6appendERKS0_(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef nonnull align 8 dereferenceable(36) %1) local_unnamed_addr #1 comdat align 2 !prof !664 {
+  %3 = tail call noundef ptr @_ZNK11xalanc_1_1014XalanDOMString5c_strEv(ptr noundef nonnull align 8 dereferenceable(36) %1) #18
+  %4 = tail call noundef i32 @_ZNK11xalanc_1_1014XalanDOMString6lengthEv(ptr noundef nonnull align 8 dereferenceable(36) %1) #18
+  %5 = tail call noundef nonnull align 8 dereferenceable(36) ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKtj(ptr noundef nonnull align 8 dereferenceable(36) %0, ptr noundef %3, i32 noundef %4) #18
+  ret ptr %5
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define linkonce_odr dso_local noundef i32 @_ZNK11xalanc_1_1014XalanDOMString6lengthEv(ptr noundef nonnull align 8 dereferenceable(36) %0) local_unnamed_addr #1 comdat align 2 !prof !665 {
+  tail call void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  %2 = tail call noundef i32 @_ZNK11xalanc_1_1014XalanDOMString4sizeEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  ret i32 %2
+}
+
+; Function Attrs: mustprogress noinline nounwind optsize uwtable
+define linkonce_odr dso_local noundef i32 @_ZNK11xalanc_1_1014XalanDOMString4sizeEv(ptr noundef nonnull align 8 dereferenceable(36) %0) local_unnamed_addr #0 comdat align 2 !prof !666 {
+  tail call void @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv(ptr noundef nonnull align 8 dereferenceable(36) %0) #18
+  %2 = getelementptr inbounds %"class.xalanc_1_10::XalanDOMString", ptr %0, i64 0, i32 1
+  %3 = load i32, ptr %2, align 8, !tbaa !619
+  ret i32 %3
+}
+
+; Function Attrs: noinline optsize uwtable
+define internal void @_GLOBAL__sub_I_XPathExecutionContextDefault.cpp() #5 section ".text.startup" {
+  tail call fastcc void @__cxx_global_var_init()
+  ret void
+}
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umax.i64(i64, i64) #14
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #15
+
+attributes #0 = { mustprogress noinline nounwind optsize uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #1 = { mustprogress noinline optsize uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #2 = { mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #4 = { mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: write) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #5 = { noinline optsize uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #6 = { optsize "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #7 = { nounwind optsize "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #8 = { nofree nounwind }
+attributes #9 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
+attributes #10 = { mustprogress nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #12 = { noinline noreturn nounwind optsize uwtable "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #13 = { nobuiltin nounwind optsize "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #14 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #15 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #16 = { nounwind optsize }
+attributes #17 = { builtin nounwind optsize }
+attributes #18 = { optsize }
+attributes #19 = { nounwind }
+attributes #20 = { noreturn }
+attributes #21 = { noreturn nounwind }
+
+!llvm.module.flags = !{!0, !29, !30, !31, !32, !33, !34}
+!llvm.ident = !{!389}
+
+!0 = !{i32 1, !"ProfileSummary", !1}
+!1 = !{!2, !3, !4, !5, !6, !7, !8, !9, !10, !11}
+!2 = !{!"ProfileFormat", !"InstrProf"}
+!3 = !{!"TotalCount", i64 545138346841}
+!4 = !{!"MaxCount", i64 89343718472}
+!5 = !{!"MaxInternalCount", i64 30012997642}
+!6 = !{!"MaxFunctionCount", i64 89343718472}
+!7 = !{!"NumCounts", i64 49244}
+!8 = !{!"NumFunctions", i64 27305}
+!9 = !{!"IsPartialProfile", i64 0}
+!10 = !{!"PartialProfileRatio", double 0.000000e+00}
+!11 = !{!"DetailedSummary", !12}
+!12 = !{!13, !14, !15, !16, !17, !18, !19, !20, !21, !22, !23, !24, !25, !26, !27, !28}
+!13 = !{i32 10000, i64 89343718472, i32 1}
+!14 = !{i32 100000, i64 89343718472, i32 1}
+!15 = !{i32 200000, i64 33857387535, i32 2}
+!16 = !{i32 300000, i64 30137156670, i32 4}
+!17 = !{i32 400000, i64 28792558693, i32 6}
+!18 = !{i32 500000, i64 16886835304, i32 8}
+!19 = !{i32 600000, i64 16826917200, i32 11}
+!20 = !{i32 700000, i64 13167999625, i32 15}
+!21 = !{i32 800000, i64 2443628737, i32 28}
+!22 = !{i32 900000, i64 555646850, i32 77}
+!23 = !{i32 950000, i64 134227650, i32 195}
+!24 = !{i32 990000, i64 30109074, i32 515}
+!25 = !{i32 999000, i64 1000482, i32 1252}
+!26 = !{i32 999900, i64 150186, i32 2316}
+!27 = !{i32 999990, i64 20523, i32 3051}
+!28 = !{i32 999999, i64 1160, i32 3778}
+!29 = !{i32 1, !"wchar_size", i32 4}
+!30 = !{i32 7, !"openmp", i32 51}
+!31 = !{i32 8, !"PIC Level", i32 2}
+!32 = !{i32 7, !"PIE Level", i32 2}
+!33 = !{i32 7, !"uwtable", i32 2}
+!34 = !{i32 5, !"CG Profile", !35}
+!35 = distinct !{!36, !37, !38, !39, !40, !41, !42, !43, !44, !45, !46, !47, !48, !49, !50, !51, !52, !53, !54, !55, !56, !57, !58, !59, !60, !61, !62, !63, !64, !65, !66, !67, !68, !69, !70, !71, !72, !73, !74, !75, !76, !77, !78, !79, !80, !81, !82, !83, !84, !85, !86, !87, !88, !89, !90, !91, !92, !93, !94, !95, !96, !97, !98, !99, !100, !101, !102, !103, !104, !105, !106, !107, !108, !109, !110, !111, !112, !113, !114, !115, !116, !117, !118, !119, !120, !121, !122, !123, !124, !125, !126, !127, !128, !129, !130, !131, !132, !133, !134, !135, !136, !137, !138, !139, !140, !141, !142, !143, !144, !145, !146, !147, !148, !149, !150, !151, !152, !153, !154, !155, !156, !157, !158, !159, !160, !161, !162, !163, !164, !165, !166, !167, !168, !169, !170, !171, !172, !173, !174, !175, !176, !177, !178, !179, !180, !181, !182, !183, !184, !185, !186, !187, !188, !189, !190, !191, !192, !193, !194, !195, !196, !197, !198, !199, !200, !201, !202, !203, !204, !205, !206, !207, !208, !209, !210, !211, !212, !213, !214, !215, !216, !217, !218, !219, !220, !221, !222, !223, !224, !225, !226, !227, !228, !229, !230, !231, !232, !233, !234, !235, !236, !237, !238, !239, !240, !241, !242, !243, !244, !245, !246, !247, !248, !249, !250, !251, !252, !253, !254, !255, !256, !257, !258, !259, !260, !261, !262, !263, !264, !265, !266, !267, !268, !269, !270, !271, !272, !273, !274, !275, !276, !277, !278, !279, !280, !281, !282, !283, !284, !285, !286, !287, !288, !289, !290, !291, !292, !293, !294, !295, !296, !297, !298, !299, !300, !301, !302, !303, !304, !305, !306, !307, !308, !309, !310, !311, !312, !313, !314, !315, !316, !317, !318, !319, !320, !321, !322, !323, !324, !325, !326, !327, !328, !329, !330, !331, !332, !333, !334, !335, !336, !337, !338, !339, !340, !341, !342, !343, !344, !345, !346, !347, !348, !349, !350, !351, !352, !353, !354, !355, !356, !357, !358, !359, !360, !361, !362, !363, !364, !365, !366, !367, !368, !369, !370, !371, !372, !373, !374, !375, !376, !377, !378, !379, !380, !381, !382, !383, !384, !385, !386, !387, !388}
+!36 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5clearEv, i64 4}
+!37 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_, i64 4}
+!38 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5clearEv, i64 4}
+!39 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_, i64 4}
+!40 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv, ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE5resetEv, i64 4}
+!41 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv, ptr @_ZN11xalanc_1_1019XalanDOMStringCache5resetEv, i64 4}
+!42 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCache5clearEv, i64 4}
+!43 = !{ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault14getCurrentNodeEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4backEv, i64 91379809}
+!44 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault15pushCurrentNodeEPNS_9XalanNodeE, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_, i64 746008}
+!45 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault14popCurrentNodeEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv, i64 746008}
+!46 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault19pushContextNodeListERKNS_15NodeRefListBaseE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCache5clearEv, i64 1839815}
+!47 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault19pushContextNodeListERKNS_15NodeRefListBaseE, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_, i64 1839815}
+!48 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault18popContextNodeListEv, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCache5clearEv, i64 1839815}
+!49 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault18popContextNodeListEv, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8pop_backEv, i64 1839815}
+!50 = !{ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault18getContextNodeListEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4backEv, i64 29851}
+!51 = !{ptr @_ZNK11xalanc_1_1028XPathExecutionContextDefault26getContextNodeListPositionERKNS_9XalanNodeE, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4backEv, i64 93159}
+!52 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault24borrowMutableNodeRefListEv, ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE3getEv, i64 2647209}
+!53 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault24returnMutableNodeRefListEPNS_18MutableNodeRefListE, ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE7releaseEPS1_, i64 2647209}
+!54 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault15getCachedStringEv, ptr @_ZN11xalanc_1_1019XalanDOMStringCache3getEv, i64 67594463}
+!55 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault19releaseCachedStringERNS_14XalanDOMStringE, ptr @_ZN11xalanc_1_1019XalanDOMStringCache7releaseERNS_14XalanDOMStringE, i64 67594463}
+!56 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm, i64 1}
+!57 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 52668}
+!58 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8allocateEm, i64 1}
+!59 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 6}
+!60 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEEC2ERN11xercesc_2_713MemoryManagerEj, ptr @_ZN11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEC2ERN11xercesc_2_713MemoryManagerE, i64 1}
+!61 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEEC2ERN11xercesc_2_713MemoryManagerEj, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm, i64 1}
+!62 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEEC2ERN11xercesc_2_713MemoryManagerEj, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7reserveEm, i64 1}
+!63 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 7034618}
+!64 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, i64 3517309}
+!65 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 3679640}
+!66 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, i64 1839820}
+!67 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev, ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE5resetEv, i64 1}
+!68 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, i64 1}
+!69 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, i64 1}
+!70 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev, ptr @_ZSt8for_eachIPPN11xalanc_1_1018MutableNodeRefListENS0_13DeleteFunctorIS1_EEET0_T_S7_S6_, i64 1}
+!71 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, i64 1}
+!72 = !{ptr @_ZN11xalanc_1_1014XalanDOMStringD2Ev, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, i64 43398227}
+!73 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 12}
+!74 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv, i64 6}
+!75 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv, i64 6}
+!76 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyEPS3_S7_, i64 6}
+!77 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10deallocateEPS3_, i64 6}
+!78 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 105337}
+!79 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, i64 52673}
+!80 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, i64 52673}
+!81 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_, i64 52673}
+!82 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10deallocateEPS2_, i64 52673}
+!83 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm, i64 1}
+!84 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 7}
+!85 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7reserveEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 4}
+!86 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7reserveEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, i64 1}
+!87 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 14}
+!88 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, i64 7}
+!89 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, i64 7}
+!90 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_, i64 7}
+!91 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10deallocateEPS2_, i64 7}
+!92 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 2}
+!93 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, i64 1}
+!94 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_, i64 1}
+!95 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, i64 1}
+!96 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9local_maxEmm, i64 5}
+!97 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm, i64 5}
+!98 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, i64 5}
+!99 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, i64 5}
+!100 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, i64 5}
+!101 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, i64 5}
+!102 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_, i64 5}
+!103 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, i64 5}
+!104 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm, i64 2}
+!105 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 7}
+!106 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 24}
+!107 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 9}
+!108 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_, i64 5}
+!109 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv, i64 4}
+!110 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, i64 4}
+!111 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm, i64 4}
+!112 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_18MutableNodeRefListEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE, i64 12}
+!113 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv, i64 1}
+!114 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, i64 9}
+!115 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 17}
+!116 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 5}
+!117 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 5}
+!118 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv, i64 5}
+!119 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_, ptr @_ZSt8distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_, i64 5}
+!120 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 356469}
+!121 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 50}
+!122 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv, i64 50}
+!123 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv, i64 5}
+!124 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, i64 1}
+!125 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv, i64 5}
+!126 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 5}
+!127 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 5294452}
+!128 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv, i64 2647219}
+!129 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_18MutableNodeRefListEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE, i64 2647219}
+!130 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, i64 7}
+!131 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, i64 7}
+!132 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_, i64 7}
+!133 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, i64 7}
+!134 = !{ptr @_ZSt8distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_, ptr @_ZSt19__iterator_categoryIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E17iterator_categoryERKS6_, i64 5}
+!135 = !{ptr @_ZSt8distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_, ptr @_ZSt10__distanceIPKPN11xalanc_1_1018MutableNodeRefListEENSt15iterator_traitsIT_E15difference_typeES6_S6_St26random_access_iterator_tag, i64 5}
+!136 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_, i64 32}
+!137 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 7034976}
+!138 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv, i64 3517308}
+!139 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_9XalanNodeEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE, i64 3517308}
+!140 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, i64 180}
+!141 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, i64 180}
+!142 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_, i64 180}
+!143 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, i64 180}
+!144 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9local_maxEmm, i64 52642}
+!145 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm, i64 52642}
+!146 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, i64 52642}
+!147 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, i64 52642}
+!148 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, i64 52642}
+!149 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, i64 52642}
+!150 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_, i64 52642}
+!151 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, i64 52642}
+!152 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8allocateEm, i64 30}
+!153 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 52673}
+!154 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 2679832}
+!155 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 105285}
+!156 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_, i64 52643}
+!157 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv, i64 52642}
+!158 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, i64 52642}
+!159 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm, i64 52641}
+!160 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPNS_9XalanNodeEE9constructEPS2_RKS2_RN11xercesc_2_713MemoryManagerE, i64 298098808}
+!161 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv, i64 1}
+!162 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE6insertEPS2_PKS2_S8_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, i64 15}
+!163 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 357177}
+!164 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5beginEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 336428}
+!165 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 336428}
+!166 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv, i64 336428}
+!167 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14local_distanceEPKS2_S7_, ptr @_ZSt8distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_, i64 124518}
+!168 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4sizeEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 2414026}
+!169 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 418513}
+!170 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE3endEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv, i64 418513}
+!171 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv, i64 180149}
+!172 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, i64 52480}
+!173 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE14ensureCapacityEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10endPointerEv, i64 180149}
+!174 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8capacityEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 180149}
+!175 = !{ptr @_ZSt8distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_, ptr @_ZSt19__iterator_categoryIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E17iterator_categoryERKS6_, i64 124518}
+!176 = !{ptr @_ZSt8distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_, ptr @_ZSt10__distanceIPKPN11xalanc_1_109XalanNodeEENSt15iterator_traitsIT_E15difference_typeES6_S6_St26random_access_iterator_tag, i64 124518}
+!177 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 104988}
+!178 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERKS5_RN11xercesc_2_713MemoryManagerEm, i64 52494}
+!179 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE4swapERS5_, i64 52494}
+!180 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9doReserveEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, i64 52494}
+!181 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 3679652}
+!182 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv, i64 1839819}
+!183 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPKNS_15NodeRefListBaseEE9constructEPS3_RKS3_RN11xercesc_2_713MemoryManagerE, i64 1839819}
+!184 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, i64 7}
+!185 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, i64 7}
+!186 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4swapERS6_, i64 7}
+!187 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev, i64 7}
+!188 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9local_maxEmm, i64 5}
+!189 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm, i64 5}
+!190 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv, i64 5}
+!191 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv, i64 5}
+!192 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv, i64 5}
+!193 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_, i64 4}
+!194 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4swapERS6_, i64 4}
+!195 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev, i64 4}
+!196 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8allocateEm, i64 1}
+!197 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERKS6_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 6}
+!198 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4swapERS6_, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 22}
+!199 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 9}
+!200 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14local_distanceEPKS3_S8_, i64 5}
+!201 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4sizeEv, i64 4}
+!202 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv, i64 4}
+!203 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14ensureCapacityEm, i64 4}
+!204 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_, ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerIPKNS_15NodeRefListBaseEE9constructEPS3_RKS3_RN11xercesc_2_713MemoryManagerE, i64 12}
+!205 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8capacityEv, i64 1}
+!206 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE6insertEPS3_PKS3_S9_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10doPushBackERKS3_, i64 9}
+!207 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 11}
+!208 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5beginEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 5}
+!209 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 5}
+!210 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv, i64 5}
+!211 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14local_distanceEPKS3_S8_, ptr @_ZSt8distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_, i64 5}
+!212 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE4sizeEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 5}
+!213 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 11}
+!214 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE3endEv, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv, i64 11}
+!215 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14ensureCapacityEm, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8capacityEv, i64 5}
+!216 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14ensureCapacityEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9doReserveEm, i64 1}
+!217 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE14ensureCapacityEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10endPointerEv, i64 5}
+!218 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8capacityEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 5}
+!219 = !{ptr @_ZSt8distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_, ptr @_ZSt19__iterator_categoryIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E17iterator_categoryERKS7_, i64 5}
+!220 = !{ptr @_ZSt8distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_, ptr @_ZSt10__distanceIPKPKN11xalanc_1_1015NodeRefListBaseEENSt15iterator_traitsIT_E15difference_typeES7_S7_St26random_access_iterator_tag, i64 5}
+!221 = !{ptr @_ZSt8for_eachIPPN11xalanc_1_1018MutableNodeRefListENS0_13DeleteFunctorIS1_EEET0_T_S7_S6_, ptr @_ZNK11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEclEPKS1_, i64 12}
+!222 = !{ptr @_ZNK11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEclEPKS1_, ptr @_ZN11xalanc_1_1023makeXalanDestroyFunctorINS_18MutableNodeRefListEEENS_19XalanDestroyFunctorIT_EEPKS3_, i64 17}
+!223 = !{ptr @_ZNK11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEclEPKS1_, ptr @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPKS1_RN11xercesc_2_713MemoryManagerE, i64 17}
+!224 = !{ptr @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPKS1_RN11xercesc_2_713MemoryManagerE, ptr @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPS1_RN11xercesc_2_713MemoryManagerE, i64 17}
+!225 = !{ptr @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclEPS1_RN11xercesc_2_713MemoryManagerE, ptr @_ZN11xalanc_1_1019XalanDestroyFunctorINS_18MutableNodeRefListEEclERS1_, i64 16}
+!226 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 128698679}
+!227 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv, i64 85300390}
+!228 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv, i64 85300390}
+!229 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyEPtS4_, i64 85300308}
+!230 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10deallocateEPt, i64 85300227}
+!231 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, ptr @__clang_call_terminate, i64 244}
+!232 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyEPtS4_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyERt, i64 28792555932}
+!233 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 227375739}
+!234 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 568333389}
+!235 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv, i64 568333389}
+!236 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyEPS3_S7_, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyERS3_, i64 18}
+!237 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyEPS2_S6_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_, i64 298119648}
+!238 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1021XPathExecutionContextC2ERN11xercesc_2_713MemoryManagerEPNS_14XObjectFactoryE, i64 1}
+!239 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEC2ERN11xercesc_2_713MemoryManagerEm, i64 1}
+!240 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEC2ERN11xercesc_2_713MemoryManagerEm, i64 1}
+!241 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1014XalanDOMStringC1ERN11xercesc_2_713MemoryManagerE, i64 1}
+!242 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEEC2ERN11xercesc_2_713MemoryManagerEj, i64 1}
+!243 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1019XalanDOMStringCacheC1ERN11xercesc_2_713MemoryManagerEj, i64 1}
+!244 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCacheC2Ev, i64 1}
+!245 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1017XalanQNameByValueC1ERN11xercesc_2_713MemoryManagerE, i64 1}
+!246 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_, i64 1}
+!247 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultC2ERN11xercesc_2_713MemoryManagerEPNS_9XalanNodeEPKNS_15NodeRefListBaseEPKNS_14PrefixResolverE, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE9push_backERKS3_, i64 1}
+!248 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev, ptr @_ZN11xalanc_1_1028XPathExecutionContextDefault5resetEv, i64 1}
+!249 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev, ptr @_ZN11xalanc_1_1017XalanQNameByValueD1Ev, i64 1}
+!250 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev, ptr @_ZN11xalanc_1_1019XalanDOMStringCacheD1Ev, i64 1}
+!251 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev, ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEED2Ev, i64 1}
+!252 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev, ptr @_ZN11xalanc_1_1014XalanDOMStringD2Ev, i64 1}
+!253 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEED2Ev, i64 1}
+!254 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEED2Ev, i64 1}
+!255 = !{ptr @_ZN11xalanc_1_1028XPathExecutionContextDefaultD2Ev, ptr @_ZN11xalanc_1_1021XPathExecutionContextD2Ev, i64 1}
+!256 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5clearEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 6463696}
+!257 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE5clearEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE12shrinkToSizeEm, i64 1272729}
+!258 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5clearEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 8}
+!259 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE5clearEv, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE12shrinkToSizeEm, i64 3}
+!260 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE12shrinkToSizeEm, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv, i64 2036727}
+!261 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 7270082}
+!262 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_, i64 3635041}
+!263 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE12shrinkToSizeEm, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8pop_backEv, i64 5}
+!264 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8pop_backEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE10invariantsEv, i64 3679638}
+!265 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE8pop_backEv, ptr @_ZN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEE7destroyERS3_, i64 1839819}
+!266 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE3getEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5emptyEv, i64 2647209}
+!267 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE3getEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE16getMemoryManagerEv, i64 7}
+!268 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE3getEv, ptr @_ZNK11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEclERN11xercesc_2_713MemoryManagerE, i64 7}
+!269 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE3getEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE4backEv, i64 2647202}
+!270 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE3getEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv, i64 2647202}
+!271 = !{ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE5emptyEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 2647209}
+!272 = !{ptr @_ZNK11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEclERN11xercesc_2_713MemoryManagerE, ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EEC2ERN11xercesc_2_713MemoryManagerEPS1_, i64 17}
+!273 = !{ptr @_ZNK11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEclERN11xercesc_2_713MemoryManagerE, ptr @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE3getEv, i64 17}
+!274 = !{ptr @_ZNK11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEclERN11xercesc_2_713MemoryManagerE, ptr @_ZN11xalanc_1_1018MutableNodeRefListC1ERN11xercesc_2_713MemoryManagerE, i64 17}
+!275 = !{ptr @_ZNK11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEclERN11xercesc_2_713MemoryManagerE, ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE7releaseEv, i64 17}
+!276 = !{ptr @_ZNK11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEclERN11xercesc_2_713MemoryManagerE, ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EED2Ev, i64 17}
+!277 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 5294406}
+!278 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE8pop_backEv, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE7destroyERS2_, i64 2647203}
+!279 = !{ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EEC2ERN11xercesc_2_713MemoryManagerEPS1_, ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrDataC2EPN11xercesc_2_713MemoryManagerEPS1_, i64 17}
+!280 = !{ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE7releaseEv, ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData5resetEPN11xercesc_2_713MemoryManagerEPS1_, i64 17}
+!281 = !{ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EED2Ev, ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10deallocateEv, i64 17}
+!282 = !{ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrDataC2EPN11xercesc_2_713MemoryManagerEPS1_, ptr @_ZNSt4pairIPN11xercesc_2_713MemoryManagerEPN11xalanc_1_1018MutableNodeRefListEEC2IRS2_RS5_TnNSt9enable_ifIXaaclsr5_PCCPE22_MoveConstructiblePairIT_T0_EEclsr5_PCCPE30_ImplicitlyMoveConvertiblePairISB_SC_EEEbE4typeELb1EEEOSB_OSC_, i64 17}
+!283 = !{ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrDataC2EPN11xercesc_2_713MemoryManagerEPS1_, ptr @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10invariantsEv, i64 17}
+!284 = !{ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData5resetEPN11xercesc_2_713MemoryManagerEPS1_, ptr @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10invariantsEv, i64 34}
+!285 = !{ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10deallocateEv, ptr @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10invariantsEv, i64 17}
+!286 = !{ptr @_ZN11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData10deallocateEv, ptr @_ZNK11xalanc_1_1018XalanMemMgrAutoPtrINS_18MutableNodeRefListELb0EE17MemMgrAutoPtrData12isInitilizedEv, i64 17}
+!287 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE7releaseEPS1_, ptr @_ZNK11xalanc_1_1022ClearCacheResetFunctorINS_18MutableNodeRefListEEclEPS1_, i64 2647209}
+!288 = !{ptr @_ZN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEE7releaseEPS1_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_, i64 2647209}
+!289 = !{ptr @_ZNK11xalanc_1_1022ClearCacheResetFunctorINS_18MutableNodeRefListEEclEPS1_, ptr @_ZN11xalanc_1_1018MutableNodeRefList5clearEv, i64 2647209}
+!290 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_, ptr @_ZNK11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10invariantsEv, i64 5294440}
+!291 = !{ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE9push_backERKS2_, ptr @_ZN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEE10doPushBackERKS2_, i64 2647220}
+!292 = !{ptr @_ZN11xalanc_1_1014XalanDOMStringaSEPKt, ptr @_ZN11xalanc_1_1014XalanDOMString6assignEPKt, i64 1084346}
+!293 = !{ptr @_ZN11xalanc_1_106c_wstrERKNS_14XalanDOMStringE, ptr @_ZNK11xalanc_1_1014XalanDOMString5c_strEv, i64 12093723}
+!294 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6assignEPKt, ptr @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv, i64 2169010}
+!295 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6assignEPKt, ptr @_ZN11xalanc_1_1014XalanDOMString5eraseEjj, i64 1084505}
+!296 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6assignEPKt, ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKt, i64 1084505}
+!297 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKt, ptr @_ZN11xalanc_1_1014XalanDOMString6lengthEPKt, i64 1179818}
+!298 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKt, ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKtj, i64 1179818}
+!299 = !{ptr @_ZNK11xalanc_1_1014XalanDOMString5c_strEv, ptr @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv, i64 967143541}
+!300 = !{ptr @_ZNK11xalanc_1_1014XalanDOMString5c_strEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5emptyEv, i64 967143541}
+!301 = !{ptr @_ZNK11xalanc_1_1014XalanDOMString5c_strEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEixEm, i64 563515055}
+!302 = !{ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5emptyEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 1083116306}
+!303 = !{ptr @_ZN11xalanc_1_1013DoubleSupport5isNaNEd, ptr @_ZNK11xalanc_1_1013DoubleSupport11NumberUnioneqEd, i64 404042974}
+!304 = !{ptr @_ZN11xalanc_1_1014XalanDOMStringaSERKS0_, ptr @_ZN11xalanc_1_1014XalanDOMString6assignERKS0_, i64 41614}
+!305 = !{ptr @_ZN11xalanc_1_1013DoubleSupport18isNegativeInfinityEd, ptr @_ZNK11xalanc_1_1013DoubleSupport11NumberUnioneqEd, i64 156790587}
+!306 = !{ptr @_ZN11xalanc_1_1014XalanDOMStringpLERKS0_, ptr @_ZN11xalanc_1_1014XalanDOMString6appendERKS0_, i64 243268}
+!307 = !{ptr @_ZN11xalanc_1_1013DoubleSupport18isPositiveInfinityEd, ptr @_ZNK11xalanc_1_1013DoubleSupport11NumberUnioneqEd, i64 179163824}
+!308 = !{ptr @_ZN11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedStringD2Ev, ptr @__clang_call_terminate, i64 64}
+!309 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6assignERKS0_, ptr @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv, i64 83228}
+!310 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6assignERKS0_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, i64 41613}
+!311 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 83228}
+!312 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, i64 13}
+!313 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_, i64 13}
+!314 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, i64 13}
+!315 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv, i64 82485}
+!316 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE12shrinkToSizeEm, i64 355}
+!317 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv, i64 82485}
+!318 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv, i64 40885}
+!319 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, i64 40885}
+!320 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv, i64 41600}
+!321 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEaSERKS3_, ptr @_ZSt4copyIPKtPtET0_T_S4_S3_, i64 41600}
+!322 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9local_maxEmm, i64 19}
+!323 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERN11xercesc_2_713MemoryManagerEm, i64 19}
+!324 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv, i64 19}
+!325 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv, i64 19}
+!326 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv, i64 19}
+!327 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, i64 19}
+!328 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_, i64 19}
+!329 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, i64 19}
+!330 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8allocateEm, i64 64551584}
+!331 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 64551608}
+!332 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 170601494}
+!333 = !{ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 82509}
+!334 = !{ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv, i64 82509}
+!335 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE12shrinkToSizeEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8pop_backEv, i64 64729253}
+!336 = !{ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 82509}
+!337 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 311655952}
+!338 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14local_distanceEPKtS5_, i64 157736530}
+!339 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4sizeEv, i64 155828045}
+!340 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE3endEv, i64 240731456}
+!341 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14ensureCapacityEm, i64 133170775}
+!342 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerItE9constructEPtRKtRN11xercesc_2_713MemoryManagerE, i64 30012996397}
+!343 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8capacityEv, i64 22657270}
+!344 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERN11xercesc_2_713MemoryManagerEm, i64 20748786}
+!345 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE5beginEv, i64 20748766}
+!346 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, i64 62246159}
+!347 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_, i64 20748647}
+!348 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, i64 20748786}
+!349 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt, i64 53614813}
+!350 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZSt4copyIPKtPtET0_T_S4_S3_, i64 1908484}
+!351 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE6insertEPtPKtS6_, ptr @_ZSt13copy_backwardIPtS0_ET0_T_S2_S1_, i64 1}
+!352 = !{ptr @_ZSt4copyIPKtPtET0_T_S4_S3_, ptr @_ZSt12__miter_baseIPKtET_S2_, i64 3901146}
+!353 = !{ptr @_ZSt4copyIPKtPtET0_T_S4_S3_, ptr @_ZSt13__copy_move_aILb0EPKtPtET1_T0_S4_S3_, i64 1950573}
+!354 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERN11xercesc_2_713MemoryManagerEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8allocateEm, i64 1}
+!355 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERN11xercesc_2_713MemoryManagerEm, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 64147281}
+!356 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8pop_backEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 2689195954}
+!357 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8pop_backEv, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE7destroyERt, i64 1344597977}
+!358 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14local_distanceEPKtS5_, ptr @_ZSt8distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_, i64 185895030}
+!359 = !{ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4sizeEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 156073599}
+!360 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14ensureCapacityEm, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8capacityEv, i64 133170778}
+!361 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14ensureCapacityEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9doReserveEm, i64 22}
+!362 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE14ensureCapacityEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv, i64 133170778}
+!363 = !{ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE8capacityEv, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 155828047}
+!364 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 248301312}
+!365 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10endPointerEv, i64 124150655}
+!366 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt, ptr @_ZN11xalanc_1_1028ConstructWithNoMemoryManagerItE9constructEPtRKtRN11xercesc_2_713MemoryManagerE, i64 124150655}
+!367 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, i64 1}
+!368 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt, i64 1}
+!369 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_, i64 1}
+!370 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10doPushBackERKt, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, i64 1}
+!371 = !{ptr @_ZSt8distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_, ptr @_ZSt19__iterator_categoryIPKtENSt15iterator_traitsIT_E17iterator_categoryERKS3_, i64 185895030}
+!372 = !{ptr @_ZSt8distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_, ptr @_ZSt10__distanceIPKtENSt15iterator_traitsIT_E15difference_typeES3_S3_St26random_access_iterator_tag, i64 185895030}
+!373 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9doReserveEm, ptr @_ZNK11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE10invariantsEv, i64 129103172}
+!374 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9doReserveEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEC2ERKS3_RN11xercesc_2_713MemoryManagerEm, i64 64551586}
+!375 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9doReserveEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE4swapERS3_, i64 64551586}
+!376 = !{ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEE9doReserveEm, ptr @_ZN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEED2Ev, i64 64551586}
+!377 = !{ptr @_ZSt13__copy_move_aILb0EPKtPtET1_T0_S4_S3_, ptr @_ZSt12__niter_baseIPKtET_S2_, i64 3901146}
+!378 = !{ptr @_ZSt13__copy_move_aILb0EPKtPtET1_T0_S4_S3_, ptr @_ZSt12__niter_baseIPtET_S1_, i64 1950573}
+!379 = !{ptr @_ZSt13__copy_move_aILb0EPKtPtET1_T0_S4_S3_, ptr @_ZSt14__copy_move_a1ILb0EPKtPtET1_T0_S4_S3_, i64 1950573}
+!380 = !{ptr @_ZSt13__copy_move_aILb0EPKtPtET1_T0_S4_S3_, ptr @_ZSt12__niter_wrapIPtET_RKS1_S1_, i64 1950573}
+!381 = !{ptr @_ZSt14__copy_move_a1ILb0EPKtPtET1_T0_S4_S3_, ptr @_ZSt14__copy_move_a2ILb0EPKtPtET1_T0_S4_S3_, i64 1950573}
+!382 = !{ptr @_ZSt14__copy_move_a2ILb0EPKtPtET1_T0_S4_S3_, ptr @_ZNSt11__copy_moveILb0ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_, i64 1950573}
+!383 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6appendERKS0_, ptr @_ZNK11xalanc_1_1014XalanDOMString5c_strEv, i64 45461869}
+!384 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6appendERKS0_, ptr @_ZNK11xalanc_1_1014XalanDOMString6lengthEv, i64 45461869}
+!385 = !{ptr @_ZN11xalanc_1_1014XalanDOMString6appendERKS0_, ptr @_ZN11xalanc_1_1014XalanDOMString6appendEPKtj, i64 45461869}
+!386 = !{ptr @_ZNK11xalanc_1_1014XalanDOMString6lengthEv, ptr @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv, i64 230527000}
+!387 = !{ptr @_ZNK11xalanc_1_1014XalanDOMString6lengthEv, ptr @_ZNK11xalanc_1_1014XalanDOMString4sizeEv, i64 230527000}
+!388 = !{ptr @_ZNK11xalanc_1_1014XalanDOMString4sizeEv, ptr @_ZNK11xalanc_1_1014XalanDOMString10invariantsEv, i64 1414337976}
+!389 = !{!"Ubuntu clang version 18.1.8 (++20240731024944+3b5b5c1ec4a3-1~exp1~20240731145000.144)"}
+!390 = !{!"function_entry_count", i64 0}
+!391 = !{!392, !392, i64 0}
+!392 = !{!"vtable pointer", !393, i64 0}
+!393 = !{!"Simple C++ TBAA"}
+!394 = !{!395, !398, i64 24}
+!395 = !{!"_ZTSN11xalanc_1_1028XPathExecutionContextDefaultE", !396, i64 0, !398, i64 24, !398, i64 32, !400, i64 40, !402, i64 72, !398, i64 104, !403, i64 112, !406, i64 152, !411, i64 208, !419, i64 328, !420, i64 344}
+!396 = !{!"_ZTSN11xalanc_1_1021XPathExecutionContextE", !397, i64 0, !398, i64 16}
+!397 = !{!"_ZTSN11xalanc_1_1016ExecutionContextE", !398, i64 8}
+!398 = !{!"any pointer", !399, i64 0}
+!399 = !{!"omnipotent char", !393, i64 0}
+!400 = !{!"_ZTSN11xalanc_1_1011XalanVectorIPNS_9XalanNodeENS_31MemoryManagedConstructionTraitsIS2_EEEE", !398, i64 0, !401, i64 8, !401, i64 16, !398, i64 24}
+!401 = !{!"long", !399, i64 0}
+!402 = !{!"_ZTSN11xalanc_1_1011XalanVectorIPKNS_15NodeRefListBaseENS_31MemoryManagedConstructionTraitsIS3_EEEE", !398, i64 0, !401, i64 8, !401, i64 16, !398, i64 24}
+!403 = !{!"_ZTSN11xalanc_1_1014XalanDOMStringE", !404, i64 0, !405, i64 32}
+!404 = !{!"_ZTSN11xalanc_1_1011XalanVectorItNS_31MemoryManagedConstructionTraitsItEEEE", !398, i64 0, !401, i64 8, !401, i64 16, !398, i64 24}
+!405 = !{!"int", !399, i64 0}
+!406 = !{!"_ZTSN11xalanc_1_1016XalanObjectCacheINS_18MutableNodeRefListENS_31DefaultCacheCreateFunctorMemMgrIS1_EENS_13DeleteFunctorIS1_EENS_22ClearCacheResetFunctorIS1_EEEE", !407, i64 0, !408, i64 8, !409, i64 16, !410, i64 24}
+!407 = !{!"_ZTSN11xalanc_1_1031DefaultCacheCreateFunctorMemMgrINS_18MutableNodeRefListEEE"}
+!408 = !{!"_ZTSN11xalanc_1_1013DeleteFunctorINS_18MutableNodeRefListEEE", !398, i64 0}
+!409 = !{!"_ZTSN11xalanc_1_1022ClearCacheResetFunctorINS_18MutableNodeRefListEEE"}
+!410 = !{!"_ZTSN11xalanc_1_1011XalanVectorIPNS_18MutableNodeRefListENS_31MemoryManagedConstructionTraitsIS2_EEEE", !398, i64 0, !401, i64 8, !401, i64 16, !398, i64 24}
+!411 = !{!"_ZTSN11xalanc_1_1019XalanDOMStringCacheE", !412, i64 0, !412, i64 32, !405, i64 64, !413, i64 72}
+!412 = !{!"_ZTSN11xalanc_1_1011XalanVectorIPNS_14XalanDOMStringENS_31MemoryManagedConstructionTraitsIS2_EEEE", !398, i64 0, !401, i64 8, !401, i64 16, !398, i64 24}
+!413 = !{!"_ZTSN11xalanc_1_1031XalanDOMStringReusableAllocatorE", !414, i64 0}
+!414 = !{!"_ZTSN11xalanc_1_1022ReusableArenaAllocatorINS_14XalanDOMStringEEE", !415, i64 0, !418, i64 40}
+!415 = !{!"_ZTSN11xalanc_1_1014ArenaAllocatorINS_14XalanDOMStringENS_18ReusableArenaBlockIS1_tEEEE", !416, i64 8, !417, i64 16}
+!416 = !{!"short", !399, i64 0}
+!417 = !{!"_ZTSN11xalanc_1_109XalanListIPNS_18ReusableArenaBlockINS_14XalanDOMStringEtEEEE", !398, i64 0, !398, i64 8, !398, i64 16}
+!418 = !{!"bool", !399, i64 0}
+!419 = !{!"_ZTSN11xalanc_1_1028XPathExecutionContextDefault28ContextNodeListPositionCacheE", !398, i64 0, !405, i64 8}
+!420 = !{!"_ZTSN11xalanc_1_1017XalanQNameByValueE", !421, i64 0, !403, i64 8, !403, i64 48}
+!421 = !{!"_ZTSN11xalanc_1_1010XalanQNameE"}
+!422 = !{!395, !398, i64 104}
+!423 = !{!"function_entry_count", i64 4}
+!424 = !{!"branch_weights", i32 4, i32 2}
+!425 = !{!395, !398, i64 32}
+!426 = !{!396, !398, i64 16}
+!427 = !{!398, !398, i64 0}
+!428 = !{!"function_entry_count", i64 91379809}
+!429 = !{!"function_entry_count", i64 746008}
+!430 = !{!"function_entry_count", i64 1839815}
+!431 = !{!"function_entry_count", i64 29851}
+!432 = !{!"function_entry_count", i64 186318}
+!433 = !{!395, !398, i64 328}
+!434 = !{!"branch_weights", i32 93160, i32 93160}
+!435 = !{!395, !405, i64 336}
+!436 = !{!"function_entry_count", i64 2647209}
+!437 = !{!"function_entry_count", i64 67594463}
+!438 = !{!"function_entry_count", i64 68609096}
+!439 = !{!"function_entry_count", i64 137218192}
+!440 = !{!441, !398, i64 8}
+!441 = !{!"_ZTSN11xalanc_1_1014XObjectFactoryE", !398, i64 8}
+!442 = !{!"function_entry_count", i64 52668}
+!443 = !{!400, !398, i64 0}
+!444 = !{!400, !401, i64 8}
+!445 = !{!400, !401, i64 16}
+!446 = !{!"branch_weights", i32 52669, i32 1}
+!447 = !{!400, !398, i64 24}
+!448 = !{!"function_entry_count", i64 6}
+!449 = !{!402, !398, i64 0}
+!450 = !{!402, !401, i64 8}
+!451 = !{!402, !401, i64 16}
+!452 = !{!"branch_weights", i32 7, i32 1}
+!453 = !{!402, !398, i64 24}
+!454 = !{!"function_entry_count", i64 1}
+!455 = !{!419, !398, i64 0}
+!456 = !{!419, !405, i64 8}
+!457 = !{!"function_entry_count", i64 3517309}
+!458 = !{!"function_entry_count", i64 1839820}
+!459 = !{!"function_entry_count", i64 43398227}
+!460 = !{!"function_entry_count", i64 12}
+!461 = !{!"branch_weights", i32 7, i32 7}
+!462 = !{!"function_entry_count", i64 105337}
+!463 = !{!"branch_weights", i32 52665, i32 52674}
+!464 = !{!"function_entry_count", i64 52673}
+!465 = !{!"function_entry_count", i64 37841089}
+!466 = !{!"function_entry_count", i64 11039036}
+!467 = !{!"function_entry_count", i64 2}
+!468 = !{!"function_entry_count", i64 7}
+!469 = !{!410, !398, i64 0}
+!470 = !{!410, !401, i64 8}
+!471 = !{!410, !401, i64 16}
+!472 = !{!"branch_weights", i32 8, i32 1}
+!473 = !{!410, !398, i64 24}
+!474 = !{!"branch_weights", i32 2, i32 2}
+!475 = !{!"function_entry_count", i64 14}
+!476 = !{!"branch_weights", i32 8, i32 8}
+!477 = !{!"function_entry_count", i64 18887126}
+!478 = !{!"branch_weights", i32 3, i32 6}
+!479 = !{!"branch_weights", i32 1, i32 3}
+!480 = !{!401, !401, i64 0}
+!481 = !{!"function_entry_count", i64 5}
+!482 = !{!"branch_weights", i32 1, i32 6}
+!483 = !{!"branch_weights", i32 6, i32 1}
+!484 = !{!"branch_weights", i32 1, i32 191}
+!485 = !{!"branch_weights", i32 191, i32 449}
+!486 = distinct !{!486, !487}
+!487 = !{!"llvm.loop.mustprogress"}
+!488 = distinct !{!488, !487}
+!489 = distinct !{!489, !487}
+!490 = distinct !{!490, !487}
+!491 = !{!"function_entry_count", i64 17}
+!492 = !{!"function_entry_count", i64 356469}
+!493 = !{!"function_entry_count", i64 50}
+!494 = !{!"function_entry_count", i64 2647239}
+!495 = !{!"function_entry_count", i64 2647226}
+!496 = !{!"branch_weights", i32 2647221, i32 7}
+!497 = !{!"branch_weights", i32 2, i32 6}
+!498 = !{!"function_entry_count", i64 2647275}
+!499 = !{!"branch_weights", i32 1, i32 127}
+!500 = !{!"branch_weights", i32 127, i32 465}
+!501 = distinct !{!501, !487}
+!502 = !{!"function_entry_count", i64 3517488}
+!503 = !{!"branch_weights", i32 3517310, i32 180}
+!504 = !{!"branch_weights", i32 17, i32 164}
+!505 = !{!"function_entry_count", i64 301760305}
+!506 = !{!"function_entry_count", i64 4115971}
+!507 = !{!"branch_weights", i32 31, i32 52644}
+!508 = !{!"branch_weights", i32 1, i32 31}
+!509 = !{!"function_entry_count", i64 1339916}
+!510 = !{!"function_entry_count", i64 52643}
+!511 = !{!"branch_weights", i32 1, i32 52644}
+!512 = !{!"branch_weights", i32 52644, i32 1}
+!513 = !{!"branch_weights", i32 1, i32 52643}
+!514 = !{!"branch_weights", i32 52643, i32 298062848}
+!515 = distinct !{!515, !487}
+!516 = distinct !{!516, !487}
+!517 = distinct !{!517, !487}
+!518 = distinct !{!518, !487}
+!519 = !{!"function_entry_count", i64 357177}
+!520 = !{!"function_entry_count", i64 336428}
+!521 = !{!"function_entry_count", i64 124518}
+!522 = !{!"function_entry_count", i64 2414026}
+!523 = !{!"function_entry_count", i64 418513}
+!524 = !{!"function_entry_count", i64 180149}
+!525 = !{!"branch_weights", i32 52481, i32 127670}
+!526 = !{!"function_entry_count", i64 217677}
+!527 = !{!"function_entry_count", i64 52494}
+!528 = !{!"function_entry_count", i64 19395}
+!529 = !{!"function_entry_count", i64 58185}
+!530 = !{!"branch_weights", i32 19396, i32 1}
+!531 = !{!"function_entry_count", i64 38790}
+!532 = !{!"function_entry_count", i64 1839826}
+!533 = !{!"branch_weights", i32 1839821, i32 7}
+!534 = !{!"function_entry_count", i64 1839839}
+!535 = !{!"function_entry_count", i64 1839836}
+!536 = !{!"branch_weights", i32 1, i32 2}
+!537 = !{!"function_entry_count", i64 11}
+!538 = distinct !{!538, !487}
+!539 = distinct !{!539, !487}
+!540 = distinct !{!540, !487}
+!541 = distinct !{!541, !487}
+!542 = !{!"branch_weights", i32 191, i32 961}
+!543 = distinct !{!543, !487}
+!544 = !{!408, !398, i64 0}
+!545 = !{!"branch_weights", i32 1, i32 18}
+!546 = !{!"function_entry_count", i64 128698679}
+!547 = !{!404, !401, i64 16}
+!548 = !{!"branch_weights", i32 43398290, i32 85300391}
+!549 = !{!404, !398, i64 24}
+!550 = !{!"function_entry_count", i64 6521798503}
+!551 = !{!"function_entry_count", i64 85300390}
+!552 = !{!"branch_weights", i32 1, i32 12185770}
+!553 = !{!"branch_weights", i32 12185770, i32 -193930395}
+!554 = distinct !{!554, !487}
+!555 = !{!"function_entry_count", i64 227375739}
+!556 = !{!"function_entry_count", i64 568333389}
+!557 = !{!404, !398, i64 0}
+!558 = !{!"function_entry_count", i64 30137156670}
+!559 = !{!"function_entry_count", i64 825654975}
+!560 = !{!404, !401, i64 8}
+!561 = !{!"branch_weights", i32 1, i32 223}
+!562 = !{!"branch_weights", i32 223, i32 449}
+!563 = distinct !{!563, !487}
+!564 = !{!"branch_weights", i32 1, i32 52673}
+!565 = !{!"branch_weights", i32 52673, i32 298072592}
+!566 = distinct !{!566, !487}
+!567 = !{!"branch_weights", i32 2, i32 1}
+!568 = !{!569, !398, i64 8}
+!569 = !{!"_ZTSSt4pairIPN11xercesc_2_713MemoryManagerEPN11xalanc_1_1028XPathExecutionContextDefaultEE", !398, i64 0, !398, i64 8}
+!570 = !{!569, !398, i64 0}
+!571 = !{!"function_entry_count", i64 3231848}
+!572 = !{!"branch_weights", i32 1959120, i32 1272730}
+!573 = !{!"branch_weights", i32 1, i32 5}
+!574 = !{!"function_entry_count", i64 3679634}
+!575 = !{!"branch_weights", i32 3586476, i32 93160}
+!576 = !{!"function_entry_count", i64 1272729}
+!577 = !{!"branch_weights", i32 763999, i32 1272730}
+!578 = distinct !{!578, !487}
+!579 = !{!"function_entry_count", i64 3635041}
+!580 = distinct !{!580, !487}
+!581 = !{!"function_entry_count", i64 1839819}
+!582 = !{!"function_entry_count", i64 123010}
+!583 = !{!"branch_weights", i32 7, i32 2647204}
+!584 = !{!"function_entry_count", i64 2647203}
+!585 = !{!586, !398, i64 8}
+!586 = !{!"_ZTSSt4pairIPN11xercesc_2_713MemoryManagerEPN11xalanc_1_1018MutableNodeRefListEE", !398, i64 0, !398, i64 8}
+!587 = !{!586, !398, i64 0}
+!588 = !{!"function_entry_count", i64 68}
+!589 = !{!"function_entry_count", i64 2647220}
+!590 = !{!"function_entry_count", i64 30}
+!591 = !{!"function_entry_count", i64 280295}
+!592 = !{!397, !398, i64 8}
+!593 = !{!"function_entry_count", i64 1084346}
+!594 = !{!"function_entry_count", i64 12093723}
+!595 = !{!"function_entry_count", i64 1084505}
+!596 = !{!"function_entry_count", i64 3070433826}
+!597 = !{!"function_entry_count", i64 1179818}
+!598 = !{!"function_entry_count", i64 967143541}
+!599 = !{!"branch_weights", i32 403628487, i32 563515056}
+!600 = !{!"function_entry_count", i64 1083116306}
+!601 = !{!"function_entry_count", i64 565220908}
+!602 = !{!"function_entry_count", i64 404042974}
+!603 = !{!"function_entry_count", i64 41614}
+!604 = !{!"function_entry_count", i64 156790587}
+!605 = !{!606, !416, i64 128}
+!606 = !{!"_ZTSN11xalanc_1_1025XalanDecimalFormatSymbolsE", !403, i64 0, !416, i64 40, !416, i64 42, !416, i64 44, !403, i64 48, !403, i64 88, !416, i64 128, !416, i64 130, !403, i64 136, !416, i64 176, !416, i64 178, !416, i64 180, !416, i64 182}
+!607 = !{!"function_entry_count", i64 243268}
+!608 = !{!"function_entry_count", i64 179163824}
+!609 = !{!610, !398, i64 0}
+!610 = !{!"_ZTSN11xalanc_1_1021XPathExecutionContext25GetAndReleaseCachedStringE", !398, i64 0, !398, i64 8}
+!611 = !{!610, !398, i64 8}
+!612 = !{!"function_entry_count", i64 201578993}
+!613 = !{!"function_entry_count", i64 134708288}
+!614 = !{!"branch_weights", i32 67113826, i32 67594464}
+!615 = !{!"function_entry_count", i64 740164859}
+!616 = !{!399, !399, i64 0}
+!617 = !{!"branch_weights", i32 740024103, i32 140758}
+!618 = !{!"branch_weights", i32 1, i32 41615}
+!619 = !{!403, !405, i64 32}
+!620 = !{!"branch_weights", i32 13, i32 41603}
+!621 = !{!"branch_weights", i32 355, i32 41249}
+!622 = !{!"branch_weights", i32 40890, i32 360}
+!623 = !{!"function_entry_count", i64 64551608}
+!624 = !{!"branch_weights", i32 64551591, i32 19}
+!625 = !{!"branch_weights", i32 5, i32 64551587}
+!626 = !{!"function_entry_count", i64 85300747}
+!627 = !{!"function_entry_count", i64 82509}
+!628 = !{!"function_entry_count", i64 348020}
+!629 = !{!"branch_weights", i32 64381419, i32 348021}
+!630 = distinct !{!630, !487}
+!631 = !{!"function_entry_count", i64 155828046}
+!632 = !{!"branch_weights", i32 1, i32 155828047}
+!633 = !{!"branch_weights", i32 133170778, i32 22657270}
+!634 = !{!"branch_weights", i32 1, i32 19024396}
+!635 = !{!"branch_weights", i32 19024396, i32 -26420600}
+!636 = distinct !{!636, !487}
+!637 = !{!"branch_weights", i32 20748787, i32 1908484}
+!638 = !{!"branch_weights", i32 1, i32 1908484}
+!639 = !{!"branch_weights", i32 1, i32 1908483}
+!640 = !{!"branch_weights", i32 1908483, i32 49797857}
+!641 = distinct !{!641, !487}
+!642 = !{!"branch_weights", i32 1908483, i32 1}
+!643 = distinct !{!643, !487}
+!644 = distinct !{!644, !487}
+!645 = !{!"function_entry_count", i64 1950573}
+!646 = !{!"function_entry_count", i64 18}
+!647 = !{!"function_entry_count", i64 64147281}
+!648 = !{!"branch_weights", i32 64147282, i32 1}
+!649 = !{!"function_entry_count", i64 1344597977}
+!650 = !{!"function_entry_count", i64 185895030}
+!651 = !{!"function_entry_count", i64 156073599}
+!652 = !{!"function_entry_count", i64 133170778}
+!653 = !{!"branch_weights", i32 22, i32 133170758}
+!654 = !{!416, !416, i64 0}
+!655 = !{!"function_entry_count", i64 155828047}
+!656 = !{!"function_entry_count", i64 124150656}
+!657 = !{!"branch_weights", i32 124150657, i32 1}
+!658 = !{!"function_entry_count", i64 64551586}
+!659 = !{!"function_entry_count", i64 56317002}
+!660 = !{!"function_entry_count", i64 30109074}
+!661 = !{!"function_entry_count", i64 86426076}
+!662 = !{!"function_entry_count", i64 3901146}
+!663 = !{!"branch_weights", i32 28199083, i32 1909993}
+!664 = !{!"function_entry_count", i64 45461869}
+!665 = !{!"function_entry_count", i64 230527000}
+!666 = !{!"function_entry_count", i64 1414337976}

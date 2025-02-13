@@ -2,7 +2,6 @@ copy-coalescing.pdf
 Copy Coalescing by Graph Recoloring
 
 bench/SPEC2017/spec2017/
-bench/SPEC2017/input_merged/
 bench/SPEC2017/cpu2017-1_0_5.iso
 bench/OCC/PrepareOCC
 
@@ -20,8 +19,10 @@ algos/Treewidth/ExptTreewidth
 pace17/flow_cutter_pace17
 
 algos/Heuristic/Heuristic
+algos/Heuristic/ExptHeuristic
 
 algos/ILP/ILP
+algos/Heuristic/ILP
 
 graph.txt
 tree.txt

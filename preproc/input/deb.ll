@@ -11,31 +11,31 @@ target triple = "x86_64-pc-linux-gnu"
 @.str = private unnamed_addr constant [9 x i8] c"    =>  \00", align 1
 
 ; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable
-define dso_local void @Perl_deb(ptr nocapture noundef readnone %0, ...) local_unnamed_addr #0 {
+define dso_local void @Perl_deb(ptr nocapture noundef readnone %0, ...) local_unnamed_addr #0 !prof !34 {
   ret void
 }
 
 ; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable
-define dso_local void @Perl_vdeb(ptr nocapture noundef readnone %0, ptr nocapture noundef readnone %1) local_unnamed_addr #0 {
+define dso_local void @Perl_vdeb(ptr nocapture noundef readnone %0, ptr nocapture noundef readnone %1) local_unnamed_addr #0 !prof !34 {
   ret void
 }
 
 ; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable
-define dso_local noundef i32 @Perl_debstackptrs() local_unnamed_addr #0 {
+define dso_local noundef i32 @Perl_debstackptrs() local_unnamed_addr #0 !prof !34 {
   ret i32 0
 }
 
 ; Function Attrs: noinline nounwind optsize uwtable
-define dso_local noundef i32 @Perl_debstack() local_unnamed_addr #1 {
-  %1 = load ptr, ptr @PL_curcop, align 8, !tbaa !5
+define dso_local noundef i32 @Perl_debstack() local_unnamed_addr #1 !prof !34 {
+  %1 = load ptr, ptr @PL_curcop, align 8, !tbaa !35
   %2 = getelementptr inbounds %struct.cop, ptr %1, i64 0, i32 8
-  %3 = load ptr, ptr %2, align 8, !tbaa !9
-  %4 = load ptr, ptr @PL_debstash, align 8, !tbaa !5
+  %3 = load ptr, ptr %2, align 8, !tbaa !39
+  %4 = load ptr, ptr @PL_debstash, align 8, !tbaa !35
   %5 = icmp eq ptr %3, %4
   br i1 %5, label %6, label %10
 
 6:                                                ; preds = %0
-  %7 = load volatile i32, ptr @PL_debug, align 4, !tbaa !13
+  %7 = load volatile i32, ptr @PL_debug, align 4, !tbaa !43
   %8 = and i32 %7, 524288
   %9 = icmp eq i32 %8, 0
   br i1 %9, label %13, label %10
@@ -56,7 +56,7 @@ declare i32 @PerlIO_printf(ptr noundef, ptr noundef, ...) local_unnamed_addr #2
 declare ptr @Perl_PerlIO_stderr() local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable
-define dso_local void @Perl_deb_stack_all() local_unnamed_addr #0 {
+define dso_local void @Perl_deb_stack_all() local_unnamed_addr #0 !prof !34 {
   ret void
 }
 
@@ -65,20 +65,50 @@ attributes #1 = { noinline nounwind optsize uwtable "min-legal-vector-width"="0"
 attributes #2 = { optsize "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #3 = { nounwind optsize }
 
-!llvm.module.flags = !{!0, !1, !2, !3}
-!llvm.ident = !{!4}
+!llvm.module.flags = !{!0, !29, !30, !31, !32}
+!llvm.ident = !{!33}
 
-!0 = !{i32 1, !"wchar_size", i32 4}
-!1 = !{i32 8, !"PIC Level", i32 2}
-!2 = !{i32 7, !"PIE Level", i32 2}
-!3 = !{i32 7, !"uwtable", i32 2}
-!4 = !{!"Ubuntu clang version 18.1.8 (++20240731024944+3b5b5c1ec4a3-1~exp1~20240731145000.144)"}
-!5 = !{!6, !6, i64 0}
-!6 = !{!"any pointer", !7, i64 0}
-!7 = !{!"omnipotent char", !8, i64 0}
-!8 = !{!"Simple C/C++ TBAA"}
-!9 = !{!10, !6, i64 40}
-!10 = !{!"cop", !6, i64 0, !6, i64 8, !6, i64 16, !11, i64 24, !12, i64 32, !12, i64 33, !12, i64 33, !12, i64 33, !12, i64 33, !12, i64 33, !12, i64 33, !12, i64 33, !7, i64 34, !7, i64 35, !12, i64 36, !6, i64 40, !6, i64 48, !12, i64 56, !12, i64 60, !6, i64 64, !6, i64 72}
-!11 = !{!"long", !7, i64 0}
-!12 = !{!"int", !7, i64 0}
-!13 = !{!12, !12, i64 0}
+!0 = !{i32 1, !"ProfileSummary", !1}
+!1 = !{!2, !3, !4, !5, !6, !7, !8, !9, !10, !11}
+!2 = !{!"ProfileFormat", !"InstrProf"}
+!3 = !{!"TotalCount", i64 43491971510}
+!4 = !{!"MaxCount", i64 4342352624}
+!5 = !{!"MaxInternalCount", i64 4342352624}
+!6 = !{!"MaxFunctionCount", i64 3033009960}
+!7 = !{!"NumCounts", i64 40262}
+!8 = !{!"NumFunctions", i64 2170}
+!9 = !{!"IsPartialProfile", i64 0}
+!10 = !{!"PartialProfileRatio", double 0.000000e+00}
+!11 = !{!"DetailedSummary", !12}
+!12 = !{!13, !14, !15, !16, !17, !18, !19, !20, !21, !22, !23, !24, !25, !26, !27, !28}
+!13 = !{i32 10000, i64 4342352624, i32 1}
+!14 = !{i32 100000, i64 3033009960, i32 2}
+!15 = !{i32 200000, i64 2317897115, i32 3}
+!16 = !{i32 300000, i64 528717179, i32 7}
+!17 = !{i32 400000, i64 462639867, i32 16}
+!18 = !{i32 500000, i64 457545339, i32 26}
+!19 = !{i32 600000, i64 423510107, i32 35}
+!20 = !{i32 700000, i64 420555191, i32 45}
+!21 = !{i32 800000, i64 220071415, i32 59}
+!22 = !{i32 900000, i64 40456743, i32 99}
+!23 = !{i32 950000, i64 21523442, i32 170}
+!24 = !{i32 990000, i64 1957094, i32 384}
+!25 = !{i32 999000, i64 104162, i32 1106}
+!26 = !{i32 999900, i64 11423, i32 2014}
+!27 = !{i32 999990, i64 757, i32 3020}
+!28 = !{i32 999999, i64 63, i32 4652}
+!29 = !{i32 1, !"wchar_size", i32 4}
+!30 = !{i32 8, !"PIC Level", i32 2}
+!31 = !{i32 7, !"PIE Level", i32 2}
+!32 = !{i32 7, !"uwtable", i32 2}
+!33 = !{!"Ubuntu clang version 18.1.8 (++20240731024944+3b5b5c1ec4a3-1~exp1~20240731145000.144)"}
+!34 = !{!"function_entry_count", i64 0}
+!35 = !{!36, !36, i64 0}
+!36 = !{!"any pointer", !37, i64 0}
+!37 = !{!"omnipotent char", !38, i64 0}
+!38 = !{!"Simple C/C++ TBAA"}
+!39 = !{!40, !36, i64 40}
+!40 = !{!"cop", !36, i64 0, !36, i64 8, !36, i64 16, !41, i64 24, !42, i64 32, !42, i64 33, !42, i64 33, !42, i64 33, !42, i64 33, !42, i64 33, !42, i64 33, !42, i64 33, !37, i64 34, !37, i64 35, !42, i64 36, !36, i64 40, !36, i64 48, !42, i64 56, !42, i64 60, !36, i64 64, !36, i64 72}
+!41 = !{!"long", !37, i64 0}
+!42 = !{!"int", !37, i64 0}
+!43 = !{!42, !42, i64 0}

@@ -1,0 +1,160 @@
+; ModuleID = 'XMLMsgLoader.cpp'
+source_filename = "XMLMsgLoader.cpp"
+target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-linux-gnu"
+
+@_ZN11xercesc_2_712XMLMsgLoader7fLocaleE = dso_local local_unnamed_addr global ptr null, align 8
+@_ZN11xercesc_2_712XMLMsgLoader5fPathE = dso_local local_unnamed_addr global ptr null, align 8
+@_ZN11xercesc_2_712XMLMsgLoader9fLanguageE = dso_local global [3 x i16] [i16 101, i16 110, i16 0], align 2
+@_ZN11xercesc_2_716XMLPlatformUtils15fgMemoryManagerE = external local_unnamed_addr global ptr, align 8
+
+; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable
+define dso_local noundef nonnull ptr @_ZNK11xercesc_2_712XMLMsgLoader15getLanguageNameEv(ptr nocapture noundef nonnull readnone align 8 dereferenceable(8) %0) unnamed_addr #0 align 2 !prof !40 {
+  ret ptr @_ZN11xercesc_2_712XMLMsgLoader9fLanguageE
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xercesc_2_712XMLMsgLoader9setLocaleEPKc(ptr noundef %0) local_unnamed_addr #1 align 2 !prof !41 {
+  %2 = load ptr, ptr @_ZN11xercesc_2_712XMLMsgLoader7fLocaleE, align 8, !tbaa !42
+  %3 = icmp eq ptr %2, null
+  br i1 %3, label %9, label %4, !prof !46
+
+4:                                                ; preds = %1
+  %5 = load ptr, ptr @_ZN11xercesc_2_716XMLPlatformUtils15fgMemoryManagerE, align 8, !tbaa !42
+  %6 = load ptr, ptr %5, align 8, !tbaa !47
+  %7 = getelementptr inbounds ptr, ptr %6, i64 3
+  %8 = load ptr, ptr %7, align 8
+  tail call void %8(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull %2) #4
+  store ptr null, ptr @_ZN11xercesc_2_712XMLMsgLoader7fLocaleE, align 8, !tbaa !42
+  br label %9
+
+9:                                                ; preds = %4, %1
+  %10 = icmp eq ptr %0, null
+  br i1 %10, label %16, label %11, !prof !46
+
+11:                                               ; preds = %9
+  %12 = load ptr, ptr @_ZN11xercesc_2_716XMLPlatformUtils15fgMemoryManagerE, align 8, !tbaa !42
+  %13 = tail call noundef ptr @_ZN11xercesc_2_79XMLString9replicateEPKcPNS_13MemoryManagerE(ptr noundef nonnull %0, ptr noundef %12) #4
+  store ptr %13, ptr @_ZN11xercesc_2_712XMLMsgLoader7fLocaleE, align 8, !tbaa !42
+  %14 = load ptr, ptr @_ZN11xercesc_2_716XMLPlatformUtils15fgMemoryManagerE, align 8, !tbaa !42
+  %15 = tail call noundef zeroext i1 @_ZN11xercesc_2_79XMLString9transcodeEPKcPtjPNS_13MemoryManagerE(ptr noundef %13, ptr noundef nonnull @_ZN11xercesc_2_712XMLMsgLoader9fLanguageE, i32 noundef 2, ptr noundef %14) #4
+  store i16 0, ptr getelementptr inbounds ([3 x i16], ptr @_ZN11xercesc_2_712XMLMsgLoader9fLanguageE, i64 0, i64 2), align 2, !tbaa !49
+  br label %16
+
+16:                                               ; preds = %11, %9
+  ret void
+}
+
+; Function Attrs: optsize
+declare noundef ptr @_ZN11xercesc_2_79XMLString9replicateEPKcPNS_13MemoryManagerE(ptr noundef, ptr noundef) local_unnamed_addr #2
+
+; Function Attrs: optsize
+declare noundef zeroext i1 @_ZN11xercesc_2_79XMLString9transcodeEPKcPtjPNS_13MemoryManagerE(ptr noundef, ptr noundef, i32 noundef, ptr noundef) local_unnamed_addr #2
+
+; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
+define dso_local noundef ptr @_ZN11xercesc_2_712XMLMsgLoader9getLocaleEv() local_unnamed_addr #3 align 2 !prof !40 {
+  %1 = load ptr, ptr @_ZN11xercesc_2_712XMLMsgLoader7fLocaleE, align 8, !tbaa !42
+  ret ptr %1
+}
+
+; Function Attrs: mustprogress noinline optsize uwtable
+define dso_local void @_ZN11xercesc_2_712XMLMsgLoader10setNLSHomeEPKc(ptr noundef %0) local_unnamed_addr #1 align 2 !prof !41 {
+  %2 = load ptr, ptr @_ZN11xercesc_2_712XMLMsgLoader5fPathE, align 8, !tbaa !42
+  %3 = icmp eq ptr %2, null
+  br i1 %3, label %9, label %4, !prof !51
+
+4:                                                ; preds = %1
+  %5 = load ptr, ptr @_ZN11xercesc_2_716XMLPlatformUtils15fgMemoryManagerE, align 8, !tbaa !42
+  %6 = load ptr, ptr %5, align 8, !tbaa !47
+  %7 = getelementptr inbounds ptr, ptr %6, i64 3
+  %8 = load ptr, ptr %7, align 8
+  tail call void %8(ptr noundef nonnull align 8 dereferenceable(8) %5, ptr noundef nonnull %2) #4
+  store ptr null, ptr @_ZN11xercesc_2_712XMLMsgLoader5fPathE, align 8, !tbaa !42
+  br label %9
+
+9:                                                ; preds = %4, %1
+  %10 = icmp eq ptr %0, null
+  br i1 %10, label %14, label %11, !prof !51
+
+11:                                               ; preds = %9
+  %12 = load ptr, ptr @_ZN11xercesc_2_716XMLPlatformUtils15fgMemoryManagerE, align 8, !tbaa !42
+  %13 = tail call noundef ptr @_ZN11xercesc_2_79XMLString9replicateEPKcPNS_13MemoryManagerE(ptr noundef nonnull %0, ptr noundef %12) #4
+  store ptr %13, ptr @_ZN11xercesc_2_712XMLMsgLoader5fPathE, align 8, !tbaa !42
+  br label %14
+
+14:                                               ; preds = %11, %9
+  ret void
+}
+
+; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable
+define dso_local noundef ptr @_ZN11xercesc_2_712XMLMsgLoader10getNLSHomeEv() local_unnamed_addr #3 align 2 !prof !40 {
+  %1 = load ptr, ptr @_ZN11xercesc_2_712XMLMsgLoader5fPathE, align 8, !tbaa !42
+  ret ptr %1
+}
+
+; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable
+define dso_local void @_ZN11xercesc_2_712XMLMsgLoader15setLanguageNameEPt(ptr nocapture noundef nonnull readnone align 8 dereferenceable(8) %0, ptr nocapture noundef readnone %1) local_unnamed_addr #0 align 2 !prof !40 {
+  ret void
+}
+
+attributes #0 = { mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #1 = { mustprogress noinline optsize uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #2 = { optsize "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(read, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #4 = { optsize }
+
+!llvm.module.flags = !{!0, !29, !30, !31, !32, !33, !34}
+!llvm.ident = !{!39}
+
+!0 = !{i32 1, !"ProfileSummary", !1}
+!1 = !{!2, !3, !4, !5, !6, !7, !8, !9, !10, !11}
+!2 = !{!"ProfileFormat", !"InstrProf"}
+!3 = !{!"TotalCount", i64 545138346841}
+!4 = !{!"MaxCount", i64 89343718472}
+!5 = !{!"MaxInternalCount", i64 30012997642}
+!6 = !{!"MaxFunctionCount", i64 89343718472}
+!7 = !{!"NumCounts", i64 49244}
+!8 = !{!"NumFunctions", i64 27305}
+!9 = !{!"IsPartialProfile", i64 0}
+!10 = !{!"PartialProfileRatio", double 0.000000e+00}
+!11 = !{!"DetailedSummary", !12}
+!12 = !{!13, !14, !15, !16, !17, !18, !19, !20, !21, !22, !23, !24, !25, !26, !27, !28}
+!13 = !{i32 10000, i64 89343718472, i32 1}
+!14 = !{i32 100000, i64 89343718472, i32 1}
+!15 = !{i32 200000, i64 33857387535, i32 2}
+!16 = !{i32 300000, i64 30137156670, i32 4}
+!17 = !{i32 400000, i64 28792558693, i32 6}
+!18 = !{i32 500000, i64 16886835304, i32 8}
+!19 = !{i32 600000, i64 16826917200, i32 11}
+!20 = !{i32 700000, i64 13167999625, i32 15}
+!21 = !{i32 800000, i64 2443628737, i32 28}
+!22 = !{i32 900000, i64 555646850, i32 77}
+!23 = !{i32 950000, i64 134227650, i32 195}
+!24 = !{i32 990000, i64 30109074, i32 515}
+!25 = !{i32 999000, i64 1000482, i32 1252}
+!26 = !{i32 999900, i64 150186, i32 2316}
+!27 = !{i32 999990, i64 20523, i32 3051}
+!28 = !{i32 999999, i64 1160, i32 3778}
+!29 = !{i32 1, !"wchar_size", i32 4}
+!30 = !{i32 7, !"openmp", i32 51}
+!31 = !{i32 8, !"PIC Level", i32 2}
+!32 = !{i32 7, !"PIE Level", i32 2}
+!33 = !{i32 7, !"uwtable", i32 2}
+!34 = !{i32 5, !"CG Profile", !35}
+!35 = distinct !{!36, !37, !38}
+!36 = !{ptr @_ZN11xercesc_2_712XMLMsgLoader9setLocaleEPKc, ptr @_ZN11xercesc_2_79XMLString9replicateEPKcPNS_13MemoryManagerE, i64 1}
+!37 = !{ptr @_ZN11xercesc_2_712XMLMsgLoader9setLocaleEPKc, ptr @_ZN11xercesc_2_79XMLString9transcodeEPKcPtjPNS_13MemoryManagerE, i64 1}
+!38 = !{ptr @_ZN11xercesc_2_712XMLMsgLoader10setNLSHomeEPKc, ptr @_ZN11xercesc_2_79XMLString9replicateEPKcPNS_13MemoryManagerE, i64 1}
+!39 = !{!"Ubuntu clang version 18.1.8 (++20240731024944+3b5b5c1ec4a3-1~exp1~20240731145000.144)"}
+!40 = !{!"function_entry_count", i64 0}
+!41 = !{!"function_entry_count", i64 2}
+!42 = !{!43, !43, i64 0}
+!43 = !{!"any pointer", !44, i64 0}
+!44 = !{!"omnipotent char", !45, i64 0}
+!45 = !{!"Simple C++ TBAA"}
+!46 = !{!"branch_weights", i32 2, i32 2}
+!47 = !{!48, !48, i64 0}
+!48 = !{!"vtable pointer", !45, i64 0}
+!49 = !{!50, !50, i64 0}
+!50 = !{!"short", !44, i64 0}
+!51 = !{!"branch_weights", i32 3, i32 1}

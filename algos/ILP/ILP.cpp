@@ -4,13 +4,13 @@
 using namespace std;
 typedef long long lnt;
 typedef pair <int, int> pii;
-typedef pair <pii, int> edge;
+typedef pair <pii, lnt> edge;
 
 int numVar, numReg;
 vector <pii> H;
 vector <edge> A;
 vector <int> color;
-int totalWeight = 0;
+lnt totalWeight = 0;
 
 bool loadGraph() {
     int n, m, k, l; bool ret = true;
@@ -29,8 +29,8 @@ bool loadGraph() {
     for (int u = 1, v; u <= n; u++)
         { cin >> l; while (l--) cin >> v, H.push_back(make_pair(u, v)); }
     cin >> m;
-    for (int i = 0, u, v, w; i < m; i++) {
-        cin >> u >> v >> w;
+    for (int i = 0, u, v; i < m; i++) {
+        lnt w; cin >> u >> v >> w;
         A.push_back(make_pair(make_pair(u, v), w));
         totalWeight += w;
     }
@@ -38,7 +38,7 @@ bool loadGraph() {
     return ret;
 }
 
-int solveILP() {
+lnt solveILP() {
     IloEnv env;
     IloModel model(env);
     vector <vector <IloNumVar>> x;
@@ -63,17 +63,19 @@ int solveILP() {
     }
     IloExpr obj(env);
     for (edge e : A)
-        obj += e.second*y[e.first];
+        obj += (double)e.second*y[e.first];
     model.add(IloMinimize(env, obj));
 
-    IloCplex solver(model);
+    IloCplex solver(model); lnt ret;
     solver.setOut(env.getNullStream());
     solver.solve();
-    int ret = solver.getObjValue();
-    for (int i = 1; i <= numVar; i++)
-        for (int c = 0; c < numReg; c++)
-            if (solver.getValue(x[i][c]) == 1)
-                { color[i] = c; break; }
+    if (solver.getCplexStatus() == CPX_STAT_OPTIMAL) {
+        ret = solver.getObjValue();
+        for (int i = 1; i <= numVar; i++)
+            for (int c = 0; c < numReg; c++)
+                if (solver.getValue(x[i][c]) == 1)
+                    { color[i] = c; break; }
+    } else ret = -1;
     env.end();
     return ret;
 }
@@ -81,14 +83,16 @@ int solveILP() {
 int main() {
     time_t prev = clock();
     if (!loadGraph()) { puts("-1"); return 0; }
-    int ans = solveILP();
+    lnt ans = solveILP();
     double runtime = 1.0*(clock()-prev)/CLOCKS_PER_SEC;
-    for (pii e : H) if (color[e.first] == color[e.second])
-        cerr << "E: " << e.first << " and " << e.second << " are colored the same!" << endl;
-    int sum = 0;
-    for (edge e : A) if (color[e.first.first] == color[e.first.second]) sum += e.second;
-    if (sum != totalWeight-ans) cerr << "E: Answer doesn't match allocation!" << endl;
-    cout << totalWeight-ans << " " << totalWeight << " " << runtime << endl;
-    for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
+    if (ans != -1) {
+        for (pii e : H) if (color[e.first] == color[e.second])
+            cerr << "E: " << e.first << " and " << e.second << " are colored the same!" << endl;
+        lnt sum = 0;
+        for (edge e : A) if (color[e.first.first] == color[e.first.second]) sum += e.second;
+        if (sum != totalWeight-ans) cerr << "E: Answer doesn't match allocation!" << endl;
+        cout << totalWeight-ans << " " << totalWeight << " " << runtime << endl;
+        for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
+    } else puts("-1");
     return 0;
 }
