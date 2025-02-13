@@ -18,16 +18,16 @@ sudo umount $EXPER/mnt
 rm -r mnt
 ```
 
-Now the benchmark is insider folder `spec2017/`. Make sure that `myexpcfg.cfg` and `spec2017script.sh` are at current location. To compile the benchmark, copy the script inside the folder and run it as below.
+Now the benchmark is insider folder `spec2017/`. Make sure that `myexpcfg.cfg` and `spec2017script.sh` are at current location. To profile and compile the benchmarks, copy the script inside the folder and run it as below.
 ```
 cp spec2017script.sh spec2017
 cd spec2017
 chmod +x spec2017script.sh
 . shrc
-./spec2017script.sh $LLVM_DIR "-fno-inline -Os -S -emit-llvm" 500.perlbench_r 502.gcc_r 505.mcf_r 520.omnetpp_r 523.xalancbmk_r 525.x264_r 531.deepsjeng_r 541.leela_r 557.xz_r 508.namd_r 510.parest_r 511.povray_r 519.lbm_r 526.blender_r 538.imagick_r 544.nab_r 600.perlbench_s 602.gcc_s 605.mcf_s 620.omnetpp_s 623.xalancbmk_s 625.x264_s 631.deepsjeng_s 641.leela_s 657.xz_s 619.lbm_s 638.imagick_s 644.nab_s
+./spec2017script.sh $LLVM_DIR "-fno-inline -Os" 500.perlbench_r 502.gcc_r 505.mcf_r 520.omnetpp_r 523.xalancbmk_r 525.x264_r 531.deepsjeng_r 541.leela_r 557.xz_r 508.namd_r 510.parest_r 511.povray_r 519.lbm_r 526.blender_r 538.imagick_r 544.nab_r 600.perlbench_s 602.gcc_s 605.mcf_s 620.omnetpp_s 623.xalancbmk_s 625.x264_s 631.deepsjeng_s 641.leela_s 657.xz_s 619.lbm_s 638.imagick_s 644.nab_s
 ```
 
-The compiled `.ll` files are now under `-fno-inline_-Os_-S_-emit-llvm/` folder.
+The script will first profile the benchmarks and then compile them into LLVM IR. The last two benchmarks are huge and takes a long time to profile. The compiled `.ll` files are now under `bench/SPEC2017/-fno-inline_-Os/` folder.
 
 # Generate CFG, Interference Graph, and Affinity Relation
 

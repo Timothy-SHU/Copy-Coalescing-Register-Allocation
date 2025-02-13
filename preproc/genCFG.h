@@ -50,10 +50,10 @@ void printInterference(int cntVar, const std::vector <std::set <int>> &H) {
     errs() << "\n";
 }
 
-void printAffinity(const std::vector <std::pair <int, int>> &CopyNode, const std::vector <std::pair <std::pair <int, int>, long long>> &A) {
+void printAffinity(const std::vector <std::pair <int, long long>> &CopyNode, const std::vector <std::pair <std::pair <int, int>, long long>> &A) {
     errs() << "----- Affinity Relations -----\n";
     errs() << "CopyNodes:";
-    for (std::pair <int, int> p : CopyNode)
+    for (std::pair <int, long long> p : CopyNode)
         errs() << " [" << p.first << "]";
     errs() << "\n";
     for (std::pair <std::pair <int, int>, long long> e : A)
@@ -116,7 +116,7 @@ struct genCFG : PassInfoMixin <genCFG> {
         std::map <Instruction *, int> NodeID;
 
         std::map <BasicBlock *, int> ExitNode;
-        std::vector <std::pair <int, int>> CopyNode;
+        std::vector <std::pair <int, long long>> CopyNode;
         std::map <std::pair <BasicBlock *, BasicBlock *>, int> EntryNode;
 
         std::map <int, long long> InstrFreq;
@@ -250,8 +250,8 @@ struct genCFG : PassInfoMixin <genCFG> {
         // printInterference(cntVar, H);
         
         std::vector <std::pair <std::pair <int, int>, long long>> A;
-        for (std::pair <int, int> p : CopyNode) {
-            int v = p.first, w = p.second;
+        for (std::pair <int, long long> p : CopyNode) {
+            int v = p.first; long long w = p.second;
             int x = UsedVar[v].first, y = *UsedVar[v].second.begin();
             if (LiveIn[v].find(x) == LiveIn[v].end() && LiveOut[v].find(x) != LiveOut[v].end())
                 if (LiveIn[v].find(y) != LiveIn[v].end() && LiveOut[v].find(y) == LiveOut[v].end())

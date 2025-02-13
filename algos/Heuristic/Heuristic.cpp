@@ -51,8 +51,8 @@ bool loadGraph() {
             cin >> v, H[u].push_back(v);
     }
     cin >> m;
-    for (int i = 0, u, v, w; i < m; i++) {
-        cin >> u >> v >> w;
+    for (int i = 0, u, v; i < m; i++) {
+        lnt w; cin >> u >> v >> w;
         A[u].push_back(make_pair(v, w));
         A[v].push_back(make_pair(u, w));
         aff.push_back(make_pair(make_pair(u, v), w));

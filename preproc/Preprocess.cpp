@@ -6,7 +6,6 @@ using namespace std;
 const string DIR = "../bench/SPEC2017/input/";
 
 int main() {
-    filesystem::remove_all(DIR);
     mkdir(DIR.c_str(), 0777);
     for (auto &folder : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os")) {
         filesystem::path inputFolder(folder.path());

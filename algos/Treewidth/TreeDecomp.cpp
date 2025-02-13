@@ -38,8 +38,8 @@ bool loadGraph(int &numVar, int &numReg, set <pii> &H, map <pii, lnt> &A) {
         }
     }
     cin >> m;
-    for (int i = 0, u, v, w; i < m; i++) {
-        cin >> u >> v >> w;
+    for (int i = 0, u, v; i < m; i++) {
+        lnt w; cin >> u >> v >> w;
         if (u > v) swap(u, v);
         if (A.find(make_pair(u, v)) == A.end())
             A[make_pair(u, v)] = w;
