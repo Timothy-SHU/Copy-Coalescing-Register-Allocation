@@ -91,6 +91,17 @@ opt -passes=dot-cfg test.ll
 dot -Tpng -o test.png .main.dot
 ```
 
+## Display Profiled Information
+The following shows how to profile a program and display counts / branch weights. `llvm-profdata` merges the raw data and show text report. `llvm-cov` displays coverage report and the program side-by-side. Generate LLVM IR with `-fprofile-instr-use` flag inserts profiled info into the `.ll` file.
+```
+clang++ -fno-inline -Os -fprofile-instr-generate -fcoverage-mapping test.cpp -o test
+./test
+llvm-profdata merge -output=test.prof -instr default.profraw
+llvm-profdata show -all-functions -counts -ic-targets test.prof
+llvm-cov show test -instr-profile=test.prof
+clang++ -fno-inline -Os -fprofile-instr-use=test.prof -S -emit-llvm test.cpp
+```
+
 # Copy Coalescing Algorithms
 
 ## Brute-force Checker (for debugging)

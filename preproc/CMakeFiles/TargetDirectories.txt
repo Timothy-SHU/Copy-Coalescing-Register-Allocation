@@ -1,7 +1,0 @@
-/home/tshu/Documents/CopyCoalescing/preproc/CMakeFiles/intrinsics_gen.dir
-/home/tshu/Documents/CopyCoalescing/preproc/CMakeFiles/omp_gen.dir
-/home/tshu/Documents/CopyCoalescing/preproc/CMakeFiles/acc_gen.dir
-/home/tshu/Documents/CopyCoalescing/preproc/CMakeFiles/RISCVTargetParserTableGen.dir
-/home/tshu/Documents/CopyCoalescing/preproc/CMakeFiles/CC.dir
-/home/tshu/Documents/CopyCoalescing/preproc/CMakeFiles/edit_cache.dir
-/home/tshu/Documents/CopyCoalescing/preproc/CMakeFiles/rebuild_cache.dir

@@ -13,22 +13,22 @@ int numReg = 6;
 namespace {
 using namespace llvm;
 
-void printNodeInfo(int v, const Instruction &I, const std::vector <std::pair <int, std::set <int>>> &UsedVar, std::map <int, int> InstrFreq) {
+void printNodeInfo(int v, const Instruction &I, const std::vector <std::pair <int, std::set <int>>> &UsedVar) {
     errs() << "[" << v << "] : ";
     if (UsedVar[v].first != 0)
         errs() << "(" << UsedVar[v].first << ") ";
     errs() << "|";
     for (int var : UsedVar[v].second)
         errs() << " (" << var << ")";
-    errs() << "\t\t" << I << "\t\tFreq = " << InstrFreq[v] << "\n";
+    errs() << "\t\t" << I << "\n";
 }
 
-void printCFG(int cntNode, const std::vector <std::vector <int>> &CFG, const std::vector <std::set <int>> &LiveIn, const std::vector <std::set <int>> &LiveOut) {
+void printCFG(int cntNode, const std::vector <std::vector <int>> &CFG, const std::vector <std::vector <double>> &Pr, const std::vector <std::set <int>> &LiveIn, const std::vector <std::set <int>> &LiveOut) {
     errs() << "------ Control-Flow Graph & Live Ranges ------\n";
     for (int u = 1; u <= cntNode; u++) {
         errs() << "[" << u << "] ->";
-        for (int v : CFG[u])
-            errs() << " [" << v << "]";
+        for (int i = 0; i < (int)CFG[u].size(); i++)
+            std::cerr << "  [" << CFG[u][i] << "] <" << Pr[u][i] << ">";
         errs() << ";  LiveIn:";
         for (int var : LiveIn[u])
             errs() << " (" << var << ")";
@@ -118,13 +118,13 @@ struct genCFG : PassInfoMixin <genCFG> {
         std::map <BasicBlock *, int> ExitNode;
         std::vector <std::pair <int, long long>> CopyNode;
         std::map <std::pair <BasicBlock *, BasicBlock *>, int> EntryNode;
-
-        std::map <int, long long> InstrFreq;
         std::map <std::pair <BasicBlock *, BasicBlock *>, long long> BlockFreq;
 
         // CFG and var list are 1-based, need to append a dummy upon creation
         std::vector <std::vector <int>> CFG;
+        std::vector <std::vector <double>> Pr;
         CFG.push_back(std::vector <int> ());
+        Pr.push_back(std::vector <double> ());
         std::vector <std::pair <int, std::set <int>>> UsedVar;
         UsedVar.push_back(std::make_pair(0, std::set <int> ()));
 
@@ -135,19 +135,6 @@ struct genCFG : PassInfoMixin <genCFG> {
                         VarID[&I] = ++cntVar;
                     } else
                         errs() << "Multiple assignments to the same variable (not SSA)!\n";
-
-        for (BasicBlock &B : F) {
-            Instruction *I = B.getTerminator();
-            if (!hasBranchWeightMD(*I)) continue;
-            SmallVector <uint32_t> weights;
-            MDNode *profData = getBranchWeightMDNode(*I);
-            llvm::extractFromBranchWeightMD(profData, weights);
-            int i = 0;
-            for (BasicBlock *succ : successors(&B))
-                BlockFreq[std::make_pair(succ, nullptr)] += weights[i], 
-                BlockFreq[std::make_pair(succ, &B)] += weights[i], i++;
-        }
-
 
         for (BasicBlock &B : F) {
             // errs() << ">>>> Block" << ":\n";
@@ -162,6 +149,7 @@ struct genCFG : PassInfoMixin <genCFG> {
 
                         int cur = ++cntNode;
                         CFG.push_back(std::vector <int> ());
+                        Pr.push_back(std::vector <double> ());
                         UsedVar.push_back(std::make_pair(0, std::set <int> ()));
 
                         UsedVar[cur].first = VarID[&I];
@@ -171,59 +159,116 @@ struct genCFG : PassInfoMixin <genCFG> {
                         if (prevPHI.find(from) == prevPHI.end())
                             EntryNode[std::make_pair(&B, from)] = cur;
                         else
-                            CFG[prevPHI[from]].push_back(cur);
+                            CFG[prevPHI[from]].push_back(cur), 
+                            Pr[prevPHI[from]].push_back(1);
 
                         prevPHI[from] = cur;
                         
-                        if (BlockFreq.find(std::make_pair(&B, from)) != BlockFreq.end())
-                            InstrFreq[cur] = BlockFreq[std::make_pair(&B, from)];
-                        else
-                            InstrFreq[cur] = 1;
+                        CopyNode.push_back(std::make_pair(cur, 1));
 
-                        CopyNode.push_back(std::make_pair(cur, InstrFreq[cur]));
-
-                        // printNodeInfo(cur, I, UsedVar, InstrFreq);
+                        // printNodeInfo(cur, I, UsedVar);
                     }
+                } else if (isa <SelectInst> (&I)) {
+                    if (prev == -1) {
+                        prev = ++cntNode;
+                        CFG.push_back(std::vector <int> ());
+                        Pr.push_back(std::vector <double> ());
+                        UsedVar.push_back(std::make_pair(0, std::set <int> ()));
+
+                        EntryNode[std::make_pair(&B, nullptr)] = prev;
+                        for (std::pair <BasicBlock *, int> p : prevPHI)
+                            CFG[p.second].push_back(prev), Pr[p.second].push_back(1);
+
+                        // printNodeInfo(prev, I, UsedVar);
+                    }
+
+                    std::vector <double> probs; probs.push_back(0);
+                    if (hasBranchWeightMD(I)) {
+                        SmallVector <uint32_t> weights;
+                        MDNode *profData = getBranchWeightMDNode(I);
+                        llvm::extractFromBranchWeightMD(profData, weights);
+                        long long sum = 0;
+                        for (uint32_t w : weights) sum += (long long)w;
+                        for (uint32_t w : weights)
+                            probs.push_back(1.0*(long long)w/sum);
+                    } else {
+                        for (int i = 1; i < I.getNumOperands(); i++)
+                            probs.push_back(1.0/(double)(I.getNumOperands()-1));
+                    }
+
+                    std::vector <int> selectNodes;
+                    for (int i = 1; i < I.getNumOperands(); i++) {
+                        int cur = ++cntNode; selectNodes.push_back(cur);
+                        CFG.push_back(std::vector <int> ());
+                        Pr.push_back(std::vector <double> ());
+                        UsedVar.push_back(std::make_pair(0, std::set <int> ()));
+
+                        Value *con = I.getOperand(0);
+                        Value *var = I.getOperand(i);
+                        if (VarID.find(con) != VarID.end())
+                            UsedVar[cur].second.insert(VarID[con]);
+                        if (VarID.find(var) != VarID.end())
+                            UsedVar[cur].second.insert(VarID[var]);
+                        if (!I.getType()->isVoidTy())
+                            UsedVar[cur].first = VarID[&I];
+
+                        CFG[prev].push_back(cur), Pr[prev].push_back(probs[i]);
+
+                        // printNodeInfo(cur, I, UsedVar);
+                    }
+                    
+                    int cur = ++cntNode;
+                    CFG.push_back(std::vector <int> ());
+                    Pr.push_back(std::vector <double> ());
+                    UsedVar.push_back(std::make_pair(0, std::set <int> ()));
+                    for (int node : selectNodes)
+                        CFG[node].push_back(cur), Pr[node].push_back(1);
+                    prev = cur;
+
+                    // printNodeInfo(cur, I, UsedVar);
                 } else {
                     NodeID[&I] = ++cntNode;
                     CFG.push_back(std::vector <int> ());
+                    Pr.push_back(std::vector <double> ());
                     UsedVar.push_back(std::make_pair(0, std::set <int> ()));
+
+                    int cntOperands = 0;
 
                     for (int i = 0; i < I.getNumOperands(); i++) {
                         Value *var = I.getOperand(i);
                         if (VarID.find(var) != VarID.end())
+                            cntOperands++, 
                             UsedVar[NodeID[&I]].second.insert(VarID[var]);
                     }
+
+                    // if (cntOperands >= 2) errs() << I << "\n";
+
                     if (!I.getType()->isVoidTy())
                         UsedVar[NodeID[&I]].first = VarID[&I];
                     
                     if (prev == -1) {
                         EntryNode[std::make_pair(&B, nullptr)] = NodeID[&I];
                         for (std::pair <BasicBlock *, int> p : prevPHI)
-                            CFG[p.second].push_back(NodeID[&I]);
+                            CFG[p.second].push_back(NodeID[&I]), Pr[p.second].push_back(1);
                     } else
-                        CFG[prev].push_back(NodeID[&I]);
+                        CFG[prev].push_back(NodeID[&I]), Pr[prev].push_back(1);
                     prev = NodeID[&I];
-
-                    if (BlockFreq.find(std::make_pair(&B, nullptr)) != BlockFreq.end())
-                        InstrFreq[NodeID[&I]] = BlockFreq[std::make_pair(&B, nullptr)];
-                    else
-                        InstrFreq[NodeID[&I]] = 1;
-
-                    if (isa<LoadInst>(&I))
+                    
+                    if (isa <LoadInst> (&I))
                         if (UsedVar[NodeID[&I]].second.size() == 1)
-                            CopyNode.push_back(std::make_pair(NodeID[&I], InstrFreq[NodeID[&I]]));
+                            CopyNode.push_back(std::make_pair(NodeID[&I], 1));
 
-                    // printNodeInfo(NodeID[&I], I, UsedVar, InstrFreq);
+                    // printNodeInfo(NodeID[&I], I, UsedVar);
                 }
             }
             if (prev == -1) {
                 int cur = ++cntNode;
                 CFG.push_back(std::vector <int> ());
+                Pr.push_back(std::vector <double> ());
                 UsedVar.push_back(std::make_pair(0, std::set <int> ()));
 
                 for (std::pair <BasicBlock *, int> p : prevPHI)
-                    CFG[p.second].push_back(cur);
+                    CFG[p.second].push_back(cur), Pr[p.second].push_back(1);
                 ExitNode[&B] = cur;
             } else
                 ExitNode[&B] = prev;
@@ -231,23 +276,49 @@ struct genCFG : PassInfoMixin <genCFG> {
         
         for (BasicBlock &B : F) {
             if (ExitNode.find(&B) == ExitNode.end()) continue;
+            Instruction *I = B.getTerminator();
+            std::vector <double> probs;
+            if (hasBranchWeightMD(*I)) {
+                SmallVector <uint32_t> weights;
+                MDNode *profData = getBranchWeightMDNode(*I);
+                llvm::extractFromBranchWeightMD(profData, weights);
+                long long sum = 0;
+                for (uint32_t w : weights) sum += (long long)w;
+                for (uint32_t w : weights)
+                    probs.push_back(1.0*(long long)w/sum);
+            } else {
+                double cntSucc = 0;
+                for (BasicBlock *succ : successors(&B)) cntSucc++;
+                for (BasicBlock *succ : successors(&B))
+                    probs.push_back(1.0/cntSucc);
+            }
+            int i = 0;
             for (BasicBlock *succ : successors(&B)) {
                 int u = ExitNode[&B], v;
                 if (EntryNode.find(std::make_pair(succ, &B)) != EntryNode.end())
                     v = EntryNode[std::make_pair(succ, &B)];
                 else
                     v = EntryNode[std::make_pair(succ, nullptr)];
-                CFG[u].push_back(v);
+                CFG[u].push_back(v), Pr[u].push_back(probs[i]), i++;
             }
         }
         
         auto LiveInOut = getLiveness(cntNode, CFG, UsedVar);
         std::vector <std::set <int>> LiveIn = LiveInOut.first;
         std::vector <std::set <int>> LiveOut = LiveInOut.second;
-        // printCFG(cntNode, CFG, LiveIn, LiveOut);
+        // printCFG(cntNode, CFG, Pr, LiveIn, LiveOut);
         
         std::vector <std::set <int>> H = getInterference(cntNode, cntVar, LiveIn, LiveOut);
         // printInterference(cntVar, H);
+        
+        std::vector <double> InstrFreq(cntNode+5);
+        for (int u = 1; u <= cntNode; u++)
+            for (int i = 0; i < (int)CFG[u].size(); i++)
+                InstrFreq[CFG[u][i]] += Pr[u][i];
+        double unitFreq = 1.0;
+        while (1/unitFreq < 1.0*cntNode) unitFreq /= 2;
+        for (int i = 0; i < (int)CopyNode.size(); i++)
+            CopyNode[i].second = std::max(1LL, (long long)(InstrFreq[CopyNode[i].first]/unitFreq));
         
         std::vector <std::pair <std::pair <int, int>, long long>> A;
         for (std::pair <int, long long> p : CopyNode) {
