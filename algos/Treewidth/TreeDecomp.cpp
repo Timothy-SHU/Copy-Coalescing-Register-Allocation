@@ -68,7 +68,7 @@ bool loadGraph(int &numVar, int &numReg, set <pii> &H, map <pii, lnt> &A) {
 void genDecomp(int &numBag, int &tw, vector <pii> &TreeEdge, vector <vector <int>> &Bag, int TL) {
     // cerr << "TL = " << TL << ". Solving graph.txt... ";
     system("../../pace17/flow_cutter_pace17 < graph.txt > tree.txt &");
-    sleep(TL);
+    usleep(TL);
     system("pkill -INT -f ../../pace17/flow_cutter_pace17");
     // cerr << "Completed.";
 

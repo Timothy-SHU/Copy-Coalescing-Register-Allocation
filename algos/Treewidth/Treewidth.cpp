@@ -3,7 +3,7 @@
 using namespace std;
 typedef long long lnt;
 typedef pair <int, int> pii;
-const int SOLVER_TIME_LIMIT = 1;
+const int SOLVER_TIME_LIMIT = 5*1000000;
 
 int numVar, numReg, numBag, tw;
 set <pii> H;
@@ -58,8 +58,7 @@ void getRelevantEdges(int x, const vector <int> &b, vector <pii> &curH, vector <
     }
 }
 
-vector <lnt> DFS(int u) {
-    vector <lnt> f;
+void DFS(int u, vector <lnt> &f) {
     vector <pii> curH;
     vector <pair <pii, lnt>> curA;
 
@@ -93,7 +92,7 @@ vector <lnt> DFS(int u) {
                     else cerr << "E: Bags " << u << " and " << v << " are not nice!\n";
                 }
             getRelevantEdges(x, Bag[u], curH, curA);
-            vector <lnt> g = DFS(v);
+            vector <lnt> g; DFS(v, g);
             for (int s = 0; s < STA; s++) {
                 map <int, int> alloc = getAlloc(s, Bag[u]);
                 for (pii &e : curH)
@@ -113,7 +112,7 @@ vector <lnt> DFS(int u) {
                     if (x == -1) x = y;
                     else cerr << "E: Bags " << u << " and " << v << " are not nice!\n";
                 }
-            vector <lnt> g = DFS(v);
+            vector <lnt> g; DFS(v, g);
             for (int s = 0; s < STA; s++) f[s] = -1;
             witness[u] = vector <int> (), witness[u].resize(STA, -1);
             for (int t = 0; t < (int)g.size(); t++) {
@@ -122,7 +121,7 @@ vector <lnt> DFS(int u) {
                 if (f[s] < g[t]) f[s] = g[t], witness[u][s] = t;
             }
         } else if (Bag[u] == Bag[v])                        // Dummy Bag
-            f = DFS(v);
+            DFS(v, f);
         else
             cerr << "E: Bags " << u << " and " << v << " are not nice!\n";
     } else {                                                // Merge Bag
@@ -130,7 +129,7 @@ vector <lnt> DFS(int u) {
             cerr << "E: Merge bag " << u << " is different from child " << v << "!\n";
         getAllEdges(Bag[u], curH, curA);
         for (int v : Tree[u]) if (!mark[v]){
-            vector <lnt> g = DFS(v);
+            vector <lnt> g; DFS(v, g);
             for (int s = 0; s < STA; s++) {
                 map <int, int> alloc = getAlloc(s, Bag[u]);
                 int t = getCompatible(alloc, Bag[v]);
@@ -157,7 +156,7 @@ vector <lnt> DFS(int u) {
     }
     cerr << endl;
     */
-    return f;
+    // return f;
 }
 
 void traceCol(int u, int s, int fa) {
@@ -185,13 +184,13 @@ int main() {
     niceDecomp(numBag, TreeEdge, Bag, Tree);
     // printTree(numBag, tw, Bag, Tree);
 
-    double decompTime = 1.0*(clock()-prev)/CLOCKS_PER_SEC+SOLVER_TIME_LIMIT;
+    double decompTime = 1.0*(clock()-prev)/CLOCKS_PER_SEC+1.0*SOLVER_TIME_LIMIT/1000000;
     // cerr << "Decomposition runtime: " << decompTime  << " s.\n", prev = clock();
 
     mark.resize(numBag+1), color.resize(numVar+1, -1);
     lnt ans = 0;
     for (int i = 1; i <= numBag; i++) if (!mark[i]) {
-        vector <lnt> dp = DFS(i);
+        vector <lnt> dp; DFS(i, dp);
         vector <lnt>::iterator mx = max_element(dp.begin(), dp.end());
         if (ans == -1 || *mx == -1) ans = -1;
         else traceCol(i, (int)distance(dp.begin(), mx), 0), ans += *mx;
@@ -201,9 +200,9 @@ int main() {
     // cerr << "DP runtime: " << DPTime << " s.\n";
 
     lnt totalWeight = 0, validWeight = 0;
-    for (pii e : H)
-        if (color[e.first] == color[e.second])
-            cerr << "E: " << e.first << " and " << e.second << " are of the same color!\n";
+    // for (pii e : H)
+    //     if (color[e.first] == color[e.second])
+    //         cerr << "E: " << e.first << " and " << e.second << " are of the same color!\n";
     for (pair <pii, lnt> e : A) {
         totalWeight += e.second;
         if (color[e.first.first] == color[e.first.second])
@@ -212,6 +211,6 @@ int main() {
     if (validWeight != ans)
         cerr << "E: Answer doesn't match allocation!\n";
     cout << ans << " " << totalWeight << " " << decompTime+DPTime << endl;
-    for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
+    // for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
     return 0;
 }

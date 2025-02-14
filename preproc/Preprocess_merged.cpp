@@ -1,9 +1,10 @@
 #include <bits/stdc++.h>
+#include <string>
 #include <sys/stat.h>
 #include <filesystem>
 using namespace std;
 
-const string DIR = "../bench/SPEC2017/input_merged/";
+string DIR = "../bench/SPEC2017/input_merged/";
 
 int numNode, numVar, numReg, numAff;
 vector <vector <int>> H;
@@ -20,6 +21,13 @@ bool isValid(string path) {
         while (l--) graphFile >> x;
     }
     return true;
+}
+
+bool isFeasible(string folderName, string fileStem, string funcNum) {
+    ifstream ansILP("../results/SPEC2017/k="+to_string(numReg)+"/ILP/"+folderName+"/"+fileStem+"/"+fileStem+"_"+funcNum);
+    int n; double avg; long long ans = -1;
+    ansILP >> n >> avg >> ans;
+    return ans != -1;
 }
 
 void loadGraph(string path) {
@@ -66,7 +74,11 @@ void outputGraph(string folderName, string fileStem) {
 
 int main() {
     H.push_back(vector <int> ());
-    filesystem::remove_all(DIR);
+    mkdir(DIR.c_str(), 0777);
+    ifstream configFile("config.txt");
+    configFile >> numReg;
+    configFile.close();
+    DIR += "k="+to_string(numReg)+"/";
     mkdir(DIR.c_str(), 0777);
     for (auto &folder : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os")) {
         filesystem::path inputFolder(folder.path());
@@ -78,9 +90,12 @@ int main() {
             string fileStem = inputFile.filename().stem();
             mkdir("tmp/", 0777);
             system(("opt -load-pass-plugin ./libCC.so -passes=CC -disable-output "+inputFile.u8string()).c_str());
-            for (auto &graph : filesystem::directory_iterator("tmp"))
-                if (isValid(graph.path()))
+            for (auto &graph : filesystem::directory_iterator("tmp")) {
+                if (isFeasible(folderName, fileStem, filesystem::path(graph.path()).filename().stem()))
                     loadGraph(graph.path());
+                // if (isValid(graph.path()))
+                //     loadGraph(graph.path());
+            }
             outputGraph(folderName, fileStem);
             filesystem::remove_all("tmp");
             cerr << "  Complete." << endl;

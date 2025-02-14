@@ -2,6 +2,7 @@ copy-coalescing.pdf
 Copy Coalescing by Graph Recoloring
 
 bench/SPEC2017/spec2017/
+bench/SPEC2017/input_merged/
 bench/SPEC2017/cpu2017-1_0_5.iso
 bench/OCC/PrepareOCC
 

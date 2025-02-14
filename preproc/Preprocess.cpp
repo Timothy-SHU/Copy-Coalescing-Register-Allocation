@@ -1,11 +1,18 @@
 #include <bits/stdc++.h>
+#include <string>
 #include <sys/stat.h>
 #include <filesystem>
 using namespace std;
 
-const string DIR = "../bench/SPEC2017/input/";
+int numReg = 6;
+string DIR = "../bench/SPEC2017/input/";
 
 int main() {
+    mkdir(DIR.c_str(), 0777);
+    ifstream configFile("config.txt");
+    configFile >> numReg;
+    configFile.close();
+    DIR += "k="+to_string(numReg)+"/";
     mkdir(DIR.c_str(), 0777);
     for (auto &folder : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os")) {
         filesystem::path inputFolder(folder.path());

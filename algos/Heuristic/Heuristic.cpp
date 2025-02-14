@@ -289,8 +289,9 @@ void recolorChunk(int cur) {
     if (bestColor == -1) return;
     for (int u : bestChunk)
         changeTo(u, bestColor), fixated[u] = true;
+    if (bestChunk.size() == chunk[cur].size()) return;
     int newChunk = ++numChunk;
-    chunk.push_back(set <int> ());
+    chunk.push_back(set <int> ()), fa.push_back(newChunk);
     for (int u : chunk[cur])
         if (bestChunk.find(u) == bestChunk.end())
             chunk[newChunk].insert(u), fa[u] = newChunk;
