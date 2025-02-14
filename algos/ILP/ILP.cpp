@@ -11,6 +11,7 @@ vector <pii> H;
 vector <edge> A;
 vector <int> color;
 lnt totalWeight = 0;
+bool notOptimal = false;
 
 bool loadGraph() {
     int n, m, k, l; bool ret = true;
@@ -68,14 +69,18 @@ lnt solveILP() {
 
     IloCplex solver(model); lnt ret;
     solver.setOut(env.getNullStream());
+    solver.setParam(IloCplex::Param::TimeLimit, 1800);
     solver.solve();
-    if (solver.getCplexStatus() == CPX_STAT_OPTIMAL) {
+    if (solver.getStatus() == IloAlgorithm::Status::Infeasible) ret = -1;
+    else {
+        if (solver.getStatus() != IloAlgorithm::Status::Optimal)
+            notOptimal = true;
         ret = solver.getObjValue();
         for (int i = 1; i <= numVar; i++)
             for (int c = 0; c < numReg; c++)
                 if (solver.getValue(x[i][c]) == 1)
                     { color[i] = c; break; }
-    } else ret = -1;
+    }
     env.end();
     return ret;
 }
@@ -94,5 +99,7 @@ int main() {
         cout << totalWeight-ans << " " << totalWeight << " " << runtime << endl;
         for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
     } else puts("-1");
+    if (notOptimal)
+        cout << "Solver have not converged. Allocation not optimal!" << endl;
     return 0;
 }

@@ -58,7 +58,9 @@ bool loadGraph() {
         aff.push_back(make_pair(make_pair(u, v), w));
         totalWeight += w;
     }
-    cout << n << " " << 2.0*m/n << endl;
+    cout << n << " ";
+    if (n == 0) cout << "-1" << endl;
+    else cout << 2.0*m/n << endl;
     return ret;
 }
 

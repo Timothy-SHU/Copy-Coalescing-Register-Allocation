@@ -196,6 +196,8 @@ int main() {
         else traceCol(i, (int)distance(dp.begin(), mx), 0), ans += *mx;
     }
 
+    if (ans == -1) { puts("-1"); return 0; }
+
     double DPTime = 1.0*(clock()-prev)/CLOCKS_PER_SEC;
     // cerr << "DP runtime: " << DPTime << " s.\n";
 
@@ -210,7 +212,8 @@ int main() {
     }
     if (validWeight != ans)
         cerr << "E: Answer doesn't match allocation!\n";
-    cout << ans << " " << totalWeight << " " << decompTime+DPTime << endl;
-    // for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
+    cout << ans << " " << totalWeight << " ";
+    cout << decompTime+DPTime << " " << 1.0*SOLVER_TIME_LIMIT/1000000 << endl;
+    for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
     return 0;
 }

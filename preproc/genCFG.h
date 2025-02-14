@@ -7,6 +7,7 @@
 #include "llvm/ADT/SmallVector.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Analysis/BlockFrequencyInfo.h"
+#include <utility>
 
 int numReg = 6;
 
@@ -169,18 +170,24 @@ struct genCFG : PassInfoMixin <genCFG> {
                         // printNodeInfo(cur, I, UsedVar);
                     }
                 } else if (isa <SelectInst> (&I)) {
+                    int cur = ++cntNode;
+                    CFG.push_back(std::vector <int> ());
+                    Pr.push_back(std::vector <double> ());
+                    UsedVar.push_back(std::make_pair(0, std::set <int> ()));
+
                     if (prev == -1) {
-                        prev = ++cntNode;
-                        CFG.push_back(std::vector <int> ());
-                        Pr.push_back(std::vector <double> ());
-                        UsedVar.push_back(std::make_pair(0, std::set <int> ()));
-
-                        EntryNode[std::make_pair(&B, nullptr)] = prev;
+                        EntryNode[std::make_pair(&B, nullptr)] = cur;
                         for (std::pair <BasicBlock *, int> p : prevPHI)
-                            CFG[p.second].push_back(prev), Pr[p.second].push_back(1);
+                            CFG[p.second].push_back(cur), Pr[p.second].push_back(1);
+                    } else
+                        CFG[prev].push_back(cur), Pr[prev].push_back(1);
+                    prev = cur;
 
-                        // printNodeInfo(prev, I, UsedVar);
-                    }
+                    Value *con = I.getOperand(0);
+                    if (VarID.find(con) != VarID.end())
+                        UsedVar[cur].second.insert(VarID[con]);
+
+                    // printNodeInfo(cur, I, UsedVar);
 
                     std::vector <double> probs; probs.push_back(0);
                     if (hasBranchWeightMD(I)) {
@@ -198,26 +205,25 @@ struct genCFG : PassInfoMixin <genCFG> {
 
                     std::vector <int> selectNodes;
                     for (int i = 1; i < I.getNumOperands(); i++) {
-                        int cur = ++cntNode; selectNodes.push_back(cur);
+                        cur = ++cntNode, selectNodes.push_back(cur);
                         CFG.push_back(std::vector <int> ());
                         Pr.push_back(std::vector <double> ());
                         UsedVar.push_back(std::make_pair(0, std::set <int> ()));
 
-                        Value *con = I.getOperand(0);
                         Value *var = I.getOperand(i);
-                        if (VarID.find(con) != VarID.end())
-                            UsedVar[cur].second.insert(VarID[con]);
                         if (VarID.find(var) != VarID.end())
                             UsedVar[cur].second.insert(VarID[var]);
                         if (!I.getType()->isVoidTy())
                             UsedVar[cur].first = VarID[&I];
+                        if (VarID.find(var) != VarID.end() && !I.getType()->isVoidTy())
+                            CopyNode.push_back(std::make_pair(cur, 1));
 
                         CFG[prev].push_back(cur), Pr[prev].push_back(probs[i]);
 
                         // printNodeInfo(cur, I, UsedVar);
                     }
                     
-                    int cur = ++cntNode;
+                    cur = ++cntNode;
                     CFG.push_back(std::vector <int> ());
                     Pr.push_back(std::vector <double> ());
                     UsedVar.push_back(std::make_pair(0, std::set <int> ()));
@@ -240,8 +246,6 @@ struct genCFG : PassInfoMixin <genCFG> {
                             cntOperands++, 
                             UsedVar[NodeID[&I]].second.insert(VarID[var]);
                     }
-
-                    // if (cntOperands >= 2) errs() << I << "\n";
 
                     if (!I.getType()->isVoidTy())
                         UsedVar[NodeID[&I]].first = VarID[&I];
