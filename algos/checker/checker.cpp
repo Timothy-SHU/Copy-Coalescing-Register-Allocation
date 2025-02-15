@@ -4,12 +4,12 @@ using namespace std;
 int main() {
     for (int T = 1; T <= 20; T++, cerr << endl) {
         cerr << "-------- Test #" << T << " --------\n";
-        system("./data < config.txt > input.txt");
-        system("./BruteForce < input.txt > answer.txt");
-        system("../Treewidth/Treewidth < input.txt > output.txt");
+        system("checker/data < checker/config.txt > checker/input.txt");
+        system("checker/BruteForce < checker/input.txt > checker/answer.txt");
+        system("Treewidth/Treewidth < checker/input.txt > checker/output.txt");
         long long output = 0, answer = 0;
-        ifstream outputFile("output.txt");
-        ifstream answerFile("answer.txt");
+        ifstream outputFile("checker/output.txt");
+        ifstream answerFile("checker/answer.txt");
         outputFile >> output >> output >> output >> output, answerFile >> answer;
         cerr << "Outputed " << output << ", answer is " << answer << ". ";
         if (output == answer) cerr << "Correct.\n";

@@ -35,7 +35,9 @@ bool loadGraph() {
         A.push_back(make_pair(make_pair(u, v), w));
         totalWeight += w;
     }
-    cout << n << " " << 2.0*m/n << endl;
+    cout << n << " ";
+    if (n == 0) cout << 0 << endl;
+    else cout << 2.0*m/n << endl;
     return ret;
 }
 
@@ -69,7 +71,7 @@ lnt solveILP() {
 
     IloCplex solver(model); lnt ret;
     solver.setOut(env.getNullStream());
-    solver.setParam(IloCplex::Param::TimeLimit, 1800);
+    solver.setParam(IloCplex::Param::TimeLimit, 600);
     solver.solve();
     if (solver.getStatus() == IloAlgorithm::Status::Infeasible) ret = -1;
     else {

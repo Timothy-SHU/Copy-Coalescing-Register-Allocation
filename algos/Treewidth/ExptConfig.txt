@@ -1,4 +1,0 @@
-../../bench/SPEC2017/input/k=6/
-../../bench/SPEC2017/input_merged/k=6/
-../../results/SPEC2017/k=6/Treewidth/
-500.perlbench_r

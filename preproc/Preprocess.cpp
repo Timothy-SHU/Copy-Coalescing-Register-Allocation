@@ -4,36 +4,131 @@
 #include <filesystem>
 using namespace std;
 
-int numReg = 6;
-string DIR = "../bench/SPEC2017/input/";
+string IR_DIR = "../bench/SPEC2017/-fno-inline_-Os/";
+string INPUT_DIR = "../bench/SPEC2017/input/";
+string ANSWER_DIR = "../results/SPEC2017/";
+
+int numNode, numVar, numReg = 6, numAff;
+vector <vector <int>> H;
+vector <pair <pair <int, int>, long long>> aff;
+
+bool isValid(string path) {
+    ifstream graphFile(path);
+    int n, m, k; graphFile >> n >> m >> k;
+    for (int i = 1, l, x; i <= n; i++) {
+        graphFile >> l; while (l--) graphFile >> x;
+        graphFile >> l; if (l > k) return false;
+        while (l--) graphFile >> x;
+        graphFile >> l; if (l > k) return false;
+        while (l--) graphFile >> x;
+    }
+    return true;
+}
+
+bool isFeasible(string path) {
+    ifstream ansILP(path);
+    int n; double avg; long long ans = -1;
+    ansILP >> n >> avg >> ans;
+    return ans != -1;
+}
+
+void loadGraph(string path) {
+    int n, m, k, l;
+    ifstream graphFile(path);
+    graphFile >> n >> m >> k;
+    for (int i = 1, x; i <= n; i++) {
+        graphFile >> l; while (l--) graphFile >> x;
+        graphFile >> l; while (l--) graphFile >> x;
+        graphFile >> l; while (l--) graphFile >> x;
+    }
+    numNode += n;
+    graphFile >> n;
+    for (int u = 1, v; u <= n; u++) {
+        H.push_back(vector <int> ());
+        graphFile >> l;
+        while (l--)
+            graphFile >> v, H[u+numVar].push_back(v+numVar);
+    }
+    graphFile >> m;
+    for (int i = 0, u, v; i < m; i++) {
+        long long w; graphFile >> u >> v >> w;
+        aff.push_back(make_pair(make_pair(u+numVar, v+numVar), w));
+    }
+    numVar += n, numAff += m;
+}
+
+void outputGraph(string path) {
+    ofstream outputFile(path);
+    outputFile << "0 " << numVar << " " << numReg << endl << endl << numVar << endl;
+    for (int i = 1; i <= numVar; i++) {
+        outputFile << H[i].size();
+        for (int x : H[i]) outputFile << " " << x;
+        outputFile << endl;
+    }
+    outputFile << endl << numAff << endl;
+    for (int i = 0; i < numAff; i++) {
+        int u = aff[i].first.first;
+        int v = aff[i].first.second;
+        long long w = aff[i].second;
+        outputFile << u << " " << v << " " << w << endl;
+    }
+}
+
+void clearGraph() {
+    numNode = numVar = numAff = 0;
+    H.clear(), aff.clear();
+}
 
 int main() {
-    mkdir(DIR.c_str(), 0777);
+    mkdir(INPUT_DIR.c_str(), 0777);
     ifstream configFile("config.txt");
     configFile >> numReg;
-    configFile.close();
-    DIR += "k="+to_string(numReg)+"/";
-    mkdir(DIR.c_str(), 0777);
-    for (auto &folder : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os")) {
-        filesystem::path inputFolder(folder.path());
-        string folderName = inputFolder.filename();
-        mkdir((DIR+folderName).c_str(), 0777);
-        for (auto &file : filesystem::directory_iterator("../bench/SPEC2017/-fno-inline_-Os/"+folderName+"/units")) {
+
+    INPUT_DIR += "k="+to_string(numReg)+"/";
+    ANSWER_DIR += "k="+to_string(numReg)+"/Prelim/";
+    mkdir(INPUT_DIR.c_str(), 0777);
+
+    string str;
+    while (configFile >> str) {
+        if (str[0] == '#') continue;
+        string folderName = str+"/";
+        mkdir((INPUT_DIR+folderName).c_str(), 0777);
+
+        for (auto &file : filesystem::directory_iterator(IR_DIR+folderName+"units")) {
             cerr << "Preprocessing " << file.path() << "......";
             filesystem::path inputFile(file.path());
-            string fileStem = inputFile.filename().stem();
-            mkdir((DIR+folderName+"/"+fileStem).c_str(), 0777);
+            string fileName = inputFile.filename().stem();
 
+            mkdir("tmp/", 0777), H.push_back(vector <int> ());
+            system(("opt -load-pass-plugin ./libCC.so -passes=CC -disable-output "+inputFile.u8string()).c_str());
+            for (auto &graph : filesystem::directory_iterator("tmp")) {
+                string graphNum = filesystem::path(graph.path()).filename().stem();
+                // if (isValid(graph.path())) loadGraph(graph.path());
+                if (isFeasible(ANSWER_DIR+folderName+fileName+"/"+fileName+"_"+graphNum))
+                    loadGraph(graph.path());
+            }
+
+            outputGraph(INPUT_DIR+folderName+fileName);
+            filesystem::remove_all("tmp"), clearGraph();
+            cerr << "  Complete." << endl;
+        }
+
+        cerr << "Preprocessing merged input for " << str << "......";
+        H.push_back(vector <int> ());
+        for (auto &file : filesystem::directory_iterator(IR_DIR+folderName+"units")) {
+            filesystem::path inputFile(file.path());
+            string fileName = inputFile.filename().stem();
             mkdir("tmp/", 0777);
             system(("opt -load-pass-plugin ./libCC.so -passes=CC -disable-output "+inputFile.u8string()).c_str());
             for (auto &graph : filesystem::directory_iterator("tmp")) {
-                filesystem::path graphFile (graph.path());
-                string num = graphFile.filename();
-                system(("cp tmp/"+num+" "+DIR+folderName+"/"+fileStem+"/"+fileStem+"_"+num).c_str());
+                string graphNum = filesystem::path(graph.path()).filename().stem();
+                if (isFeasible(ANSWER_DIR+folderName+fileName+"/"+fileName+"_"+graphNum))
+                    loadGraph(graph.path());
             }
             filesystem::remove_all("tmp");
-            cerr << "  Complete." << endl;
         }
+        outputGraph(INPUT_DIR+str+"_merged");
+        clearGraph(), cerr << "  Complete." << endl;
     }
     return 0;
 }

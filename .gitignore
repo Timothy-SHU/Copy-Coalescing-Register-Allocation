@@ -7,23 +7,20 @@ bench/SPEC2017/cpu2017-1_0_5.iso
 bench/OCC/PrepareOCC
 
 preproc/libCC.so
+preproc/PrelimExpt
 preproc/Preprocess
-preproc/Preprocess_merged
 preproc/Preprocess-per-func
 
-algos/checker/checker
 algos/checker/data
+algos/checker/checker
 algos/checker/BruteForce
 
+algos/ILP/ILP
+algos/Heuristic/Heuristic
 algos/Treewidth/Treewidth
-algos/Treewidth/ExptTreewidth
 pace17/flow_cutter_pace17
 
-algos/Heuristic/Heuristic
-algos/Heuristic/ExptHeuristic
-
-algos/ILP/ILP
-algos/Heuristic/ILP
+algos/Experiment
 
 graph.txt
 tree.txt

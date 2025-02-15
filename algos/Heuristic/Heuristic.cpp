@@ -59,7 +59,7 @@ bool loadGraph() {
         totalWeight += w;
     }
     cout << n << " ";
-    if (n == 0) cout << "-1" << endl;
+    if (n == 0) cout << -1 << endl;
     else cout << 2.0*m/n << endl;
     return ret;
 }
