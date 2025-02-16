@@ -1,4 +1,4 @@
-6
+8
 500.perlbench_r
 502.gcc_r
 505.mcf_r

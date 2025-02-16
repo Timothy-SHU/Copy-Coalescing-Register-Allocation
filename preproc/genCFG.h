@@ -258,9 +258,11 @@ struct genCFG : PassInfoMixin <genCFG> {
                         CFG[prev].push_back(NodeID[&I]), Pr[prev].push_back(1);
                     prev = NodeID[&I];
                     
+                    /*
                     if (isa <LoadInst> (&I))
                         if (UsedVar[NodeID[&I]].second.size() == 1)
                             CopyNode.push_back(std::make_pair(NodeID[&I], 1));
+                    */
 
                     // printNodeInfo(NodeID[&I], I, UsedVar);
                 }
