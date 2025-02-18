@@ -1,6 +1,6 @@
-7
+6
 500.perlbench_r
-#502.gcc_r
+502.gcc_r
 505.mcf_r
 508.namd_r
 510.parest_r

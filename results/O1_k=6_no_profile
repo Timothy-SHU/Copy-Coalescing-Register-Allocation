@@ -1,0 +1,19 @@
+500.perlbench_r: 69 graphs, 46840 nodes, max |V| = 5726, avg AffDeg = 0.20427, max tw = 7.
+  Heuristic: answer = 766341, ratio = 0.965394, total runtime = 0.06992.
+        ILP: answer = 769605, ratio = 0.969505, total runtime = 61.69.
+  Treewidth: answer = 769605, ratio = 0.969505, total runtime = 112.2, total decomp time = 78.
+
+502.gcc_r: 387 graphs, 380400 nodes, max |V| = 93558, avg AffDeg = 0.1915, max tw = 14.
+  Heuristic: answer = 329829789, ratio = 0.999027, total runtime = 0.4722.
+        ILP: answer = 329839728, ratio = 0.999057, total runtime = 1023.
+  Treewidth: answer = 329839728, ratio = 0.999057, total runtime = 769.3, total decomp time = 516.
+
+523.xalancbmk_r: 757 graphs, 132856 nodes, max |V| = 3170, avg AffDeg = 0.172, max tw = 7.
+  Heuristic: answer = 1005799, ratio = 0.964004, total runtime = 0.2118.
+        ILP: answer = 1006971, ratio = 0.965127, total runtime = 156.3.
+  Treewidth: answer = 1006971, ratio = 0.965127, total runtime = 836.1, total decomp time = 757.
+
+526.blender_r: 1040 graphs, 317394 nodes, max |V| = 18928, avg AffDeg = 0.1589, max tw = 7.
+  Heuristic: answer = 1796384, ratio = 0.96192 , total runtime = 0.4429.
+        ILP: answer = 1798287, ratio = 0.962939, total runtime = 443.
+  Treewidth: answer = 1798287, ratio = 0.962939, total runtime = 1263, total decomp time = 1076.

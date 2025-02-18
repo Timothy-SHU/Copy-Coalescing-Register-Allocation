@@ -168,3 +168,8 @@ cd algos
 g++ Experiment.cpp -o Experiment
 ./Experiment
 ```
+
+## Results
+The results are presented under the `results/` folder.  
+`CollectResults.cpp` gathers the result from raw output. The details on how many registers are used and what benchmarks are displayed are specified inside `config.txt`.  
+All experiment results are presented inside `results.xls`.
