@@ -12,8 +12,6 @@ target triple = "x86_64-pc-linux-gnu"
 %union.anon = type { ptr }
 %struct.padnamelist = type { i64, ptr, i64, i64, i32 }
 %struct.padlist = type { i64, ptr, i32, i32 }
-%struct.cv = type { ptr, i32, i32, %union.anon.1 }
-%union.anon.1 = type { ptr }
 %struct.xpvcv = type { ptr, %union._xmgu, i64, %union.anon.2, ptr, %union.anon.3, %union.anon.4, %union.anon.5, ptr, %union.anon.6, ptr, i32, i32, i32 }
 %union._xmgu = type { ptr }
 %union.anon.2 = type { i64 }
@@ -24,20 +22,23 @@ target triple = "x86_64-pc-linux-gnu"
 %struct.opslab = type { ptr, ptr, ptr, i64, %struct.opslot }
 %struct.opslot = type { ptr, ptr, %struct.op }
 %struct.op = type { ptr, ptr, ptr, i64, i16, i8, i8 }
+%struct.cv = type { ptr, i32, i32, %union.anon.1 }
+%union.anon.1 = type { ptr }
 %struct.padname_with_str = type { ptr, ptr, %union.anon.12, i32, i32, i32, i32, i8, i8, [1 x i8] }
 %union.anon.12 = type { ptr }
 %struct.yy_parser = type { ptr, %union.YYSTYPE, i32, i32, i32, i32, ptr, ptr, i32, i32, ptr, ptr, i8, i8, i8, i8, i32, ptr, ptr, ptr, i16, i16, i32, ptr, i32, i32, i8, i8, i8, i8, i32, %struct._sublex_info, ptr, ptr, ptr, ptr, ptr, ptr, ptr, ptr, ptr, i32, i16, i8, i8, ptr, ptr, ptr, i8, [5 x %union.YYSTYPE], [5 x i32], i32, ptr, [256 x i8], i32, i32, i8, i8, i8 }
 %union.YYSTYPE = type { ptr }
 %struct._sublex_info = type { i8, i16, ptr, ptr }
+%struct.xpvav = type { ptr, %union._xmgu, i64, i64, ptr }
 %struct.xpv = type { ptr, %union._xmgu, i64, %union.anon.8 }
 %union.anon.8 = type { i64 }
-%struct.xpvav = type { ptr, %union._xmgu, i64, i64, ptr }
 %struct.gv = type { ptr, i32, i32, %union.anon.9 }
 %union.anon.9 = type { ptr }
 %struct.xpvmg = type { ptr, %union._xmgu, i64, %union.anon.14, %union._xivu, %union._xnvu }
 %union.anon.14 = type { i64 }
 %union._xivu = type { i64 }
 %union._xnvu = type { double }
+%struct.unop = type { ptr, ptr, ptr, i64, i16, i8, i8, ptr }
 %struct.hv = type { ptr, i32, i32, %union.anon.10 }
 %union.anon.10 = type { ptr }
 %struct.xpvhv = type { ptr, %union._xmgu, i64, i64 }
@@ -45,7 +46,6 @@ target triple = "x86_64-pc-linux-gnu"
 %struct.gp = type { ptr, ptr, ptr, i32, i32, ptr, ptr, ptr, ptr, i32, ptr }
 %struct.xpvgv = type { ptr, %union._xmgu, i64, %union.anon.11, %union._xivu, %union._xnvu }
 %union.anon.11 = type { i64 }
-%struct.unop = type { ptr, ptr, ptr, i64, i16, i8, i8, ptr }
 
 @PL_comppad = external local_unnamed_addr global ptr, align 8
 @PL_comppad_name = external global ptr, align 8
@@ -65,7 +65,6 @@ target triple = "x86_64-pc-linux-gnu"
 @.str.1 = private unnamed_addr constant [48 x i8] c"panic: pad_add_name_pvn illegal flag bits 0x%lx\00", align 1
 @.str.2 = private unnamed_addr constant [25 x i8] c"panic: pad_alloc, %p!=%p\00", align 1
 @PL_padname_const = external global %struct.padname, align 8
-@.str.3 = private unnamed_addr constant [2 x i8] c"&\00", align 1
 @.str.4 = private unnamed_addr constant [46 x i8] c"panic: pad_findmy_pvn illegal flag bits 0x%lx\00", align 1
 @PL_compcv = external global ptr, align 8
 @PL_cop_seqmax = external local_unnamed_addr global i32, align 4
@@ -108,765 +107,788 @@ target triple = "x86_64-pc-linux-gnu"
 @.str.31 = private unnamed_addr constant [32 x i8] c"%se \22%d%lu%4p\22 is not available\00", align 1
 @.str.33 = private unnamed_addr constant [79 x i8] c"Constants from lexical variables potentially modified elsewhere are deprecated\00", align 1
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local ptr @Perl_pad_new(i32 noundef %0) local_unnamed_addr #0 !prof !148 {
+; Function Attrs: nounwind uwtable
+define dso_local ptr @Perl_pad_new(i32 noundef %0) local_unnamed_addr #0 !prof !114 {
   %2 = and i32 %0, 2
   %3 = icmp eq i32 %2, 0
-  br i1 %3, label %4, label %7, !prof !149
+  br i1 %3, label %12, label %4, !prof !115
 
 4:                                                ; preds = %1
-  %5 = and i32 %0, 1
-  %6 = icmp eq i32 %5, 0
-  br label %15
+  %5 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  tail call void @Perl_save_pushptr(ptr noundef %5, i32 noundef 7) #12
+  %6 = and i32 %0, 1
+  %7 = icmp eq i32 %6, 0
+  br i1 %7, label %8, label %12, !prof !120
 
-7:                                                ; preds = %1
-  %8 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  tail call void @Perl_save_pushptr(ptr noundef %8, i32 noundef 7) #14
-  %9 = and i32 %0, 1
+8:                                                ; preds = %4
+  tail call void @Perl_save_sptr(ptr noundef nonnull @PL_comppad_name) #12
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_padix) #12
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_constpadix) #12
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_comppad_name_fill) #12
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_min_intro_pending) #12
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_max_intro_pending) #12
+  tail call void @Perl_save_bool(ptr noundef nonnull @PL_cv_has_eval) #12
+  %9 = and i32 %0, 4
   %10 = icmp eq i32 %9, 0
-  br i1 %10, label %11, label %15, !prof !154
+  br i1 %10, label %12, label %11, !prof !121
 
-11:                                               ; preds = %7
-  tail call void @Perl_save_sptr(ptr noundef nonnull @PL_comppad_name) #14
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_padix) #14
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_constpadix) #14
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_comppad_name_fill) #14
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_min_intro_pending) #14
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_max_intro_pending) #14
-  tail call void @Perl_save_bool(ptr noundef nonnull @PL_cv_has_eval) #14
-  %12 = and i32 %0, 4
-  %13 = icmp eq i32 %12, 0
-  br i1 %13, label %15, label %14, !prof !155
+11:                                               ; preds = %8
+  tail call void @Perl_save_bool(ptr noundef nonnull @PL_pad_reset_pending) #12
+  br label %12
 
-14:                                               ; preds = %11
-  tail call void @Perl_save_bool(ptr noundef nonnull @PL_pad_reset_pending) #14
-  br label %15
+12:                                               ; preds = %4, %11, %8, %1
+  %13 = tail call ptr @Perl_safesyscalloc(i64 noundef 1, i64 noundef 24) #12
+  %14 = tail call ptr @Perl_newSV_type(i32 noundef 11) #12
+  %15 = and i32 %0, 1
+  %16 = icmp eq i32 %15, 0
+  br i1 %16, label %28, label %17, !prof !122
 
-15:                                               ; preds = %4, %7, %14, %11
-  %16 = phi i1 [ %6, %4 ], [ false, %7 ], [ true, %14 ], [ true, %11 ]
-  %17 = tail call ptr @Perl_safesyscalloc(i64 noundef 1, i64 noundef 24) #14
-  %18 = tail call ptr @Perl_newSV_type(i32 noundef 11) #14
-  br i1 %16, label %30, label %19, !prof !156
+17:                                               ; preds = %12
+  %18 = tail call ptr @Perl_newSV_type(i32 noundef 11) #12
+  %19 = tail call ptr @Perl_av_store(ptr noundef %14, i64 noundef 0, ptr noundef %18) #12
+  %20 = getelementptr inbounds %struct.av, ptr %18, i64 0, i32 2
+  %21 = load i32, ptr %20, align 4, !tbaa !123
+  %22 = and i32 %21, 1073741823
+  %23 = or disjoint i32 %22, -2147483648
+  store i32 %23, ptr %20, align 4, !tbaa !123
+  %24 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %25 = getelementptr inbounds %struct.padnamelist, ptr %24, i64 0, i32 4
+  %26 = load i32, ptr %25, align 8, !tbaa !126
+  %27 = add i32 %26, 1
+  store i32 %27, ptr %25, align 8, !tbaa !126
+  br label %43
 
-19:                                               ; preds = %15
-  %20 = tail call ptr @Perl_newSV_type(i32 noundef 11) #14
-  %21 = tail call ptr @Perl_av_store(ptr noundef %18, i64 noundef 0, ptr noundef %20) #14
-  %22 = getelementptr inbounds %struct.av, ptr %20, i64 0, i32 2
-  %23 = load i32, ptr %22, align 4, !tbaa !157
-  %24 = and i32 %23, 1073741823
-  %25 = or disjoint i32 %24, -2147483648
-  store i32 %25, ptr %22, align 4, !tbaa !157
-  %26 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %27 = getelementptr inbounds %struct.padnamelist, ptr %26, i64 0, i32 4
-  %28 = load i32, ptr %27, align 8, !tbaa !160
-  %29 = add i32 %28, 1
-  store i32 %29, ptr %27, align 8, !tbaa !160
-  br label %37
+28:                                               ; preds = %12
+  %29 = load i32, ptr @PL_padlist_generation, align 4, !tbaa !129
+  %30 = add i32 %29, 1
+  store i32 %30, ptr @PL_padlist_generation, align 4, !tbaa !129
+  %31 = getelementptr inbounds %struct.padlist, ptr %13, i64 0, i32 2
+  store i32 %29, ptr %31, align 8, !tbaa !130
+  %32 = tail call ptr @Perl_av_store(ptr noundef %14, i64 noundef 0, ptr noundef null) #12
+  %33 = tail call ptr @Perl_safesysmalloc(i64 noundef 40) #12
+  %34 = tail call ptr @Perl_safesyscalloc(i64 noundef 1, i64 noundef 8) #12
+  %35 = getelementptr inbounds %struct.padnamelist, ptr %33, i64 0, i32 1
+  store ptr %34, ptr %35, align 8, !tbaa !132
+  store i64 -1, ptr %33, align 8, !tbaa !133
+  %36 = getelementptr inbounds %struct.padnamelist, ptr %33, i64 0, i32 4
+  store i32 1, ptr %36, align 8, !tbaa !126
+  %37 = getelementptr inbounds %struct.padnamelist, ptr %33, i64 0, i32 2
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %37, i8 0, i64 16, i1 false)
+  store i64 0, ptr %34, align 1
+  store i64 0, ptr %33, align 8, !tbaa !133
+  %38 = load ptr, ptr %35, align 8, !tbaa !132
+  %39 = load ptr, ptr %38, align 8, !tbaa !116
+  %40 = icmp eq ptr %39, null
+  br i1 %40, label %42, label %41, !prof !134
 
-30:                                               ; preds = %15
-  %31 = load i32, ptr @PL_padlist_generation, align 4, !tbaa !163
-  %32 = add i32 %31, 1
-  store i32 %32, ptr @PL_padlist_generation, align 4, !tbaa !163
-  %33 = getelementptr inbounds %struct.padlist, ptr %17, i64 0, i32 2
-  store i32 %31, ptr %33, align 8, !tbaa !164
-  %34 = tail call ptr @Perl_av_store(ptr noundef %18, i64 noundef 0, ptr noundef null) #14
-  %35 = tail call ptr @Perl_newPADNAMELIST(i64 noundef 0) #15
-  %36 = tail call ptr @Perl_padnamelist_store(ptr noundef %35, i64 noundef 0, ptr noundef nonnull @PL_padname_undef) #15
-  br label %37
+41:                                               ; preds = %28
+  tail call void @Perl_padname_free(ptr noundef nonnull %39)
+  br label %42
 
-37:                                               ; preds = %30, %19
-  %38 = phi ptr [ %26, %19 ], [ %35, %30 ]
-  %39 = tail call ptr @Perl_safesysmalloc(i64 noundef 16) #14
-  store i64 1, ptr %17, align 8, !tbaa !166
-  %40 = getelementptr inbounds %struct.padlist, ptr %17, i64 0, i32 1
-  store ptr %39, ptr %40, align 8, !tbaa !167
-  store ptr %38, ptr %39, align 8, !tbaa !150
-  %41 = getelementptr inbounds ptr, ptr %39, i64 1
-  store ptr %18, ptr %41, align 8, !tbaa !150
-  store ptr %18, ptr @PL_comppad, align 8, !tbaa !150
-  %42 = getelementptr inbounds %struct.av, ptr %18, i64 0, i32 3
-  %43 = load ptr, ptr %42, align 8, !tbaa !168
-  store ptr %43, ptr @PL_curpad, align 8, !tbaa !150
-  br i1 %16, label %44, label %45, !prof !156
+42:                                               ; preds = %28, %41
+  store ptr @PL_padname_undef, ptr %38, align 8, !tbaa !116
+  br label %43
 
-44:                                               ; preds = %37
-  store ptr %38, ptr @PL_comppad_name, align 8, !tbaa !150
-  store i32 0, ptr @PL_comppad_name_fill, align 4, !tbaa !163
-  store i32 0, ptr @PL_min_intro_pending, align 4, !tbaa !163
-  store i32 0, ptr @PL_padix, align 4, !tbaa !163
-  store i32 0, ptr @PL_constpadix, align 4, !tbaa !163
-  store i8 0, ptr @PL_cv_has_eval, align 1, !tbaa !169
-  br label %45
+43:                                               ; preds = %42, %17
+  %44 = phi ptr [ %24, %17 ], [ %33, %42 ]
+  %45 = tail call ptr @Perl_safesysmalloc(i64 noundef 16) #12
+  store i64 1, ptr %13, align 8, !tbaa !135
+  %46 = getelementptr inbounds %struct.padlist, ptr %13, i64 0, i32 1
+  store ptr %45, ptr %46, align 8, !tbaa !136
+  store ptr %44, ptr %45, align 8, !tbaa !116
+  %47 = getelementptr inbounds ptr, ptr %45, i64 1
+  store ptr %14, ptr %47, align 8, !tbaa !116
+  store ptr %14, ptr @PL_comppad, align 8, !tbaa !116
+  %48 = getelementptr inbounds %struct.av, ptr %14, i64 0, i32 3
+  %49 = load ptr, ptr %48, align 8, !tbaa !137
+  store ptr %49, ptr @PL_curpad, align 8, !tbaa !116
+  br i1 %16, label %50, label %51, !prof !122
 
-45:                                               ; preds = %44, %37
-  ret ptr %17
+50:                                               ; preds = %43
+  store ptr %44, ptr @PL_comppad_name, align 8, !tbaa !116
+  store i32 0, ptr @PL_comppad_name_fill, align 4, !tbaa !129
+  store i32 0, ptr @PL_min_intro_pending, align 4, !tbaa !129
+  store i32 0, ptr @PL_padix, align 4, !tbaa !129
+  store i32 0, ptr @PL_constpadix, align 4, !tbaa !129
+  store i8 0, ptr @PL_cv_has_eval, align 1, !tbaa !138
+  br label %51
+
+51:                                               ; preds = %50, %43
+  ret ptr %13
 }
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #1
 
-; Function Attrs: optsize
 declare void @Perl_save_pushptr(ptr noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_save_sptr(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_save_I32(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_save_bool(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_safesyscalloc(i64 noundef, i64 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_newSV_type(i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_av_store(ptr noundef, i64 noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
 declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #1
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local ptr @Perl_newPADNAMELIST(i64 noundef %0) local_unnamed_addr #0 !prof !171 {
-  %2 = tail call ptr @Perl_safesysmalloc(i64 noundef 40) #14
+; Function Attrs: cold nounwind uwtable
+define dso_local ptr @Perl_newPADNAMELIST(i64 noundef %0) local_unnamed_addr #3 !prof !140 {
+  %2 = tail call ptr @Perl_safesysmalloc(i64 noundef 40) #12
   %3 = add i64 %0, 1
-  %4 = tail call ptr @Perl_safesyscalloc(i64 noundef %3, i64 noundef 8) #14
+  %4 = tail call ptr @Perl_safesyscalloc(i64 noundef %3, i64 noundef 8) #12
   %5 = getelementptr inbounds %struct.padnamelist, ptr %2, i64 0, i32 1
-  store ptr %4, ptr %5, align 8, !tbaa !172
-  store i64 -1, ptr %2, align 8, !tbaa !173
+  store ptr %4, ptr %5, align 8, !tbaa !132
+  store i64 -1, ptr %2, align 8, !tbaa !133
   %6 = getelementptr inbounds %struct.padnamelist, ptr %2, i64 0, i32 4
-  store i32 1, ptr %6, align 8, !tbaa !160
+  store i32 1, ptr %6, align 8, !tbaa !126
   %7 = getelementptr inbounds %struct.padnamelist, ptr %2, i64 0, i32 3
-  store i64 0, ptr %7, align 8, !tbaa !174
+  store i64 0, ptr %7, align 8, !tbaa !141
   %8 = getelementptr inbounds %struct.padnamelist, ptr %2, i64 0, i32 2
-  store i64 %0, ptr %8, align 8, !tbaa !175
+  store i64 %0, ptr %8, align 8, !tbaa !142
   ret ptr %2
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local noundef ptr @Perl_padnamelist_store(ptr noundef %0, i64 noundef %1, ptr noundef %2) local_unnamed_addr #0 !prof !176 {
+; Function Attrs: nounwind uwtable
+define dso_local noundef ptr @Perl_padnamelist_store(ptr noundef %0, i64 noundef %1, ptr noundef %2) local_unnamed_addr #0 !prof !143 {
   %4 = getelementptr inbounds %struct.padnamelist, ptr %0, i64 0, i32 2
-  %5 = load i64, ptr %4, align 8, !tbaa !175
+  %5 = load i64, ptr %4, align 8, !tbaa !142
   %6 = icmp slt i64 %5, %1
-  br i1 %6, label %7, label %9, !prof !177
+  br i1 %6, label %7, label %9, !prof !144
 
 7:                                                ; preds = %3
   %8 = getelementptr inbounds %struct.padnamelist, ptr %0, i64 0, i32 1
-  tail call void @Perl_av_extend_guts(ptr noundef null, i64 noundef %1, ptr noundef nonnull %4, ptr noundef nonnull %8, ptr noundef nonnull %8) #14
+  tail call void @Perl_av_extend_guts(ptr noundef null, i64 noundef %1, ptr noundef nonnull %4, ptr noundef nonnull %8, ptr noundef nonnull %8) #12
   br label %9
 
 9:                                                ; preds = %7, %3
-  %10 = load i64, ptr %0, align 8, !tbaa !173
+  %10 = load i64, ptr %0, align 8, !tbaa !133
   %11 = icmp slt i64 %10, %1
-  br i1 %11, label %12, label %19, !prof !178
+  br i1 %11, label %12, label %19, !prof !145
 
 12:                                               ; preds = %9
   %13 = getelementptr inbounds %struct.padnamelist, ptr %0, i64 0, i32 1
-  %14 = load ptr, ptr %13, align 8, !tbaa !172
+  %14 = load ptr, ptr %13, align 8, !tbaa !132
   %15 = getelementptr inbounds ptr, ptr %14, i64 %10
   %16 = getelementptr inbounds ptr, ptr %15, i64 1
   %17 = sub nsw i64 %1, %10
   %18 = shl i64 %17, 3
-  tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %16, i8 0, i64 %18, i1 false)
-  store i64 %1, ptr %0, align 8, !tbaa !173
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %16, i8 0, i64 %18, i1 false), !prof !146
+  store i64 %1, ptr %0, align 8, !tbaa !133
   br label %19
 
 19:                                               ; preds = %12, %9
   %20 = getelementptr inbounds %struct.padnamelist, ptr %0, i64 0, i32 1
-  %21 = load ptr, ptr %20, align 8, !tbaa !172
+  %21 = load ptr, ptr %20, align 8, !tbaa !132
   %22 = getelementptr inbounds ptr, ptr %21, i64 %1
-  %23 = load ptr, ptr %22, align 8, !tbaa !150
+  %23 = load ptr, ptr %22, align 8, !tbaa !116
   %24 = icmp eq ptr %23, null
-  br i1 %24, label %26, label %25, !prof !179
+  br i1 %24, label %26, label %25, !prof !134
 
 25:                                               ; preds = %19
-  tail call void @Perl_padname_free(ptr noundef nonnull %23) #15
+  tail call void @Perl_padname_free(ptr noundef nonnull %23)
   br label %26
 
 26:                                               ; preds = %25, %19
-  store ptr %2, ptr %22, align 8, !tbaa !150
+  store ptr %2, ptr %22, align 8, !tbaa !116
   ret ptr %22
 }
 
-; Function Attrs: optsize
 declare ptr @Perl_safesysmalloc(i64 noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_cv_undef(ptr noundef %0) local_unnamed_addr #0 !prof !180 {
-  tail call void @Perl_cv_undef_flags(ptr noundef %0, i32 noundef 0) #15
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_cv_undef(ptr noundef %0) local_unnamed_addr #0 !prof !147 {
+  tail call void @Perl_cv_undef_flags(ptr noundef %0, i32 noundef 0)
   ret void
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_cv_undef_flags(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 !prof !180 {
-  %3 = alloca %struct.cv, align 8
-  call void @llvm.lifetime.start.p0(i64 24, ptr nonnull %3) #16
-  %4 = load ptr, ptr %0, align 8, !tbaa !181
-  store ptr %4, ptr %3, align 8, !tbaa !181
-  %5 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 8
-  %6 = load ptr, ptr %5, align 8, !tbaa !183
-  %7 = icmp eq ptr %6, null
-  br i1 %7, label %14, label %8, !prof !185
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_cv_undef_flags(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 !prof !147 {
+  %3 = load ptr, ptr %0, align 8, !tbaa !148
+  %4 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 8
+  %5 = load ptr, ptr %4, align 8, !tbaa !150
+  %6 = icmp eq ptr %5, null
+  br i1 %6, label %13, label %7, !prof !152
 
-8:                                                ; preds = %2
-  store ptr null, ptr %5, align 8, !tbaa !183
-  %9 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 12
-  %10 = load i32, ptr %9, align 4, !tbaa !186
-  %11 = and i32 %10, 4096
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %14, label %13, !prof !187
+7:                                                ; preds = %2
+  store ptr null, ptr %4, align 8, !tbaa !150
+  %8 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 12
+  %9 = load i32, ptr %8, align 4, !tbaa !153
+  %10 = and i32 %9, 4096
+  %11 = icmp eq i32 %10, 0
+  br i1 %11, label %13, label %12, !prof !154
 
-13:                                               ; preds = %8
-  tail call void @Perl_safesysfree(ptr noundef nonnull %6) #14
-  br label %14
+12:                                               ; preds = %7
+  tail call void @Perl_safesysfree(ptr noundef nonnull %5) #12
+  br label %13
 
-14:                                               ; preds = %8, %13, %2
-  %15 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 12
-  %16 = load i32, ptr %15, align 4, !tbaa !186
-  %17 = and i32 %16, 8
-  %18 = icmp eq i32 %17, 0
-  %19 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 6
-  br i1 %18, label %20, label %61, !prof !188
+13:                                               ; preds = %7, %12, %2
+  %14 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 12
+  %15 = load i32, ptr %14, align 4, !tbaa !153
+  %16 = and i32 %15, 8
+  %17 = icmp eq i32 %16, 0
+  %18 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 6
+  br i1 %17, label %19, label %60, !prof !155
 
-20:                                               ; preds = %14
-  %21 = load ptr, ptr %19, align 8, !tbaa !168
-  %22 = icmp eq ptr %21, null
-  br i1 %22, label %46, label %23, !prof !189
+19:                                               ; preds = %13
+  %20 = load ptr, ptr %18, align 8, !tbaa !137
+  %21 = icmp eq ptr %20, null
+  br i1 %21, label %45, label %22, !prof !156
 
-23:                                               ; preds = %20
-  %24 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 13
-  %25 = load i32, ptr %24, align 8, !tbaa !190
-  %26 = icmp eq i32 %25, 0
-  br i1 %26, label %28, label %27, !prof !191
+22:                                               ; preds = %19
+  %23 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 13
+  %24 = load i32, ptr %23, align 8, !tbaa !157
+  %25 = icmp eq i32 %24, 0
+  br i1 %25, label %27, label %26, !prof !158
 
-27:                                               ; preds = %23
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str) #14
-  br label %28
+26:                                               ; preds = %22
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str) #12
+  br label %27
 
-28:                                               ; preds = %27, %23
-  tail call void @Perl_push_scope() #14
-  %29 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  tail call void @Perl_save_pushptr(ptr noundef %29, i32 noundef 7) #14
-  store ptr null, ptr @PL_comppad, align 8, !tbaa !150
-  store ptr null, ptr @PL_curpad, align 8, !tbaa !150
-  %30 = load i32, ptr %15, align 4, !tbaa !186
-  %31 = and i32 %30, 2048
-  %32 = icmp eq i32 %31, 0
-  br i1 %32, label %43, label %33, !prof !191
+27:                                               ; preds = %26, %22
+  tail call void @Perl_push_scope() #12
+  %28 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  tail call void @Perl_save_pushptr(ptr noundef %28, i32 noundef 7) #12
+  store ptr null, ptr @PL_comppad, align 8, !tbaa !116
+  store ptr null, ptr @PL_curpad, align 8, !tbaa !116
+  %29 = load i32, ptr %14, align 4, !tbaa !153
+  %30 = and i32 %29, 2048
+  %31 = icmp eq i32 %30, 0
+  br i1 %31, label %42, label %32, !prof !158
 
-33:                                               ; preds = %28
-  %34 = load ptr, ptr %19, align 8, !tbaa !168
-  %35 = getelementptr inbounds i8, ptr %34, i64 -8
-  %36 = load ptr, ptr %35, align 8, !tbaa !192
-  %37 = getelementptr inbounds %struct.opslab, ptr %36, i64 0, i32 3
-  %38 = load i64, ptr %37, align 8, !tbaa !195
-  %39 = icmp eq i64 %38, 1
-  br i1 %39, label %40, label %41
+32:                                               ; preds = %27
+  %33 = load ptr, ptr %18, align 8, !tbaa !137
+  %34 = getelementptr inbounds i8, ptr %33, i64 -8
+  %35 = load ptr, ptr %34, align 8, !tbaa !159
+  %36 = getelementptr inbounds %struct.opslab, ptr %35, i64 0, i32 3
+  %37 = load i64, ptr %36, align 8, !tbaa !162
+  %38 = icmp eq i64 %37, 1
+  br i1 %38, label %39, label %40
 
-40:                                               ; preds = %33
-  tail call void @Perl_opslab_free(ptr noundef nonnull %36) #14
-  br label %43
+39:                                               ; preds = %32
+  tail call void @Perl_opslab_free(ptr noundef %35) #12
+  br label %42
 
-41:                                               ; preds = %33
-  %42 = add i64 %38, -1
-  store i64 %42, ptr %37, align 8, !tbaa !195
-  br label %43
+40:                                               ; preds = %32
+  %41 = add i64 %37, -1
+  store i64 %41, ptr %36, align 8, !tbaa !162
+  br label %42
 
-43:                                               ; preds = %40, %41, %28
-  %44 = load ptr, ptr %19, align 8, !tbaa !168
-  tail call void @Perl_op_free(ptr noundef %44) #14
-  %45 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 5
-  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %45, i8 0, i64 16, i1 false)
-  tail call void @Perl_pop_scope() #14
-  br label %62
+42:                                               ; preds = %39, %40, %27
+  %43 = load ptr, ptr %18, align 8, !tbaa !137
+  tail call void @Perl_op_free(ptr noundef %43) #12
+  %44 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 5
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(16) %44, i8 0, i64 16, i1 false)
+  tail call void @Perl_pop_scope() #12
+  br label %61
 
-46:                                               ; preds = %20
-  %47 = and i32 %16, 2048
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %62, label %49, !prof !197
+45:                                               ; preds = %19
+  %46 = and i32 %15, 2048
+  %47 = icmp eq i32 %46, 0
+  br i1 %47, label %61, label %48, !prof !164
 
-49:                                               ; preds = %46
-  %50 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 5
-  %51 = load ptr, ptr %50, align 8, !tbaa !168
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %62, label %53, !prof !198
+48:                                               ; preds = %45
+  %49 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 5
+  %50 = load ptr, ptr %49, align 8, !tbaa !137
+  %51 = icmp eq ptr %50, null
+  br i1 %51, label %61, label %52, !prof !165
 
-53:                                               ; preds = %49
-  tail call void @Perl_push_scope() #14
-  %54 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  tail call void @Perl_save_pushptr(ptr noundef %54, i32 noundef 7) #14
-  store ptr null, ptr @PL_comppad, align 8, !tbaa !150
-  store ptr null, ptr @PL_curpad, align 8, !tbaa !150
-  %55 = load ptr, ptr @PL_parser, align 8, !tbaa !150
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %59, label %57, !prof !198
+52:                                               ; preds = %48
+  tail call void @Perl_push_scope() #12
+  %53 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  tail call void @Perl_save_pushptr(ptr noundef %53, i32 noundef 7) #12
+  store ptr null, ptr @PL_comppad, align 8, !tbaa !116
+  store ptr null, ptr @PL_curpad, align 8, !tbaa !116
+  %54 = load ptr, ptr @PL_parser, align 8, !tbaa !116
+  %55 = icmp eq ptr %54, null
+  br i1 %55, label %58, label %56, !prof !165
 
-57:                                               ; preds = %53
-  %58 = load ptr, ptr %50, align 8, !tbaa !168
-  tail call void @Perl_parser_free_nexttoke_ops(ptr noundef nonnull %55, ptr noundef %58) #14
-  br label %59
+56:                                               ; preds = %52
+  %57 = load ptr, ptr %49, align 8, !tbaa !137
+  tail call void @Perl_parser_free_nexttoke_ops(ptr noundef nonnull %54, ptr noundef %57) #12
+  br label %58
 
-59:                                               ; preds = %57, %53
-  %60 = load ptr, ptr %50, align 8, !tbaa !168
-  tail call void @Perl_opslab_force_free(ptr noundef %60) #14
-  store ptr null, ptr %50, align 8, !tbaa !168
-  tail call void @Perl_pop_scope() #14
-  br label %62
+58:                                               ; preds = %56, %52
+  %59 = load ptr, ptr %49, align 8, !tbaa !137
+  tail call void @Perl_opslab_force_free(ptr noundef %59) #12
+  store ptr null, ptr %49, align 8, !tbaa !137
+  tail call void @Perl_pop_scope() #12
+  br label %61
 
-61:                                               ; preds = %14
-  store ptr null, ptr %19, align 8, !tbaa !168
-  br label %62
+60:                                               ; preds = %13
+  store ptr null, ptr %18, align 8, !tbaa !137
+  br label %61
 
-62:                                               ; preds = %43, %49, %59, %46, %61
-  %63 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 2
-  %64 = load i32, ptr %63, align 4, !tbaa !199
-  %65 = and i32 %64, -17409
-  store i32 %65, ptr %63, align 4, !tbaa !199
-  %66 = tail call i32 @Perl_sv_unmagic(ptr noundef nonnull %0, i32 noundef 93) #14
-  %67 = and i32 %1, 1
-  %68 = icmp eq i32 %67, 0
-  %69 = load i32, ptr %15, align 4, !tbaa !186
-  br i1 %68, label %70, label %86, !prof !201
+61:                                               ; preds = %42, %48, %58, %45, %60
+  %62 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 2
+  %63 = load i32, ptr %62, align 4, !tbaa !166
+  %64 = and i32 %63, -17409
+  store i32 %64, ptr %62, align 4, !tbaa !166
+  %65 = tail call i32 @Perl_sv_unmagic(ptr noundef nonnull %0, i32 noundef 93) #12
+  %66 = and i32 %1, 1
+  %67 = icmp eq i32 %66, 0
+  br i1 %67, label %68, label %81, !prof !168
 
-70:                                               ; preds = %62
-  %71 = and i32 %69, 32768
-  %72 = icmp eq i32 %71, 0
-  br i1 %72, label %84, label %73, !prof !201
+68:                                               ; preds = %61
+  %69 = load i32, ptr %14, align 4, !tbaa !153
+  %70 = and i32 %69, 32768
+  %71 = icmp eq i32 %70, 0
+  br i1 %71, label %80, label %72, !prof !168
 
-73:                                               ; preds = %70
-  %74 = call fastcc ptr @CvNAME_HEK(ptr noundef nonnull %3) #15
+72:                                               ; preds = %68
+  %73 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 7
+  %74 = load ptr, ptr %73, align 8, !tbaa !137
   %75 = icmp eq ptr %74, null
-  br i1 %75, label %80, label %76
+  br i1 %75, label %77, label %76
 
-76:                                               ; preds = %73
-  %77 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 7
-  %78 = load ptr, ptr %77, align 8, !tbaa !168
-  tail call void @Perl_unshare_hek(ptr noundef %78) #14
-  %79 = load i32, ptr %15, align 4, !tbaa !186
-  br label %80
+76:                                               ; preds = %72
+  tail call void @Perl_unshare_hek(ptr noundef nonnull %74) #12
+  br label %77
 
-80:                                               ; preds = %73, %76
-  %81 = phi i32 [ %69, %73 ], [ %79, %76 ]
-  %82 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 7
-  store ptr null, ptr %82, align 8, !tbaa !168
-  %83 = and i32 %81, -32769
-  store i32 %83, ptr %15, align 4, !tbaa !186
-  br label %86
+77:                                               ; preds = %72, %76
+  store ptr null, ptr %73, align 8, !tbaa !137
+  %78 = load i32, ptr %14, align 4, !tbaa !153
+  %79 = and i32 %78, -32769
+  store i32 %79, ptr %14, align 4, !tbaa !153
+  br label %81
 
-84:                                               ; preds = %70
-  tail call void @Perl_cvgv_set(ptr noundef nonnull %0, ptr noundef null) #14
-  %85 = load i32, ptr %15, align 4, !tbaa !186
-  br label %86
+80:                                               ; preds = %68
+  tail call void @Perl_cvgv_set(ptr noundef nonnull %0, ptr noundef null) #12
+  br label %81
 
-86:                                               ; preds = %80, %84, %62
-  %87 = phi i32 [ %83, %80 ], [ %85, %84 ], [ %69, %62 ]
-  %88 = and i32 %87, 8
-  %89 = icmp eq i32 %88, 0
-  %90 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 9
-  br i1 %89, label %91, label %203, !prof !188
+81:                                               ; preds = %77, %80, %61
+  %82 = load i32, ptr %14, align 4, !tbaa !153
+  %83 = and i32 %82, 8
+  %84 = icmp eq i32 %83, 0
+  br i1 %84, label %85, label %234, !prof !155
 
-91:                                               ; preds = %86
-  %92 = load ptr, ptr %90, align 8, !tbaa !168
-  %93 = icmp eq ptr %92, null
-  br i1 %93, label %204, label %94, !prof !202
+85:                                               ; preds = %81
+  %86 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 9
+  %87 = load ptr, ptr %86, align 8, !tbaa !137
+  %88 = icmp eq ptr %87, null
+  br i1 %88, label %233, label %89, !prof !169
 
-94:                                               ; preds = %91
-  %95 = load i32, ptr @PL_phase, align 4, !tbaa !163
-  %96 = icmp eq i32 %95, 6
-  br i1 %96, label %166, label %97, !prof !203
+89:                                               ; preds = %85
+  %90 = load i32, ptr @PL_phase, align 4, !tbaa !129
+  %91 = icmp eq i32 %90, 6
+  br i1 %91, label %166, label %92, !prof !170
 
-97:                                               ; preds = %94
-  %98 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 10
-  %99 = load ptr, ptr %98, align 8, !tbaa !204
-  %100 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 11
-  %101 = load i32, ptr %100, align 8, !tbaa !205
-  %102 = getelementptr inbounds %struct.padlist, ptr %92, i64 0, i32 1
-  %103 = load ptr, ptr %102, align 8, !tbaa !167
-  %104 = load ptr, ptr %103, align 8, !tbaa !150
-  %105 = getelementptr inbounds %struct.padnamelist, ptr %104, i64 0, i32 1
-  %106 = load ptr, ptr %105, align 8, !tbaa !172
-  %107 = getelementptr inbounds ptr, ptr %103, i64 1
-  %108 = load ptr, ptr %107, align 8, !tbaa !150
-  %109 = getelementptr inbounds %struct.av, ptr %108, i64 0, i32 3
-  %110 = load ptr, ptr %109, align 8, !tbaa !168
-  %111 = load i64, ptr %104, align 8, !tbaa !173
-  %112 = trunc i64 %111 to i32
-  %113 = icmp sgt i32 %112, 0
-  br i1 %113, label %114, label %166, !prof !206
+92:                                               ; preds = %89
+  %93 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 10
+  %94 = load ptr, ptr %93, align 8, !tbaa !171
+  %95 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 11
+  %96 = load i32, ptr %95, align 8, !tbaa !172
+  %97 = getelementptr inbounds %struct.padlist, ptr %87, i64 0, i32 1
+  %98 = load ptr, ptr %97, align 8, !tbaa !136
+  %99 = load ptr, ptr %98, align 8, !tbaa !116
+  %100 = getelementptr inbounds %struct.padnamelist, ptr %99, i64 0, i32 1
+  %101 = load ptr, ptr %100, align 8, !tbaa !132
+  %102 = getelementptr inbounds ptr, ptr %98, i64 1
+  %103 = load ptr, ptr %102, align 8, !tbaa !116
+  %104 = getelementptr inbounds %struct.av, ptr %103, i64 0, i32 3
+  %105 = load ptr, ptr %104, align 8, !tbaa !137
+  %106 = load i64, ptr %99, align 8, !tbaa !133
+  %107 = trunc i64 %106 to i32
+  %108 = icmp sgt i32 %107, 0
+  br i1 %108, label %109, label %166, !prof !173
 
-114:                                              ; preds = %97
-  %115 = and i64 %111, 4294967295
-  br label %116
+109:                                              ; preds = %92
+  %110 = and i64 %106, 4294967295
+  br label %111
 
-116:                                              ; preds = %114, %163
-  %117 = phi i64 [ %115, %114 ], [ %164, %163 ]
-  %118 = getelementptr inbounds ptr, ptr %106, i64 %117
-  %119 = load ptr, ptr %118, align 8, !tbaa !150
-  %120 = icmp eq ptr %119, null
-  br i1 %120, label %163, label %121, !prof !207
+111:                                              ; preds = %109, %163
+  %112 = phi i64 [ %110, %109 ], [ %164, %163 ]
+  %113 = getelementptr inbounds ptr, ptr %101, i64 %112
+  %114 = load ptr, ptr %113, align 8, !tbaa !116
+  %115 = icmp eq ptr %114, null
+  br i1 %115, label %163, label %116, !prof !174
 
-121:                                              ; preds = %116
-  %122 = load ptr, ptr %119, align 8, !tbaa !208
-  %123 = icmp eq ptr %122, null
-  br i1 %123, label %163, label %124, !prof !210
+116:                                              ; preds = %111
+  %117 = load ptr, ptr %114, align 8, !tbaa !175
+  %118 = icmp eq ptr %117, null
+  br i1 %118, label %163, label %119, !prof !177
 
-124:                                              ; preds = %121
-  %125 = load i8, ptr %122, align 1, !tbaa !168
-  %126 = icmp eq i8 %125, 38
-  br i1 %126, label %127, label %163, !prof !211
+119:                                              ; preds = %116
+  %120 = load i8, ptr %117, align 1, !tbaa !137
+  %121 = icmp eq i8 %120, 38
+  br i1 %121, label %122, label %163, !prof !178
 
-127:                                              ; preds = %124
-  %128 = getelementptr inbounds %struct.av, ptr %108, i64 0, i32 1
-  %129 = getelementptr inbounds ptr, ptr %110, i64 %117
-  %130 = load ptr, ptr %129, align 8, !tbaa !150
-  %131 = getelementptr inbounds %struct.cv, ptr %130, i64 0, i32 1
-  %132 = load i32, ptr %131, align 8, !tbaa !212
-  %133 = load i32, ptr %128, align 8, !tbaa !213
-  %134 = icmp ult i32 %133, 2
-  br i1 %134, label %135, label %137, !prof !214
+122:                                              ; preds = %119
+  %123 = getelementptr inbounds %struct.av, ptr %103, i64 0, i32 1
+  %124 = getelementptr inbounds ptr, ptr %105, i64 %112
+  %125 = load ptr, ptr %124, align 8, !tbaa !116
+  %126 = getelementptr inbounds %struct.cv, ptr %125, i64 0, i32 1
+  %127 = load i32, ptr %126, align 8, !tbaa !129
+  %128 = load i32, ptr %123, align 8, !tbaa !179
+  %129 = icmp ult i32 %128, 2
+  br i1 %129, label %130, label %137, !prof !180
 
-135:                                              ; preds = %127
-  store ptr null, ptr %129, align 8, !tbaa !150
-  tail call fastcc void @S_SvREFCNT_dec_NN(ptr noundef nonnull %130) #15
-  %136 = add i32 %132, -1
+130:                                              ; preds = %122
+  store ptr null, ptr %124, align 8, !tbaa !116
+  %131 = icmp ugt i32 %127, 1
+  br i1 %131, label %132, label %134, !prof !181
+
+132:                                              ; preds = %130
+  %133 = add i32 %127, -1
+  store i32 %133, ptr %126, align 8, !tbaa !182
+  br label %135
+
+134:                                              ; preds = %130
+  tail call void @Perl_sv_free2(ptr noundef %125, i32 noundef %127) #12
+  br label %135
+
+135:                                              ; preds = %132, %134
+  %136 = add i32 %127, -1
   br label %137
 
-137:                                              ; preds = %135, %127
-  %138 = phi i32 [ %136, %135 ], [ %132, %127 ]
+137:                                              ; preds = %135, %122
+  %138 = phi i32 [ %136, %135 ], [ %127, %122 ]
   %139 = icmp eq i32 %138, 0
-  br i1 %139, label %163, label %140, !prof !215
+  br i1 %139, label %163, label %140, !prof !183
 
 140:                                              ; preds = %137
-  %141 = getelementptr inbounds %struct.cv, ptr %130, i64 0, i32 2
-  %142 = load i32, ptr %141, align 4, !tbaa !216
+  %141 = getelementptr inbounds %struct.cv, ptr %125, i64 0, i32 2
+  %142 = load i32, ptr %141, align 4, !tbaa !184
   %143 = and i32 %142, 255
   %144 = icmp eq i32 %143, 13
-  br i1 %144, label %145, label %163, !prof !217
+  br i1 %144, label %145, label %163, !prof !185
 
 145:                                              ; preds = %140
-  %146 = load ptr, ptr %130, align 8, !tbaa !181
+  %146 = load ptr, ptr %125, align 8, !tbaa !148
   %147 = getelementptr inbounds %struct.xpvcv, ptr %146, i64 0, i32 10
-  %148 = load ptr, ptr %147, align 8, !tbaa !204
+  %148 = load ptr, ptr %147, align 8, !tbaa !171
   %149 = icmp eq ptr %148, %0
-  br i1 %149, label %150, label %163, !prof !218
+  br i1 %149, label %150, label %163, !prof !186
 
 150:                                              ; preds = %145
-  %151 = icmp eq ptr %99, null
+  %151 = icmp eq ptr %94, null
   br i1 %151, label %162, label %152
 
 152:                                              ; preds = %150
-  %153 = getelementptr inbounds %struct.cv, ptr %99, i64 0, i32 1
-  %154 = load i32, ptr %153, align 8, !tbaa !163
+  %153 = getelementptr inbounds %struct.cv, ptr %94, i64 0, i32 1
+  %154 = load i32, ptr %153, align 8, !tbaa !129
   %155 = icmp eq i32 %154, 0
   br i1 %155, label %162, label %156
 
 156:                                              ; preds = %152
   %157 = getelementptr inbounds %struct.xpvcv, ptr %146, i64 0, i32 12
-  %158 = load i32, ptr %157, align 4, !tbaa !186
+  %158 = load i32, ptr %157, align 4, !tbaa !153
   %159 = and i32 %158, -17
-  store i32 %159, ptr %157, align 4, !tbaa !186
-  store ptr %99, ptr %147, align 8, !tbaa !204
+  store i32 %159, ptr %157, align 4, !tbaa !153
+  store ptr %94, ptr %147, align 8, !tbaa !171
   %160 = getelementptr inbounds %struct.xpvcv, ptr %146, i64 0, i32 11
-  store i32 %101, ptr %160, align 8, !tbaa !205
+  store i32 %96, ptr %160, align 8, !tbaa !172
   %161 = add i32 %154, 1
-  store i32 %161, ptr %153, align 8, !tbaa !219
+  store i32 %161, ptr %153, align 8, !tbaa !182
   br label %163
 
 162:                                              ; preds = %152, %150
-  store ptr null, ptr %147, align 8, !tbaa !204
+  store ptr null, ptr %147, align 8, !tbaa !171
   br label %163
 
-163:                                              ; preds = %137, %140, %145, %162, %156, %124, %121, %116
-  %164 = add nsw i64 %117, -1
-  %165 = icmp sgt i64 %117, 1
-  br i1 %165, label %116, label %166, !prof !220, !llvm.loop !221
+163:                                              ; preds = %137, %140, %145, %162, %156, %119, %116, %111
+  %164 = add nsw i64 %112, -1
+  %165 = icmp sgt i64 %112, 1
+  br i1 %165, label %111, label %166, !prof !187, !llvm.loop !188
 
-166:                                              ; preds = %163, %97, %94
-  %167 = load i64, ptr %92, align 8, !tbaa !166
+166:                                              ; preds = %163, %92, %89
+  %167 = load i64, ptr %87, align 8, !tbaa !135
   %168 = trunc i64 %167 to i32
   %169 = icmp sgt i32 %168, 0
-  br i1 %169, label %170, label %187, !prof !206
+  br i1 %169, label %170, label %193, !prof !173
 
 170:                                              ; preds = %166
-  %171 = getelementptr inbounds %struct.padlist, ptr %92, i64 0, i32 1
+  %171 = getelementptr inbounds %struct.padlist, ptr %87, i64 0, i32 1
   %172 = and i64 %167, 4294967295
   br label %173
 
-173:                                              ; preds = %170, %185
-  %174 = phi i64 [ %172, %170 ], [ %176, %185 ]
-  %175 = load ptr, ptr %171, align 8, !tbaa !167
+173:                                              ; preds = %170, %191
+  %174 = phi i64 [ %172, %170 ], [ %176, %191 ]
+  %175 = load ptr, ptr %171, align 8, !tbaa !136
   %176 = add nsw i64 %174, -1
   %177 = getelementptr inbounds ptr, ptr %175, i64 %174
-  %178 = load ptr, ptr %177, align 8, !tbaa !150
+  %178 = load ptr, ptr %177, align 8, !tbaa !116
   %179 = icmp eq ptr %178, null
-  br i1 %179, label %185, label %180, !prof !203
+  br i1 %179, label %191, label %180, !prof !170
 
 180:                                              ; preds = %173
-  %181 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
+  %181 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
   %182 = icmp eq ptr %178, %181
-  br i1 %182, label %183, label %184, !prof !203
+  br i1 %182, label %183, label %184, !prof !170
 
 183:                                              ; preds = %180
-  store ptr null, ptr @PL_comppad, align 8, !tbaa !150
-  store ptr null, ptr @PL_curpad, align 8, !tbaa !150
+  store ptr null, ptr @PL_comppad, align 8, !tbaa !116
+  store ptr null, ptr @PL_curpad, align 8, !tbaa !116
   br label %184
 
 184:                                              ; preds = %183, %180
-  tail call fastcc void @S_SvREFCNT_dec_NN(ptr noundef nonnull %178) #15
-  br label %185
+  %185 = getelementptr inbounds %struct.sv, ptr %178, i64 0, i32 1
+  %186 = load i32, ptr %185, align 8, !tbaa !182
+  %187 = icmp ugt i32 %186, 1
+  br i1 %187, label %188, label %190, !prof !170
 
-185:                                              ; preds = %184, %173
-  %186 = icmp ugt i64 %174, 1
-  br i1 %186, label %173, label %187, !prof !223, !llvm.loop !224
+188:                                              ; preds = %184
+  %189 = add i32 %186, -1
+  store i32 %189, ptr %185, align 8, !tbaa !182
+  br label %191
 
-187:                                              ; preds = %185, %166
-  %188 = getelementptr inbounds %struct.padlist, ptr %92, i64 0, i32 1
-  %189 = load ptr, ptr %188, align 8, !tbaa !167
-  %190 = load ptr, ptr %189, align 8, !tbaa !150
-  %191 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %192 = icmp eq ptr %190, %191
-  br i1 %192, label %193, label %198, !prof !203
+190:                                              ; preds = %184
+  tail call void @Perl_sv_free2(ptr noundef nonnull %178, i32 noundef %186) #12
+  br label %191
 
-193:                                              ; preds = %187
-  %194 = getelementptr inbounds %struct.padnamelist, ptr %190, i64 0, i32 4
-  %195 = load i32, ptr %194, align 8, !tbaa !160
-  %196 = icmp eq i32 %195, 1
-  br i1 %196, label %197, label %198
+191:                                              ; preds = %190, %188, %173
+  %192 = icmp sgt i64 %174, 1
+  br i1 %192, label %173, label %193, !prof !191, !llvm.loop !192
 
-197:                                              ; preds = %193
-  store ptr null, ptr @PL_comppad_name, align 8, !tbaa !150
-  br label %198
+193:                                              ; preds = %191, %166
+  %194 = getelementptr inbounds %struct.padlist, ptr %87, i64 0, i32 1
+  %195 = load ptr, ptr %194, align 8, !tbaa !136
+  %196 = load ptr, ptr %195, align 8, !tbaa !116
+  %197 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %198 = icmp eq ptr %196, %197
+  br i1 %198, label %199, label %204, !prof !170
 
-198:                                              ; preds = %197, %193, %187
-  tail call void @Perl_padnamelist_free(ptr noundef %190) #15
-  %199 = load ptr, ptr %188, align 8, !tbaa !167
-  %200 = icmp eq ptr %199, null
-  br i1 %200, label %202, label %201, !prof !203
+199:                                              ; preds = %193
+  %200 = getelementptr inbounds %struct.padnamelist, ptr %196, i64 0, i32 4
+  %201 = load i32, ptr %200, align 8, !tbaa !126
+  %202 = icmp eq i32 %201, 1
+  br i1 %202, label %203, label %204
 
-201:                                              ; preds = %198
-  tail call void @Perl_safesysfree(ptr noundef nonnull %199) #14
-  br label %202
-
-202:                                              ; preds = %201, %198
-  tail call void @Perl_safesysfree(ptr noundef nonnull %92) #14
-  br label %203
-
-203:                                              ; preds = %86, %202
-  store ptr null, ptr %90, align 8, !tbaa !168
+203:                                              ; preds = %199
+  store ptr null, ptr @PL_comppad_name, align 8, !tbaa !116
   br label %204
 
-204:                                              ; preds = %203, %91
-  %205 = getelementptr inbounds %struct.cv, ptr %0, i64 0, i32 1
-  %206 = load i32, ptr %205, align 8, !tbaa !212
-  %207 = icmp eq i32 %206, 0
-  br i1 %207, label %208, label %217, !prof !201
+204:                                              ; preds = %203, %199, %193
+  %205 = getelementptr inbounds %struct.padnamelist, ptr %196, i64 0, i32 4
+  %206 = load i32, ptr %205, align 8, !tbaa !126
+  %207 = add i32 %206, -1
+  store i32 %207, ptr %205, align 8, !tbaa !126
+  %208 = icmp eq i32 %207, 0
+  br i1 %208, label %209, label %228, !prof !193
 
-208:                                              ; preds = %204
-  %209 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 10
-  %210 = load ptr, ptr %209, align 8, !tbaa !204
-  %211 = icmp eq ptr %210, null
-  br i1 %211, label %217, label %212, !prof !225
+209:                                              ; preds = %204
+  %210 = load i64, ptr %196, align 8, !tbaa !133
+  %211 = icmp sgt i64 %210, -1
+  br i1 %211, label %212, label %225, !prof !194
 
-212:                                              ; preds = %208
-  store ptr null, ptr %209, align 8, !tbaa !204
-  %213 = load i32, ptr %15, align 4, !tbaa !186
-  %214 = and i32 %213, 16
-  %215 = icmp eq i32 %214, 0
-  br i1 %215, label %216, label %217, !prof !226
+212:                                              ; preds = %209
+  %213 = getelementptr inbounds %struct.padnamelist, ptr %196, i64 0, i32 1
+  br label %214
 
-216:                                              ; preds = %212
-  tail call fastcc void @S_SvREFCNT_dec_NN(ptr noundef nonnull %210) #15
-  br label %217
+214:                                              ; preds = %222, %212
+  %215 = phi i64 [ %210, %212 ], [ %223, %222 ]
+  %216 = load ptr, ptr %213, align 8, !tbaa !132
+  %217 = add nsw i64 %215, -1
+  store i64 %217, ptr %196, align 8, !tbaa !133
+  %218 = getelementptr inbounds ptr, ptr %216, i64 %215
+  %219 = load ptr, ptr %218, align 8, !tbaa !116
+  %220 = icmp eq ptr %219, null
+  br i1 %220, label %222, label %221, !prof !195
 
-217:                                              ; preds = %208, %216, %212, %204
-  %218 = load i32, ptr %15, align 4, !tbaa !186
-  %219 = and i32 %218, 4
-  %220 = icmp eq i32 %219, 0
-  br i1 %220, label %225, label %221, !prof !227
+221:                                              ; preds = %214
+  tail call void @Perl_padname_free(ptr noundef nonnull %219)
+  br label %222
 
-221:                                              ; preds = %217
-  %222 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 5
-  %223 = load ptr, ptr %222, align 8, !tbaa !168
-  tail call fastcc void @S_SvREFCNT_dec(ptr noundef %223) #15
-  %224 = load i32, ptr %15, align 4, !tbaa !186
-  br label %225
+222:                                              ; preds = %221, %214
+  %223 = load i64, ptr %196, align 8, !tbaa !133
+  %224 = icmp sgt i64 %223, -1
+  br i1 %224, label %214, label %225, !prof !196, !llvm.loop !197
 
-225:                                              ; preds = %221, %217
-  %226 = phi i32 [ %224, %221 ], [ %218, %217 ]
-  %227 = and i32 %226, 99472
-  store i32 %227, ptr %15, align 4, !tbaa !186
-  call void @llvm.lifetime.end.p0(i64 24, ptr nonnull %3) #16
+225:                                              ; preds = %222, %209
+  %226 = getelementptr inbounds %struct.padnamelist, ptr %196, i64 0, i32 1
+  %227 = load ptr, ptr %226, align 8, !tbaa !132
+  tail call void @Perl_safesysfree(ptr noundef %227) #12
+  tail call void @Perl_safesysfree(ptr noundef nonnull %196) #12
+  br label %228
+
+228:                                              ; preds = %204, %225
+  %229 = load ptr, ptr %194, align 8, !tbaa !136
+  %230 = icmp eq ptr %229, null
+  br i1 %230, label %232, label %231, !prof !170
+
+231:                                              ; preds = %228
+  tail call void @Perl_safesysfree(ptr noundef nonnull %229) #12
+  br label %232
+
+232:                                              ; preds = %231, %228
+  tail call void @Perl_safesysfree(ptr noundef nonnull %87) #12
+  br label %236
+
+233:                                              ; preds = %85
+  br i1 %84, label %238, label %234, !prof !198
+
+234:                                              ; preds = %81, %233
+  %235 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 9
+  br label %236
+
+236:                                              ; preds = %232, %234
+  %237 = phi ptr [ %235, %234 ], [ %86, %232 ]
+  store ptr null, ptr %237, align 8, !tbaa !137
+  br label %238
+
+238:                                              ; preds = %236, %233
+  %239 = getelementptr inbounds %struct.cv, ptr %0, i64 0, i32 1
+  %240 = load i32, ptr %239, align 8, !tbaa !199
+  %241 = icmp eq i32 %240, 0
+  br i1 %241, label %242, label %257, !prof !168
+
+242:                                              ; preds = %238
+  %243 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 10
+  %244 = load ptr, ptr %243, align 8, !tbaa !171
+  %245 = icmp eq ptr %244, null
+  br i1 %245, label %257, label %246, !prof !200
+
+246:                                              ; preds = %242
+  store ptr null, ptr %243, align 8, !tbaa !171
+  %247 = load i32, ptr %14, align 4, !tbaa !153
+  %248 = and i32 %247, 16
+  %249 = icmp eq i32 %248, 0
+  br i1 %249, label %250, label %257, !prof !201
+
+250:                                              ; preds = %246
+  %251 = getelementptr inbounds %struct.sv, ptr %244, i64 0, i32 1
+  %252 = load i32, ptr %251, align 8, !tbaa !182
+  %253 = icmp ugt i32 %252, 1
+  br i1 %253, label %254, label %256, !prof !202
+
+254:                                              ; preds = %250
+  %255 = add i32 %252, -1
+  store i32 %255, ptr %251, align 8, !tbaa !182
+  br label %257
+
+256:                                              ; preds = %250
+  tail call void @Perl_sv_free2(ptr noundef nonnull %244, i32 noundef %252) #12
+  br label %257
+
+257:                                              ; preds = %256, %254, %242, %246, %238
+  %258 = load i32, ptr %14, align 4, !tbaa !153
+  %259 = and i32 %258, 4
+  %260 = icmp eq i32 %259, 0
+  br i1 %260, label %272, label %261, !prof !203
+
+261:                                              ; preds = %257
+  %262 = getelementptr inbounds %struct.xpvcv, ptr %3, i64 0, i32 5
+  %263 = load ptr, ptr %262, align 8, !tbaa !137
+  %264 = icmp eq ptr %263, null
+  br i1 %264, label %272, label %265, !prof !204
+
+265:                                              ; preds = %261
+  %266 = getelementptr inbounds %struct.sv, ptr %263, i64 0, i32 1
+  %267 = load i32, ptr %266, align 8, !tbaa !182
+  %268 = icmp ugt i32 %267, 1
+  br i1 %268, label %269, label %271, !prof !205
+
+269:                                              ; preds = %265
+  %270 = add i32 %267, -1
+  store i32 %270, ptr %266, align 8, !tbaa !182
+  br label %272
+
+271:                                              ; preds = %265
+  tail call void @Perl_sv_free2(ptr noundef nonnull %263, i32 noundef %267) #12
+  br label %272
+
+272:                                              ; preds = %271, %269, %261, %257
+  %273 = load i32, ptr %14, align 4, !tbaa !153
+  %274 = and i32 %273, 99472
+  store i32 %274, ptr %14, align 4, !tbaa !153
   ret void
 }
 
-; Function Attrs: optsize
 declare void @Perl_safesysfree(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_croak(ptr noundef, ...) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_push_scope() local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_opslab_free(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_op_free(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_pop_scope() local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_parser_free_nexttoke_ops(ptr noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_opslab_force_free(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare i32 @Perl_sv_unmagic(ptr noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(read, inaccessiblemem: none) uwtable
-define internal fastcc ptr @CvNAME_HEK(ptr nocapture noundef readonly %0) unnamed_addr #3 !prof !228 !PGOFuncName !229 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !181
-  %3 = getelementptr inbounds %struct.xpvcv, ptr %2, i64 0, i32 12
-  %4 = load i32, ptr %3, align 4, !tbaa !186
-  %5 = and i32 %4, 32768
-  %6 = icmp eq i32 %5, 0
-  br i1 %6, label %10, label %7
-
-7:                                                ; preds = %1
-  %8 = getelementptr inbounds %struct.xpvcv, ptr %2, i64 0, i32 7
-  %9 = load ptr, ptr %8, align 8, !tbaa !168
-  br label %10
-
-10:                                               ; preds = %1, %7
-  %11 = phi ptr [ %9, %7 ], [ null, %1 ]
-  ret ptr %11
-}
-
-; Function Attrs: optsize
 declare void @Perl_unshare_hek(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_cvgv_set(ptr noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define internal fastcc void @S_SvREFCNT_dec_NN(ptr noundef %0) unnamed_addr #0 !prof !230 !PGOFuncName !231 {
-  %2 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 1
-  %3 = load i32, ptr %2, align 8, !tbaa !219
-  %4 = icmp ugt i32 %3, 1
-  br i1 %4, label %5, label %7, !prof !232
-
-5:                                                ; preds = %1
-  %6 = add i32 %3, -1
-  store i32 %6, ptr %2, align 8, !tbaa !219
-  br label %8
-
-7:                                                ; preds = %1
-  tail call void @Perl_sv_free2(ptr noundef nonnull %0, i32 noundef %3) #14
-  br label %8
-
-8:                                                ; preds = %7, %5
-  ret void
-}
-
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_padnamelist_free(ptr noundef %0) local_unnamed_addr #0 !prof !233 {
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_padnamelist_free(ptr noundef %0) local_unnamed_addr #0 !prof !140 {
   %2 = getelementptr inbounds %struct.padnamelist, ptr %0, i64 0, i32 4
-  %3 = load i32, ptr %2, align 8, !tbaa !160
+  %3 = load i32, ptr %2, align 8, !tbaa !126
   %4 = add i32 %3, -1
-  store i32 %4, ptr %2, align 8, !tbaa !160
+  store i32 %4, ptr %2, align 8, !tbaa !126
   %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %26, !prof !234
+  br i1 %5, label %6, label %25, !prof !193
 
 6:                                                ; preds = %1
-  %7 = load i64, ptr %0, align 8, !tbaa !173
+  %7 = load i64, ptr %0, align 8, !tbaa !133
   %8 = icmp sgt i64 %7, -1
-  br i1 %8, label %9, label %23, !prof !235
+  br i1 %8, label %9, label %22, !prof !194
 
 9:                                                ; preds = %6
   %10 = getelementptr inbounds %struct.padnamelist, ptr %0, i64 0, i32 1
   br label %11
 
-11:                                               ; preds = %9, %20
-  %12 = phi i64 [ %7, %9 ], [ %21, %20 ]
-  %13 = load ptr, ptr %10, align 8, !tbaa !172
+11:                                               ; preds = %9, %19
+  %12 = phi i64 [ %7, %9 ], [ %20, %19 ]
+  %13 = load ptr, ptr %10, align 8, !tbaa !132
   %14 = add nsw i64 %12, -1
-  store i64 %14, ptr %0, align 8, !tbaa !173
+  store i64 %14, ptr %0, align 8, !tbaa !133
   %15 = getelementptr inbounds ptr, ptr %13, i64 %12
-  %16 = load ptr, ptr %15, align 8, !tbaa !150
+  %16 = load ptr, ptr %15, align 8, !tbaa !116
   %17 = icmp eq ptr %16, null
-  br i1 %17, label %20, label %18, !prof !236
+  br i1 %17, label %19, label %18, !prof !195
 
 18:                                               ; preds = %11
-  tail call void @Perl_padname_free(ptr noundef nonnull %16) #15
-  %19 = load i64, ptr %0, align 8, !tbaa !173
-  br label %20
+  tail call void @Perl_padname_free(ptr noundef nonnull %16)
+  br label %19
 
-20:                                               ; preds = %18, %11
-  %21 = phi i64 [ %19, %18 ], [ %14, %11 ]
-  %22 = icmp sgt i64 %21, -1
-  br i1 %22, label %11, label %23, !prof !237, !llvm.loop !238
+19:                                               ; preds = %18, %11
+  %20 = load i64, ptr %0, align 8, !tbaa !133
+  %21 = icmp sgt i64 %20, -1
+  br i1 %21, label %11, label %22, !prof !196, !llvm.loop !197
 
-23:                                               ; preds = %20, %6
-  %24 = getelementptr inbounds %struct.padnamelist, ptr %0, i64 0, i32 1
-  %25 = load ptr, ptr %24, align 8, !tbaa !172
-  tail call void @Perl_safesysfree(ptr noundef %25) #14
-  tail call void @Perl_safesysfree(ptr noundef nonnull %0) #14
-  br label %26
+22:                                               ; preds = %19, %6
+  %23 = getelementptr inbounds %struct.padnamelist, ptr %0, i64 0, i32 1
+  %24 = load ptr, ptr %23, align 8, !tbaa !132
+  tail call void @Perl_safesysfree(ptr noundef %24) #12
+  tail call void @Perl_safesysfree(ptr noundef nonnull %0) #12
+  br label %25
 
-26:                                               ; preds = %23, %1
+25:                                               ; preds = %22, %1
   ret void
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define internal fastcc void @S_SvREFCNT_dec(ptr noundef %0) unnamed_addr #0 !prof !239 !PGOFuncName !240 {
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_cv_forget_slab(ptr noundef readonly %0) local_unnamed_addr #0 !prof !206 {
   %2 = icmp eq ptr %0, null
-  br i1 %2, label %10, label %3, !prof !241
+  br i1 %2, label %29, label %3, !prof !207
 
 3:                                                ; preds = %1
-  %4 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !219
-  %6 = icmp ugt i32 %5, 1
-  br i1 %6, label %7, label %9, !prof !242
-
-7:                                                ; preds = %3
-  %8 = add i32 %5, -1
-  store i32 %8, ptr %4, align 8, !tbaa !219
-  br label %10
-
-9:                                                ; preds = %3
-  tail call void @Perl_sv_free2(ptr noundef nonnull %0, i32 noundef %5) #14
-  br label %10
-
-10:                                               ; preds = %7, %9, %1
-  ret void
-}
-
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_cv_forget_slab(ptr noundef readonly %0) local_unnamed_addr #0 !prof !243 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %29, label %3, !prof !244
-
-3:                                                ; preds = %1
-  %4 = load ptr, ptr %0, align 8, !tbaa !181
+  %4 = load ptr, ptr %0, align 8, !tbaa !148
   %5 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 12
-  %6 = load i32, ptr %5, align 4, !tbaa !186
+  %6 = load i32, ptr %5, align 4, !tbaa !153
   %7 = and i32 %6, 2048
   %8 = icmp eq i32 %7, 0
-  br i1 %8, label %29, label %9, !prof !244
+  br i1 %8, label %29, label %9, !prof !207
 
 9:                                                ; preds = %3
   %10 = and i32 %6, -2049
-  store i32 %10, ptr %5, align 4, !tbaa !186
+  store i32 %10, ptr %5, align 4, !tbaa !153
   %11 = getelementptr inbounds %struct.xpvcv, ptr %4, i64 0, i32 6
-  %12 = load ptr, ptr %11, align 8, !tbaa !168
+  %12 = load ptr, ptr %11, align 8, !tbaa !137
   %13 = icmp eq ptr %12, null
-  br i1 %13, label %16, label %14, !prof !245
+  br i1 %13, label %16, label %14, !prof !208
 
 14:                                               ; preds = %9
   %15 = getelementptr inbounds i8, ptr %12, i64 -8
@@ -878,466 +900,542 @@ define dso_local void @Perl_cv_forget_slab(ptr noundef readonly %0) local_unname
 
 18:                                               ; preds = %16, %14
   %19 = phi ptr [ %15, %14 ], [ %17, %16 ]
-  %20 = load ptr, ptr %19, align 8, !tbaa !168
+  %20 = load ptr, ptr %19, align 8, !tbaa !137
   %21 = icmp eq ptr %20, null
-  br i1 %21, label %29, label %22, !prof !244
+  br i1 %21, label %29, label %22, !prof !207
 
 22:                                               ; preds = %18
   %23 = getelementptr inbounds %struct.opslab, ptr %20, i64 0, i32 3
-  %24 = load i64, ptr %23, align 8, !tbaa !195
+  %24 = load i64, ptr %23, align 8, !tbaa !162
   %25 = icmp eq i64 %24, 1
-  br i1 %25, label %26, label %27, !prof !244
+  br i1 %25, label %26, label %27, !prof !207
 
 26:                                               ; preds = %22
-  tail call void @Perl_opslab_free_nopad(ptr noundef nonnull %20) #14
+  tail call void @Perl_opslab_free_nopad(ptr noundef nonnull %20) #12
   br label %29
 
 27:                                               ; preds = %22
   %28 = add i64 %24, -1
-  store i64 %28, ptr %23, align 8, !tbaa !195
+  store i64 %28, ptr %23, align 8, !tbaa !162
   br label %29
 
 29:                                               ; preds = %18, %27, %26, %3, %1
   ret void
 }
 
-; Function Attrs: optsize
 declare void @Perl_opslab_free_nopad(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local i64 @Perl_pad_add_name_pvn(ptr nocapture noundef readonly %0, i64 noundef %1, i32 noundef %2, ptr noundef %3, ptr noundef %4) local_unnamed_addr #0 !prof !246 {
+; Function Attrs: nounwind uwtable
+define dso_local i64 @Perl_pad_add_name_pvn(ptr nocapture noundef readonly %0, i64 noundef %1, i32 noundef %2, ptr noundef %3, ptr noundef %4) local_unnamed_addr #0 !prof !209 {
   %6 = icmp ult i32 %2, 8
-  br i1 %6, label %9, label %7, !prof !247
+  br i1 %6, label %9, label %7, !prof !210
 
 7:                                                ; preds = %5
   %8 = zext i32 %2 to i64
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.1, i64 noundef %8) #14
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.1, i64 noundef %8) #12
   br label %9
 
 9:                                                ; preds = %7, %5
-  %10 = tail call ptr @Perl_newPADNAMEpvn(ptr noundef %0, i64 noundef %1) #15
-  %11 = and i32 %2, 4
-  %12 = icmp eq i32 %11, 0
-  br i1 %12, label %13, label %18, !prof !248
+  %10 = add i64 %1, 43
+  %11 = tail call ptr @Perl_safesyscalloc(i64 noundef %10, i64 noundef 1) #12
+  %12 = getelementptr inbounds %struct.padname, ptr %11, i64 0, i32 5
+  store i32 1, ptr %12, align 8, !tbaa !211
+  %13 = getelementptr inbounds %struct.padname_with_str, ptr %11, i64 0, i32 9
+  store ptr %13, ptr %11, align 8, !tbaa !175
+  tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %13, ptr align 1 %0, i64 %1, i1 false), !prof !212
+  %14 = getelementptr inbounds i8, ptr %13, i64 %1
+  store i8 0, ptr %14, align 1, !tbaa !137
+  %15 = trunc i64 %1 to i8
+  %16 = getelementptr inbounds %struct.padname, ptr %11, i64 0, i32 7
+  store i8 %15, ptr %16, align 8, !tbaa !213
+  %17 = and i32 %2, 4
+  %18 = icmp eq i32 %17, 0
+  br i1 %18, label %19, label %148, !prof !214
 
-13:                                               ; preds = %9
-  tail call void @Perl_push_scope() #14
-  tail call void @Perl_save_pushptr(ptr noundef %10, i32 noundef 22) #14
-  %14 = and i32 %2, 1
-  tail call fastcc void @S_pad_check_dup(ptr noundef %10, i32 noundef %14, ptr noundef %4) #15
-  %15 = getelementptr inbounds %struct.padname, ptr %10, i64 0, i32 5
-  %16 = load i32, ptr %15, align 8, !tbaa !249
-  %17 = add i32 %16, 1
-  store i32 %17, ptr %15, align 8, !tbaa !249
-  tail call void @Perl_pop_scope() #14
-  br label %18
+19:                                               ; preds = %9
+  tail call void @Perl_push_scope() #12
+  tail call void @Perl_save_pushptr(ptr noundef nonnull %11, i32 noundef 22) #12
+  %20 = and i32 %2, 1
+  %21 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %22 = load i64, ptr %21, align 8, !tbaa !133
+  %23 = icmp slt i64 %22, 0
+  br i1 %23, label %145, label %24, !prof !215
 
-18:                                               ; preds = %13, %9
-  %19 = tail call fastcc i64 @S_pad_alloc_name(ptr noundef %10, i32 noundef %2, ptr noundef %3, ptr noundef %4) #15, !range !250
-  %20 = getelementptr inbounds %struct.padname, ptr %10, i64 0, i32 3
-  store i32 -1, ptr %20, align 8, !tbaa !251
-  %21 = getelementptr inbounds %struct.padname, ptr %10, i64 0, i32 4
-  store i32 0, ptr %21, align 4, !tbaa !252
-  %22 = load i32, ptr @PL_min_intro_pending, align 4, !tbaa !163
-  %23 = icmp eq i32 %22, 0
-  %24 = trunc i64 %19 to i32
-  br i1 %23, label %25, label %26, !prof !253
+24:                                               ; preds = %19
+  %25 = tail call zeroext i1 @Perl_ckwarn(i32 noundef 12) #12
+  br i1 %25, label %26, label %145, !prof !216
 
-25:                                               ; preds = %18
-  store i32 %24, ptr @PL_min_intro_pending, align 4, !tbaa !163
-  br label %26
+26:                                               ; preds = %24
+  %27 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %28 = getelementptr inbounds %struct.padnamelist, ptr %27, i64 0, i32 1
+  %29 = load ptr, ptr %28, align 8, !tbaa !132
+  %30 = load i64, ptr %27, align 8, !tbaa !133
+  %31 = trunc i64 %30 to i32
+  %32 = load i32, ptr @PL_comppad_name_floor, align 4, !tbaa !129
+  %33 = icmp slt i32 %32, %31
+  br i1 %33, label %34, label %94, !prof !217
 
-26:                                               ; preds = %18, %25
-  store i32 %24, ptr @PL_max_intro_pending, align 4, !tbaa !163
-  %27 = icmp eq i64 %1, 0
-  br i1 %27, label %37, label %28, !prof !254
+34:                                               ; preds = %26, %89
+  %35 = phi i64 [ %90, %89 ], [ %30, %26 ]
+  %36 = getelementptr inbounds ptr, ptr %29, i64 %35
+  %37 = load ptr, ptr %36, align 8, !tbaa !116
+  %38 = icmp eq ptr %37, null
+  br i1 %38, label %86, label %39, !prof !218
 
-28:                                               ; preds = %26
-  %29 = load i8, ptr %0, align 1, !tbaa !168
-  switch i8 %29, label %37 [
-    i8 64, label %32
-    i8 37, label %30
-    i8 38, label %31
-  ], !prof !255
+39:                                               ; preds = %34
+  %40 = getelementptr inbounds %struct.padname, ptr %37, i64 0, i32 7
+  %41 = load i8, ptr %40, align 8, !tbaa !213
+  %42 = load i8, ptr %16, align 8, !tbaa !213
+  %43 = icmp eq i8 %41, %42
+  br i1 %43, label %44, label %86, !prof !219
 
-30:                                               ; preds = %28
-  br label %32
+44:                                               ; preds = %39
+  %45 = getelementptr inbounds %struct.padname, ptr %37, i64 0, i32 8
+  %46 = load i8, ptr %45, align 1, !tbaa !220
+  %47 = and i8 %46, 1
+  %48 = icmp eq i8 %47, 0
+  br i1 %48, label %49, label %86, !prof !221
 
-31:                                               ; preds = %28
-  br label %32
+49:                                               ; preds = %44
+  %50 = getelementptr inbounds %struct.padname, ptr %37, i64 0, i32 3
+  %51 = load i32, ptr %50, align 8, !tbaa !222
+  %52 = icmp eq i32 %51, -1
+  br i1 %52, label %57, label %53, !prof !223
 
-32:                                               ; preds = %28, %31, %30
-  %33 = phi i32 [ 12, %30 ], [ 13, %31 ], [ 11, %28 ]
-  %34 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %35 = getelementptr inbounds ptr, ptr %34, i64 %19
-  %36 = load ptr, ptr %35, align 8, !tbaa !150
-  tail call void @Perl_sv_upgrade(ptr noundef %36, i32 noundef %33) #14
-  br label %37
+53:                                               ; preds = %49
+  %54 = getelementptr inbounds %struct.padname, ptr %37, i64 0, i32 4
+  %55 = load i32, ptr %54, align 4, !tbaa !224
+  %56 = icmp eq i32 %55, -1
+  br i1 %56, label %57, label %86, !prof !225
 
-37:                                               ; preds = %32, %28, %26
-  ret i64 %19
+57:                                               ; preds = %53, %49
+  %58 = load ptr, ptr %37, align 8, !tbaa !175
+  %59 = load ptr, ptr %11, align 8, !tbaa !175
+  %60 = zext i8 %42 to i64
+  %61 = tail call i32 @bcmp(ptr %58, ptr %59, i64 %60), !prof !226
+  %62 = icmp eq i32 %61, 0
+  br i1 %62, label %63, label %86, !prof !227
+
+63:                                               ; preds = %57
+  %64 = icmp eq i32 %20, 0
+  br i1 %64, label %69, label %65
+
+65:                                               ; preds = %63
+  %66 = getelementptr inbounds %struct.padname, ptr %37, i64 0, i32 1
+  %67 = load ptr, ptr %66, align 8, !tbaa !228
+  %68 = icmp eq ptr %67, null
+  br i1 %68, label %75, label %86
+
+69:                                               ; preds = %63
+  %70 = load ptr, ptr @PL_parser, align 8, !tbaa !116
+  %71 = getelementptr inbounds %struct.yy_parser, ptr %70, i64 0, i32 42
+  %72 = load i16, ptr %71, align 4, !tbaa !229
+  %73 = icmp eq i16 %72, 133
+  %74 = select i1 %73, ptr @.str.19, ptr @.str.20
+  br label %75
+
+75:                                               ; preds = %69, %65
+  %76 = phi ptr [ %74, %69 ], [ @.str.18, %65 ]
+  %77 = load i8, ptr %58, align 1, !tbaa !137
+  %78 = icmp eq i8 %77, 38
+  %79 = select i1 %78, ptr @.str.21, ptr @.str.22
+  %80 = zext i8 %41 to i64
+  %81 = getelementptr inbounds %struct.padname, ptr %37, i64 0, i32 4
+  %82 = load i32, ptr %81, align 4, !tbaa !224
+  %83 = icmp eq i32 %82, -1
+  %84 = select i1 %83, ptr @.str.23, ptr @.str.24
+  tail call void (i32, ptr, ...) @Perl_warner(i32 noundef 12, ptr noundef nonnull @.str.17, ptr noundef nonnull %76, ptr noundef nonnull %79, i32 noundef 1, i64 noundef %80, ptr noundef nonnull %58, ptr noundef nonnull %84) #12
+  %85 = add i64 %35, -1
+  br label %86
+
+86:                                               ; preds = %75, %65, %57, %53, %44, %39, %34
+  %87 = phi i1 [ false, %75 ], [ false, %65 ], [ true, %57 ], [ true, %53 ], [ true, %44 ], [ true, %39 ], [ true, %34 ]
+  %88 = phi i64 [ %85, %75 ], [ %35, %65 ], [ %35, %57 ], [ %35, %53 ], [ %35, %44 ], [ %35, %39 ], [ %35, %34 ]
+  br i1 %87, label %89, label %94, !prof !233
+
+89:                                               ; preds = %86
+  %90 = add i64 %88, -1
+  %91 = trunc i64 %90 to i32
+  %92 = load i32, ptr @PL_comppad_name_floor, align 4, !tbaa !129
+  %93 = icmp slt i32 %92, %91
+  br i1 %93, label %34, label %94, !prof !234, !llvm.loop !235
+
+94:                                               ; preds = %89, %86, %26
+  %95 = phi i64 [ %30, %26 ], [ %90, %89 ], [ %88, %86 ]
+  %96 = icmp ne i32 %20, 0
+  %97 = icmp ne i64 %95, 0
+  %98 = and i1 %96, %97
+  br i1 %98, label %99, label %145, !prof !236
+
+99:                                               ; preds = %94, %140
+  %100 = phi i64 [ %142, %140 ], [ %95, %94 ]
+  %101 = getelementptr inbounds ptr, ptr %29, i64 %100
+  %102 = load ptr, ptr %101, align 8, !tbaa !116
+  %103 = icmp eq ptr %102, null
+  br i1 %103, label %138, label %104, !prof !237
+
+104:                                              ; preds = %99
+  %105 = getelementptr inbounds %struct.padname, ptr %102, i64 0, i32 7
+  %106 = load i8, ptr %105, align 8, !tbaa !213
+  %107 = load i8, ptr %16, align 8, !tbaa !213
+  %108 = icmp eq i8 %106, %107
+  br i1 %108, label %109, label %138, !prof !238
+
+109:                                              ; preds = %104
+  %110 = getelementptr inbounds %struct.padname, ptr %102, i64 0, i32 8
+  %111 = load i8, ptr %110, align 1, !tbaa !220
+  %112 = and i8 %111, 1
+  %113 = icmp eq i8 %112, 0
+  br i1 %113, label %114, label %138, !prof !239
+
+114:                                              ; preds = %109
+  %115 = getelementptr inbounds %struct.padname, ptr %102, i64 0, i32 3
+  %116 = load i32, ptr %115, align 8, !tbaa !222
+  %117 = icmp eq i32 %116, -1
+  br i1 %117, label %122, label %118, !prof !240
+
+118:                                              ; preds = %114
+  %119 = getelementptr inbounds %struct.padname, ptr %102, i64 0, i32 4
+  %120 = load i32, ptr %119, align 4, !tbaa !224
+  %121 = icmp eq i32 %120, -1
+  br i1 %121, label %122, label %138, !prof !240
+
+122:                                              ; preds = %118, %114
+  %123 = getelementptr inbounds %struct.padname, ptr %102, i64 0, i32 1
+  %124 = load ptr, ptr %123, align 8, !tbaa !228
+  %125 = icmp eq ptr %124, %4
+  br i1 %125, label %126, label %138
+
+126:                                              ; preds = %122
+  %127 = load ptr, ptr %102, align 8, !tbaa !175
+  %128 = load ptr, ptr %11, align 8, !tbaa !175
+  %129 = zext i8 %107 to i64
+  %130 = tail call i32 @bcmp(ptr %127, ptr %128, i64 %129)
+  %131 = icmp eq i32 %130, 0
+  br i1 %131, label %132, label %138
+
+132:                                              ; preds = %126
+  %133 = zext i8 %106 to i64
+  tail call void (i32, ptr, ...) @Perl_warner(i32 noundef 12, ptr noundef nonnull @.str.25, i32 noundef 1, i64 noundef %133, ptr noundef %127) #12
+  %134 = trunc i64 %100 to i32
+  %135 = load i32, ptr @PL_comppad_name_floor, align 4, !tbaa !129
+  %136 = icmp slt i32 %135, %134
+  br i1 %136, label %140, label %137
+
+137:                                              ; preds = %132
+  tail call void (i32, ptr, ...) @Perl_warner(i32 noundef 12, ptr noundef nonnull @.str.26) #12
+  br label %140
+
+138:                                              ; preds = %126, %122, %118, %109, %104, %99
+  %139 = add i64 %100, -1
+  br label %140
+
+140:                                              ; preds = %138, %137, %132
+  %141 = phi i1 [ false, %138 ], [ true, %137 ], [ true, %132 ]
+  %142 = phi i64 [ %139, %138 ], [ %100, %137 ], [ %100, %132 ]
+  %143 = icmp eq i64 %142, 0
+  %144 = or i1 %141, %143
+  br i1 %144, label %145, label %99, !prof !241
+
+145:                                              ; preds = %140, %19, %24, %94
+  %146 = load i32, ptr %12, align 8, !tbaa !211
+  %147 = add i32 %146, 1
+  store i32 %147, ptr %12, align 8, !tbaa !211
+  tail call void @Perl_pop_scope() #12
+  br label %148
+
+148:                                              ; preds = %145, %9
+  %149 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %150 = getelementptr inbounds %struct.av, ptr %149, i64 0, i32 3
+  %151 = load ptr, ptr %150, align 8, !tbaa !137
+  %152 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %153 = icmp eq ptr %151, %152
+  br i1 %153, label %155, label %154, !prof !242
+
+154:                                              ; preds = %148
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.2, ptr noundef %151, ptr noundef %152) #12
+  br label %155
+
+155:                                              ; preds = %154, %148
+  %156 = load i8, ptr @PL_pad_reset_pending, align 1, !tbaa !138, !range !243, !noundef !244
+  %157 = icmp eq i8 %156, 0
+  br i1 %157, label %159, label %158, !prof !245
+
+158:                                              ; preds = %155
+  store i8 0, ptr @PL_pad_reset_pending, align 1, !tbaa !138
+  br label %159
+
+159:                                              ; preds = %155, %158
+  %160 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %161 = load ptr, ptr %160, align 8, !tbaa !246
+  %162 = getelementptr inbounds %struct.xpvav, ptr %161, i64 0, i32 2
+  %163 = load i64, ptr %162, align 8, !tbaa !247
+  %164 = add nsw i64 %163, 1
+  %165 = tail call ptr @Perl_av_fetch(ptr noundef nonnull %160, i64 noundef %164, i32 noundef 1) #12
+  %166 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %167 = load ptr, ptr %166, align 8, !tbaa !246
+  %168 = getelementptr inbounds %struct.xpvav, ptr %167, i64 0, i32 2
+  %169 = load i64, ptr %168, align 8, !tbaa !247
+  %170 = getelementptr inbounds %struct.av, ptr %166, i64 0, i32 3
+  %171 = load ptr, ptr %170, align 8, !tbaa !137
+  store ptr %171, ptr @PL_curpad, align 8, !tbaa !116
+  %172 = shl i64 %169, 32
+  %173 = ashr exact i64 %172, 32
+  %174 = icmp eq ptr %3, null
+  br i1 %174, label %183, label %175, !prof !249
+
+175:                                              ; preds = %159
+  %176 = getelementptr inbounds %struct.padname, ptr %11, i64 0, i32 8
+  %177 = load i8, ptr %176, align 1, !tbaa !220
+  %178 = or i8 %177, 8
+  store i8 %178, ptr %176, align 1, !tbaa !220
+  %179 = getelementptr inbounds %struct.sv, ptr %3, i64 0, i32 1
+  %180 = load i32, ptr %179, align 8, !tbaa !182
+  %181 = add i32 %180, 1
+  store i32 %181, ptr %179, align 8, !tbaa !182
+  %182 = getelementptr inbounds %struct.padname, ptr %11, i64 0, i32 2
+  store ptr %3, ptr %182, align 8, !tbaa !137
+  br label %183
+
+183:                                              ; preds = %175, %159
+  %184 = icmp eq ptr %4, null
+  br i1 %184, label %193, label %185, !prof !250
+
+185:                                              ; preds = %183
+  %186 = getelementptr inbounds %struct.padname, ptr %11, i64 0, i32 8
+  %187 = load i8, ptr %186, align 1, !tbaa !220
+  %188 = or i8 %187, 16
+  store i8 %188, ptr %186, align 1, !tbaa !220
+  %189 = getelementptr inbounds %struct.padname, ptr %11, i64 0, i32 1
+  store ptr %4, ptr %189, align 8, !tbaa !228
+  %190 = getelementptr inbounds %struct.sv, ptr %4, i64 0, i32 1
+  %191 = load i32, ptr %190, align 8, !tbaa !182
+  %192 = add i32 %191, 1
+  store i32 %192, ptr %190, align 8, !tbaa !182
+  br label %200
+
+193:                                              ; preds = %183
+  %194 = and i32 %2, 2
+  %195 = icmp eq i32 %194, 0
+  br i1 %195, label %200, label %196, !prof !251
+
+196:                                              ; preds = %193
+  %197 = getelementptr inbounds %struct.padname, ptr %11, i64 0, i32 8
+  %198 = load i8, ptr %197, align 1, !tbaa !220
+  %199 = or i8 %198, 2
+  store i8 %199, ptr %197, align 1, !tbaa !220
+  br label %200
+
+200:                                              ; preds = %196, %193, %185
+  %201 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %202 = getelementptr inbounds %struct.padnamelist, ptr %201, i64 0, i32 2
+  %203 = load i64, ptr %202, align 8, !tbaa !142
+  %204 = icmp slt i64 %203, %173
+  br i1 %204, label %205, label %207, !prof !144
+
+205:                                              ; preds = %200
+  %206 = getelementptr inbounds %struct.padnamelist, ptr %201, i64 0, i32 1
+  tail call void @Perl_av_extend_guts(ptr noundef null, i64 noundef %173, ptr noundef nonnull %202, ptr noundef nonnull %206, ptr noundef nonnull %206) #12
+  br label %207
+
+207:                                              ; preds = %205, %200
+  %208 = load i64, ptr %201, align 8, !tbaa !133
+  %209 = icmp slt i64 %208, %173
+  br i1 %209, label %210, label %217, !prof !145
+
+210:                                              ; preds = %207
+  %211 = getelementptr inbounds %struct.padnamelist, ptr %201, i64 0, i32 1
+  %212 = load ptr, ptr %211, align 8, !tbaa !132
+  %213 = getelementptr inbounds ptr, ptr %212, i64 %208
+  %214 = getelementptr inbounds ptr, ptr %213, i64 1
+  %215 = sub nsw i64 %173, %208
+  %216 = shl i64 %215, 3
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %214, i8 0, i64 %216, i1 false), !prof !252
+  store i64 %173, ptr %201, align 8, !tbaa !133
+  br label %217
+
+217:                                              ; preds = %210, %207
+  %218 = getelementptr inbounds %struct.padnamelist, ptr %201, i64 0, i32 1
+  %219 = load ptr, ptr %218, align 8, !tbaa !132
+  %220 = getelementptr inbounds ptr, ptr %219, i64 %173
+  %221 = load ptr, ptr %220, align 8, !tbaa !116
+  %222 = icmp eq ptr %221, null
+  br i1 %222, label %224, label %223, !prof !134
+
+223:                                              ; preds = %217
+  tail call void @Perl_padname_free(ptr noundef nonnull %221)
+  br label %224
+
+224:                                              ; preds = %217, %223
+  store ptr %11, ptr %220, align 8, !tbaa !116
+  %225 = load i8, ptr %16, align 8, !tbaa !213
+  %226 = icmp ugt i8 %225, 1
+  br i1 %226, label %227, label %230, !prof !253
+
+227:                                              ; preds = %224
+  %228 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %229 = getelementptr inbounds %struct.padnamelist, ptr %228, i64 0, i32 3
+  store i64 %173, ptr %229, align 8, !tbaa !141
+  br label %230
+
+230:                                              ; preds = %224, %227
+  %231 = getelementptr inbounds %struct.padname, ptr %11, i64 0, i32 3
+  store i32 -1, ptr %231, align 8, !tbaa !222
+  %232 = getelementptr inbounds %struct.padname, ptr %11, i64 0, i32 4
+  store i32 0, ptr %232, align 4, !tbaa !224
+  %233 = load i32, ptr @PL_min_intro_pending, align 4, !tbaa !129
+  %234 = icmp eq i32 %233, 0
+  br i1 %234, label %235, label %237, !prof !254
+
+235:                                              ; preds = %230
+  %236 = trunc i64 %169 to i32
+  store i32 %236, ptr @PL_min_intro_pending, align 4, !tbaa !129
+  br label %237
+
+237:                                              ; preds = %235, %230
+  %238 = trunc i64 %169 to i32
+  store i32 %238, ptr @PL_max_intro_pending, align 4, !tbaa !129
+  %239 = icmp eq i64 %1, 0
+  br i1 %239, label %249, label %240, !prof !255
+
+240:                                              ; preds = %237
+  %241 = load i8, ptr %0, align 1, !tbaa !137
+  switch i8 %241, label %249 [
+    i8 64, label %244
+    i8 37, label %242
+    i8 38, label %243
+  ], !prof !256
+
+242:                                              ; preds = %240
+  br label %244
+
+243:                                              ; preds = %240
+  br label %244
+
+244:                                              ; preds = %240, %243, %242
+  %245 = phi i32 [ 12, %242 ], [ 13, %243 ], [ 11, %240 ]
+  %246 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %247 = getelementptr inbounds ptr, ptr %246, i64 %173
+  %248 = load ptr, ptr %247, align 8, !tbaa !116
+  tail call void @Perl_sv_upgrade(ptr noundef %248, i32 noundef %245) #12
+  br label %249
+
+249:                                              ; preds = %244, %240, %237
+  ret i64 %173
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local noundef ptr @Perl_newPADNAMEpvn(ptr nocapture noundef readonly %0, i64 noundef %1) local_unnamed_addr #0 !prof !256 {
+; Function Attrs: cold nounwind uwtable
+define dso_local noundef ptr @Perl_newPADNAMEpvn(ptr nocapture noundef readonly %0, i64 noundef %1) local_unnamed_addr #3 !prof !140 {
   %3 = add i64 %1, 43
-  %4 = tail call ptr @Perl_safesyscalloc(i64 noundef %3, i64 noundef 1) #14
+  %4 = tail call ptr @Perl_safesyscalloc(i64 noundef %3, i64 noundef 1) #12
   %5 = getelementptr inbounds %struct.padname, ptr %4, i64 0, i32 5
-  store i32 1, ptr %5, align 8, !tbaa !249
+  store i32 1, ptr %5, align 8, !tbaa !211
   %6 = getelementptr inbounds %struct.padname_with_str, ptr %4, i64 0, i32 9
-  store ptr %6, ptr %4, align 8, !tbaa !208
+  store ptr %6, ptr %4, align 8, !tbaa !175
   tail call void @llvm.memcpy.p0.p0.i64(ptr nonnull align 1 %6, ptr align 1 %0, i64 %1, i1 false)
   %7 = getelementptr inbounds i8, ptr %6, i64 %1
-  store i8 0, ptr %7, align 1, !tbaa !168
+  store i8 0, ptr %7, align 1, !tbaa !137
   %8 = trunc i64 %1 to i8
   %9 = getelementptr inbounds %struct.padname, ptr %4, i64 0, i32 7
-  store i8 %8, ptr %9, align 8, !tbaa !257
+  store i8 %8, ptr %9, align 8, !tbaa !213
   ret ptr %4
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define internal fastcc void @S_pad_check_dup(ptr nocapture noundef readonly %0, i32 noundef %1, ptr noundef readnone %2) unnamed_addr #0 !prof !258 !PGOFuncName !259 {
-  %4 = and i32 %1, 1
-  %5 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %6 = load i64, ptr %5, align 8, !tbaa !173
-  %7 = icmp slt i64 %6, 0
-  br i1 %7, label %122, label %8, !prof !260
-
-8:                                                ; preds = %3
-  %9 = tail call zeroext i1 @Perl_ckwarn(i32 noundef 12) #14
-  br i1 %9, label %10, label %122, !prof !261
-
-10:                                               ; preds = %8
-  %11 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %12 = getelementptr inbounds %struct.padnamelist, ptr %11, i64 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !172
-  %14 = load i64, ptr %11, align 8, !tbaa !173
-  %15 = load i32, ptr @PL_comppad_name_floor, align 4, !tbaa !163
-  %16 = trunc i64 %14 to i32
-  %17 = icmp slt i32 %15, %16
-  br i1 %17, label %18, label %75, !prof !262
-
-18:                                               ; preds = %10
-  %19 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 7
-  br label %20
-
-20:                                               ; preds = %18, %71
-  %21 = phi i64 [ %14, %18 ], [ %72, %71 ]
-  %22 = getelementptr inbounds ptr, ptr %13, i64 %21
-  %23 = load ptr, ptr %22, align 8, !tbaa !150
-  %24 = icmp eq ptr %23, null
-  br i1 %24, label %71, label %25, !prof !263
-
-25:                                               ; preds = %20
-  %26 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 7
-  %27 = load i8, ptr %26, align 8, !tbaa !257
-  %28 = load i8, ptr %19, align 8, !tbaa !257
-  %29 = icmp eq i8 %27, %28
-  br i1 %29, label %30, label %71, !prof !264
-
-30:                                               ; preds = %25
-  %31 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 8
-  %32 = load i8, ptr %31, align 1, !tbaa !265
-  %33 = and i8 %32, 1
-  %34 = icmp eq i8 %33, 0
-  br i1 %34, label %35, label %71, !prof !266
-
-35:                                               ; preds = %30
-  %36 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 3
-  %37 = load i32, ptr %36, align 8, !tbaa !251
-  %38 = icmp eq i32 %37, -1
-  br i1 %38, label %43, label %39, !prof !267
-
-39:                                               ; preds = %35
-  %40 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 4
-  %41 = load i32, ptr %40, align 4, !tbaa !252
-  %42 = icmp eq i32 %41, -1
-  br i1 %42, label %43, label %71, !prof !268
-
-43:                                               ; preds = %39, %35
-  %44 = load ptr, ptr %23, align 8, !tbaa !208
-  %45 = load ptr, ptr %0, align 8, !tbaa !208
-  %46 = zext i8 %27 to i64
-  %47 = tail call i32 @bcmp(ptr %44, ptr %45, i64 %46)
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %71, !prof !269
-
-49:                                               ; preds = %43
-  %50 = icmp eq i32 %4, 0
-  br i1 %50, label %55, label %51
-
-51:                                               ; preds = %49
-  %52 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 1
-  %53 = load ptr, ptr %52, align 8, !tbaa !270
-  %54 = icmp eq ptr %53, null
-  br i1 %54, label %61, label %75
-
-55:                                               ; preds = %49
-  %56 = load ptr, ptr @PL_parser, align 8, !tbaa !150
-  %57 = getelementptr inbounds %struct.yy_parser, ptr %56, i64 0, i32 42
-  %58 = load i16, ptr %57, align 4, !tbaa !271
-  %59 = icmp eq i16 %58, 133
-  %60 = select i1 %59, ptr @.str.19, ptr @.str.20
-  br label %61
-
-61:                                               ; preds = %51, %55
-  %62 = phi ptr [ %60, %55 ], [ @.str.18, %51 ]
-  %63 = load i8, ptr %44, align 1, !tbaa !168
-  %64 = icmp eq i8 %63, 38
-  %65 = select i1 %64, ptr @.str.21, ptr @.str.22
-  %66 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 4
-  %67 = load i32, ptr %66, align 4, !tbaa !252
-  %68 = icmp eq i32 %67, -1
-  %69 = select i1 %68, ptr @.str.23, ptr @.str.24
-  tail call void (i32, ptr, ...) @Perl_warner(i32 noundef 12, ptr noundef nonnull @.str.17, ptr noundef nonnull %62, ptr noundef nonnull %65, i32 noundef 1, i64 noundef %46, ptr noundef nonnull %44, ptr noundef nonnull %69) #14
-  %70 = add i64 %21, -1
-  br label %75
-
-71:                                               ; preds = %43, %39, %30, %25, %20
-  %72 = add i64 %21, -1
-  %73 = trunc i64 %72 to i32
-  %74 = icmp slt i32 %15, %73
-  br i1 %74, label %20, label %75, !prof !275, !llvm.loop !276
-
-75:                                               ; preds = %71, %10, %61, %51
-  %76 = phi i64 [ %70, %61 ], [ %21, %51 ], [ %14, %10 ], [ %72, %71 ]
-  %77 = icmp ne i32 %4, 0
-  %78 = icmp ne i64 %76, 0
-  %79 = and i1 %77, %78
-  br i1 %79, label %80, label %122, !prof !277
-
-80:                                               ; preds = %75, %119
-  %81 = phi i64 [ %120, %119 ], [ %76, %75 ]
-  %82 = getelementptr inbounds ptr, ptr %13, i64 %81
-  %83 = load ptr, ptr %82, align 8, !tbaa !150
-  %84 = icmp eq ptr %83, null
-  br i1 %84, label %119, label %85, !prof !278
-
-85:                                               ; preds = %80
-  %86 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 7
-  %87 = getelementptr inbounds %struct.padname, ptr %83, i64 0, i32 7
-  %88 = load i8, ptr %87, align 8, !tbaa !257
-  %89 = load i8, ptr %86, align 8, !tbaa !257
-  %90 = icmp eq i8 %88, %89
-  br i1 %90, label %91, label %119, !prof !279
-
-91:                                               ; preds = %85
-  %92 = getelementptr inbounds %struct.padname, ptr %83, i64 0, i32 8
-  %93 = load i8, ptr %92, align 1, !tbaa !265
-  %94 = and i8 %93, 1
-  %95 = icmp eq i8 %94, 0
-  br i1 %95, label %96, label %119, !prof !280
-
-96:                                               ; preds = %91
-  %97 = getelementptr inbounds %struct.padname, ptr %83, i64 0, i32 3
-  %98 = load i32, ptr %97, align 8, !tbaa !251
-  %99 = icmp eq i32 %98, -1
-  br i1 %99, label %104, label %100, !prof !281
-
-100:                                              ; preds = %96
-  %101 = getelementptr inbounds %struct.padname, ptr %83, i64 0, i32 4
-  %102 = load i32, ptr %101, align 4, !tbaa !252
-  %103 = icmp eq i32 %102, -1
-  br i1 %103, label %104, label %119, !prof !281
-
-104:                                              ; preds = %100, %96
-  %105 = getelementptr inbounds %struct.padname, ptr %83, i64 0, i32 1
-  %106 = load ptr, ptr %105, align 8, !tbaa !270
-  %107 = icmp eq ptr %106, %2
-  br i1 %107, label %108, label %119
-
-108:                                              ; preds = %104
-  %109 = load ptr, ptr %83, align 8, !tbaa !208
-  %110 = load ptr, ptr %0, align 8, !tbaa !208
-  %111 = zext i8 %88 to i64
-  %112 = tail call i32 @bcmp(ptr %109, ptr %110, i64 %111)
-  %113 = icmp eq i32 %112, 0
-  br i1 %113, label %114, label %119
-
-114:                                              ; preds = %108
-  tail call void (i32, ptr, ...) @Perl_warner(i32 noundef 12, ptr noundef nonnull @.str.25, i32 noundef 1, i64 noundef %111, ptr noundef %109) #14
-  %115 = trunc i64 %81 to i32
-  %116 = load i32, ptr @PL_comppad_name_floor, align 4, !tbaa !163
-  %117 = icmp slt i32 %116, %115
-  br i1 %117, label %122, label %118
-
-118:                                              ; preds = %114
-  tail call void (i32, ptr, ...) @Perl_warner(i32 noundef 12, ptr noundef nonnull @.str.26) #14
-  br label %122
-
-119:                                              ; preds = %80, %85, %91, %100, %104, %108
-  %120 = add i64 %81, -1
-  %121 = icmp eq i64 %120, 0
-  br i1 %121, label %122, label %80, !prof !282
-
-122:                                              ; preds = %119, %114, %118, %75, %3, %8
-  ret void
-}
-
-; Function Attrs: noinline nounwind optsize uwtable
-define internal fastcc i64 @S_pad_alloc_name(ptr noundef %0, i32 noundef %1, ptr noundef %2, ptr noundef %3) unnamed_addr #0 !prof !283 !PGOFuncName !284 {
-  %5 = tail call i64 @Perl_pad_alloc(i32 poison, i32 noundef 0) #15, !range !250
-  %6 = icmp eq ptr %2, null
-  br i1 %6, label %15, label %7, !prof !285
-
-7:                                                ; preds = %4
-  %8 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 8
-  %9 = load i8, ptr %8, align 1, !tbaa !265
-  %10 = or i8 %9, 8
-  store i8 %10, ptr %8, align 1, !tbaa !265
-  %11 = getelementptr inbounds %struct.sv, ptr %2, i64 0, i32 1
-  %12 = load i32, ptr %11, align 8, !tbaa !219
-  %13 = add i32 %12, 1
-  store i32 %13, ptr %11, align 8, !tbaa !219
-  %14 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 2
-  store ptr %2, ptr %14, align 8, !tbaa !168
-  br label %15
-
-15:                                               ; preds = %7, %4
-  %16 = icmp eq ptr %3, null
-  br i1 %16, label %25, label %17, !prof !286
-
-17:                                               ; preds = %15
-  %18 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 8
-  %19 = load i8, ptr %18, align 1, !tbaa !265
-  %20 = or i8 %19, 16
-  store i8 %20, ptr %18, align 1, !tbaa !265
-  %21 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 1
-  store ptr %3, ptr %21, align 8, !tbaa !270
-  %22 = getelementptr inbounds %struct.sv, ptr %3, i64 0, i32 1
-  %23 = load i32, ptr %22, align 8, !tbaa !219
-  %24 = add i32 %23, 1
-  store i32 %24, ptr %22, align 8, !tbaa !219
-  br label %32
-
-25:                                               ; preds = %15
-  %26 = and i32 %1, 2
-  %27 = icmp eq i32 %26, 0
-  br i1 %27, label %32, label %28, !prof !287
-
-28:                                               ; preds = %25
-  %29 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 8
-  %30 = load i8, ptr %29, align 1, !tbaa !265
-  %31 = or i8 %30, 2
-  store i8 %31, ptr %29, align 1, !tbaa !265
-  br label %32
-
-32:                                               ; preds = %25, %28, %17
-  %33 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %34 = tail call ptr @Perl_padnamelist_store(ptr noundef %33, i64 noundef %5, ptr noundef %0) #15
-  %35 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 7
-  %36 = load i8, ptr %35, align 8, !tbaa !257
-  %37 = icmp ugt i8 %36, 1
-  br i1 %37, label %38, label %41, !prof !288
-
-38:                                               ; preds = %32
-  %39 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %40 = getelementptr inbounds %struct.padnamelist, ptr %39, i64 0, i32 3
-  store i64 %5, ptr %40, align 8, !tbaa !174
-  br label %41
-
-41:                                               ; preds = %38, %32
-  ret i64 %5
-}
-
-; Function Attrs: optsize
 declare void @Perl_sv_upgrade(ptr noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local i64 @Perl_pad_add_name_pv(ptr nocapture noundef readonly %0, i32 noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 !prof !228 {
-  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #17
-  %6 = tail call i64 @Perl_pad_add_name_pvn(ptr noundef %0, i64 noundef %5, i32 noundef %1, ptr noundef %2, ptr noundef %3) #15, !range !250
+; Function Attrs: cold nounwind uwtable
+define dso_local i64 @Perl_pad_add_name_pv(ptr nocapture noundef readonly %0, i32 noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #3 !prof !140 {
+  %5 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #13
+  %6 = tail call i64 @Perl_pad_add_name_pvn(ptr noundef %0, i64 noundef %5, i32 noundef %1, ptr noundef %2, ptr noundef %3), !range !257
   ret i64 %6
 }
 
-; Function Attrs: mustprogress nofree nounwind optsize willreturn memory(argmem: read)
+; Function Attrs: mustprogress nofree nounwind willreturn memory(argmem: read)
 declare i64 @strlen(ptr nocapture noundef) local_unnamed_addr #4
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local i64 @Perl_pad_add_name_sv(ptr noundef %0, i32 noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #0 !prof !228 {
+; Function Attrs: cold nounwind uwtable
+define dso_local i64 @Perl_pad_add_name_sv(ptr noundef %0, i32 noundef %1, ptr noundef %2, ptr noundef %3) local_unnamed_addr #3 !prof !140 {
   %5 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #16
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5) #12
   %6 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 2
-  %7 = load i32, ptr %6, align 4, !tbaa !199
+  %7 = load i32, ptr %6, align 4, !tbaa !166
   %8 = and i32 %7, 538969088
   %9 = icmp eq i32 %8, 536871936
   br i1 %9, label %10, label %16
 
 10:                                               ; preds = %4
-  %11 = load ptr, ptr %0, align 8, !tbaa !289
+  %11 = load ptr, ptr %0, align 8, !tbaa !258
   %12 = getelementptr inbounds %struct.xpv, ptr %11, i64 0, i32 2
-  %13 = load i64, ptr %12, align 8, !tbaa !290
-  store i64 %13, ptr %5, align 8, !tbaa !292
+  %13 = load i64, ptr %12, align 8, !tbaa !259
+  store i64 %13, ptr %5, align 8, !tbaa !261
   %14 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 3
-  %15 = load ptr, ptr %14, align 8, !tbaa !168
-  br label %19
+  %15 = load ptr, ptr %14, align 8, !tbaa !137
+  br label %18
 
 16:                                               ; preds = %4
-  %17 = call ptr @Perl_sv_2pvutf8(ptr noundef nonnull %0, ptr noundef nonnull %5) #14
-  %18 = load i64, ptr %5, align 8, !tbaa !292
-  br label %19
+  %17 = call ptr @Perl_sv_2pvutf8(ptr noundef %0, ptr noundef nonnull %5) #12
+  br label %18
 
-19:                                               ; preds = %16, %10
-  %20 = phi i64 [ %13, %10 ], [ %18, %16 ]
-  %21 = phi ptr [ %15, %10 ], [ %17, %16 ]
-  %22 = call i64 @Perl_pad_add_name_pvn(ptr noundef %21, i64 noundef %20, i32 noundef %1, ptr noundef %2, ptr noundef %3) #15, !range !250
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #16
-  ret i64 %22
+18:                                               ; preds = %16, %10
+  %19 = phi ptr [ %15, %10 ], [ %17, %16 ]
+  %20 = load i64, ptr %5, align 8, !tbaa !261
+  %21 = call i64 @Perl_pad_add_name_pvn(ptr noundef %19, i64 noundef %20, i32 noundef %1, ptr noundef %2, ptr noundef %3), !range !257
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5) #12
+  ret i64 %21
 }
 
-; Function Attrs: optsize
 declare ptr @Perl_sv_2pvutf8(ptr noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local i64 @Perl_pad_alloc(i32 %0, i32 noundef %1) local_unnamed_addr #0 !prof !293 {
-  %3 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
+; Function Attrs: nounwind uwtable
+define dso_local i64 @Perl_pad_alloc(i32 %0, i32 noundef %1) local_unnamed_addr #0 !prof !262 {
+  %3 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
   %4 = getelementptr inbounds %struct.av, ptr %3, i64 0, i32 3
-  %5 = load ptr, ptr %4, align 8, !tbaa !168
-  %6 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
+  %5 = load ptr, ptr %4, align 8, !tbaa !137
+  %6 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
   %7 = icmp eq ptr %5, %6
-  br i1 %7, label %9, label %8, !prof !294
+  br i1 %7, label %9, label %8, !prof !242
 
 8:                                                ; preds = %2
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.2, ptr noundef %5, ptr noundef %6) #14
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.2, ptr noundef %5, ptr noundef %6) #12
   br label %9
 
 9:                                                ; preds = %8, %2
-  %10 = load i8, ptr @PL_pad_reset_pending, align 1, !tbaa !169, !range !295, !noundef !296
+  %10 = load i8, ptr @PL_pad_reset_pending, align 1, !tbaa !138, !range !243, !noundef !244
   %11 = icmp eq i8 %10, 0
-  br i1 %11, label %13, label %12, !prof !297
+  br i1 %11, label %13, label %12, !prof !245
 
 12:                                               ; preds = %9
-  tail call fastcc void @S_pad_reset() #15
+  store i8 0, ptr @PL_pad_reset_pending, align 1, !tbaa !138
   br label %13
 
 13:                                               ; preds = %12, %9
   %14 = icmp eq i32 %1, 0
-  br i1 %14, label %15, label %27, !prof !298
+  br i1 %14, label %15, label %27, !prof !263
 
 15:                                               ; preds = %13
-  %16 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %17 = load ptr, ptr %16, align 8, !tbaa !299
+  %16 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %17 = load ptr, ptr %16, align 8, !tbaa !246
   %18 = getelementptr inbounds %struct.xpvav, ptr %17, i64 0, i32 2
-  %19 = load i64, ptr %18, align 8, !tbaa !300
+  %19 = load i64, ptr %18, align 8, !tbaa !247
   %20 = add nsw i64 %19, 1
-  %21 = tail call ptr @Perl_av_fetch(ptr noundef nonnull %16, i64 noundef %20, i32 noundef 1) #14
-  %22 = load ptr, ptr %21, align 8, !tbaa !150
-  %23 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %24 = load ptr, ptr %23, align 8, !tbaa !299
+  %21 = tail call ptr @Perl_av_fetch(ptr noundef nonnull %16, i64 noundef %20, i32 noundef 1) #12
+  %22 = load ptr, ptr %21, align 8, !tbaa !116
+  %23 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %24 = load ptr, ptr %23, align 8, !tbaa !246
   %25 = getelementptr inbounds %struct.xpvav, ptr %24, i64 0, i32 2
-  %26 = load i64, ptr %25, align 8, !tbaa !300
-  br label %74
+  %26 = load i64, ptr %25, align 8, !tbaa !247
+  br label %73
 
 27:                                               ; preds = %13
-  %28 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
+  %28 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
   %29 = getelementptr inbounds %struct.padnamelist, ptr %28, i64 0, i32 1
-  %30 = load ptr, ptr %29, align 8, !tbaa !172
-  %31 = load i64, ptr %28, align 8, !tbaa !173
+  %30 = load ptr, ptr %29, align 8, !tbaa !132
+  %31 = load i64, ptr %28, align 8, !tbaa !133
   %32 = and i32 %1, 134217728
   %33 = icmp eq i32 %32, 0
-  %34 = load i32, ptr @PL_padix, align 4
-  %35 = load i32, ptr @PL_constpadix, align 4
-  %36 = select i1 %33, i32 %34, i32 %35
+  %34 = load i32, ptr @PL_constpadix, align 4
+  %35 = load i32, ptr @PL_padix, align 4
+  %36 = select i1 %33, i32 %35, i32 %34, !prof !264
   %37 = sext i32 %36 to i64
   br label %38
 
@@ -1346,25 +1444,25 @@ define dso_local i64 @Perl_pad_alloc(i32 %0, i32 noundef %1) local_unnamed_addr 
   %40 = phi ptr [ %60, %59 ], [ undef, %27 ]
   %41 = add nsw i64 %39, 1
   %42 = icmp sgt i64 %31, %39
-  br i1 %42, label %43, label %50, !prof !302
+  br i1 %42, label %43, label %50, !prof !265
 
 43:                                               ; preds = %38
   %44 = getelementptr inbounds ptr, ptr %30, i64 %41
-  %45 = load ptr, ptr %44, align 8, !tbaa !150
+  %45 = load ptr, ptr %44, align 8, !tbaa !116
   %46 = icmp eq ptr %45, null
-  br i1 %46, label %50, label %47, !prof !303
+  br i1 %46, label %50, label %47, !prof !266
 
 47:                                               ; preds = %43
-  %48 = load ptr, ptr %45, align 8, !tbaa !208
+  %48 = load ptr, ptr %45, align 8, !tbaa !175
   %49 = icmp eq ptr %48, null
-  br i1 %49, label %50, label %59, !prof !304
+  br i1 %49, label %50, label %59, !prof !267, !llvm.loop !268
 
 50:                                               ; preds = %47, %43, %38
-  %51 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %52 = tail call ptr @Perl_av_fetch(ptr noundef %51, i64 noundef %41, i32 noundef 1) #14
-  %53 = load ptr, ptr %52, align 8, !tbaa !150
+  %51 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %52 = tail call ptr @Perl_av_fetch(ptr noundef %51, i64 noundef %41, i32 noundef 1) #12
+  %53 = load ptr, ptr %52, align 8, !tbaa !116
   %54 = getelementptr inbounds %struct.sv, ptr %53, i64 0, i32 2
-  %55 = load i32, ptr %54, align 4, !tbaa !199
+  %55 = load i32, ptr %54, align 4, !tbaa !166
   %56 = lshr i32 %55, 16
   %57 = and i32 %56, 2
   %58 = xor i32 %57, 2
@@ -1374,15 +1472,15 @@ define dso_local i64 @Perl_pad_alloc(i32 %0, i32 noundef %1) local_unnamed_addr 
   %60 = phi ptr [ %40, %47 ], [ %53, %50 ]
   %61 = phi i32 [ 3, %47 ], [ %58, %50 ]
   %62 = icmp eq i32 %61, 2
-  br i1 %62, label %63, label %38
+  br i1 %62, label %63, label %38, !prof !269
 
 63:                                               ; preds = %59
   %64 = trunc i64 %41 to i32
-  br i1 %33, label %70, label %65, !prof !305
+  br i1 %33, label %70, label %65, !prof !264
 
 65:                                               ; preds = %63
-  %66 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %67 = tail call ptr @Perl_padnamelist_store(ptr noundef %66, i64 noundef %41, ptr noundef nonnull @PL_padname_const) #15
+  %66 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %67 = tail call ptr @Perl_padnamelist_store(ptr noundef %66, i64 noundef %41, ptr noundef nonnull @PL_padname_const)
   %68 = and i32 %1, -134348801
   %69 = or disjoint i32 %68, 131072
   br label %70
@@ -1390,2409 +1488,3840 @@ define dso_local i64 @Perl_pad_alloc(i32 %0, i32 noundef %1) local_unnamed_addr 
 70:                                               ; preds = %65, %63
   %71 = phi ptr [ @PL_constpadix, %65 ], [ @PL_padix, %63 ]
   %72 = phi i32 [ %69, %65 ], [ %1, %63 ]
-  store i32 %64, ptr %71, align 4, !tbaa !163
-  %73 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  br label %74
+  store i32 %64, ptr %71, align 4, !tbaa !129
+  br label %73
 
-74:                                               ; preds = %70, %15
-  %75 = phi ptr [ %23, %15 ], [ %73, %70 ]
-  %76 = phi i64 [ %26, %15 ], [ %41, %70 ]
-  %77 = phi ptr [ %22, %15 ], [ %60, %70 ]
-  %78 = phi i32 [ 0, %15 ], [ %72, %70 ]
-  %79 = getelementptr inbounds %struct.sv, ptr %77, i64 0, i32 2
-  %80 = load i32, ptr %79, align 4, !tbaa !199
-  %81 = or i32 %80, %78
-  store i32 %81, ptr %79, align 4, !tbaa !199
-  %82 = getelementptr inbounds %struct.av, ptr %75, i64 0, i32 3
-  %83 = load ptr, ptr %82, align 8, !tbaa !168
-  store ptr %83, ptr @PL_curpad, align 8, !tbaa !150
-  %84 = shl i64 %76, 32
-  %85 = ashr exact i64 %84, 32
-  ret i64 %85
+73:                                               ; preds = %70, %15
+  %74 = phi i64 [ %26, %15 ], [ %41, %70 ]
+  %75 = phi ptr [ %22, %15 ], [ %60, %70 ]
+  %76 = phi i32 [ 0, %15 ], [ %72, %70 ]
+  %77 = getelementptr inbounds %struct.sv, ptr %75, i64 0, i32 2
+  %78 = load i32, ptr %77, align 4, !tbaa !166
+  %79 = or i32 %78, %76
+  store i32 %79, ptr %77, align 4, !tbaa !166
+  %80 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %81 = getelementptr inbounds %struct.av, ptr %80, i64 0, i32 3
+  %82 = load ptr, ptr %81, align 8, !tbaa !137
+  store ptr %82, ptr @PL_curpad, align 8, !tbaa !116
+  %83 = shl i64 %74, 32
+  %84 = ashr exact i64 %83, 32
+  ret i64 %84
 }
 
-; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable
-define internal fastcc void @S_pad_reset() unnamed_addr #5 !prof !306 !PGOFuncName !307 {
-  store i8 0, ptr @PL_pad_reset_pending, align 1, !tbaa !169
-  ret void
-}
-
-; Function Attrs: optsize
 declare ptr @Perl_av_fetch(ptr noundef, i64 noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local noundef i64 @Perl_pad_add_anon(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 !prof !308 {
-  %3 = tail call ptr @Perl_newPADNAMEpvn(ptr noundef nonnull @.str.3, i64 noundef 1) #15
-  %4 = tail call i64 @Perl_pad_alloc(i32 poison, i32 noundef 0) #15, !range !250
-  %5 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %6 = tail call ptr @Perl_padnamelist_store(ptr noundef %5, i64 noundef %4, ptr noundef %3) #15
-  %7 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %8 = tail call ptr @Perl_av_store(ptr noundef %7, i64 noundef %4, ptr noundef %0) #14
-  %9 = load ptr, ptr %0, align 8, !tbaa !181
-  %10 = getelementptr inbounds %struct.xpvcv, ptr %9, i64 0, i32 10
-  %11 = load ptr, ptr %10, align 8, !tbaa !204
-  %12 = icmp eq ptr %11, null
-  br i1 %12, label %17, label %13, !prof !309
+; Function Attrs: nounwind uwtable
+define dso_local i64 @Perl_pad_add_anon(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 !prof !270 {
+  %3 = tail call ptr @Perl_safesyscalloc(i64 noundef 44, i64 noundef 1) #12
+  %4 = getelementptr inbounds %struct.padname, ptr %3, i64 0, i32 5
+  store i32 1, ptr %4, align 8, !tbaa !211
+  %5 = getelementptr inbounds %struct.padname_with_str, ptr %3, i64 0, i32 9
+  store ptr %5, ptr %3, align 8, !tbaa !175
+  store i8 38, ptr %5, align 1
+  %6 = getelementptr inbounds %struct.padname_with_str, ptr %3, i64 0, i32 9, i64 1
+  store i8 0, ptr %6, align 1, !tbaa !137
+  %7 = getelementptr inbounds %struct.padname, ptr %3, i64 0, i32 7
+  store i8 1, ptr %7, align 8, !tbaa !213
+  %8 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %9 = getelementptr inbounds %struct.av, ptr %8, i64 0, i32 3
+  %10 = load ptr, ptr %9, align 8, !tbaa !137
+  %11 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %12 = icmp eq ptr %10, %11
+  br i1 %12, label %14, label %13, !prof !242
 
 13:                                               ; preds = %2
-  %14 = getelementptr inbounds %struct.xpvcv, ptr %9, i64 0, i32 12
-  %15 = load i32, ptr %14, align 4, !tbaa !186
-  %16 = or i32 %15, 16
-  store i32 %16, ptr %14, align 4, !tbaa !186
-  tail call fastcc void @S_SvREFCNT_dec_NN(ptr noundef nonnull %11) #15
-  br label %17
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.2, ptr noundef %10, ptr noundef %11) #12
+  br label %14
 
-17:                                               ; preds = %13, %2
-  ret i64 %4
+14:                                               ; preds = %13, %2
+  %15 = load i8, ptr @PL_pad_reset_pending, align 1, !tbaa !138, !range !243, !noundef !244
+  %16 = icmp eq i8 %15, 0
+  br i1 %16, label %18, label %17, !prof !245
+
+17:                                               ; preds = %14
+  store i8 0, ptr @PL_pad_reset_pending, align 1, !tbaa !138
+  br label %18
+
+18:                                               ; preds = %14, %17
+  %19 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %20 = load ptr, ptr %19, align 8, !tbaa !246
+  %21 = getelementptr inbounds %struct.xpvav, ptr %20, i64 0, i32 2
+  %22 = load i64, ptr %21, align 8, !tbaa !247
+  %23 = add nsw i64 %22, 1
+  %24 = tail call ptr @Perl_av_fetch(ptr noundef nonnull %19, i64 noundef %23, i32 noundef 1) #12
+  %25 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %26 = load ptr, ptr %25, align 8, !tbaa !246
+  %27 = getelementptr inbounds %struct.xpvav, ptr %26, i64 0, i32 2
+  %28 = load i64, ptr %27, align 8, !tbaa !247
+  %29 = getelementptr inbounds %struct.av, ptr %25, i64 0, i32 3
+  %30 = load ptr, ptr %29, align 8, !tbaa !137
+  store ptr %30, ptr @PL_curpad, align 8, !tbaa !116
+  %31 = shl i64 %28, 32
+  %32 = ashr exact i64 %31, 32
+  %33 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %34 = getelementptr inbounds %struct.padnamelist, ptr %33, i64 0, i32 2
+  %35 = load i64, ptr %34, align 8, !tbaa !142
+  %36 = icmp slt i64 %35, %32
+  br i1 %36, label %37, label %39, !prof !144
+
+37:                                               ; preds = %18
+  %38 = getelementptr inbounds %struct.padnamelist, ptr %33, i64 0, i32 1
+  tail call void @Perl_av_extend_guts(ptr noundef null, i64 noundef %32, ptr noundef nonnull %34, ptr noundef nonnull %38, ptr noundef nonnull %38) #12
+  br label %39
+
+39:                                               ; preds = %37, %18
+  %40 = load i64, ptr %33, align 8, !tbaa !133
+  %41 = icmp slt i64 %40, %32
+  br i1 %41, label %42, label %49, !prof !145
+
+42:                                               ; preds = %39
+  %43 = getelementptr inbounds %struct.padnamelist, ptr %33, i64 0, i32 1
+  %44 = load ptr, ptr %43, align 8, !tbaa !132
+  %45 = getelementptr inbounds ptr, ptr %44, i64 %40
+  %46 = getelementptr inbounds ptr, ptr %45, i64 1
+  %47 = sub nsw i64 %32, %40
+  %48 = shl i64 %47, 3
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %46, i8 0, i64 %48, i1 false), !prof !271
+  store i64 %32, ptr %33, align 8, !tbaa !133
+  br label %49
+
+49:                                               ; preds = %42, %39
+  %50 = getelementptr inbounds %struct.padnamelist, ptr %33, i64 0, i32 1
+  %51 = load ptr, ptr %50, align 8, !tbaa !132
+  %52 = getelementptr inbounds ptr, ptr %51, i64 %32
+  %53 = load ptr, ptr %52, align 8, !tbaa !116
+  %54 = icmp eq ptr %53, null
+  br i1 %54, label %56, label %55, !prof !134
+
+55:                                               ; preds = %49
+  tail call void @Perl_padname_free(ptr noundef nonnull %53)
+  br label %56
+
+56:                                               ; preds = %49, %55
+  store ptr %3, ptr %52, align 8, !tbaa !116
+  %57 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %58 = tail call ptr @Perl_av_store(ptr noundef %57, i64 noundef %32, ptr noundef %0) #12
+  %59 = load ptr, ptr %0, align 8, !tbaa !148
+  %60 = getelementptr inbounds %struct.xpvcv, ptr %59, i64 0, i32 10
+  %61 = load ptr, ptr %60, align 8, !tbaa !171
+  %62 = icmp eq ptr %61, null
+  br i1 %62, label %73, label %63, !prof !272
+
+63:                                               ; preds = %56
+  %64 = getelementptr inbounds %struct.xpvcv, ptr %59, i64 0, i32 12
+  %65 = load i32, ptr %64, align 4, !tbaa !153
+  %66 = or i32 %65, 16
+  store i32 %66, ptr %64, align 4, !tbaa !153
+  %67 = getelementptr inbounds %struct.sv, ptr %61, i64 0, i32 1
+  %68 = load i32, ptr %67, align 8, !tbaa !182
+  %69 = icmp ugt i32 %68, 1
+  br i1 %69, label %70, label %72, !prof !273
+
+70:                                               ; preds = %63
+  %71 = add i32 %68, -1
+  store i32 %71, ptr %67, align 8, !tbaa !182
+  br label %73
+
+72:                                               ; preds = %63
+  tail call void @Perl_sv_free2(ptr noundef nonnull %61, i32 noundef %68) #12
+  br label %73
+
+73:                                               ; preds = %72, %70, %56
+  ret i64 %32
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_pad_add_weakref(ptr noundef %0) local_unnamed_addr #0 !prof !310 {
-  %2 = tail call i64 @Perl_pad_alloc(i32 poison, i32 noundef 0) #15, !range !250
-  %3 = tail call ptr @Perl_newPADNAMEpvn(ptr noundef nonnull @.str.3, i64 noundef 1) #15
-  %4 = tail call ptr @Perl_newRV(ptr noundef %0) #14
-  %5 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %6 = tail call ptr @Perl_padnamelist_store(ptr noundef %5, i64 noundef %2, ptr noundef %3) #15
-  %7 = tail call ptr @Perl_sv_rvweaken(ptr noundef %4) #14
-  %8 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %9 = tail call ptr @Perl_av_store(ptr noundef %8, i64 noundef %2, ptr noundef %4) #14
+; Function Attrs: cold nounwind uwtable
+define dso_local void @Perl_pad_add_weakref(ptr noundef %0) local_unnamed_addr #3 !prof !274 {
+  %2 = tail call i64 @Perl_pad_alloc(i32 poison, i32 noundef 0), !range !257
+  %3 = tail call ptr @Perl_safesyscalloc(i64 noundef 44, i64 noundef 1) #12
+  %4 = getelementptr inbounds %struct.padname, ptr %3, i64 0, i32 5
+  store i32 1, ptr %4, align 8, !tbaa !211
+  %5 = getelementptr inbounds %struct.padname_with_str, ptr %3, i64 0, i32 9
+  store ptr %5, ptr %3, align 8, !tbaa !175
+  store i8 38, ptr %5, align 1
+  %6 = getelementptr inbounds %struct.padname_with_str, ptr %3, i64 0, i32 9, i64 1
+  store i8 0, ptr %6, align 1, !tbaa !137
+  %7 = getelementptr inbounds %struct.padname, ptr %3, i64 0, i32 7
+  store i8 1, ptr %7, align 8, !tbaa !213
+  %8 = tail call ptr @Perl_newRV(ptr noundef %0) #12
+  %9 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %10 = tail call ptr @Perl_padnamelist_store(ptr noundef %9, i64 noundef %2, ptr noundef nonnull %3)
+  %11 = tail call ptr @Perl_sv_rvweaken(ptr noundef %8) #12
+  %12 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %13 = tail call ptr @Perl_av_store(ptr noundef %12, i64 noundef %2, ptr noundef %8) #12
   ret void
 }
 
-; Function Attrs: optsize
 declare ptr @Perl_newRV(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_sv_rvweaken(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local i64 @Perl_pad_findmy_pvn(ptr noundef %0, i64 noundef %1, i32 noundef %2) local_unnamed_addr #0 !prof !311 {
+; Function Attrs: nounwind uwtable
+define dso_local i64 @Perl_pad_findmy_pvn(ptr noundef %0, i64 noundef %1, i32 noundef %2) local_unnamed_addr #0 !prof !275 {
   %4 = alloca ptr, align 8
   %5 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #16
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #16
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #12
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %5) #12
   %6 = icmp eq i32 %2, 0
-  br i1 %6, label %9, label %7, !prof !312
+  br i1 %6, label %9, label %7, !prof !276
 
 7:                                                ; preds = %3
   %8 = zext i32 %2 to i64
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.4, i64 noundef %8) #14
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.4, i64 noundef %8) #12
   br label %9
 
 9:                                                ; preds = %7, %3
-  %10 = load ptr, ptr @PL_compcv, align 8, !tbaa !150
+  %10 = load ptr, ptr @PL_compcv, align 8, !tbaa !116
   %11 = icmp eq ptr %10, null
-  br i1 %11, label %70, label %12, !prof !313
+  br i1 %11, label %75, label %12, !prof !277
 
 12:                                               ; preds = %9
-  %13 = load i32, ptr @PL_cop_seqmax, align 4, !tbaa !163
-  %14 = call fastcc i64 @S_pad_findlex(ptr noundef %0, i64 noundef %1, i32 noundef %2, ptr noundef nonnull %10, i32 noundef %13, i32 noundef 1, ptr noundef null, ptr noundef nonnull %4, ptr noundef nonnull %5) #15
+  %13 = load i32, ptr @PL_cop_seqmax, align 4, !tbaa !129
+  %14 = call fastcc i64 @S_pad_findlex(ptr noundef %0, i64 noundef %1, i32 noundef %2, ptr noundef nonnull %10, i32 noundef %13, i32 noundef 1, ptr noundef null, ptr noundef nonnull %4, ptr noundef nonnull %5)
   %15 = shl i64 %14, 32
   %16 = icmp eq i64 %15, -4294967296
-  br i1 %16, label %19, label %17, !prof !314
+  br i1 %16, label %19, label %17, !prof !278
 
 17:                                               ; preds = %12
   %18 = ashr exact i64 %15, 32
-  br label %70
+  br label %75
 
 19:                                               ; preds = %12
-  %20 = load i8, ptr %0, align 1, !tbaa !168
+  %20 = load i8, ptr %0, align 1, !tbaa !137
   %21 = icmp eq i8 %20, 38
-  br i1 %21, label %70, label %22, !prof !315
+  br i1 %21, label %75, label %22, !prof !279
 
 22:                                               ; preds = %19
-  %23 = load ptr, ptr @PL_compcv, align 8, !tbaa !150
-  %24 = load ptr, ptr %23, align 8, !tbaa !181
+  %23 = load ptr, ptr @PL_compcv, align 8, !tbaa !116
+  %24 = load ptr, ptr %23, align 8, !tbaa !148
   %25 = getelementptr inbounds %struct.xpvcv, ptr %24, i64 0, i32 9
-  %26 = load ptr, ptr %25, align 8, !tbaa !168
+  %26 = load ptr, ptr %25, align 8, !tbaa !137
   %27 = getelementptr inbounds %struct.padlist, ptr %26, i64 0, i32 1
-  %28 = load ptr, ptr %27, align 8, !tbaa !167
-  %29 = load ptr, ptr %28, align 8, !tbaa !150
+  %28 = load ptr, ptr %27, align 8, !tbaa !136
+  %29 = load ptr, ptr %28, align 8, !tbaa !116
   %30 = getelementptr inbounds %struct.padnamelist, ptr %29, i64 0, i32 1
-  %31 = load ptr, ptr %30, align 8, !tbaa !172
+  %31 = load ptr, ptr %30, align 8, !tbaa !132
   %32 = getelementptr inbounds %struct.padnamelist, ptr %29, i64 0, i32 3
-  %33 = load i64, ptr %32, align 8, !tbaa !174
+  %33 = load i64, ptr %32, align 8, !tbaa !141
   %34 = trunc i64 %33 to i32
   %35 = icmp sgt i32 %34, 0
-  br i1 %35, label %36, label %70, !prof !316
+  br i1 %35, label %36, label %75, !prof !280
 
 36:                                               ; preds = %22
   %37 = and i64 %33, 4294967295
-  br label %38
+  br label %41
 
-38:                                               ; preds = %36, %67
-  %39 = phi i64 [ %37, %36 ], [ %68, %67 ]
-  %40 = getelementptr inbounds ptr, ptr %31, i64 %39
-  %41 = load ptr, ptr %40, align 8, !tbaa !150
-  %42 = icmp eq ptr %41, null
-  br i1 %42, label %67, label %43, !prof !317
+38:                                               ; preds = %72
+  %39 = add nsw i64 %42, -1
+  %40 = icmp sgt i64 %42, 1
+  br i1 %40, label %41, label %75, !prof !281, !llvm.loop !282
 
-43:                                               ; preds = %38
-  %44 = getelementptr inbounds %struct.padname, ptr %41, i64 0, i32 7
-  %45 = load i8, ptr %44, align 8, !tbaa !257
-  %46 = zext i8 %45 to i64
-  %47 = icmp eq i64 %46, %1
-  br i1 %47, label %48, label %67, !prof !318
+41:                                               ; preds = %36, %38
+  %42 = phi i64 [ %37, %36 ], [ %39, %38 ]
+  %43 = phi i64 [ undef, %36 ], [ %74, %38 ]
+  %44 = getelementptr inbounds ptr, ptr %31, i64 %42
+  %45 = load ptr, ptr %44, align 8, !tbaa !116
+  %46 = icmp eq ptr %45, null
+  br i1 %46, label %71, label %47, !prof !283
 
-48:                                               ; preds = %43
-  %49 = getelementptr inbounds %struct.padname, ptr %41, i64 0, i32 8
-  %50 = load i8, ptr %49, align 1, !tbaa !265
-  %51 = and i8 %50, 1
-  %52 = icmp eq i8 %51, 0
-  br i1 %52, label %53, label %67, !prof !319
+47:                                               ; preds = %41
+  %48 = getelementptr inbounds %struct.padname, ptr %45, i64 0, i32 7
+  %49 = load i8, ptr %48, align 8, !tbaa !213
+  %50 = zext i8 %49 to i64
+  %51 = icmp eq i64 %50, %1
+  br i1 %51, label %52, label %71, !prof !284
 
-53:                                               ; preds = %48
-  %54 = getelementptr inbounds %struct.padname, ptr %41, i64 0, i32 1
-  %55 = load ptr, ptr %54, align 8, !tbaa !270
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %67, label %57, !prof !320
+52:                                               ; preds = %47
+  %53 = getelementptr inbounds %struct.padname, ptr %45, i64 0, i32 8
+  %54 = load i8, ptr %53, align 1, !tbaa !220
+  %55 = and i8 %54, 1
+  %56 = icmp eq i8 %55, 0
+  br i1 %56, label %57, label %71, !prof !285
 
-57:                                               ; preds = %53
-  %58 = load ptr, ptr %41, align 8, !tbaa !208
-  %59 = icmp eq ptr %58, %0
-  br i1 %59, label %63, label %60
+57:                                               ; preds = %52
+  %58 = getelementptr inbounds %struct.padname, ptr %45, i64 0, i32 1
+  %59 = load ptr, ptr %58, align 8, !tbaa !228
+  %60 = icmp eq ptr %59, null
+  br i1 %60, label %71, label %61, !prof !286
 
-60:                                               ; preds = %57
-  %61 = call i32 @bcmp(ptr %58, ptr nonnull %0, i64 %1)
-  %62 = icmp eq i32 %61, 0
-  br i1 %62, label %63, label %67
+61:                                               ; preds = %57
+  %62 = load ptr, ptr %45, align 8, !tbaa !175
+  %63 = icmp eq ptr %62, %0
+  br i1 %63, label %67, label %64
 
-63:                                               ; preds = %60, %57
-  %64 = getelementptr inbounds %struct.padname, ptr %41, i64 0, i32 3
-  %65 = load i32, ptr %64, align 8, !tbaa !251
-  %66 = icmp eq i32 %65, -1
-  br i1 %66, label %70, label %67
+64:                                               ; preds = %61
+  %65 = call i32 @bcmp(ptr %62, ptr nonnull %0, i64 %1)
+  %66 = icmp eq i32 %65, 0
+  br i1 %66, label %67, label %71
 
-67:                                               ; preds = %38, %43, %48, %53, %60, %63
-  %68 = add nsw i64 %39, -1
-  %69 = icmp sgt i64 %39, 1
-  br i1 %69, label %38, label %70, !prof !321, !llvm.loop !322
+67:                                               ; preds = %64, %61
+  %68 = getelementptr inbounds %struct.padname, ptr %45, i64 0, i32 3
+  %69 = load i32, ptr %68, align 8, !tbaa !222
+  %70 = icmp eq i32 %69, -1
+  br i1 %70, label %72, label %71
 
-70:                                               ; preds = %67, %63, %22, %19, %9, %17
-  %71 = phi i64 [ %18, %17 ], [ -1, %9 ], [ -1, %19 ], [ -1, %22 ], [ -1, %67 ], [ %39, %63 ]
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #16
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #16
-  ret i64 %71
+71:                                               ; preds = %67, %64, %57, %52, %47, %41
+  br label %72
+
+72:                                               ; preds = %67, %71
+  %73 = phi i1 [ true, %71 ], [ false, %67 ]
+  %74 = phi i64 [ %43, %71 ], [ %42, %67 ]
+  br i1 %73, label %38, label %75, !prof !287
+
+75:                                               ; preds = %72, %38, %22, %19, %9, %17
+  %76 = phi i64 [ %18, %17 ], [ -1, %9 ], [ -1, %19 ], [ -1, %22 ], [ -1, %38 ], [ %74, %72 ]
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %5) #12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #12
+  ret i64 %76
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define internal fastcc i64 @S_pad_findlex(ptr noundef %0, i64 noundef %1, i32 noundef %2, ptr nocapture noundef readonly %3, i32 noundef %4, i32 noundef %5, ptr noundef %6, ptr noundef %7, ptr noundef %8) unnamed_addr #0 !prof !323 !PGOFuncName !324 {
+; Function Attrs: nounwind uwtable
+define internal fastcc i64 @S_pad_findlex(ptr noundef %0, i64 noundef %1, i32 noundef %2, ptr nocapture noundef readonly %3, i32 noundef %4, i32 noundef %5, ptr noundef %6, ptr noundef %7, ptr noundef %8) unnamed_addr #0 !prof !288 !PGOFuncName !289 {
   %10 = alloca ptr, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #16
-  %11 = load ptr, ptr %3, align 8, !tbaa !181
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %10) #12
+  %11 = load ptr, ptr %3, align 8, !tbaa !148
   %12 = getelementptr inbounds %struct.xpvcv, ptr %11, i64 0, i32 9
-  %13 = load ptr, ptr %12, align 8, !tbaa !168
+  %13 = load ptr, ptr %12, align 8, !tbaa !137
   %14 = and i32 %2, 8
   %15 = icmp eq i32 %14, 0
   %16 = and i32 %2, -9
   %17 = icmp eq i32 %16, 0
-  br i1 %17, label %20, label %18, !prof !325
+  br i1 %17, label %20, label %18, !prof !290
 
 18:                                               ; preds = %9
   %19 = zext i32 %16 to i64
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.27, i64 noundef %19) #14
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.27, i64 noundef %19) #12
   br label %20
 
 20:                                               ; preds = %18, %9
-  store i32 0, ptr %8, align 4, !tbaa !163
+  store i32 0, ptr %8, align 4, !tbaa !129
   %21 = icmp ne ptr %13, null
-  br i1 %21, label %22, label %204, !prof !325
+  br i1 %21, label %22, label %262, !prof !290
 
 22:                                               ; preds = %20
   %23 = getelementptr inbounds %struct.padlist, ptr %13, i64 0, i32 1
-  %24 = load ptr, ptr %23, align 8, !tbaa !167
-  %25 = load ptr, ptr %24, align 8, !tbaa !150
+  %24 = load ptr, ptr %23, align 8, !tbaa !136
+  %25 = load ptr, ptr %24, align 8, !tbaa !116
   %26 = getelementptr inbounds %struct.padnamelist, ptr %25, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !172
+  %27 = load ptr, ptr %26, align 8, !tbaa !132
   %28 = getelementptr inbounds %struct.padnamelist, ptr %25, i64 0, i32 3
-  %29 = load i64, ptr %28, align 8, !tbaa !174
+  %29 = load i64, ptr %28, align 8, !tbaa !141
   %30 = trunc i64 %29 to i32
-  %31 = icmp sgt i32 %30, 0
-  br i1 %31, label %32, label %204, !prof !326
+  %31 = icmp slt i32 %30, 1
+  br i1 %31, label %91, label %32, !prof !291
 
 32:                                               ; preds = %22
   %33 = and i64 %29, 4294967295
   br label %34
 
-34:                                               ; preds = %32, %59
-  %35 = phi i64 [ %33, %32 ], [ %61, %59 ]
-  %36 = phi i32 [ 0, %32 ], [ %60, %59 ]
-  %37 = getelementptr inbounds ptr, ptr %27, i64 %35
-  %38 = load ptr, ptr %37, align 8, !tbaa !150
-  %39 = icmp eq ptr %38, null
-  br i1 %39, label %59, label %40, !prof !327
+34:                                               ; preds = %32, %86
+  %35 = phi i64 [ %33, %32 ], [ %87, %86 ]
+  %36 = phi i1 [ %31, %32 ], [ %88, %86 ]
+  %37 = phi i32 [ 0, %32 ], [ %85, %86 ]
+  %38 = getelementptr inbounds ptr, ptr %27, i64 %35
+  %39 = load ptr, ptr %38, align 8, !tbaa !116
+  %40 = icmp eq ptr %39, null
+  br i1 %40, label %83, label %41, !prof !292
 
-40:                                               ; preds = %34
-  %41 = getelementptr inbounds %struct.padname, ptr %38, i64 0, i32 7
-  %42 = load i8, ptr %41, align 8, !tbaa !257
-  %43 = zext i8 %42 to i64
-  %44 = icmp eq i64 %43, %1
-  br i1 %44, label %45, label %59, !prof !328
+41:                                               ; preds = %34
+  %42 = getelementptr inbounds %struct.padname, ptr %39, i64 0, i32 7
+  %43 = load i8, ptr %42, align 8, !tbaa !213
+  %44 = zext i8 %43 to i64
+  %45 = icmp eq i64 %44, %1
+  br i1 %45, label %46, label %83, !prof !293
 
-45:                                               ; preds = %40
-  %46 = load ptr, ptr %38, align 8, !tbaa !208
-  %47 = icmp eq ptr %46, %0
-  br i1 %47, label %51, label %48, !prof !329
+46:                                               ; preds = %41
+  %47 = load ptr, ptr %39, align 8, !tbaa !175
+  %48 = icmp eq ptr %47, %0
+  br i1 %48, label %52, label %49, !prof !294
 
-48:                                               ; preds = %45
-  %49 = tail call i32 @bcmp(ptr %46, ptr %0, i64 %1)
-  %50 = icmp eq i32 %49, 0
-  br i1 %50, label %51, label %59, !prof !330
+49:                                               ; preds = %46
+  %50 = tail call i32 @bcmp(ptr %47, ptr %0, i64 %1), !prof !295
+  %51 = icmp eq i32 %50, 0
+  br i1 %51, label %52, label %83, !prof !296
 
-51:                                               ; preds = %48, %45
-  %52 = getelementptr inbounds %struct.padname, ptr %38, i64 0, i32 8
-  %53 = load i8, ptr %52, align 1, !tbaa !265
-  %54 = and i8 %53, 1
-  %55 = icmp eq i8 %54, 0
-  %56 = trunc i64 %35 to i32
-  br i1 %55, label %57, label %59, !prof !331
+52:                                               ; preds = %49, %46
+  %53 = getelementptr inbounds %struct.padname, ptr %39, i64 0, i32 8
+  %54 = load i8, ptr %53, align 1, !tbaa !220
+  %55 = and i8 %54, 1
+  %56 = icmp eq i8 %55, 0
+  %57 = trunc i64 %35 to i32
+  br i1 %56, label %58, label %83, !prof !297
 
-57:                                               ; preds = %51
-  %58 = tail call fastcc zeroext i1 @PadnameIN_SCOPE(ptr noundef nonnull %38, i32 noundef %4) #15
-  br i1 %58, label %65, label %59, !prof !332
+58:                                               ; preds = %52
+  %59 = getelementptr inbounds %struct.padname, ptr %39, i64 0, i32 3
+  %60 = load i32, ptr %59, align 8, !tbaa !222
+  %61 = icmp eq i32 %60, -1
+  br i1 %61, label %82, label %62, !prof !298
 
-59:                                               ; preds = %34, %40, %48, %57, %51
-  %60 = phi i32 [ %56, %51 ], [ %36, %57 ], [ %36, %48 ], [ %36, %40 ], [ %36, %34 ]
-  %61 = add nsw i64 %35, -1
-  %62 = icmp sgt i64 %35, 1
-  br i1 %62, label %34, label %63, !prof !333, !llvm.loop !334
+62:                                               ; preds = %58
+  %63 = getelementptr inbounds %struct.padname, ptr %39, i64 0, i32 4
+  %64 = load i32, ptr %63, align 4, !tbaa !224
+  %65 = icmp eq i32 %64, -1
+  br i1 %65, label %66, label %74, !prof !299
 
-63:                                               ; preds = %59
-  %64 = icmp slt i32 %60, 1
-  br i1 %64, label %204, label %83, !prof !335
+66:                                               ; preds = %62
+  %67 = icmp ult i32 %60, %4
+  br i1 %67, label %68, label %71, !prof !300
 
-65:                                               ; preds = %57
-  %66 = and i64 %35, 4294967295
-  %67 = getelementptr inbounds ptr, ptr %27, i64 %66
-  %68 = load ptr, ptr %67, align 8, !tbaa !150
-  store ptr %68, ptr %7, align 8, !tbaa !150
-  %69 = load ptr, ptr %3, align 8, !tbaa !181
-  %70 = getelementptr inbounds %struct.xpvcv, ptr %69, i64 0, i32 12
-  %71 = load i32, ptr %70, align 4, !tbaa !186
-  %72 = and i32 %71, 128
-  %73 = icmp eq i32 %72, 0
-  br i1 %73, label %74, label %89, !prof !336
+68:                                               ; preds = %66
+  %69 = sub i32 %4, %60
+  %70 = icmp ult i32 %69, 2147483647
+  br i1 %70, label %83, label %82, !prof !300
 
-74:                                               ; preds = %65
-  %75 = and i32 %71, 256
-  %76 = icmp eq i32 %75, 0
-  br i1 %76, label %77, label %89, !prof !337
+71:                                               ; preds = %66
+  %72 = sub i32 %60, %4
+  %73 = icmp slt i32 %72, 0
+  br i1 %73, label %83, label %82
 
-77:                                               ; preds = %74
-  %78 = getelementptr inbounds %struct.xpvcv, ptr %69, i64 0, i32 6
-  %79 = load ptr, ptr %78, align 8, !tbaa !168
-  %80 = freeze ptr %79
-  %81 = icmp eq ptr %80, null
-  %82 = select i1 %81, i32 2, i32 0
-  br label %89
+74:                                               ; preds = %62
+  %75 = icmp ugt i32 %60, %64
+  %76 = icmp uge i32 %60, %4
+  %77 = icmp ult i32 %64, %4
+  br i1 %75, label %78, label %80, !prof !301
 
-83:                                               ; preds = %63
-  %84 = zext nneg i32 %60 to i64
-  %85 = getelementptr inbounds ptr, ptr %27, i64 %84
-  %86 = load ptr, ptr %85, align 8, !tbaa !150
-  store ptr %86, ptr %7, align 8, !tbaa !150
-  %87 = getelementptr inbounds %struct.padname, ptr %86, i64 0, i32 4
-  %88 = load i32, ptr %87, align 4, !tbaa !252
-  br label %89
+78:                                               ; preds = %74
+  %79 = and i1 %76, %77
+  br i1 %79, label %82, label %83
 
-89:                                               ; preds = %77, %74, %65, %83
-  %90 = phi ptr [ %86, %83 ], [ %68, %65 ], [ %68, %74 ], [ %68, %77 ]
-  %91 = phi i1 [ false, %83 ], [ true, %65 ], [ true, %74 ], [ true, %77 ]
-  %92 = phi i32 [ %88, %83 ], [ 1, %65 ], [ 0, %74 ], [ %82, %77 ]
-  %93 = phi i32 [ %60, %83 ], [ %56, %65 ], [ %56, %74 ], [ %56, %77 ]
-  store i32 %92, ptr %8, align 4, !tbaa !163
-  %94 = icmp eq ptr %6, null
-  br i1 %94, label %194, label %95, !prof !338
+80:                                               ; preds = %74
+  %81 = or i1 %76, %77
+  br i1 %81, label %82, label %83, !prof !302
 
-95:                                               ; preds = %89
-  %96 = getelementptr inbounds %struct.padname, ptr %90, i64 0, i32 1
-  %97 = load ptr, ptr %96, align 8, !tbaa !270
-  %98 = icmp eq ptr %97, null
-  br i1 %98, label %101, label %99, !prof !339
+82:                                               ; preds = %68, %71, %78, %80, %58
+  br label %83
 
-99:                                               ; preds = %95
-  store ptr null, ptr %6, align 8, !tbaa !150
-  %100 = zext nneg i32 %93 to i64
-  br label %294
+83:                                               ; preds = %80, %71, %34, %41, %49, %82, %78, %68, %52
+  %84 = phi i1 [ false, %52 ], [ true, %68 ], [ true, %78 ], [ false, %82 ], [ false, %49 ], [ false, %41 ], [ false, %34 ], [ true, %71 ], [ true, %80 ]
+  %85 = phi i32 [ %57, %52 ], [ %37, %68 ], [ %37, %78 ], [ %37, %82 ], [ %37, %49 ], [ %37, %41 ], [ %37, %34 ], [ %37, %71 ], [ %37, %80 ]
+  br i1 %84, label %89, label %86, !prof !303
 
-101:                                              ; preds = %95
-  %102 = load ptr, ptr %3, align 8, !tbaa !181
-  %103 = getelementptr inbounds %struct.xpvcv, ptr %102, i64 0, i32 6
-  %104 = load ptr, ptr %103, align 8, !tbaa !168
-  %105 = icmp eq ptr %104, null
-  br i1 %105, label %114, label %106, !prof !340
+86:                                               ; preds = %83
+  %87 = add nsw i64 %35, -1
+  %88 = icmp slt i64 %35, 2
+  br i1 %88, label %91, label %34, !prof !304, !llvm.loop !305
 
-106:                                              ; preds = %101
-  %107 = getelementptr inbounds %struct.xpvcv, ptr %102, i64 0, i32 12
-  %108 = load i32, ptr %107, align 4, !tbaa !186
-  %109 = and i32 %108, 128
-  %110 = icmp eq i32 %109, 0
-  br i1 %110, label %135, label %111, !prof !340
+89:                                               ; preds = %83
+  %90 = trunc i64 %35 to i32
+  br label %91
 
-111:                                              ; preds = %106
-  %112 = and i32 %108, 96
-  %113 = icmp eq i32 %112, 32
-  br i1 %113, label %117, label %135
+91:                                               ; preds = %89, %86, %22
+  %92 = phi i32 [ %30, %22 ], [ %90, %89 ], [ 0, %86 ]
+  %93 = phi i1 [ %31, %22 ], [ %36, %89 ], [ %88, %86 ]
+  %94 = phi i32 [ 0, %22 ], [ %85, %86 ], [ %85, %89 ]
+  %95 = icmp slt i32 %94, 1
+  %96 = select i1 %93, i1 %95, i1 false, !prof !306
+  br i1 %96, label %260, label %97, !prof !307
 
-114:                                              ; preds = %101
-  %115 = and i32 %92, 1
-  %116 = icmp eq i32 %115, 0
-  br i1 %116, label %119, label %117, !prof !340
+97:                                               ; preds = %91
+  br i1 %93, label %117, label %98, !prof !308
 
-117:                                              ; preds = %111, %114
-  %118 = icmp eq i32 %5, 0
-  br i1 %118, label %177, label %175
+98:                                               ; preds = %97
+  %99 = zext nneg i32 %92 to i64
+  %100 = getelementptr inbounds ptr, ptr %27, i64 %99
+  %101 = load ptr, ptr %100, align 8, !tbaa !116
+  store ptr %101, ptr %7, align 8, !tbaa !116
+  %102 = load ptr, ptr %3, align 8, !tbaa !148
+  %103 = getelementptr inbounds %struct.xpvcv, ptr %102, i64 0, i32 12
+  %104 = load i32, ptr %103, align 4, !tbaa !153
+  %105 = and i32 %104, 128
+  %106 = icmp eq i32 %105, 0
+  br i1 %106, label %107, label %123, !prof !309
 
-119:                                              ; preds = %114
-  %120 = and i32 %92, 2
-  %121 = icmp eq i32 %120, 0
-  br i1 %121, label %135, label %122, !prof !340
+107:                                              ; preds = %98
+  %108 = and i32 %104, 256
+  %109 = icmp eq i32 %108, 0
+  br i1 %109, label %110, label %114, !prof !310
 
-122:                                              ; preds = %119
-  %123 = getelementptr inbounds %struct.padname, ptr %90, i64 0, i32 8
-  %124 = load i8, ptr %123, align 1, !tbaa !265
-  %125 = and i8 %124, 2
-  %126 = icmp eq i8 %125, 0
-  %127 = icmp ne i32 %5, 0
-  %128 = and i1 %127, %126
-  br i1 %128, label %129, label %135
+110:                                              ; preds = %107
+  %111 = getelementptr inbounds %struct.xpvcv, ptr %102, i64 0, i32 6
+  %112 = load ptr, ptr %111, align 8, !tbaa !137
+  %113 = icmp eq ptr %112, null
+  br label %114
 
-129:                                              ; preds = %122
-  %130 = tail call zeroext i1 @Perl_ckwarn(i32 noundef 1) #14
-  br i1 %130, label %131, label %135
+114:                                              ; preds = %110, %107
+  %115 = phi i1 [ false, %107 ], [ %113, %110 ]
+  %116 = select i1 %115, i32 2, i32 0, !prof !310
+  br label %123
 
-131:                                              ; preds = %129
-  %132 = load i8, ptr %0, align 1, !tbaa !168
-  %133 = icmp eq i8 %132, 38
-  %134 = select i1 %133, ptr @.str.29, ptr @.str.30
-  tail call void (i32, ptr, ...) @Perl_warner(i32 noundef 1, ptr noundef nonnull @.str.28, ptr noundef nonnull %134, i32 noundef 1, i64 noundef %1, ptr noundef nonnull %0) #14
-  br label %135
+117:                                              ; preds = %97
+  %118 = zext nneg i32 %94 to i64
+  %119 = getelementptr inbounds ptr, ptr %27, i64 %118
+  %120 = load ptr, ptr %119, align 8, !tbaa !116
+  store ptr %120, ptr %7, align 8, !tbaa !116
+  %121 = getelementptr inbounds %struct.padname, ptr %120, i64 0, i32 4
+  %122 = load i32, ptr %121, align 4, !tbaa !224
+  br label %123
 
-135:                                              ; preds = %106, %111, %131, %129, %122, %119
-  %136 = phi i32 [ 0, %131 ], [ 1, %129 ], [ %5, %122 ], [ %5, %119 ], [ %5, %111 ], [ %5, %106 ]
-  br i1 %91, label %143, label %137, !prof !340
+123:                                              ; preds = %114, %98, %117
+  %124 = phi i32 [ %122, %117 ], [ %116, %114 ], [ 1, %98 ]
+  %125 = phi i32 [ %94, %117 ], [ 0, %114 ], [ 0, %98 ]
+  %126 = phi i32 [ %94, %117 ], [ %92, %114 ], [ %92, %98 ]
+  store i32 %124, ptr %8, align 4, !tbaa !129
+  %127 = icmp eq ptr %6, null
+  br i1 %127, label %258, label %128, !prof !311
 
-137:                                              ; preds = %135
-  %138 = load ptr, ptr %3, align 8, !tbaa !181
-  %139 = getelementptr inbounds %struct.xpvcv, ptr %138, i64 0, i32 12
-  %140 = load i32, ptr %139, align 4, !tbaa !186
-  %141 = and i32 %140, 224
-  %142 = icmp eq i32 %141, 160
-  br i1 %142, label %196, label %143
+128:                                              ; preds = %123
+  %129 = load ptr, ptr %7, align 8, !tbaa !116
+  %130 = getelementptr inbounds %struct.padname, ptr %129, i64 0, i32 1
+  %131 = load ptr, ptr %130, align 8, !tbaa !228
+  %132 = icmp eq ptr %131, null
+  br i1 %132, label %135, label %133, !prof !312
 
-143:                                              ; preds = %137, %135
-  %144 = load ptr, ptr %23, align 8, !tbaa !167
-  %145 = tail call fastcc ptr @S_CvDEPTHp(ptr noundef nonnull %3) #15
-  %146 = load i32, ptr %145, align 4, !tbaa !163
+133:                                              ; preds = %128
+  store ptr null, ptr %6, align 8, !tbaa !116
+  %134 = zext nneg i32 %126 to i64
+  br label %260
+
+135:                                              ; preds = %128
+  %136 = load ptr, ptr %3, align 8, !tbaa !148
+  %137 = getelementptr inbounds %struct.xpvcv, ptr %136, i64 0, i32 6
+  %138 = load ptr, ptr %137, align 8, !tbaa !137
+  %139 = icmp ne ptr %138, null
+  br i1 %139, label %140, label %145, !prof !313
+
+140:                                              ; preds = %135
+  %141 = getelementptr inbounds %struct.xpvcv, ptr %136, i64 0, i32 12
+  %142 = load i32, ptr %141, align 4, !tbaa !153
+  %143 = and i32 %142, 224
+  %144 = icmp eq i32 %143, 160
+  br i1 %144, label %148, label %159
+
+145:                                              ; preds = %135
+  %146 = and i32 %124, 1
   %147 = icmp eq i32 %146, 0
-  br i1 %147, label %150, label %148, !prof !340
+  br i1 %147, label %159, label %148, !prof !314
 
-148:                                              ; preds = %143
-  %149 = sext i32 %146 to i64
-  br label %150
+148:                                              ; preds = %145, %140
+  %149 = icmp eq i32 %5, 0
+  br i1 %149, label %158, label %150
 
-150:                                              ; preds = %143, %148
-  %151 = phi i64 [ %149, %148 ], [ 1, %143 ]
-  %152 = getelementptr inbounds ptr, ptr %144, i64 %151
-  %153 = load ptr, ptr %152, align 8, !tbaa !150
-  %154 = getelementptr inbounds %struct.av, ptr %153, i64 0, i32 3
-  %155 = load ptr, ptr %154, align 8, !tbaa !168
-  %156 = zext nneg i32 %93 to i64
-  %157 = getelementptr inbounds ptr, ptr %155, i64 %156
-  %158 = load ptr, ptr %157, align 8, !tbaa !150
-  store ptr %158, ptr %6, align 8, !tbaa !150
-  %159 = getelementptr inbounds %struct.sv, ptr %158, i64 0, i32 2
-  %160 = load i32, ptr %159, align 4, !tbaa !199
-  %161 = and i32 %160, 262144
-  %162 = icmp eq i32 %161, 0
-  br i1 %162, label %194, label %163, !prof !340
+150:                                              ; preds = %148
+  %151 = load ptr, ptr %129, align 8, !tbaa !175
+  %152 = load i8, ptr %151, align 1, !tbaa !137
+  %153 = icmp eq i8 %152, 38
+  %154 = select i1 %153, ptr @.str.29, ptr @.str.30
+  %155 = getelementptr inbounds %struct.padname, ptr %129, i64 0, i32 7
+  %156 = load i8, ptr %155, align 8, !tbaa !213
+  %157 = zext i8 %156 to i64
+  tail call void (i32, ptr, ...) @Perl_ck_warner(i32 noundef 1, ptr noundef nonnull @.str.31, ptr noundef nonnull %154, i32 noundef 1, i64 noundef %157, ptr noundef nonnull %151) #12
+  br label %158
 
-163:                                              ; preds = %150
-  %164 = tail call fastcc ptr @S_CvDEPTHp(ptr noundef nonnull %3) #15
-  %165 = load i32, ptr %164, align 4, !tbaa !163
-  %166 = icmp eq i32 %165, 0
-  %167 = or i1 %15, %166
-  br i1 %167, label %168, label %194
+158:                                              ; preds = %150, %148
+  store ptr null, ptr %6, align 8, !tbaa !116
+  br label %238
 
-168:                                              ; preds = %163
-  %169 = getelementptr inbounds ptr, ptr %27, i64 %156
-  %170 = load ptr, ptr %169, align 8, !tbaa !150
-  %171 = getelementptr inbounds %struct.padname, ptr %170, i64 0, i32 8
-  %172 = load i8, ptr %171, align 1, !tbaa !265
-  %173 = and i8 %172, 2
-  %174 = icmp eq i8 %173, 0
-  br i1 %174, label %175, label %194
+159:                                              ; preds = %145, %140
+  %160 = and i32 %124, 2
+  %161 = icmp eq i32 %160, 0
+  %162 = select i1 %139, i1 true, i1 %161
+  br i1 %162, label %179, label %163, !prof !315
 
-175:                                              ; preds = %168, %117
-  %176 = phi ptr [ %90, %117 ], [ %170, %168 ]
-  tail call fastcc void @S_unavailable(ptr noundef nonnull %176) #15
-  br label %177
+163:                                              ; preds = %159
+  %164 = zext nneg i32 %126 to i64
+  %165 = getelementptr inbounds ptr, ptr %27, i64 %164
+  %166 = load ptr, ptr %165, align 8, !tbaa !116
+  %167 = getelementptr inbounds %struct.padname, ptr %166, i64 0, i32 8
+  %168 = load i8, ptr %167, align 1, !tbaa !220
+  %169 = and i8 %168, 2
+  %170 = icmp eq i8 %169, 0
+  %171 = icmp ne i32 %5, 0
+  %172 = and i1 %171, %170
+  br i1 %172, label %173, label %179
 
-177:                                              ; preds = %175, %117
-  store ptr null, ptr %6, align 8, !tbaa !150
-  %178 = icmp eq i64 %1, 0
-  br i1 %178, label %190, label %179
+173:                                              ; preds = %163
+  %174 = tail call zeroext i1 @Perl_ckwarn(i32 noundef 1) #12
+  br i1 %174, label %175, label %179
 
-179:                                              ; preds = %177
-  %180 = load i8, ptr %0, align 1, !tbaa !168
-  switch i8 %180, label %190 [
-    i8 64, label %181
-    i8 37, label %184
-    i8 38, label %187
+175:                                              ; preds = %173
+  %176 = load i8, ptr %0, align 1, !tbaa !137
+  %177 = icmp eq i8 %176, 38
+  %178 = select i1 %177, ptr @.str.29, ptr @.str.30
+  tail call void (i32, ptr, ...) @Perl_warner(i32 noundef 1, ptr noundef nonnull @.str.28, ptr noundef nonnull %178, i32 noundef 1, i64 noundef %1, ptr noundef nonnull %0) #12
+  br label %179
+
+179:                                              ; preds = %175, %173, %163, %159
+  %180 = phi i32 [ %5, %159 ], [ 0, %175 ], [ 1, %173 ], [ %5, %163 ]
+  %181 = icmp eq i32 %125, 0
+  br i1 %181, label %196, label %182, !prof !314
+
+182:                                              ; preds = %179
+  %183 = load ptr, ptr %3, align 8, !tbaa !148
+  %184 = getelementptr inbounds %struct.xpvcv, ptr %183, i64 0, i32 12
+  %185 = load i32, ptr %184, align 4, !tbaa !153
+  %186 = and i32 %185, 224
+  %187 = icmp eq i32 %186, 160
+  br i1 %187, label %188, label %196
+
+188:                                              ; preds = %182
+  %189 = load ptr, ptr %7, align 8, !tbaa !116
+  %190 = getelementptr inbounds %struct.xpvcv, ptr %183, i64 0, i32 10
+  %191 = load ptr, ptr %190, align 8, !tbaa !171
+  %192 = getelementptr inbounds %struct.xpvcv, ptr %183, i64 0, i32 11
+  %193 = load i32, ptr %192, align 8, !tbaa !172
+  %194 = tail call fastcc i64 @S_pad_findlex(ptr noundef %0, i64 noundef %1, i32 noundef %16, ptr noundef %191, i32 noundef %193, i32 noundef %180, ptr noundef nonnull %6, ptr noundef nonnull %7, ptr noundef nonnull %8)
+  store ptr %189, ptr %7, align 8, !tbaa !116
+  %195 = zext nneg i32 %126 to i64
+  br label %235
+
+196:                                              ; preds = %182, %179
+  %197 = load ptr, ptr %23, align 8, !tbaa !136
+  %198 = load ptr, ptr %3, align 8, !tbaa !148
+  %199 = getelementptr inbounds %struct.xpvcv, ptr %198, i64 0, i32 13
+  %200 = load i32, ptr %199, align 4, !tbaa !129
+  %201 = tail call i32 @llvm.umax.i32(i32 %200, i32 1)
+  %202 = sext i32 %201 to i64
+  %203 = getelementptr inbounds ptr, ptr %197, i64 %202
+  %204 = load ptr, ptr %203, align 8, !tbaa !116
+  %205 = getelementptr inbounds %struct.av, ptr %204, i64 0, i32 3
+  %206 = load ptr, ptr %205, align 8, !tbaa !137
+  %207 = zext nneg i32 %126 to i64
+  %208 = getelementptr inbounds ptr, ptr %206, i64 %207
+  %209 = load ptr, ptr %208, align 8, !tbaa !116
+  store ptr %209, ptr %6, align 8, !tbaa !116
+  %210 = getelementptr inbounds %struct.sv, ptr %209, i64 0, i32 2
+  %211 = load i32, ptr %210, align 4, !tbaa !166
+  %212 = and i32 %211, 262144
+  %213 = icmp eq i32 %212, 0
+  br i1 %213, label %235, label %214, !prof !314
+
+214:                                              ; preds = %196
+  %215 = load ptr, ptr %3, align 8, !tbaa !148
+  %216 = getelementptr inbounds %struct.xpvcv, ptr %215, i64 0, i32 13
+  %217 = load i32, ptr %216, align 4, !tbaa !129
+  %218 = icmp eq i32 %217, 0
+  %219 = or i1 %15, %218
+  br i1 %219, label %220, label %235
+
+220:                                              ; preds = %214
+  %221 = getelementptr inbounds ptr, ptr %27, i64 %207
+  %222 = load ptr, ptr %221, align 8, !tbaa !116
+  %223 = getelementptr inbounds %struct.padname, ptr %222, i64 0, i32 8
+  %224 = load i8, ptr %223, align 1, !tbaa !220
+  %225 = and i8 %224, 2
+  %226 = icmp eq i8 %225, 0
+  br i1 %226, label %227, label %235
+
+227:                                              ; preds = %220
+  %228 = load ptr, ptr %222, align 8, !tbaa !175
+  %229 = load i8, ptr %228, align 1, !tbaa !137
+  %230 = icmp eq i8 %229, 38
+  %231 = select i1 %230, ptr @.str.29, ptr @.str.30
+  %232 = getelementptr inbounds %struct.padname, ptr %222, i64 0, i32 7
+  %233 = load i8, ptr %232, align 8, !tbaa !213
+  %234 = zext i8 %233 to i64
+  tail call void (i32, ptr, ...) @Perl_ck_warner(i32 noundef 1, ptr noundef nonnull @.str.31, ptr noundef nonnull %231, i32 noundef 1, i64 noundef %234, ptr noundef nonnull %228) #12
+  store ptr null, ptr %6, align 8, !tbaa !116
+  br label %235
+
+235:                                              ; preds = %196, %220, %227, %214, %188
+  %236 = phi i1 [ false, %188 ], [ true, %214 ], [ true, %227 ], [ true, %220 ], [ true, %196 ]
+  %237 = phi i64 [ %195, %188 ], [ undef, %214 ], [ undef, %227 ], [ undef, %220 ], [ undef, %196 ]
+  br i1 %236, label %238, label %260, !prof !314
+
+238:                                              ; preds = %235, %158
+  %239 = load ptr, ptr %6, align 8, !tbaa !116
+  %240 = icmp eq ptr %239, null
+  br i1 %240, label %241, label %258, !prof !313
+
+241:                                              ; preds = %238
+  %242 = icmp eq i64 %1, 0
+  br i1 %242, label %254, label %243
+
+243:                                              ; preds = %241
+  %244 = load i8, ptr %0, align 1, !tbaa !137
+  switch i8 %244, label %254 [
+    i8 64, label %245
+    i8 37, label %248
+    i8 38, label %251
   ]
 
-181:                                              ; preds = %179
-  %182 = tail call ptr @Perl_newSV_type(i32 noundef 11) #14
-  %183 = tail call ptr @Perl_sv_2mortal(ptr noundef %182) #14
-  br label %192
+245:                                              ; preds = %243
+  %246 = tail call ptr @Perl_newSV_type(i32 noundef 11) #12
+  %247 = tail call ptr @Perl_sv_2mortal(ptr noundef %246) #12
+  br label %256
 
-184:                                              ; preds = %179
-  %185 = tail call ptr @Perl_newSV_type(i32 noundef 12) #14
-  %186 = tail call ptr @Perl_sv_2mortal(ptr noundef %185) #14
-  br label %192
+248:                                              ; preds = %243
+  %249 = tail call ptr @Perl_newSV_type(i32 noundef 12) #12
+  %250 = tail call ptr @Perl_sv_2mortal(ptr noundef %249) #12
+  br label %256
 
-187:                                              ; preds = %179
-  %188 = tail call ptr @Perl_newSV_type(i32 noundef 13) #14
-  %189 = tail call ptr @Perl_sv_2mortal(ptr noundef %188) #14
-  br label %192
+251:                                              ; preds = %243
+  %252 = tail call ptr @Perl_newSV_type(i32 noundef 13) #12
+  %253 = tail call ptr @Perl_sv_2mortal(ptr noundef %252) #12
+  br label %256
 
-190:                                              ; preds = %179, %177
-  %191 = tail call ptr @Perl_sv_newmortal() #14
-  br label %192
+254:                                              ; preds = %243, %241
+  %255 = tail call ptr @Perl_sv_newmortal() #12
+  br label %256
 
-192:                                              ; preds = %181, %187, %190, %184
-  %193 = phi ptr [ %186, %184 ], [ %191, %190 ], [ %189, %187 ], [ %183, %181 ]
-  store ptr %193, ptr %6, align 8, !tbaa !150
-  br label %194
+256:                                              ; preds = %245, %251, %254, %248
+  %257 = phi ptr [ %250, %248 ], [ %255, %254 ], [ %253, %251 ], [ %247, %245 ]
+  store ptr %257, ptr %6, align 8, !tbaa !116
+  br label %258
 
-194:                                              ; preds = %192, %168, %163, %150, %89
-  %195 = zext nneg i32 %93 to i64
-  br label %294
+258:                                              ; preds = %256, %238, %123
+  %259 = zext nneg i32 %126 to i64
+  br label %260
 
-196:                                              ; preds = %137
-  %197 = load ptr, ptr %7, align 8, !tbaa !150
-  %198 = getelementptr inbounds %struct.xpvcv, ptr %138, i64 0, i32 10
-  %199 = load ptr, ptr %198, align 8, !tbaa !204
-  %200 = getelementptr inbounds %struct.xpvcv, ptr %138, i64 0, i32 11
-  %201 = load i32, ptr %200, align 8, !tbaa !205
-  %202 = tail call fastcc i64 @S_pad_findlex(ptr noundef %0, i64 noundef %1, i32 noundef %16, ptr noundef %199, i32 noundef %201, i32 noundef %136, ptr noundef nonnull %6, ptr noundef nonnull %7, ptr noundef nonnull %8) #15
-  store ptr %197, ptr %7, align 8, !tbaa !150
-  %203 = zext nneg i32 %93 to i64
-  br label %294
+260:                                              ; preds = %91, %235, %258, %133
+  %261 = phi i64 [ %134, %133 ], [ %259, %258 ], [ %237, %235 ], [ undef, %91 ]
+  br i1 %96, label %262, label %435, !prof !307
 
-204:                                              ; preds = %22, %63, %20
-  %205 = load ptr, ptr %3, align 8, !tbaa !181
-  %206 = getelementptr inbounds %struct.xpvcv, ptr %205, i64 0, i32 10
-  %207 = load ptr, ptr %206, align 8, !tbaa !204
-  %208 = icmp eq ptr %207, null
-  br i1 %208, label %294, label %209, !prof !341
-
-209:                                              ; preds = %204
-  %210 = icmp eq ptr %6, null
-  br i1 %210, label %211, label %222, !prof !342
-
-211:                                              ; preds = %209
-  %212 = getelementptr inbounds %struct.xpvcv, ptr %205, i64 0, i32 12
-  %213 = load i32, ptr %212, align 4, !tbaa !186
-  %214 = and i32 %213, 160
-  %215 = icmp eq i32 %214, 0
-  br i1 %215, label %216, label %222, !prof !343
-
-216:                                              ; preds = %211
-  %217 = getelementptr inbounds %struct.cv, ptr %3, i64 0, i32 2
-  %218 = load i32, ptr %217, align 4, !tbaa !216
-  %219 = and i32 %218, 255
-  %220 = icmp eq i32 %219, 14
-  br i1 %220, label %222, label %221, !prof !344
-
-221:                                              ; preds = %216
-  br label %222
-
-222:                                              ; preds = %209, %221, %216, %211
-  %223 = phi ptr [ %10, %221 ], [ null, %216 ], [ null, %211 ], [ %6, %209 ]
-  %224 = icmp eq ptr %223, %10
-  %225 = select i1 %224, i32 8, i32 0
-  %226 = or disjoint i32 %225, %16
-  %227 = getelementptr inbounds %struct.xpvcv, ptr %205, i64 0, i32 11
-  %228 = load i32, ptr %227, align 8, !tbaa !205
-  %229 = call fastcc i64 @S_pad_findlex(ptr noundef %0, i64 noundef %1, i32 noundef %226, ptr noundef nonnull %207, i32 noundef %228, i32 noundef 1, ptr noundef %223, ptr noundef %7, ptr noundef nonnull %8) #15
-  %230 = trunc i64 %229 to i32
-  %231 = and i64 %229, 4294967295
-  %232 = icmp eq i64 %231, 4294967295
-  br i1 %232, label %294, label %233, !prof !345
-
-233:                                              ; preds = %222
-  %234 = load ptr, ptr %3, align 8, !tbaa !181
-  %235 = getelementptr inbounds %struct.xpvcv, ptr %234, i64 0, i32 6
-  %236 = load ptr, ptr %235, align 8, !tbaa !168
-  %237 = icmp eq ptr %236, null
-  %238 = and i1 %21, %237
-  br i1 %238, label %239, label %294, !prof !346
-
-239:                                              ; preds = %233
-  %240 = load ptr, ptr %7, align 8, !tbaa !150
-  %241 = call ptr @Perl_newPADNAMEouter(ptr noundef %240) #15
-  %242 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %243 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %244 = getelementptr inbounds %struct.padlist, ptr %13, i64 0, i32 1
-  %245 = load ptr, ptr %244, align 8, !tbaa !167
-  %246 = load ptr, ptr %245, align 8, !tbaa !150
-  store ptr %246, ptr @PL_comppad_name, align 8, !tbaa !150
-  %247 = getelementptr inbounds ptr, ptr %245, i64 1
-  %248 = load ptr, ptr %247, align 8, !tbaa !150
-  store ptr %248, ptr @PL_comppad, align 8, !tbaa !150
-  %249 = getelementptr inbounds %struct.av, ptr %248, i64 0, i32 3
-  %250 = load ptr, ptr %249, align 8, !tbaa !168
-  store ptr %250, ptr @PL_curpad, align 8, !tbaa !150
-  %251 = load ptr, ptr %7, align 8, !tbaa !150
-  %252 = getelementptr inbounds %struct.padname, ptr %251, i64 0, i32 8
-  %253 = load i8, ptr %252, align 1, !tbaa !265
-  %254 = and i8 %253, 2
-  %255 = zext nneg i8 %254 to i32
-  %256 = getelementptr inbounds %struct.padname, ptr %251, i64 0, i32 2
-  %257 = load ptr, ptr %256, align 8, !tbaa !168
-  %258 = getelementptr inbounds %struct.padname, ptr %251, i64 0, i32 1
-  %259 = load ptr, ptr %258, align 8, !tbaa !270
-  %260 = call fastcc i64 @S_pad_alloc_name(ptr noundef %241, i32 noundef %255, ptr noundef %257, ptr noundef %259) #15, !range !250
-  %261 = load i32, ptr %8, align 4, !tbaa !163
-  %262 = getelementptr inbounds %struct.padname, ptr %241, i64 0, i32 4
-  store i32 %261, ptr %262, align 4, !tbaa !252
-  %263 = getelementptr inbounds %struct.padname, ptr %241, i64 0, i32 3
-  store i32 0, ptr %263, align 8, !tbaa !251
-  %264 = getelementptr inbounds %struct.padname, ptr %241, i64 0, i32 1
-  %265 = load ptr, ptr %264, align 8, !tbaa !270
+262:                                              ; preds = %260, %20
+  %263 = load ptr, ptr %3, align 8, !tbaa !148
+  %264 = getelementptr inbounds %struct.xpvcv, ptr %263, i64 0, i32 10
+  %265 = load ptr, ptr %264, align 8, !tbaa !171
   %266 = icmp eq ptr %265, null
-  br i1 %266, label %267, label %286, !prof !347
+  br i1 %266, label %435, label %267, !prof !316
 
-267:                                              ; preds = %239
-  %268 = load ptr, ptr %3, align 8, !tbaa !181
-  %269 = getelementptr inbounds %struct.xpvcv, ptr %268, i64 0, i32 12
-  %270 = load i32, ptr %269, align 4, !tbaa !186
-  %271 = and i32 %270, 160
-  %272 = icmp eq i32 %271, 0
-  br i1 %272, label %273, label %278, !prof !348
+267:                                              ; preds = %262
+  %268 = icmp eq ptr %6, null
+  br i1 %268, label %269, label %280, !prof !317
 
-273:                                              ; preds = %267
-  %274 = getelementptr inbounds %struct.cv, ptr %3, i64 0, i32 2
-  %275 = load i32, ptr %274, align 4, !tbaa !216
-  %276 = and i32 %275, 255
-  %277 = icmp eq i32 %276, 14
-  br i1 %277, label %278, label %280, !prof !349
+269:                                              ; preds = %267
+  %270 = getelementptr inbounds %struct.xpvcv, ptr %263, i64 0, i32 12
+  %271 = load i32, ptr %270, align 4, !tbaa !153
+  %272 = and i32 %271, 160
+  %273 = icmp eq i32 %272, 0
+  br i1 %273, label %274, label %280, !prof !318
 
-278:                                              ; preds = %267, %273
-  store i32 %230, ptr %263, align 8, !tbaa !251
-  %279 = or i32 %270, 32
-  store i32 %279, ptr %269, align 4, !tbaa !186
-  br label %286
+274:                                              ; preds = %269
+  %275 = getelementptr inbounds %struct.cv, ptr %3, i64 0, i32 2
+  %276 = load i32, ptr %275, align 4, !tbaa !184
+  %277 = and i32 %276, 255
+  %278 = icmp eq i32 %277, 14
+  %279 = select i1 %278, ptr null, ptr %10, !prof !319
+  br label %280
 
-280:                                              ; preds = %273
-  %281 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %282 = load ptr, ptr %223, align 8, !tbaa !150
-  %283 = call fastcc ptr @S_SvREFCNT_inc(ptr noundef %282) #15
-  %284 = call ptr @Perl_av_store(ptr noundef %281, i64 noundef %260, ptr noundef %282) #14
-  store i32 %230, ptr %263, align 8, !tbaa !251
-  %285 = load i32, ptr %262, align 4, !tbaa !252
-  br label %286
+280:                                              ; preds = %267, %274, %269
+  %281 = phi ptr [ null, %269 ], [ %279, %274 ], [ %6, %267 ]
+  %282 = icmp eq ptr %281, %10
+  %283 = select i1 %282, i32 8, i32 0, !prof !320
+  %284 = or disjoint i32 %283, %16
+  %285 = getelementptr inbounds %struct.xpvcv, ptr %263, i64 0, i32 11
+  %286 = load i32, ptr %285, align 8, !tbaa !172
+  %287 = call fastcc i64 @S_pad_findlex(ptr noundef %0, i64 noundef %1, i32 noundef %284, ptr noundef nonnull %265, i32 noundef %286, i32 noundef 1, ptr noundef %281, ptr noundef %7, ptr noundef nonnull %8)
+  %288 = trunc i64 %287 to i32
+  %289 = and i64 %287, 4294967295
+  %290 = icmp eq i64 %289, 4294967295
+  br i1 %290, label %435, label %291, !prof !321
 
-286:                                              ; preds = %278, %280, %239
-  %287 = phi i32 [ %261, %278 ], [ %285, %280 ], [ %261, %239 ]
-  store ptr %241, ptr %7, align 8, !tbaa !150
-  store i32 %287, ptr %8, align 4, !tbaa !163
-  store ptr %242, ptr @PL_comppad_name, align 8, !tbaa !150
-  store ptr %243, ptr @PL_comppad, align 8, !tbaa !150
-  %288 = icmp eq ptr %243, null
-  br i1 %288, label %292, label %289, !prof !350
+291:                                              ; preds = %280
+  %292 = load ptr, ptr %3, align 8, !tbaa !148
+  %293 = getelementptr inbounds %struct.xpvcv, ptr %292, i64 0, i32 6
+  %294 = load ptr, ptr %293, align 8, !tbaa !137
+  %295 = icmp eq ptr %294, null
+  %296 = and i1 %21, %295
+  br i1 %296, label %297, label %435, !prof !322
 
-289:                                              ; preds = %286
-  %290 = getelementptr inbounds %struct.av, ptr %243, i64 0, i32 3
-  %291 = load ptr, ptr %290, align 8, !tbaa !168
-  br label %292
+297:                                              ; preds = %291
+  %298 = load ptr, ptr %7, align 8, !tbaa !116
+  %299 = call ptr @Perl_safesyscalloc(i64 noundef 1, i64 noundef 48) #12
+  %300 = getelementptr inbounds %struct.padname, ptr %299, i64 0, i32 5
+  store i32 1, ptr %300, align 8, !tbaa !211
+  %301 = load ptr, ptr %298, align 8, !tbaa !175
+  store ptr %301, ptr %299, align 8, !tbaa !175
+  %302 = load ptr, ptr %298, align 8, !tbaa !175
+  %303 = getelementptr inbounds i8, ptr %302, i64 -10
+  %304 = load i32, ptr %303, align 8, !tbaa !211
+  %305 = add i32 %304, 1
+  store i32 %305, ptr %303, align 8, !tbaa !211
+  %306 = getelementptr inbounds %struct.padname, ptr %299, i64 0, i32 8
+  store i8 1, ptr %306, align 1, !tbaa !220
+  %307 = getelementptr inbounds %struct.padname, ptr %298, i64 0, i32 7
+  %308 = load i8, ptr %307, align 8, !tbaa !213
+  %309 = getelementptr inbounds %struct.padname, ptr %299, i64 0, i32 7
+  store i8 %308, ptr %309, align 8, !tbaa !213
+  %310 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %311 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %312 = getelementptr inbounds %struct.padlist, ptr %13, i64 0, i32 1
+  %313 = load ptr, ptr %312, align 8, !tbaa !136
+  %314 = load ptr, ptr %313, align 8, !tbaa !116
+  store ptr %314, ptr @PL_comppad_name, align 8, !tbaa !116
+  %315 = getelementptr inbounds ptr, ptr %313, i64 1
+  %316 = load ptr, ptr %315, align 8, !tbaa !116
+  store ptr %316, ptr @PL_comppad, align 8, !tbaa !116
+  %317 = getelementptr inbounds %struct.av, ptr %316, i64 0, i32 3
+  %318 = load ptr, ptr %317, align 8, !tbaa !137
+  store ptr %318, ptr @PL_curpad, align 8, !tbaa !116
+  %319 = load ptr, ptr %7, align 8, !tbaa !116
+  %320 = getelementptr inbounds %struct.padname, ptr %319, i64 0, i32 8
+  %321 = load i8, ptr %320, align 1, !tbaa !220
+  %322 = getelementptr inbounds %struct.padname, ptr %319, i64 0, i32 2
+  %323 = load ptr, ptr %322, align 8, !tbaa !137
+  %324 = getelementptr inbounds %struct.padname, ptr %319, i64 0, i32 1
+  %325 = load ptr, ptr %324, align 8, !tbaa !228
+  %326 = load i8, ptr @PL_pad_reset_pending, align 1, !tbaa !138, !range !243, !noundef !244
+  %327 = icmp eq i8 %326, 0
+  br i1 %327, label %329, label %328, !prof !245
 
-292:                                              ; preds = %286, %289
-  %293 = phi ptr [ %291, %289 ], [ null, %286 ]
-  store ptr %293, ptr @PL_curpad, align 8, !tbaa !150
-  br label %294
+328:                                              ; preds = %297
+  store i8 0, ptr @PL_pad_reset_pending, align 1, !tbaa !138
+  br label %329
 
-294:                                              ; preds = %194, %196, %99, %233, %222, %204, %292
-  %295 = phi i64 [ %260, %292 ], [ %203, %196 ], [ -1, %204 ], [ -1, %222 ], [ 0, %233 ], [ %100, %99 ], [ %195, %194 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #16
-  ret i64 %295
+329:                                              ; preds = %297, %328
+  %330 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %331 = load ptr, ptr %330, align 8, !tbaa !246
+  %332 = getelementptr inbounds %struct.xpvav, ptr %331, i64 0, i32 2
+  %333 = load i64, ptr %332, align 8, !tbaa !247
+  %334 = add nsw i64 %333, 1
+  %335 = call ptr @Perl_av_fetch(ptr noundef nonnull %330, i64 noundef %334, i32 noundef 1) #12
+  %336 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %337 = load ptr, ptr %336, align 8, !tbaa !246
+  %338 = getelementptr inbounds %struct.xpvav, ptr %337, i64 0, i32 2
+  %339 = load i64, ptr %338, align 8, !tbaa !247
+  %340 = getelementptr inbounds %struct.av, ptr %336, i64 0, i32 3
+  %341 = load ptr, ptr %340, align 8, !tbaa !137
+  store ptr %341, ptr @PL_curpad, align 8, !tbaa !116
+  %342 = shl i64 %339, 32
+  %343 = ashr exact i64 %342, 32
+  %344 = icmp eq ptr %323, null
+  br i1 %344, label %352, label %345, !prof !249
+
+345:                                              ; preds = %329
+  %346 = load i8, ptr %306, align 1, !tbaa !220
+  %347 = or i8 %346, 8
+  store i8 %347, ptr %306, align 1, !tbaa !220
+  %348 = getelementptr inbounds %struct.sv, ptr %323, i64 0, i32 1
+  %349 = load i32, ptr %348, align 8, !tbaa !182
+  %350 = add i32 %349, 1
+  store i32 %350, ptr %348, align 8, !tbaa !182
+  %351 = getelementptr inbounds %struct.padname, ptr %299, i64 0, i32 2
+  store ptr %323, ptr %351, align 8, !tbaa !137
+  br label %352
+
+352:                                              ; preds = %345, %329
+  %353 = icmp eq ptr %325, null
+  br i1 %353, label %361, label %354, !prof !250
+
+354:                                              ; preds = %352
+  %355 = load i8, ptr %306, align 1, !tbaa !220
+  %356 = or i8 %355, 16
+  store i8 %356, ptr %306, align 1, !tbaa !220
+  %357 = getelementptr inbounds %struct.padname, ptr %299, i64 0, i32 1
+  store ptr %325, ptr %357, align 8, !tbaa !228
+  %358 = getelementptr inbounds %struct.sv, ptr %325, i64 0, i32 1
+  %359 = load i32, ptr %358, align 8, !tbaa !182
+  %360 = add i32 %359, 1
+  store i32 %360, ptr %358, align 8, !tbaa !182
+  br label %367
+
+361:                                              ; preds = %352
+  %362 = and i8 %321, 2
+  %363 = icmp eq i8 %362, 0
+  br i1 %363, label %367, label %364, !prof !251
+
+364:                                              ; preds = %361
+  %365 = load i8, ptr %306, align 1, !tbaa !220
+  %366 = or i8 %365, 2
+  store i8 %366, ptr %306, align 1, !tbaa !220
+  br label %367
+
+367:                                              ; preds = %364, %361, %354
+  %368 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %369 = getelementptr inbounds %struct.padnamelist, ptr %368, i64 0, i32 2
+  %370 = load i64, ptr %369, align 8, !tbaa !142
+  %371 = icmp slt i64 %370, %343
+  br i1 %371, label %372, label %374, !prof !144
+
+372:                                              ; preds = %367
+  %373 = getelementptr inbounds %struct.padnamelist, ptr %368, i64 0, i32 1
+  call void @Perl_av_extend_guts(ptr noundef null, i64 noundef %343, ptr noundef nonnull %369, ptr noundef nonnull %373, ptr noundef nonnull %373) #12
+  br label %374
+
+374:                                              ; preds = %372, %367
+  %375 = load i64, ptr %368, align 8, !tbaa !133
+  %376 = icmp slt i64 %375, %343
+  br i1 %376, label %377, label %384, !prof !145
+
+377:                                              ; preds = %374
+  %378 = getelementptr inbounds %struct.padnamelist, ptr %368, i64 0, i32 1
+  %379 = load ptr, ptr %378, align 8, !tbaa !132
+  %380 = getelementptr inbounds ptr, ptr %379, i64 %375
+  %381 = getelementptr inbounds ptr, ptr %380, i64 1
+  %382 = sub nsw i64 %343, %375
+  %383 = shl i64 %382, 3
+  call void @llvm.memset.p0.i64(ptr nonnull align 1 %381, i8 0, i64 %383, i1 false), !prof !323
+  store i64 %343, ptr %368, align 8, !tbaa !133
+  br label %384
+
+384:                                              ; preds = %377, %374
+  %385 = getelementptr inbounds %struct.padnamelist, ptr %368, i64 0, i32 1
+  %386 = load ptr, ptr %385, align 8, !tbaa !132
+  %387 = getelementptr inbounds ptr, ptr %386, i64 %343
+  %388 = load ptr, ptr %387, align 8, !tbaa !116
+  %389 = icmp eq ptr %388, null
+  br i1 %389, label %391, label %390, !prof !134
+
+390:                                              ; preds = %384
+  call void @Perl_padname_free(ptr noundef nonnull %388)
+  br label %391
+
+391:                                              ; preds = %384, %390
+  store ptr %299, ptr %387, align 8, !tbaa !116
+  %392 = load i8, ptr %309, align 8, !tbaa !213
+  %393 = icmp ugt i8 %392, 1
+  br i1 %393, label %394, label %397, !prof !253
+
+394:                                              ; preds = %391
+  %395 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %396 = getelementptr inbounds %struct.padnamelist, ptr %395, i64 0, i32 3
+  store i64 %343, ptr %396, align 8, !tbaa !141
+  br label %397
+
+397:                                              ; preds = %391, %394
+  %398 = load i32, ptr %8, align 4, !tbaa !129
+  %399 = getelementptr inbounds %struct.padname, ptr %299, i64 0, i32 4
+  store i32 %398, ptr %399, align 4, !tbaa !224
+  %400 = getelementptr inbounds %struct.padname, ptr %299, i64 0, i32 3
+  store i32 0, ptr %400, align 8, !tbaa !222
+  %401 = getelementptr inbounds %struct.padname, ptr %299, i64 0, i32 1
+  %402 = load ptr, ptr %401, align 8, !tbaa !228
+  %403 = icmp eq ptr %402, null
+  br i1 %403, label %404, label %427, !prof !324
+
+404:                                              ; preds = %397
+  %405 = load ptr, ptr %3, align 8, !tbaa !148
+  %406 = getelementptr inbounds %struct.xpvcv, ptr %405, i64 0, i32 12
+  %407 = load i32, ptr %406, align 4, !tbaa !153
+  %408 = and i32 %407, 160
+  %409 = icmp eq i32 %408, 0
+  br i1 %409, label %410, label %415, !prof !325
+
+410:                                              ; preds = %404
+  %411 = getelementptr inbounds %struct.cv, ptr %3, i64 0, i32 2
+  %412 = load i32, ptr %411, align 4, !tbaa !184
+  %413 = and i32 %412, 255
+  %414 = icmp eq i32 %413, 14
+  br i1 %414, label %415, label %417, !prof !313
+
+415:                                              ; preds = %404, %410
+  store i32 %288, ptr %400, align 8, !tbaa !222
+  %416 = or i32 %407, 32
+  store i32 %416, ptr %406, align 4, !tbaa !153
+  br label %427
+
+417:                                              ; preds = %410
+  %418 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %419 = load ptr, ptr %281, align 8, !tbaa !116
+  %420 = icmp eq ptr %419, null
+  br i1 %420, label %425, label %421, !prof !313
+
+421:                                              ; preds = %417
+  %422 = getelementptr inbounds %struct.sv, ptr %419, i64 0, i32 1
+  %423 = load i32, ptr %422, align 8, !tbaa !182
+  %424 = add i32 %423, 1
+  store i32 %424, ptr %422, align 8, !tbaa !182
+  br label %425
+
+425:                                              ; preds = %417, %421
+  %426 = call ptr @Perl_av_store(ptr noundef %418, i64 noundef %343, ptr noundef %419) #12
+  store i32 %288, ptr %400, align 8, !tbaa !222
+  br label %427
+
+427:                                              ; preds = %415, %425, %397
+  store ptr %299, ptr %7, align 8, !tbaa !116
+  %428 = load i32, ptr %399, align 4, !tbaa !224
+  store i32 %428, ptr %8, align 4, !tbaa !129
+  store ptr %310, ptr @PL_comppad_name, align 8, !tbaa !116
+  store ptr %311, ptr @PL_comppad, align 8, !tbaa !116
+  %429 = icmp eq ptr %311, null
+  br i1 %429, label %433, label %430, !prof !326
+
+430:                                              ; preds = %427
+  %431 = getelementptr inbounds %struct.av, ptr %311, i64 0, i32 3
+  %432 = load ptr, ptr %431, align 8, !tbaa !137
+  br label %433
+
+433:                                              ; preds = %427, %430
+  %434 = phi ptr [ %432, %430 ], [ null, %427 ]
+  store ptr %434, ptr @PL_curpad, align 8, !tbaa !116
+  br label %435
+
+435:                                              ; preds = %262, %291, %280, %260, %433
+  %436 = phi i64 [ %343, %433 ], [ %261, %260 ], [ -1, %280 ], [ 0, %291 ], [ -1, %262 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %10) #12
+  ret i64 %436
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local i64 @Perl_pad_findmy_pv(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 !prof !228 {
-  %3 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #17
-  %4 = tail call i64 @Perl_pad_findmy_pvn(ptr noundef %0, i64 noundef %3, i32 noundef %1) #15
+; Function Attrs: cold nounwind uwtable
+define dso_local i64 @Perl_pad_findmy_pv(ptr noundef %0, i32 noundef %1) local_unnamed_addr #3 !prof !140 {
+  %3 = tail call i64 @strlen(ptr noundef nonnull dereferenceable(1) %0) #13
+  %4 = tail call i64 @Perl_pad_findmy_pvn(ptr noundef %0, i64 noundef %3, i32 noundef %1)
   ret i64 %4
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local i64 @Perl_pad_findmy_sv(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 !prof !228 {
+; Function Attrs: cold nounwind uwtable
+define dso_local i64 @Perl_pad_findmy_sv(ptr noundef %0, i32 noundef %1) local_unnamed_addr #3 !prof !140 {
   %3 = alloca i64, align 8
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #16
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #12
   %4 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 2
-  %5 = load i32, ptr %4, align 4, !tbaa !199
+  %5 = load i32, ptr %4, align 4, !tbaa !166
   %6 = and i32 %5, 538969088
   %7 = icmp eq i32 %6, 536871936
   br i1 %7, label %8, label %14
 
 8:                                                ; preds = %2
-  %9 = load ptr, ptr %0, align 8, !tbaa !289
+  %9 = load ptr, ptr %0, align 8, !tbaa !258
   %10 = getelementptr inbounds %struct.xpv, ptr %9, i64 0, i32 2
-  %11 = load i64, ptr %10, align 8, !tbaa !290
-  store i64 %11, ptr %3, align 8, !tbaa !292
+  %11 = load i64, ptr %10, align 8, !tbaa !259
+  store i64 %11, ptr %3, align 8, !tbaa !261
   %12 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 3
-  %13 = load ptr, ptr %12, align 8, !tbaa !168
-  br label %17
+  %13 = load ptr, ptr %12, align 8, !tbaa !137
+  br label %16
 
 14:                                               ; preds = %2
-  %15 = call ptr @Perl_sv_2pvutf8(ptr noundef nonnull %0, ptr noundef nonnull %3) #14
-  %16 = load i64, ptr %3, align 8, !tbaa !292
-  br label %17
+  %15 = call ptr @Perl_sv_2pvutf8(ptr noundef %0, ptr noundef nonnull %3) #12
+  br label %16
 
-17:                                               ; preds = %14, %8
-  %18 = phi i64 [ %11, %8 ], [ %16, %14 ]
-  %19 = phi ptr [ %13, %8 ], [ %15, %14 ]
-  %20 = call i64 @Perl_pad_findmy_pvn(ptr noundef %19, i64 noundef %18, i32 noundef %1) #15
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #16
-  ret i64 %20
+16:                                               ; preds = %14, %8
+  %17 = phi ptr [ %13, %8 ], [ %15, %14 ]
+  %18 = load i64, ptr %3, align 8, !tbaa !261
+  %19 = call i64 @Perl_pad_findmy_pvn(ptr noundef %17, i64 noundef %18, i32 noundef %1)
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #12
+  ret i64 %19
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local i64 @Perl_find_rundefsvoffset() local_unnamed_addr #0 !prof !228 {
+; Function Attrs: cold nounwind uwtable
+define dso_local i64 @Perl_find_rundefsvoffset() local_unnamed_addr #3 !prof !140 {
   %1 = alloca ptr, align 8
   %2 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #16
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #16
-  %3 = tail call ptr @Perl_find_runcv(ptr noundef null) #14
-  %4 = load ptr, ptr @PL_curcop, align 8, !tbaa !150
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #12
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #12
+  %3 = tail call ptr @Perl_find_runcv(ptr noundef null) #12
+  %4 = load ptr, ptr @PL_curcop, align 8, !tbaa !116
   %5 = getelementptr inbounds %struct.cop, ptr %4, i64 0, i32 11
-  %6 = load i32, ptr %5, align 4, !tbaa !351
-  %7 = call fastcc i64 @S_pad_findlex(ptr noundef nonnull @.str.5, i64 noundef 2, i32 noundef 0, ptr noundef %3, i32 noundef %6, i32 noundef 1, ptr noundef null, ptr noundef nonnull %1, ptr noundef nonnull %2) #15
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #16
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #16
+  %6 = load i32, ptr %5, align 4, !tbaa !327
+  %7 = call fastcc i64 @S_pad_findlex(ptr noundef nonnull @.str.5, i64 noundef 2, i32 noundef 0, ptr noundef %3, i32 noundef %6, i32 noundef 1, ptr noundef null, ptr noundef nonnull %1, ptr noundef nonnull %2)
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #12
   ret i64 %7
 }
 
-; Function Attrs: optsize
 declare ptr @Perl_find_runcv(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local ptr @Perl_find_rundefsv() local_unnamed_addr #0 !prof !228 {
+; Function Attrs: cold nounwind uwtable
+define dso_local ptr @Perl_find_rundefsv() local_unnamed_addr #3 !prof !140 {
   %1 = alloca ptr, align 8
   %2 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #16
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #16
-  %3 = tail call ptr @Perl_find_runcv(ptr noundef null) #14
-  %4 = load ptr, ptr @PL_curcop, align 8, !tbaa !150
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %1) #12
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %2) #12
+  %3 = tail call ptr @Perl_find_runcv(ptr noundef null) #12
+  %4 = load ptr, ptr @PL_curcop, align 8, !tbaa !116
   %5 = getelementptr inbounds %struct.cop, ptr %4, i64 0, i32 11
-  %6 = load i32, ptr %5, align 4, !tbaa !351
-  %7 = call fastcc i64 @S_pad_findlex(ptr noundef nonnull @.str.5, i64 noundef 2, i32 noundef 0, ptr noundef %3, i32 noundef %6, i32 noundef 1, ptr noundef null, ptr noundef nonnull %1, ptr noundef nonnull %2) #15
+  %6 = load i32, ptr %5, align 4, !tbaa !327
+  %7 = call fastcc i64 @S_pad_findlex(ptr noundef nonnull @.str.5, i64 noundef 2, i32 noundef 0, ptr noundef %3, i32 noundef %6, i32 noundef 1, ptr noundef null, ptr noundef nonnull %1, ptr noundef nonnull %2)
   %8 = icmp eq i64 %7, -1
   br i1 %8, label %14, label %9
 
 9:                                                ; preds = %0
-  %10 = load ptr, ptr %1, align 8, !tbaa !150
+  %10 = load ptr, ptr %1, align 8, !tbaa !116
   %11 = getelementptr inbounds %struct.padname, ptr %10, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !270
+  %12 = load ptr, ptr %11, align 8, !tbaa !228
   %13 = icmp eq ptr %12, null
   br i1 %13, label %24, label %14
 
 14:                                               ; preds = %9, %0
-  %15 = load ptr, ptr @PL_defgv, align 8, !tbaa !150
+  %15 = load ptr, ptr @PL_defgv, align 8, !tbaa !116
   %16 = getelementptr inbounds %struct.gv, ptr %15, i64 0, i32 3
-  %17 = load ptr, ptr %16, align 8, !tbaa !168
-  %18 = load ptr, ptr %17, align 8, !tbaa !353
+  %17 = load ptr, ptr %16, align 8, !tbaa !137
+  %18 = load ptr, ptr %17, align 8, !tbaa !329
   %19 = icmp eq ptr %18, null
   br i1 %19, label %20, label %27
 
 20:                                               ; preds = %14
-  %21 = call ptr @Perl_gv_add_by_type(ptr noundef nonnull %15, i32 noundef 0) #14
+  %21 = call ptr @Perl_gv_add_by_type(ptr noundef %15, i32 noundef 0) #12
   %22 = getelementptr inbounds %struct.gv, ptr %21, i64 0, i32 3
-  %23 = load ptr, ptr %22, align 8, !tbaa !168
+  %23 = load ptr, ptr %22, align 8, !tbaa !137
   br label %27
 
 24:                                               ; preds = %9
-  %25 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
+  %25 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
   %26 = getelementptr inbounds ptr, ptr %25, i64 %7
   br label %27
 
 27:                                               ; preds = %20, %14, %24
   %28 = phi ptr [ %26, %24 ], [ %23, %20 ], [ %17, %14 ]
-  %29 = load ptr, ptr %28, align 8, !tbaa !150
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #16
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #16
+  %29 = load ptr, ptr %28, align 8, !tbaa !116
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %2) #12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %1) #12
   ret ptr %29
 }
 
-; Function Attrs: optsize
 declare ptr @Perl_gv_add_by_type(ptr noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local ptr @Perl_find_rundefsv2(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #0 !prof !228 {
+; Function Attrs: cold nounwind uwtable
+define dso_local ptr @Perl_find_rundefsv2(ptr nocapture noundef readonly %0, i32 noundef %1) local_unnamed_addr #3 !prof !140 {
   %3 = alloca ptr, align 8
   %4 = alloca i32, align 4
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #16
-  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #16
-  %5 = call fastcc i64 @S_pad_findlex(ptr noundef nonnull @.str.5, i64 noundef 2, i32 noundef 0, ptr noundef %0, i32 noundef %1, i32 noundef 1, ptr noundef null, ptr noundef nonnull %3, ptr noundef nonnull %4) #15
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %3) #12
+  call void @llvm.lifetime.start.p0(i64 4, ptr nonnull %4) #12
+  %5 = call fastcc i64 @S_pad_findlex(ptr noundef nonnull @.str.5, i64 noundef 2, i32 noundef 0, ptr noundef %0, i32 noundef %1, i32 noundef 1, ptr noundef null, ptr noundef nonnull %3, ptr noundef nonnull %4)
   %6 = icmp eq i64 %5, -1
   br i1 %6, label %12, label %7
 
 7:                                                ; preds = %2
-  %8 = load ptr, ptr %3, align 8, !tbaa !150
+  %8 = load ptr, ptr %3, align 8, !tbaa !116
   %9 = getelementptr inbounds %struct.padname, ptr %8, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !270
+  %10 = load ptr, ptr %9, align 8, !tbaa !228
   %11 = icmp eq ptr %10, null
   br i1 %11, label %22, label %12
 
 12:                                               ; preds = %7, %2
-  %13 = load ptr, ptr @PL_defgv, align 8, !tbaa !150
+  %13 = load ptr, ptr @PL_defgv, align 8, !tbaa !116
   %14 = getelementptr inbounds %struct.gv, ptr %13, i64 0, i32 3
-  %15 = load ptr, ptr %14, align 8, !tbaa !168
-  %16 = load ptr, ptr %15, align 8, !tbaa !353
+  %15 = load ptr, ptr %14, align 8, !tbaa !137
+  %16 = load ptr, ptr %15, align 8, !tbaa !329
   %17 = icmp eq ptr %16, null
   br i1 %17, label %18, label %36
 
 18:                                               ; preds = %12
-  %19 = call ptr @Perl_gv_add_by_type(ptr noundef nonnull %13, i32 noundef 0) #14
+  %19 = call ptr @Perl_gv_add_by_type(ptr noundef %13, i32 noundef 0) #12
   %20 = getelementptr inbounds %struct.gv, ptr %19, i64 0, i32 3
-  %21 = load ptr, ptr %20, align 8, !tbaa !168
+  %21 = load ptr, ptr %20, align 8, !tbaa !137
   br label %36
 
 22:                                               ; preds = %7
-  %23 = load ptr, ptr %0, align 8, !tbaa !181
+  %23 = load ptr, ptr %0, align 8, !tbaa !148
   %24 = getelementptr inbounds %struct.xpvcv, ptr %23, i64 0, i32 9
-  %25 = load ptr, ptr %24, align 8, !tbaa !168
+  %25 = load ptr, ptr %24, align 8, !tbaa !137
   %26 = getelementptr inbounds %struct.padlist, ptr %25, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !167
-  %28 = call fastcc ptr @S_CvDEPTHp(ptr noundef nonnull %0) #15
-  %29 = load i32, ptr %28, align 4, !tbaa !163
+  %27 = load ptr, ptr %26, align 8, !tbaa !136
+  %28 = getelementptr inbounds %struct.xpvcv, ptr %23, i64 0, i32 13
+  %29 = load i32, ptr %28, align 4, !tbaa !129
   %30 = sext i32 %29 to i64
   %31 = getelementptr inbounds ptr, ptr %27, i64 %30
-  %32 = load ptr, ptr %31, align 8, !tbaa !150
+  %32 = load ptr, ptr %31, align 8, !tbaa !116
   %33 = getelementptr inbounds %struct.av, ptr %32, i64 0, i32 3
-  %34 = load ptr, ptr %33, align 8, !tbaa !168
+  %34 = load ptr, ptr %33, align 8, !tbaa !137
   %35 = getelementptr inbounds ptr, ptr %34, i64 %5
   br label %36
 
 36:                                               ; preds = %18, %12, %22
   %37 = phi ptr [ %35, %22 ], [ %21, %18 ], [ %15, %12 ]
-  %38 = load ptr, ptr %37, align 8, !tbaa !150
-  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #16
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #16
+  %38 = load ptr, ptr %37, align 8, !tbaa !116
+  call void @llvm.lifetime.end.p0(i64 4, ptr nonnull %4) #12
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %3) #12
   ret ptr %38
 }
 
-; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: read) uwtable
-define internal fastcc nonnull ptr @S_CvDEPTHp(ptr nocapture noundef readonly %0) unnamed_addr #6 !prof !355 !PGOFuncName !356 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !181
-  %3 = getelementptr inbounds %struct.xpvcv, ptr %2, i64 0, i32 13
-  ret ptr %3
-}
-
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_pad_block_start(i32 noundef %0) local_unnamed_addr #0 !prof !357 {
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_comppad_name_floor) #14
-  %2 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %3 = load i64, ptr %2, align 8, !tbaa !173
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_pad_block_start(i32 noundef %0) local_unnamed_addr #0 !prof !331 {
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_comppad_name_floor) #12
+  %2 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %3 = load i64, ptr %2, align 8, !tbaa !133
   %4 = trunc i64 %3 to i32
-  store i32 %4, ptr @PL_comppad_name_floor, align 4, !tbaa !163
+  store i32 %4, ptr @PL_comppad_name_floor, align 4, !tbaa !129
   %5 = icmp eq i32 %0, 0
-  br i1 %5, label %7, label %6, !prof !358
+  br i1 %5, label %7, label %6, !prof !332
 
 6:                                                ; preds = %1
-  store i32 %4, ptr @PL_comppad_name_fill, align 4, !tbaa !163
+  store i32 %4, ptr @PL_comppad_name_fill, align 4, !tbaa !129
   br label %7
 
 7:                                                ; preds = %6, %1
   %8 = icmp slt i32 %4, 0
-  br i1 %8, label %9, label %10, !prof !359
+  br i1 %8, label %9, label %10, !prof !333
 
 9:                                                ; preds = %7
-  store i32 0, ptr @PL_comppad_name_floor, align 4, !tbaa !163
+  store i32 0, ptr @PL_comppad_name_floor, align 4, !tbaa !129
   br label %10
 
 10:                                               ; preds = %9, %7
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_min_intro_pending) #14
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_max_intro_pending) #14
-  store i32 0, ptr @PL_min_intro_pending, align 4, !tbaa !163
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_comppad_name_fill) #14
-  tail call void @Perl_save_I32(ptr noundef nonnull @PL_padix_floor) #14
-  %11 = load i32, ptr @PL_padix, align 4, !tbaa !163
-  store i32 %11, ptr @PL_padix_floor, align 4, !tbaa !163
-  store i8 0, ptr @PL_pad_reset_pending, align 1, !tbaa !169
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_min_intro_pending) #12
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_max_intro_pending) #12
+  store i32 0, ptr @PL_min_intro_pending, align 4, !tbaa !129
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_comppad_name_fill) #12
+  tail call void @Perl_save_I32(ptr noundef nonnull @PL_padix_floor) #12
+  %11 = load i32, ptr @PL_padix, align 4, !tbaa !129
+  store i32 %11, ptr @PL_padix_floor, align 4, !tbaa !129
+  store i8 0, ptr @PL_pad_reset_pending, align 1, !tbaa !138
   ret void
 }
 
-; Function Attrs: nofree noinline norecurse nosync nounwind optsize memory(readwrite, inaccessiblemem: none) uwtable
-define dso_local i32 @Perl_intro_my() local_unnamed_addr #7 !prof !360 {
-  %1 = load i32, ptr getelementptr inbounds (%struct.cop, ptr @PL_compiling, i64 0, i32 11), align 4, !tbaa !351
+; Function Attrs: nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable
+define dso_local i32 @Perl_intro_my() local_unnamed_addr #5 !prof !334 {
+  %1 = load i32, ptr getelementptr inbounds (%struct.cop, ptr @PL_compiling, i64 0, i32 11), align 4, !tbaa !327
   %2 = icmp eq i32 %1, 0
-  br i1 %2, label %4, label %3, !prof !361
+  br i1 %2, label %4, label %3, !prof !335
 
 3:                                                ; preds = %0
-  store i32 0, ptr getelementptr inbounds (%struct.cop, ptr @PL_compiling, i64 0, i32 11), align 4, !tbaa !351
+  store i32 0, ptr getelementptr inbounds (%struct.cop, ptr @PL_compiling, i64 0, i32 11), align 4, !tbaa !327
   br label %6
 
 4:                                                ; preds = %0
-  %5 = load i32, ptr @PL_cop_seqmax, align 4, !tbaa !163
+  %5 = load i32, ptr @PL_cop_seqmax, align 4, !tbaa !129
   br label %6
 
 6:                                                ; preds = %4, %3
   %7 = phi i32 [ %1, %3 ], [ %5, %4 ]
-  %8 = load i32, ptr @PL_min_intro_pending, align 4, !tbaa !163
+  %8 = load i32, ptr @PL_min_intro_pending, align 4, !tbaa !129
   %9 = icmp eq i32 %8, 0
-  br i1 %9, label %50, label %10, !prof !362
+  br i1 %9, label %49, label %10, !prof !336
 
 10:                                               ; preds = %6
-  %11 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
+  %11 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
   %12 = getelementptr inbounds %struct.padnamelist, ptr %11, i64 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !172
-  %14 = load i32, ptr @PL_max_intro_pending, align 4, !tbaa !163
+  %13 = load ptr, ptr %12, align 8, !tbaa !132
+  %14 = load i32, ptr @PL_max_intro_pending, align 4, !tbaa !129
   %15 = icmp sgt i32 %8, %14
-  %16 = load i32, ptr @PL_cop_seqmax, align 4
-  br i1 %15, label %44, label %17, !prof !363
+  br i1 %15, label %44, label %16, !prof !337
 
-17:                                               ; preds = %10
+16:                                               ; preds = %10
+  %17 = load i32, ptr @PL_cop_seqmax, align 4
   %18 = sext i32 %8 to i64
   %19 = add i32 %14, 1
   br label %20
 
-20:                                               ; preds = %17, %40
-  %21 = phi i64 [ %18, %17 ], [ %41, %40 ]
+20:                                               ; preds = %16, %40
+  %21 = phi i64 [ %18, %16 ], [ %41, %40 ]
   %22 = getelementptr inbounds ptr, ptr %13, i64 %21
-  %23 = load ptr, ptr %22, align 8, !tbaa !150
+  %23 = load ptr, ptr %22, align 8, !tbaa !116
   %24 = icmp eq ptr %23, null
-  br i1 %24, label %40, label %25, !prof !364
+  br i1 %24, label %40, label %25, !prof !338
 
 25:                                               ; preds = %20
   %26 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 7
-  %27 = load i8, ptr %26, align 8, !tbaa !257
+  %27 = load i8, ptr %26, align 8, !tbaa !213
   %28 = icmp eq i8 %27, 0
-  br i1 %28, label %40, label %29, !prof !254
+  br i1 %28, label %40, label %29, !prof !255
 
 29:                                               ; preds = %25
   %30 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 8
-  %31 = load i8, ptr %30, align 1, !tbaa !265
+  %31 = load i8, ptr %30, align 1, !tbaa !220
   %32 = and i8 %31, 1
   %33 = icmp eq i8 %32, 0
-  br i1 %33, label %34, label %40, !prof !247
+  br i1 %33, label %34, label %40, !prof !210
 
 34:                                               ; preds = %29
   %35 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 3
-  %36 = load i32, ptr %35, align 8, !tbaa !251
+  %36 = load i32, ptr %35, align 8, !tbaa !222
   %37 = icmp eq i32 %36, -1
-  br i1 %37, label %38, label %40, !prof !247
+  br i1 %37, label %38, label %40, !prof !210
 
 38:                                               ; preds = %34
   %39 = getelementptr inbounds %struct.padname, ptr %23, i64 0, i32 4
-  store i32 -1, ptr %39, align 4, !tbaa !252
-  store i32 %16, ptr %35, align 8, !tbaa !251
+  store i32 -1, ptr %39, align 4, !tbaa !224
+  store i32 %17, ptr %35, align 8, !tbaa !222
   br label %40
 
 40:                                               ; preds = %38, %34, %29, %25, %20
   %41 = add nsw i64 %21, 1
   %42 = trunc i64 %41 to i32
   %43 = icmp eq i32 %19, %42
-  br i1 %43, label %44, label %20, !prof !365, !llvm.loop !366
+  br i1 %43, label %44, label %20, !prof !339, !llvm.loop !340
 
 44:                                               ; preds = %40, %10
-  %45 = add i32 %16, 1
-  %46 = icmp eq i32 %45, -1
-  br i1 %46, label %47, label %48, !prof !367
+  %45 = load i32, ptr @PL_cop_seqmax, align 4, !tbaa !129
+  %46 = add i32 %45, 1
+  %47 = icmp eq i32 %46, -1
+  %48 = select i1 %47, i32 0, i32 %46, !prof !341
+  store i32 %48, ptr @PL_cop_seqmax, align 4, !tbaa !129
+  store i32 0, ptr @PL_min_intro_pending, align 4, !tbaa !129
+  store i32 %14, ptr @PL_comppad_name_fill, align 4, !tbaa !129
+  br label %49
 
-47:                                               ; preds = %44
-  br label %48
-
-48:                                               ; preds = %47, %44
-  %49 = phi i32 [ 0, %47 ], [ %45, %44 ]
-  store i32 %49, ptr @PL_cop_seqmax, align 4, !tbaa !163
-  store i32 0, ptr @PL_min_intro_pending, align 4, !tbaa !163
-  store i32 %14, ptr @PL_comppad_name_fill, align 4, !tbaa !163
-  br label %50
-
-50:                                               ; preds = %6, %48
+49:                                               ; preds = %6, %44
   ret i32 %7
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local ptr @Perl_pad_leavemy() local_unnamed_addr #0 !prof !357 {
-  %1 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
+; Function Attrs: nounwind uwtable
+define dso_local ptr @Perl_pad_leavemy() local_unnamed_addr #0 !prof !331 {
+  %1 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
   %2 = getelementptr inbounds %struct.padnamelist, ptr %1, i64 0, i32 1
-  %3 = load ptr, ptr %2, align 8, !tbaa !172
-  store i8 0, ptr @PL_pad_reset_pending, align 1, !tbaa !169
-  %4 = load i32, ptr @PL_min_intro_pending, align 4, !tbaa !163
-  %5 = icmp eq i32 %4, 0
-  %6 = load i32, ptr @PL_comppad_name_fill, align 4, !tbaa !163
-  br i1 %5, label %41, label %7, !prof !368
+  %3 = load ptr, ptr %2, align 8, !tbaa !132
+  store i8 0, ptr @PL_pad_reset_pending, align 1, !tbaa !138
+  %4 = load i32, ptr @PL_min_intro_pending, align 4, !tbaa !129
+  %5 = icmp ne i32 %4, 0
+  %6 = load i32, ptr @PL_comppad_name_fill, align 4
+  %7 = icmp slt i32 %6, %4
+  %8 = select i1 %5, i1 %7, i1 false, !prof !342
+  br i1 %8, label %9, label %37, !prof !333
 
-7:                                                ; preds = %0
-  %8 = icmp slt i32 %6, %4
-  br i1 %8, label %9, label %41, !prof !269
+9:                                                ; preds = %0
+  %10 = load i32, ptr @PL_max_intro_pending, align 4, !tbaa !129
+  %11 = load i32, ptr @PL_min_intro_pending, align 4, !tbaa !129
+  %12 = icmp slt i32 %10, %11
+  br i1 %12, label %37, label %13
 
-9:                                                ; preds = %7
-  %10 = load i32, ptr @PL_max_intro_pending, align 4, !tbaa !163
-  %11 = icmp slt i32 %10, %4
-  br i1 %11, label %41, label %12
+13:                                               ; preds = %9
+  %14 = sext i32 %10 to i64
+  br label %15
 
-12:                                               ; preds = %9
-  %13 = sext i32 %10 to i64
-  br label %14
-
-14:                                               ; preds = %12, %33
-  %15 = phi i32 [ %4, %12 ], [ %34, %33 ]
-  %16 = phi i64 [ %13, %12 ], [ %35, %33 ]
+15:                                               ; preds = %13, %32
+  %16 = phi i64 [ %14, %13 ], [ %33, %32 ]
   %17 = getelementptr inbounds ptr, ptr %3, i64 %16
-  %18 = load ptr, ptr %17, align 8, !tbaa !150
+  %18 = load ptr, ptr %17, align 8, !tbaa !116
   %19 = icmp eq ptr %18, null
-  br i1 %19, label %33, label %20
+  br i1 %19, label %32, label %20
 
-20:                                               ; preds = %14
+20:                                               ; preds = %15
   %21 = getelementptr inbounds %struct.padname, ptr %18, i64 0, i32 7
-  %22 = load i8, ptr %21, align 8, !tbaa !257
+  %22 = load i8, ptr %21, align 8, !tbaa !213
   %23 = icmp eq i8 %22, 0
-  br i1 %23, label %33, label %24
+  br i1 %23, label %32, label %24
 
 24:                                               ; preds = %20
   %25 = getelementptr inbounds %struct.padname, ptr %18, i64 0, i32 8
-  %26 = load i8, ptr %25, align 1, !tbaa !265
+  %26 = load i8, ptr %25, align 1, !tbaa !220
   %27 = and i8 %26, 1
   %28 = icmp eq i8 %27, 0
-  br i1 %28, label %29, label %33
+  br i1 %28, label %29, label %32
 
 29:                                               ; preds = %24
   %30 = zext i8 %22 to i64
-  %31 = load ptr, ptr %18, align 8, !tbaa !208
-  tail call void (i32, ptr, ...) @Perl_ck_warner_d(i32 noundef 24, ptr noundef nonnull @.str.6, i32 noundef 1, i64 noundef %30, ptr noundef %31) #14
-  %32 = load i32, ptr @PL_min_intro_pending, align 4, !tbaa !163
-  br label %33
+  %31 = load ptr, ptr %18, align 8, !tbaa !175
+  tail call void (i32, ptr, ...) @Perl_ck_warner_d(i32 noundef 24, ptr noundef nonnull @.str.6, i32 noundef 1, i64 noundef %30, ptr noundef %31) #12
+  br label %32
 
-33:                                               ; preds = %29, %24, %20, %14
-  %34 = phi i32 [ %32, %29 ], [ %15, %24 ], [ %15, %20 ], [ %15, %14 ]
-  %35 = add nsw i64 %16, -1
-  %36 = sext i32 %34 to i64
-  %37 = icmp sgt i64 %16, %36
-  br i1 %37, label %14, label %38, !llvm.loop !369
+32:                                               ; preds = %29, %24, %20, %15
+  %33 = add i64 %16, -1
+  %34 = load i32, ptr @PL_min_intro_pending, align 4, !tbaa !129
+  %35 = sext i32 %34 to i64
+  %36 = icmp sgt i64 %16, %35
+  br i1 %36, label %15, label %37, !llvm.loop !343
 
-38:                                               ; preds = %33
-  %39 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %40 = load i32, ptr @PL_comppad_name_fill, align 4, !tbaa !163
-  br label %41
+37:                                               ; preds = %32, %9, %0
+  %38 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %39 = load i64, ptr %38, align 8, !tbaa !133
+  %40 = trunc i64 %39 to i32
+  %41 = load i32, ptr @PL_comppad_name_fill, align 4, !tbaa !129
+  %42 = icmp slt i32 %41, %40
+  br i1 %42, label %43, label %89, !prof !344
 
-41:                                               ; preds = %38, %9, %7, %0
-  %42 = phi i32 [ %40, %38 ], [ %6, %9 ], [ %6, %7 ], [ %6, %0 ]
-  %43 = phi ptr [ %39, %38 ], [ %1, %9 ], [ %1, %7 ], [ %1, %0 ]
-  %44 = load i64, ptr %43, align 8, !tbaa !173
-  %45 = trunc i64 %44 to i32
-  %46 = icmp slt i32 %42, %45
-  br i1 %46, label %47, label %95, !prof !370
+43:                                               ; preds = %37
+  %44 = shl i64 %39, 32
+  %45 = ashr exact i64 %44, 32
+  br label %46
 
-47:                                               ; preds = %41
-  %48 = shl i64 %44, 32
-  %49 = ashr exact i64 %48, 32
-  br label %50
+46:                                               ; preds = %43, %83
+  %47 = phi i64 [ %45, %43 ], [ %85, %83 ]
+  %48 = phi ptr [ null, %43 ], [ %84, %83 ]
+  %49 = getelementptr inbounds ptr, ptr %3, i64 %47
+  %50 = load ptr, ptr %49, align 8, !tbaa !116
+  %51 = icmp eq ptr %50, null
+  br i1 %51, label %83, label %52, !prof !345
 
-50:                                               ; preds = %47, %89
-  %51 = phi i32 [ %42, %47 ], [ %90, %89 ]
-  %52 = phi i64 [ %49, %47 ], [ %92, %89 ]
-  %53 = phi ptr [ null, %47 ], [ %91, %89 ]
-  %54 = getelementptr inbounds ptr, ptr %3, i64 %52
-  %55 = load ptr, ptr %54, align 8, !tbaa !150
-  %56 = icmp eq ptr %55, null
-  br i1 %56, label %89, label %57, !prof !371
+52:                                               ; preds = %46
+  %53 = getelementptr inbounds %struct.padname, ptr %50, i64 0, i32 7
+  %54 = load i8, ptr %53, align 8, !tbaa !213
+  %55 = icmp eq i8 %54, 0
+  br i1 %55, label %83, label %56, !prof !346
 
-57:                                               ; preds = %50
-  %58 = getelementptr inbounds %struct.padname, ptr %55, i64 0, i32 7
-  %59 = load i8, ptr %58, align 8, !tbaa !257
+56:                                               ; preds = %52
+  %57 = getelementptr inbounds %struct.padname, ptr %50, i64 0, i32 8
+  %58 = load i8, ptr %57, align 1, !tbaa !220
+  %59 = and i8 %58, 1
   %60 = icmp eq i8 %59, 0
-  br i1 %60, label %89, label %61, !prof !372
+  br i1 %60, label %61, label %83, !prof !347
 
-61:                                               ; preds = %57
-  %62 = getelementptr inbounds %struct.padname, ptr %55, i64 0, i32 8
-  %63 = load i8, ptr %62, align 1, !tbaa !265
-  %64 = and i8 %63, 1
-  %65 = icmp eq i8 %64, 0
-  br i1 %65, label %66, label %89, !prof !373
+61:                                               ; preds = %56
+  %62 = getelementptr inbounds %struct.padname, ptr %50, i64 0, i32 4
+  %63 = load i32, ptr %62, align 4, !tbaa !224
+  %64 = icmp eq i32 %63, -1
+  br i1 %64, label %65, label %83, !prof !348
 
-66:                                               ; preds = %61
-  %67 = getelementptr inbounds %struct.padname, ptr %55, i64 0, i32 4
-  %68 = load i32, ptr %67, align 4, !tbaa !252
-  %69 = icmp eq i32 %68, -1
-  br i1 %69, label %70, label %89, !prof !374
+65:                                               ; preds = %61
+  %66 = load i32, ptr @PL_cop_seqmax, align 4, !tbaa !129
+  store i32 %66, ptr %62, align 4, !tbaa !224
+  %67 = and i8 %58, 2
+  %68 = icmp eq i8 %67, 0
+  br i1 %68, label %69, label %83, !prof !214
 
-70:                                               ; preds = %66
-  %71 = load i32, ptr @PL_cop_seqmax, align 4, !tbaa !163
-  store i32 %71, ptr %67, align 4, !tbaa !252
-  %72 = and i8 %63, 2
-  %73 = icmp eq i8 %72, 0
-  br i1 %73, label %74, label %89, !prof !248
+69:                                               ; preds = %65
+  %70 = getelementptr inbounds %struct.padname, ptr %50, i64 0, i32 1
+  %71 = load ptr, ptr %70, align 8, !tbaa !228
+  %72 = icmp eq ptr %71, null
+  br i1 %72, label %73, label %83, !prof !349
 
-74:                                               ; preds = %70
-  %75 = getelementptr inbounds %struct.padname, ptr %55, i64 0, i32 1
-  %76 = load ptr, ptr %75, align 8, !tbaa !270
-  %77 = icmp eq ptr %76, null
-  br i1 %77, label %78, label %89, !prof !375
+73:                                               ; preds = %69
+  %74 = load ptr, ptr %50, align 8, !tbaa !175
+  %75 = load i8, ptr %74, align 1, !tbaa !137
+  %76 = icmp eq i8 %75, 38
+  br i1 %76, label %77, label %83, !prof !350
 
-78:                                               ; preds = %74
-  %79 = load ptr, ptr %55, align 8, !tbaa !208
-  %80 = load i8, ptr %79, align 1, !tbaa !168
-  %81 = icmp eq i8 %80, 38
-  br i1 %81, label %82, label %89, !prof !376
+77:                                               ; preds = %73
+  %78 = icmp eq i8 %54, 1
+  br i1 %78, label %83, label %79
 
-82:                                               ; preds = %78
-  %83 = icmp eq i8 %59, 1
-  br i1 %83, label %89, label %84
+79:                                               ; preds = %77
+  %80 = tail call ptr @Perl_newOP(i32 noundef 388, i32 noundef 0) #12
+  %81 = getelementptr inbounds %struct.op, ptr %80, i64 0, i32 3
+  store i64 %47, ptr %81, align 8, !tbaa !351
+  %82 = tail call ptr @Perl_op_prepend_elem(i32 noundef 192, ptr noundef %80, ptr noundef %48) #12
+  br label %83
 
-84:                                               ; preds = %82
-  %85 = tail call ptr @Perl_newOP(i32 noundef 388, i32 noundef 0) #14
-  %86 = getelementptr inbounds %struct.op, ptr %85, i64 0, i32 3
-  store i64 %52, ptr %86, align 8, !tbaa !377
-  %87 = tail call ptr @Perl_op_prepend_elem(i32 noundef 192, ptr noundef %85, ptr noundef %53) #14
-  %88 = load i32, ptr @PL_comppad_name_fill, align 4, !tbaa !163
-  br label %89
+83:                                               ; preds = %65, %69, %73, %77, %79, %61, %56, %52, %46
+  %84 = phi ptr [ %48, %56 ], [ %48, %65 ], [ %48, %69 ], [ %82, %79 ], [ %48, %77 ], [ %48, %73 ], [ %48, %61 ], [ %48, %52 ], [ %48, %46 ]
+  %85 = add nsw i64 %47, -1
+  %86 = load i32, ptr @PL_comppad_name_fill, align 4, !tbaa !129
+  %87 = sext i32 %86 to i64
+  %88 = icmp sgt i64 %85, %87
+  br i1 %88, label %46, label %89, !prof !352, !llvm.loop !353
 
-89:                                               ; preds = %70, %74, %78, %82, %84, %66, %61, %57, %50
-  %90 = phi i32 [ %51, %61 ], [ %51, %70 ], [ %51, %74 ], [ %88, %84 ], [ %51, %82 ], [ %51, %78 ], [ %51, %66 ], [ %51, %57 ], [ %51, %50 ]
-  %91 = phi ptr [ %53, %61 ], [ %53, %70 ], [ %53, %74 ], [ %87, %84 ], [ %53, %82 ], [ %53, %78 ], [ %53, %66 ], [ %53, %57 ], [ %53, %50 ]
-  %92 = add nsw i64 %52, -1
-  %93 = sext i32 %90 to i64
-  %94 = icmp sgt i64 %92, %93
-  br i1 %94, label %50, label %95, !prof !378, !llvm.loop !379
-
-95:                                               ; preds = %89, %41
-  %96 = phi ptr [ null, %41 ], [ %91, %89 ]
-  %97 = load i32, ptr @PL_cop_seqmax, align 4, !tbaa !163
-  %98 = add i32 %97, 1
-  %99 = icmp eq i32 %98, -1
-  br i1 %99, label %100, label %101, !prof !359
-
-100:                                              ; preds = %95
-  br label %101
-
-101:                                              ; preds = %100, %95
-  %102 = phi i32 [ 0, %100 ], [ %98, %95 ]
-  store i32 %102, ptr @PL_cop_seqmax, align 4, !tbaa !163
-  ret ptr %96
+89:                                               ; preds = %83, %37
+  %90 = phi ptr [ null, %37 ], [ %84, %83 ]
+  %91 = load i32, ptr @PL_cop_seqmax, align 4, !tbaa !129
+  %92 = add i32 %91, 1
+  %93 = icmp eq i32 %92, -1
+  %94 = select i1 %93, i32 0, i32 %92, !prof !333
+  store i32 %94, ptr @PL_cop_seqmax, align 4, !tbaa !129
+  ret ptr %90
 }
 
-; Function Attrs: optsize
 declare void @Perl_ck_warner_d(i32 noundef, ptr noundef, ...) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_newOP(i32 noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_op_prepend_elem(i32 noundef, ptr noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_pad_swipe(i64 noundef %0, i1 noundef zeroext %1) local_unnamed_addr #0 !prof !380 {
-  %3 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_pad_swipe(i64 noundef %0, i1 noundef zeroext %1) local_unnamed_addr #0 !prof !354 {
+  %3 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
   %4 = icmp eq ptr %3, null
-  br i1 %4, label %45, label %5, !prof !381
+  br i1 %4, label %55, label %5, !prof !355
 
 5:                                                ; preds = %2
-  %6 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
+  %6 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
   %7 = getelementptr inbounds %struct.av, ptr %6, i64 0, i32 3
-  %8 = load ptr, ptr %7, align 8, !tbaa !168
+  %8 = load ptr, ptr %7, align 8, !tbaa !137
   %9 = icmp eq ptr %8, %3
-  br i1 %9, label %12, label %10, !prof !382
+  br i1 %9, label %11, label %10, !prof !356
 
 10:                                               ; preds = %5
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.7, ptr noundef %8, ptr noundef nonnull %3) #14
-  %11 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  br label %12
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.7, ptr noundef %8, ptr noundef nonnull %3) #12
+  br label %11
 
-12:                                               ; preds = %10, %5
-  %13 = phi ptr [ %11, %10 ], [ %6, %5 ]
-  %14 = icmp eq i64 %0, 0
-  %15 = load ptr, ptr %13, align 8, !tbaa !299
+11:                                               ; preds = %10, %5
+  %12 = icmp eq i64 %0, 0
+  br i1 %12, label %19, label %13, !prof !355
+
+13:                                               ; preds = %11
+  %14 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %15 = load ptr, ptr %14, align 8, !tbaa !246
   %16 = getelementptr inbounds %struct.xpvav, ptr %15, i64 0, i32 2
-  %17 = load i64, ptr %16, align 8, !tbaa !300
+  %17 = load i64, ptr %16, align 8, !tbaa !247
   %18 = icmp slt i64 %17, %0
-  %19 = select i1 %14, i1 true, i1 %18
-  br i1 %19, label %20, label %21, !prof !383
+  br i1 %18, label %19, label %24, !prof !355
 
-20:                                               ; preds = %12
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.8, i64 noundef %0, i64 noundef %17) #14
-  br label %21
+19:                                               ; preds = %13, %11
+  %20 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %21 = load ptr, ptr %20, align 8, !tbaa !246
+  %22 = getelementptr inbounds %struct.xpvav, ptr %21, i64 0, i32 2
+  %23 = load i64, ptr %22, align 8, !tbaa !247
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.8, i64 noundef %0, i64 noundef %23) #12
+  br label %24
 
-21:                                               ; preds = %12, %20
-  %22 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  br i1 %1, label %23, label %27, !prof !381
+24:                                               ; preds = %19, %13
+  br i1 %1, label %25, label %37, !prof !355
 
-23:                                               ; preds = %21
-  %24 = getelementptr inbounds ptr, ptr %22, i64 %0
-  %25 = load ptr, ptr %24, align 8, !tbaa !150
-  tail call fastcc void @S_SvREFCNT_dec(ptr noundef %25) #15
-  %26 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  br label %27
+25:                                               ; preds = %24
+  %26 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %27 = getelementptr inbounds ptr, ptr %26, i64 %0
+  %28 = load ptr, ptr %27, align 8, !tbaa !116
+  %29 = icmp eq ptr %28, null
+  br i1 %29, label %37, label %30
 
-27:                                               ; preds = %23, %21
-  %28 = phi ptr [ %26, %23 ], [ %22, %21 ]
-  %29 = getelementptr inbounds ptr, ptr %28, i64 %0
-  store ptr null, ptr %29, align 8, !tbaa !150
-  %30 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %31 = load i64, ptr %30, align 8, !tbaa !173
-  %32 = icmp eq i64 %31, -1
-  %33 = icmp ult i64 %31, %0
-  %34 = or i1 %32, %33
-  br i1 %34, label %39, label %35, !prof !384
+30:                                               ; preds = %25
+  %31 = getelementptr inbounds %struct.sv, ptr %28, i64 0, i32 1
+  %32 = load i32, ptr %31, align 8, !tbaa !182
+  %33 = icmp ugt i32 %32, 1
+  br i1 %33, label %34, label %36
 
-35:                                               ; preds = %27
-  %36 = getelementptr inbounds %struct.padnamelist, ptr %30, i64 0, i32 1
-  %37 = load ptr, ptr %36, align 8, !tbaa !172
-  %38 = getelementptr inbounds ptr, ptr %37, i64 %0
-  store ptr @PL_padname_undef, ptr %38, align 8, !tbaa !150
-  br label %39
+34:                                               ; preds = %30
+  %35 = add i32 %32, -1
+  store i32 %35, ptr %31, align 8, !tbaa !182
+  br label %37
 
-39:                                               ; preds = %35, %27
-  %40 = trunc i64 %0 to i32
-  %41 = load i32, ptr @PL_constpadix, align 4, !tbaa !163
-  %42 = icmp sgt i32 %41, %40
-  br i1 %42, label %43, label %45, !prof !381
+36:                                               ; preds = %30
+  tail call void @Perl_sv_free2(ptr noundef nonnull %28, i32 noundef %32) #12
+  br label %37
 
-43:                                               ; preds = %39
-  %44 = add i32 %40, -1
-  store i32 %44, ptr @PL_constpadix, align 4, !tbaa !163
-  br label %45
+37:                                               ; preds = %36, %34, %25, %24
+  %38 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %39 = getelementptr inbounds ptr, ptr %38, i64 %0
+  store ptr null, ptr %39, align 8, !tbaa !116
+  %40 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %41 = load i64, ptr %40, align 8, !tbaa !133
+  %42 = icmp eq i64 %41, -1
+  %43 = icmp ult i64 %41, %0
+  %44 = or i1 %42, %43
+  br i1 %44, label %49, label %45, !prof !357
 
-45:                                               ; preds = %2, %43, %39
+45:                                               ; preds = %37
+  %46 = getelementptr inbounds %struct.padnamelist, ptr %40, i64 0, i32 1
+  %47 = load ptr, ptr %46, align 8, !tbaa !132
+  %48 = getelementptr inbounds ptr, ptr %47, i64 %0
+  store ptr @PL_padname_undef, ptr %48, align 8, !tbaa !116
+  br label %49
+
+49:                                               ; preds = %45, %37
+  %50 = trunc i64 %0 to i32
+  %51 = load i32, ptr @PL_constpadix, align 4, !tbaa !129
+  %52 = icmp sgt i32 %51, %50
+  br i1 %52, label %53, label %55, !prof !355
+
+53:                                               ; preds = %49
+  %54 = add i32 %50, -1
+  store i32 %54, ptr @PL_constpadix, align 4, !tbaa !129
+  br label %55
+
+55:                                               ; preds = %2, %53, %49
   ret void
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_pad_tidy(i32 noundef %0) local_unnamed_addr #0 !prof !228 {
-  %2 = load i8, ptr @PL_cv_has_eval, align 1, !tbaa !169, !range !295, !noundef !296
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_pad_tidy(i32 noundef %0) local_unnamed_addr #0 !prof !358 {
+  %2 = load i8, ptr @PL_cv_has_eval, align 1, !tbaa !138, !range !243, !noundef !244
   %3 = icmp ne i8 %2, 0
   %4 = load i32, ptr @PL_perldb, align 4
   %5 = icmp ne i32 %4, 0
-  %6 = select i1 %3, i1 true, i1 %5
-  br i1 %6, label %7, label %28, !prof !385
+  %6 = select i1 %3, i1 true, i1 %5, !prof !359
+  br i1 %6, label %7, label %34, !prof !359
 
 7:                                                ; preds = %1
-  %8 = load ptr, ptr @PL_compcv, align 8, !tbaa !150
+  %8 = load ptr, ptr @PL_compcv, align 8, !tbaa !116
   %9 = icmp eq ptr %8, null
-  br i1 %9, label %28, label %10, !prof !386
+  br i1 %9, label %34, label %10, !prof !360
 
-10:                                               ; preds = %7, %18
-  %11 = phi ptr [ %26, %18 ], [ %8, %7 ]
-  %12 = icmp eq ptr %11, %8
-  %13 = load ptr, ptr %11, align 8, !tbaa !181
-  br i1 %12, label %18, label %14, !prof !387
+10:                                               ; preds = %7
+  %11 = load ptr, ptr @PL_compcv, align 8, !tbaa !116
+  br label %12
 
-14:                                               ; preds = %10
-  %15 = getelementptr inbounds %struct.xpvcv, ptr %13, i64 0, i32 6
-  %16 = load ptr, ptr %15, align 8, !tbaa !168
-  %17 = icmp eq ptr %16, null
-  br i1 %17, label %18, label %28, !prof !388
+12:                                               ; preds = %10, %28
+  %13 = phi ptr [ %8, %10 ], [ %32, %28 ]
+  %14 = icmp eq ptr %13, %11
+  br i1 %14, label %20, label %15, !prof !361
 
-18:                                               ; preds = %14, %10
-  %19 = getelementptr inbounds %struct.xpvcv, ptr %13, i64 0, i32 12
-  %20 = load i32, ptr %19, align 4, !tbaa !186
-  %21 = lshr i32 %20, 2
-  %22 = and i32 %21, 32
-  %23 = or i32 %20, %22
-  %24 = or i32 %23, 16384
-  store i32 %24, ptr %19, align 4, !tbaa !186
-  %25 = getelementptr inbounds %struct.xpvcv, ptr %13, i64 0, i32 10
-  %26 = load ptr, ptr %25, align 8, !tbaa !150
-  %27 = icmp eq ptr %26, null
-  br i1 %27, label %28, label %10, !prof !389, !llvm.loop !390
+15:                                               ; preds = %12
+  %16 = load ptr, ptr %13, align 8, !tbaa !148
+  %17 = getelementptr inbounds %struct.xpvcv, ptr %16, i64 0, i32 6
+  %18 = load ptr, ptr %17, align 8, !tbaa !137
+  %19 = icmp eq ptr %18, null
+  br i1 %19, label %20, label %34, !prof !362
 
-28:                                               ; preds = %14, %18, %7, %1
-  %29 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %30 = load i64, ptr %29, align 8, !tbaa !173
-  %31 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %32 = load ptr, ptr %31, align 8, !tbaa !299
-  %33 = getelementptr inbounds %struct.xpvav, ptr %32, i64 0, i32 2
-  %34 = load i64, ptr %33, align 8, !tbaa !300
-  %35 = icmp slt i64 %30, %34
-  br i1 %35, label %36, label %38, !prof !391
+20:                                               ; preds = %15, %12
+  %21 = load ptr, ptr %13, align 8, !tbaa !148
+  %22 = getelementptr inbounds %struct.xpvcv, ptr %21, i64 0, i32 12
+  %23 = load i32, ptr %22, align 4, !tbaa !153
+  %24 = and i32 %23, 128
+  %25 = icmp eq i32 %24, 0
+  br i1 %25, label %28, label %26, !prof !363
 
-36:                                               ; preds = %28
-  %37 = tail call ptr @Perl_padnamelist_store(ptr noundef nonnull %29, i64 noundef %34, ptr noundef null) #15
-  br label %38
+26:                                               ; preds = %20
+  %27 = or i32 %23, 32
+  store i32 %27, ptr %22, align 4, !tbaa !153
+  br label %28
 
-38:                                               ; preds = %36, %28
-  switch i32 %0, label %97 [
-    i32 1, label %39
-    i32 0, label %89
-  ], !prof !392
+28:                                               ; preds = %26, %20
+  %29 = load i32, ptr %22, align 4, !tbaa !153
+  %30 = or i32 %29, 16384
+  store i32 %30, ptr %22, align 4, !tbaa !153
+  %31 = getelementptr inbounds %struct.xpvcv, ptr %21, i64 0, i32 10
+  %32 = load ptr, ptr %31, align 8, !tbaa !116
+  %33 = icmp eq ptr %32, null
+  br i1 %33, label %34, label %12, !prof !364, !llvm.loop !365
 
-39:                                               ; preds = %38
-  %40 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %41 = getelementptr inbounds %struct.padnamelist, ptr %40, i64 0, i32 1
-  %42 = load ptr, ptr %41, align 8, !tbaa !172
-  %43 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %44 = load ptr, ptr %43, align 8, !tbaa !299
-  %45 = getelementptr inbounds %struct.xpvav, ptr %44, i64 0, i32 2
-  %46 = load i64, ptr %45, align 8, !tbaa !300
-  %47 = icmp eq i64 %46, 0
-  br i1 %47, label %149, label %48, !prof !393
+34:                                               ; preds = %15, %28, %7, %1
+  %35 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %36 = load i64, ptr %35, align 8, !tbaa !133
+  %37 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %38 = load ptr, ptr %37, align 8, !tbaa !246
+  %39 = getelementptr inbounds %struct.xpvav, ptr %38, i64 0, i32 2
+  %40 = load i64, ptr %39, align 8, !tbaa !247
+  %41 = icmp slt i64 %36, %40
+  br i1 %41, label %42, label %66, !prof !366
 
-48:                                               ; preds = %39, %86
-  %49 = phi i64 [ %87, %86 ], [ %46, %39 ]
-  %50 = getelementptr inbounds ptr, ptr %42, i64 %49
-  %51 = load ptr, ptr %50, align 8, !tbaa !150
-  %52 = icmp eq ptr %51, null
-  br i1 %52, label %53, label %54, !prof !394
+42:                                               ; preds = %34
+  %43 = getelementptr inbounds %struct.padnamelist, ptr %35, i64 0, i32 2
+  %44 = load i64, ptr %43, align 8, !tbaa !142
+  %45 = icmp slt i64 %44, %40
+  br i1 %45, label %46, label %48, !prof !144
 
-53:                                               ; preds = %48
-  store ptr @PL_padname_undef, ptr %50, align 8, !tbaa !150
-  br label %54
+46:                                               ; preds = %42
+  %47 = getelementptr inbounds %struct.padnamelist, ptr %35, i64 0, i32 1
+  tail call void @Perl_av_extend_guts(ptr noundef null, i64 noundef %40, ptr noundef nonnull %43, ptr noundef nonnull %47, ptr noundef nonnull %47) #12
+  br label %48
 
-54:                                               ; preds = %53, %48
-  %55 = phi ptr [ @PL_padname_undef, %53 ], [ %51, %48 ]
-  %56 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %57 = getelementptr inbounds ptr, ptr %56, i64 %49
-  %58 = load ptr, ptr %57, align 8, !tbaa !150
-  %59 = icmp eq ptr %58, null
-  br i1 %59, label %86, label %60, !prof !395
+48:                                               ; preds = %46, %42
+  %49 = load i64, ptr %35, align 8, !tbaa !133
+  %50 = icmp slt i64 %49, %40
+  br i1 %50, label %51, label %58, !prof !145
 
-60:                                               ; preds = %54
-  %61 = getelementptr inbounds %struct.sv, ptr %58, i64 0, i32 2
-  %62 = load i32, ptr %61, align 4, !tbaa !199
-  %63 = and i32 %62, 134283264
-  %64 = icmp eq i32 %63, 0
-  br i1 %64, label %73, label %65, !prof !396
+51:                                               ; preds = %48
+  %52 = getelementptr inbounds %struct.padnamelist, ptr %35, i64 0, i32 1
+  %53 = load ptr, ptr %52, align 8, !tbaa !132
+  %54 = getelementptr inbounds ptr, ptr %53, i64 %49
+  %55 = getelementptr inbounds ptr, ptr %54, i64 1
+  %56 = sub nsw i64 %40, %49
+  %57 = shl i64 %56, 3
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %55, i8 0, i64 %57, i1 false), !prof !367
+  store i64 %40, ptr %35, align 8, !tbaa !133
+  br label %58
 
-65:                                               ; preds = %60
-  %66 = icmp eq ptr %58, @PL_sv_undef
-  %67 = icmp eq ptr %58, @PL_sv_yes
-  %68 = or i1 %66, %67
-  %69 = icmp eq ptr %58, @PL_sv_no
-  %70 = or i1 %69, %68
-  %71 = icmp eq ptr %58, @PL_sv_placeholder
-  %72 = or i1 %71, %70
-  br i1 %72, label %86, label %73
+58:                                               ; preds = %51, %48
+  %59 = getelementptr inbounds %struct.padnamelist, ptr %35, i64 0, i32 1
+  %60 = load ptr, ptr %59, align 8, !tbaa !132
+  %61 = getelementptr inbounds ptr, ptr %60, i64 %40
+  %62 = load ptr, ptr %61, align 8, !tbaa !116
+  %63 = icmp eq ptr %62, null
+  br i1 %63, label %65, label %64, !prof !134
 
-73:                                               ; preds = %65, %60
-  %74 = load ptr, ptr %55, align 8, !tbaa !208
-  %75 = icmp eq ptr %74, null
-  br i1 %75, label %83, label %76, !prof !394
+64:                                               ; preds = %58
+  tail call void @Perl_padname_free(ptr noundef nonnull %62)
+  br label %65
 
-76:                                               ; preds = %73
-  %77 = getelementptr inbounds %struct.padname, ptr %55, i64 0, i32 7
-  %78 = load i8, ptr %77, align 8, !tbaa !257
-  %79 = icmp eq i8 %78, 0
-  br i1 %79, label %86, label %80, !prof !397
+65:                                               ; preds = %58, %64
+  store ptr null, ptr %61, align 8, !tbaa !116
+  br label %66
 
-80:                                               ; preds = %76
-  %81 = load i8, ptr %74, align 1, !tbaa !168
-  %82 = icmp eq i8 %81, 38
-  br i1 %82, label %86, label %83, !prof !397
+66:                                               ; preds = %65, %34
+  switch i32 %0, label %132 [
+    i32 1, label %67
+    i32 0, label %124
+  ], !prof !368
 
-83:                                               ; preds = %80, %73
-  tail call fastcc void @S_SvREFCNT_dec(ptr noundef nonnull %58) #15
-  %84 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %85 = getelementptr inbounds ptr, ptr %84, i64 %49
-  store ptr null, ptr %85, align 8, !tbaa !150
-  br label %86
+67:                                               ; preds = %66
+  %68 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %69 = getelementptr inbounds %struct.padnamelist, ptr %68, i64 0, i32 1
+  %70 = load ptr, ptr %69, align 8, !tbaa !132
+  %71 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %72 = load ptr, ptr %71, align 8, !tbaa !246
+  %73 = getelementptr inbounds %struct.xpvav, ptr %72, i64 0, i32 2
+  %74 = load i64, ptr %73, align 8, !tbaa !247
+  %75 = icmp eq i64 %74, 0
+  br i1 %75, label %132, label %76, !prof !369
 
-86:                                               ; preds = %76, %80, %83, %54, %65
-  %87 = add i64 %49, -1
-  %88 = icmp eq i64 %87, 0
-  br i1 %88, label %97, label %48, !prof !398, !llvm.loop !399
+76:                                               ; preds = %67, %121
+  %77 = phi i64 [ %122, %121 ], [ %74, %67 ]
+  %78 = getelementptr inbounds ptr, ptr %70, i64 %77
+  %79 = load ptr, ptr %78, align 8, !tbaa !116
+  %80 = icmp eq ptr %79, null
+  br i1 %80, label %81, label %82, !prof !370
 
-89:                                               ; preds = %38
-  %90 = tail call ptr @Perl_newSV_type(i32 noundef 11) #14
-  %91 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %92 = tail call ptr @Perl_av_store(ptr noundef %91, i64 noundef 0, ptr noundef %90) #14
-  %93 = getelementptr inbounds %struct.av, ptr %90, i64 0, i32 2
-  %94 = load i32, ptr %93, align 4, !tbaa !157
-  %95 = and i32 %94, 1073741823
-  %96 = or disjoint i32 %95, -2147483648
-  store i32 %96, ptr %93, align 4, !tbaa !157
-  br label %100
+81:                                               ; preds = %76
+  store ptr @PL_padname_undef, ptr %78, align 8, !tbaa !116
+  br label %82
 
-97:                                               ; preds = %86, %38
-  %98 = and i32 %0, -3
-  %99 = icmp eq i32 %98, 0
-  br i1 %99, label %100, label %149, !prof !400
+82:                                               ; preds = %81, %76
+  %83 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %84 = getelementptr inbounds ptr, ptr %83, i64 %77
+  %85 = load ptr, ptr %84, align 8, !tbaa !116
+  %86 = icmp eq ptr %85, null
+  br i1 %86, label %121, label %87, !prof !371
 
-100:                                              ; preds = %89, %97
-  %101 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !150
-  %102 = getelementptr inbounds %struct.padnamelist, ptr %101, i64 0, i32 1
-  %103 = load ptr, ptr %102, align 8, !tbaa !172
-  %104 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %105 = load ptr, ptr %104, align 8, !tbaa !299
-  %106 = getelementptr inbounds %struct.xpvav, ptr %105, i64 0, i32 2
-  %107 = load i64, ptr %106, align 8, !tbaa !300
-  %108 = icmp eq i64 %107, 0
-  br i1 %108, label %149, label %109, !prof !401
+87:                                               ; preds = %82
+  %88 = getelementptr inbounds %struct.sv, ptr %85, i64 0, i32 2
+  %89 = load i32, ptr %88, align 4, !tbaa !166
+  %90 = and i32 %89, 134283264
+  %91 = icmp eq i32 %90, 0
+  br i1 %91, label %100, label %92, !prof !372
 
-109:                                              ; preds = %100, %146
-  %110 = phi i64 [ %147, %146 ], [ %107, %100 ]
-  %111 = getelementptr inbounds ptr, ptr %103, i64 %110
-  %112 = load ptr, ptr %111, align 8, !tbaa !150
-  %113 = icmp eq ptr %112, null
-  br i1 %113, label %114, label %115, !prof !402
+92:                                               ; preds = %87
+  %93 = icmp eq ptr %85, @PL_sv_undef
+  %94 = icmp eq ptr %85, @PL_sv_yes
+  %95 = or i1 %93, %94
+  %96 = icmp eq ptr %85, @PL_sv_no
+  %97 = or i1 %96, %95
+  %98 = icmp eq ptr %85, @PL_sv_placeholder
+  %99 = or i1 %98, %97
+  br i1 %99, label %121, label %100
 
-114:                                              ; preds = %109
-  store ptr @PL_padname_undef, ptr %111, align 8, !tbaa !150
-  br label %115
+100:                                              ; preds = %92, %87
+  %101 = load ptr, ptr %78, align 8, !tbaa !116
+  %102 = load ptr, ptr %101, align 8, !tbaa !175
+  %103 = icmp eq ptr %102, null
+  br i1 %103, label %111, label %104, !prof !370
 
-115:                                              ; preds = %114, %109
-  %116 = phi ptr [ @PL_padname_undef, %114 ], [ %112, %109 ]
-  %117 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %118 = getelementptr inbounds ptr, ptr %117, i64 %110
-  %119 = load ptr, ptr %118, align 8, !tbaa !150
-  %120 = icmp eq ptr %119, null
-  br i1 %120, label %146, label %121, !prof !403
+104:                                              ; preds = %100
+  %105 = getelementptr inbounds %struct.padname, ptr %101, i64 0, i32 7
+  %106 = load i8, ptr %105, align 8, !tbaa !213
+  %107 = icmp eq i8 %106, 0
+  br i1 %107, label %121, label %108, !prof !373
 
-121:                                              ; preds = %115
-  %122 = getelementptr inbounds %struct.sv, ptr %119, i64 0, i32 2
-  %123 = load i32, ptr %122, align 4, !tbaa !199
-  %124 = and i32 %123, 134283264
-  %125 = icmp eq i32 %124, 0
-  br i1 %125, label %137, label %126, !prof !404
+108:                                              ; preds = %104
+  %109 = load i8, ptr %102, align 1, !tbaa !137
+  %110 = icmp eq i8 %109, 38
+  br i1 %110, label %121, label %111, !prof !373
 
-126:                                              ; preds = %121
-  %127 = icmp eq ptr %119, @PL_sv_undef
-  %128 = icmp eq ptr %119, @PL_sv_yes
-  %129 = or i1 %127, %128
-  %130 = icmp eq ptr %119, @PL_sv_no
-  %131 = or i1 %130, %129
-  %132 = icmp eq ptr %119, @PL_sv_placeholder
-  %133 = or i1 %132, %131
-  %134 = and i32 %123, 131072
-  %135 = icmp ne i32 %134, 0
-  %136 = or i1 %133, %135
-  br i1 %136, label %146, label %140, !prof !405
+111:                                              ; preds = %100, %108
+  %112 = getelementptr inbounds %struct.sv, ptr %85, i64 0, i32 1
+  %113 = load i32, ptr %112, align 8, !tbaa !182
+  %114 = icmp ugt i32 %113, 1
+  br i1 %114, label %115, label %117, !prof !371
 
-137:                                              ; preds = %121
-  %138 = and i32 %123, 131072
-  %139 = icmp eq i32 %138, 0
-  br i1 %139, label %140, label %146, !prof !406
+115:                                              ; preds = %111
+  %116 = add i32 %113, -1
+  store i32 %116, ptr %112, align 8, !tbaa !182
+  br label %118
 
-140:                                              ; preds = %126, %137
-  %141 = getelementptr inbounds %struct.padname, ptr %116, i64 0, i32 8
-  %142 = load i8, ptr %141, align 1, !tbaa !265
-  %143 = and i8 %142, 1
-  %144 = icmp eq i8 %143, 0
-  br i1 %144, label %145, label %146, !prof !407
+117:                                              ; preds = %111
+  tail call void @Perl_sv_free2(ptr noundef nonnull %85, i32 noundef %113) #12
+  br label %118
 
-145:                                              ; preds = %140
-  tail call fastcc void @S_SvPADSTALE_on(ptr noundef nonnull %119) #15
-  br label %146
+118:                                              ; preds = %115, %117
+  %119 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %120 = getelementptr inbounds ptr, ptr %119, i64 %77
+  store ptr null, ptr %120, align 8, !tbaa !116
+  br label %121
 
-146:                                              ; preds = %137, %140, %145, %115, %126
-  %147 = add i64 %110, -1
-  %148 = icmp eq i64 %147, 0
-  br i1 %148, label %149, label %109, !prof !408, !llvm.loop !409
+121:                                              ; preds = %104, %108, %118, %82, %92
+  %122 = add i64 %77, -1
+  %123 = icmp eq i64 %122, 0
+  br i1 %123, label %132, label %76, !prof !374, !llvm.loop !375
 
-149:                                              ; preds = %146, %39, %100, %97
-  %150 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %151 = getelementptr inbounds %struct.av, ptr %150, i64 0, i32 3
-  %152 = load ptr, ptr %151, align 8, !tbaa !168
-  store ptr %152, ptr @PL_curpad, align 8, !tbaa !150
+124:                                              ; preds = %66
+  %125 = tail call ptr @Perl_newSV_type(i32 noundef 11) #12
+  %126 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %127 = tail call ptr @Perl_av_store(ptr noundef %126, i64 noundef 0, ptr noundef %125) #12
+  %128 = getelementptr inbounds %struct.av, ptr %125, i64 0, i32 2
+  %129 = load i32, ptr %128, align 4, !tbaa !123
+  %130 = and i32 %129, 1073741823
+  %131 = or disjoint i32 %130, -2147483648
+  store i32 %131, ptr %128, align 4, !tbaa !123
+  br label %132
+
+132:                                              ; preds = %121, %67, %66, %124
+  %133 = and i32 %0, -3
+  %134 = icmp eq i32 %133, 0
+  br i1 %134, label %135, label %185, !prof !376
+
+135:                                              ; preds = %132
+  %136 = load ptr, ptr @PL_comppad_name, align 8, !tbaa !116
+  %137 = getelementptr inbounds %struct.padnamelist, ptr %136, i64 0, i32 1
+  %138 = load ptr, ptr %137, align 8, !tbaa !132
+  %139 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %140 = load ptr, ptr %139, align 8, !tbaa !246
+  %141 = getelementptr inbounds %struct.xpvav, ptr %140, i64 0, i32 2
+  %142 = load i64, ptr %141, align 8, !tbaa !247
+  %143 = icmp eq i64 %142, 0
+  br i1 %143, label %185, label %144, !prof !377
+
+144:                                              ; preds = %135, %182
+  %145 = phi i64 [ %183, %182 ], [ %142, %135 ]
+  %146 = getelementptr inbounds ptr, ptr %138, i64 %145
+  %147 = load ptr, ptr %146, align 8, !tbaa !116
+  %148 = icmp eq ptr %147, null
+  br i1 %148, label %149, label %150, !prof !378
+
+149:                                              ; preds = %144
+  store ptr @PL_padname_undef, ptr %146, align 8, !tbaa !116
+  br label %150
+
+150:                                              ; preds = %149, %144
+  %151 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %152 = getelementptr inbounds ptr, ptr %151, i64 %145
+  %153 = load ptr, ptr %152, align 8, !tbaa !116
+  %154 = icmp eq ptr %153, null
+  br i1 %154, label %182, label %155, !prof !379
+
+155:                                              ; preds = %150
+  %156 = getelementptr inbounds %struct.sv, ptr %153, i64 0, i32 2
+  %157 = load i32, ptr %156, align 4, !tbaa !166
+  %158 = and i32 %157, 134283264
+  %159 = icmp eq i32 %158, 0
+  br i1 %159, label %171, label %160, !prof !380
+
+160:                                              ; preds = %155
+  %161 = icmp eq ptr %153, @PL_sv_undef
+  %162 = icmp eq ptr %153, @PL_sv_yes
+  %163 = or i1 %161, %162
+  %164 = icmp eq ptr %153, @PL_sv_no
+  %165 = or i1 %164, %163
+  %166 = icmp eq ptr %153, @PL_sv_placeholder
+  %167 = or i1 %166, %165
+  %168 = and i32 %157, 131072
+  %169 = icmp ne i32 %168, 0
+  %170 = or i1 %167, %169
+  br i1 %170, label %182, label %174, !prof !381
+
+171:                                              ; preds = %155
+  %172 = and i32 %157, 131072
+  %173 = icmp eq i32 %172, 0
+  br i1 %173, label %174, label %182, !prof !382
+
+174:                                              ; preds = %160, %171
+  %175 = load ptr, ptr %146, align 8, !tbaa !116
+  %176 = getelementptr inbounds %struct.padname, ptr %175, i64 0, i32 8
+  %177 = load i8, ptr %176, align 1, !tbaa !220
+  %178 = and i8 %177, 1
+  %179 = icmp eq i8 %178, 0
+  br i1 %179, label %180, label %182, !prof !383
+
+180:                                              ; preds = %174
+  %181 = or i32 %157, 262144
+  store i32 %181, ptr %156, align 4, !tbaa !166
+  br label %182
+
+182:                                              ; preds = %171, %174, %180, %150, %160
+  %183 = add i64 %145, -1
+  %184 = icmp eq i64 %183, 0
+  br i1 %184, label %185, label %144, !prof !384, !llvm.loop !385
+
+185:                                              ; preds = %182, %135, %132
+  %186 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %187 = getelementptr inbounds %struct.av, ptr %186, i64 0, i32 3
+  %188 = load ptr, ptr %187, align 8, !tbaa !137
+  store ptr %188, ptr @PL_curpad, align 8, !tbaa !116
   ret void
 }
 
-; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: readwrite) uwtable
-define internal fastcc void @S_SvPADSTALE_on(ptr nocapture noundef %0) unnamed_addr #8 !prof !410 !PGOFuncName !411 {
-  %2 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 2
-  %3 = load i32, ptr %2, align 4, !tbaa !199
-  %4 = or i32 %3, 262144
-  store i32 %4, ptr %2, align 4, !tbaa !199
-  ret void
-}
-
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_pad_free(i64 noundef %0) local_unnamed_addr #0 !prof !412 {
-  %2 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_pad_free(i64 noundef %0) local_unnamed_addr #0 !prof !386 {
+  %2 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
   %3 = icmp eq ptr %2, null
-  br i1 %3, label %33, label %4, !prof !413
+  br i1 %3, label %33, label %4, !prof !387
 
 4:                                                ; preds = %1
-  %5 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
+  %5 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
   %6 = getelementptr inbounds %struct.av, ptr %5, i64 0, i32 3
-  %7 = load ptr, ptr %6, align 8, !tbaa !168
+  %7 = load ptr, ptr %6, align 8, !tbaa !137
   %8 = icmp eq ptr %7, %2
-  br i1 %8, label %10, label %9, !prof !414
+  br i1 %8, label %10, label %9, !prof !388
 
 9:                                                ; preds = %4
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.9, ptr noundef %7, ptr noundef nonnull %2) #14
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.9, ptr noundef %7, ptr noundef nonnull %2) #12
   br label %10
 
 10:                                               ; preds = %9, %4
   %11 = icmp eq i64 %0, 0
-  br i1 %11, label %12, label %13, !prof !415
+  br i1 %11, label %12, label %13, !prof !389
 
 12:                                               ; preds = %10
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.10) #14
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.10) #12
   br label %13
 
 13:                                               ; preds = %12, %10
-  %14 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
+  %14 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
   %15 = getelementptr inbounds ptr, ptr %14, i64 %0
-  %16 = load ptr, ptr %15, align 8, !tbaa !150
+  %16 = load ptr, ptr %15, align 8, !tbaa !116
   %17 = icmp ne ptr %16, null
   %18 = icmp ne ptr %16, @PL_sv_undef
   %19 = and i1 %17, %18
-  br i1 %19, label %20, label %27, !prof !416
+  br i1 %19, label %20, label %27, !prof !390
 
 20:                                               ; preds = %13
   %21 = getelementptr inbounds %struct.sv, ptr %16, i64 0, i32 2
-  %22 = load i32, ptr %21, align 4, !tbaa !199
+  %22 = load i32, ptr %21, align 4, !tbaa !166
   %23 = and i32 %22, 131072
   %24 = icmp eq i32 %23, 0
-  br i1 %24, label %27, label %25, !prof !417
+  br i1 %24, label %27, label %25, !prof !391
 
 25:                                               ; preds = %20
   %26 = and i32 %22, -131073
-  store i32 %26, ptr %21, align 4, !tbaa !199
+  store i32 %26, ptr %21, align 4, !tbaa !166
   br label %27
 
 27:                                               ; preds = %25, %20, %13
   %28 = trunc i64 %0 to i32
-  %29 = load i32, ptr @PL_padix, align 4, !tbaa !163
+  %29 = load i32, ptr @PL_padix, align 4, !tbaa !129
   %30 = icmp sgt i32 %29, %28
-  br i1 %30, label %31, label %33, !prof !418
+  br i1 %30, label %31, label %33, !prof !392
 
 31:                                               ; preds = %27
   %32 = add i32 %28, -1
-  store i32 %32, ptr @PL_padix, align 4, !tbaa !163
+  store i32 %32, ptr @PL_padix, align 4, !tbaa !129
   br label %33
 
 33:                                               ; preds = %27, %31, %1
   ret void
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_do_dump_pad(i32 noundef %0, ptr noundef %1, ptr noundef readonly %2, i32 noundef %3) local_unnamed_addr #0 !prof !228 {
+; Function Attrs: cold nounwind uwtable
+define dso_local void @Perl_do_dump_pad(i32 noundef %0, ptr noundef %1, ptr noundef readonly %2, i32 noundef %3) local_unnamed_addr #3 !prof !140 {
   %5 = icmp eq ptr %2, null
-  br i1 %5, label %90, label %6
+  br i1 %5, label %96, label %6
 
 6:                                                ; preds = %4
   %7 = getelementptr inbounds %struct.padlist, ptr %2, i64 0, i32 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !167
-  %9 = load ptr, ptr %8, align 8, !tbaa !150
+  %8 = load ptr, ptr %7, align 8, !tbaa !136
+  %9 = load ptr, ptr %8, align 8, !tbaa !116
   %10 = getelementptr inbounds ptr, ptr %8, i64 1
-  %11 = load ptr, ptr %10, align 8, !tbaa !150
+  %11 = load ptr, ptr %10, align 8, !tbaa !116
   %12 = getelementptr inbounds %struct.padnamelist, ptr %9, i64 0, i32 1
-  %13 = load ptr, ptr %12, align 8, !tbaa !172
+  %13 = load ptr, ptr %12, align 8, !tbaa !132
   %14 = getelementptr inbounds %struct.av, ptr %11, i64 0, i32 3
-  %15 = load ptr, ptr %14, align 8, !tbaa !168
+  %15 = load ptr, ptr %14, align 8, !tbaa !137
   %16 = ptrtoint ptr %9 to i64
   %17 = ptrtoint ptr %13 to i64
   %18 = ptrtoint ptr %11 to i64
   %19 = ptrtoint ptr %15 to i64
-  tail call void (i32, ptr, ptr, ...) @Perl_dump_indent(i32 noundef %0, ptr noundef %1, ptr noundef nonnull @.str.11, i64 noundef %16, i64 noundef %17, i64 noundef %18, i64 noundef %19) #14
-  %20 = load i64, ptr %9, align 8, !tbaa !173
+  tail call void (i32, ptr, ptr, ...) @Perl_dump_indent(i32 noundef %0, ptr noundef %1, ptr noundef nonnull @.str.11, i64 noundef %16, i64 noundef %17, i64 noundef %18, i64 noundef %19) #12
+  %20 = load i64, ptr %9, align 8, !tbaa !133
   %21 = icmp slt i64 %20, 1
-  br i1 %21, label %90, label %22
+  br i1 %21, label %96, label %22
 
 22:                                               ; preds = %6
   %23 = add nsw i32 %0, 1
-  %24 = icmp eq i32 %3, 0
-  br label %25
+  %24 = add nsw i32 %0, 1
+  %25 = icmp eq i32 %3, 0
+  %26 = add nsw i32 %0, 1
+  br label %27
 
-25:                                               ; preds = %22, %86
-  %26 = phi i64 [ 1, %22 ], [ %87, %86 ]
-  %27 = getelementptr inbounds ptr, ptr %13, i64 %26
-  %28 = load ptr, ptr %27, align 8, !tbaa !150
-  %29 = icmp eq ptr %28, null
-  br i1 %29, label %73, label %30
+27:                                               ; preds = %22, %92
+  %28 = phi i64 [ 1, %22 ], [ %93, %92 ]
+  %29 = getelementptr inbounds ptr, ptr %13, i64 %28
+  %30 = load ptr, ptr %29, align 8, !tbaa !116
+  %31 = icmp eq ptr %30, null
+  br i1 %31, label %37, label %32
 
-30:                                               ; preds = %25
-  %31 = getelementptr inbounds %struct.padname, ptr %28, i64 0, i32 7
-  %32 = load i8, ptr %31, align 8, !tbaa !257
-  %33 = icmp eq i8 %32, 0
-  br i1 %33, label %73, label %34
+32:                                               ; preds = %27
+  %33 = getelementptr inbounds %struct.padname, ptr %30, i64 0, i32 7
+  %34 = load i8, ptr %33, align 8, !tbaa !213
+  %35 = icmp eq i8 %34, 0
+  %36 = select i1 %35, ptr null, ptr %30
+  br label %37
 
-34:                                               ; preds = %30
-  %35 = getelementptr inbounds %struct.padname, ptr %28, i64 0, i32 8
-  %36 = load i8, ptr %35, align 1, !tbaa !265
-  %37 = and i8 %36, 1
-  %38 = icmp eq i8 %37, 0
-  %39 = getelementptr inbounds ptr, ptr %15, i64 %26
-  %40 = load ptr, ptr %39, align 8, !tbaa !150
-  %41 = ptrtoint ptr %40 to i64
-  %42 = icmp eq ptr %40, null
-  br i1 %38, label %58, label %43
+37:                                               ; preds = %32, %27
+  %38 = phi ptr [ %36, %32 ], [ null, %27 ]
+  %39 = icmp eq ptr %38, null
+  br i1 %39, label %79, label %40
 
-43:                                               ; preds = %34
-  br i1 %42, label %47, label %44
+40:                                               ; preds = %37
+  %41 = getelementptr inbounds %struct.padname, ptr %38, i64 0, i32 8
+  %42 = load i8, ptr %41, align 1, !tbaa !220
+  %43 = and i8 %42, 1
+  %44 = icmp eq i8 %43, 0
+  %45 = getelementptr inbounds ptr, ptr %15, i64 %28
+  %46 = load ptr, ptr %45, align 8, !tbaa !116
+  %47 = ptrtoint ptr %46 to i64
+  %48 = icmp eq ptr %46, null
+  br i1 %44, label %64, label %49
 
-44:                                               ; preds = %43
-  %45 = getelementptr inbounds %struct.sv, ptr %40, i64 0, i32 1
-  %46 = load i32, ptr %45, align 8, !tbaa !219
-  br label %47
+49:                                               ; preds = %40
+  br i1 %48, label %53, label %50
 
-47:                                               ; preds = %43, %44
-  %48 = phi i32 [ %46, %44 ], [ 0, %43 ]
-  %49 = zext i32 %48 to i64
-  %50 = load ptr, ptr %28, align 8, !tbaa !208
-  %51 = getelementptr inbounds %struct.padname, ptr %28, i64 0, i32 4
-  %52 = load i32, ptr %51, align 4, !tbaa !252
-  %53 = zext i32 %52 to i64
-  %54 = getelementptr inbounds %struct.padname, ptr %28, i64 0, i32 3
-  %55 = load i32, ptr %54, align 8, !tbaa !251
-  %56 = zext i32 %55 to i64
-  %57 = trunc i64 %26 to i32
-  tail call void (i32, ptr, ptr, ...) @Perl_dump_indent(i32 noundef %23, ptr noundef %1, ptr noundef nonnull @.str.12, i32 noundef %57, i64 noundef %41, i64 noundef %49, ptr noundef %50, i64 noundef %53, i64 noundef %56) #14
-  br label %86
+50:                                               ; preds = %49
+  %51 = getelementptr inbounds %struct.sv, ptr %46, i64 0, i32 1
+  %52 = load i32, ptr %51, align 8, !tbaa !182
+  br label %53
 
-58:                                               ; preds = %34
-  br i1 %42, label %62, label %59
+53:                                               ; preds = %49, %50
+  %54 = phi i32 [ %52, %50 ], [ 0, %49 ]
+  %55 = zext i32 %54 to i64
+  %56 = load ptr, ptr %38, align 8, !tbaa !175
+  %57 = getelementptr inbounds %struct.padname, ptr %38, i64 0, i32 4
+  %58 = load i32, ptr %57, align 4, !tbaa !224
+  %59 = zext i32 %58 to i64
+  %60 = getelementptr inbounds %struct.padname, ptr %38, i64 0, i32 3
+  %61 = load i32, ptr %60, align 8, !tbaa !222
+  %62 = zext i32 %61 to i64
+  %63 = trunc i64 %28 to i32
+  tail call void (i32, ptr, ptr, ...) @Perl_dump_indent(i32 noundef %23, ptr noundef %1, ptr noundef nonnull @.str.12, i32 noundef %63, i64 noundef %47, i64 noundef %55, ptr noundef %56, i64 noundef %59, i64 noundef %62) #12
+  br label %92
 
-59:                                               ; preds = %58
-  %60 = getelementptr inbounds %struct.sv, ptr %40, i64 0, i32 1
-  %61 = load i32, ptr %60, align 8, !tbaa !219
-  br label %62
+64:                                               ; preds = %40
+  br i1 %48, label %68, label %65
 
-62:                                               ; preds = %58, %59
-  %63 = phi i32 [ %61, %59 ], [ 0, %58 ]
-  %64 = zext i32 %63 to i64
-  %65 = getelementptr inbounds %struct.padname, ptr %28, i64 0, i32 3
-  %66 = load i32, ptr %65, align 8, !tbaa !251
-  %67 = zext i32 %66 to i64
-  %68 = getelementptr inbounds %struct.padname, ptr %28, i64 0, i32 4
-  %69 = load i32, ptr %68, align 4, !tbaa !252
+65:                                               ; preds = %64
+  %66 = getelementptr inbounds %struct.sv, ptr %46, i64 0, i32 1
+  %67 = load i32, ptr %66, align 8, !tbaa !182
+  br label %68
+
+68:                                               ; preds = %64, %65
+  %69 = phi i32 [ %67, %65 ], [ 0, %64 ]
   %70 = zext i32 %69 to i64
-  %71 = load ptr, ptr %28, align 8, !tbaa !208
-  %72 = trunc i64 %26 to i32
-  tail call void (i32, ptr, ptr, ...) @Perl_dump_indent(i32 noundef %23, ptr noundef %1, ptr noundef nonnull @.str.13, i32 noundef %72, i64 noundef %41, i64 noundef %64, i64 noundef %67, i64 noundef %70, ptr noundef %71) #14
-  br label %86
+  %71 = getelementptr inbounds %struct.padname, ptr %38, i64 0, i32 3
+  %72 = load i32, ptr %71, align 8, !tbaa !222
+  %73 = zext i32 %72 to i64
+  %74 = getelementptr inbounds %struct.padname, ptr %38, i64 0, i32 4
+  %75 = load i32, ptr %74, align 4, !tbaa !224
+  %76 = zext i32 %75 to i64
+  %77 = load ptr, ptr %38, align 8, !tbaa !175
+  %78 = trunc i64 %28 to i32
+  tail call void (i32, ptr, ptr, ...) @Perl_dump_indent(i32 noundef %24, ptr noundef %1, ptr noundef nonnull @.str.13, i32 noundef %78, i64 noundef %47, i64 noundef %70, i64 noundef %73, i64 noundef %76, ptr noundef %77) #12
+  br label %92
 
-73:                                               ; preds = %30, %25
-  br i1 %24, label %86, label %74
+79:                                               ; preds = %37
+  br i1 %25, label %92, label %80
 
-74:                                               ; preds = %73
-  %75 = getelementptr inbounds ptr, ptr %15, i64 %26
-  %76 = load ptr, ptr %75, align 8, !tbaa !150
-  %77 = ptrtoint ptr %76 to i64
-  %78 = icmp eq ptr %76, null
-  br i1 %78, label %82, label %79
+80:                                               ; preds = %79
+  %81 = getelementptr inbounds ptr, ptr %15, i64 %28
+  %82 = load ptr, ptr %81, align 8, !tbaa !116
+  %83 = ptrtoint ptr %82 to i64
+  %84 = icmp eq ptr %82, null
+  br i1 %84, label %88, label %85
 
-79:                                               ; preds = %74
-  %80 = getelementptr inbounds %struct.sv, ptr %76, i64 0, i32 1
-  %81 = load i32, ptr %80, align 8, !tbaa !219
-  br label %82
+85:                                               ; preds = %80
+  %86 = getelementptr inbounds %struct.sv, ptr %82, i64 0, i32 1
+  %87 = load i32, ptr %86, align 8, !tbaa !182
+  br label %88
 
-82:                                               ; preds = %74, %79
-  %83 = phi i32 [ %81, %79 ], [ 0, %74 ]
-  %84 = zext i32 %83 to i64
-  %85 = trunc i64 %26 to i32
-  tail call void (i32, ptr, ptr, ...) @Perl_dump_indent(i32 noundef %23, ptr noundef %1, ptr noundef nonnull @.str.14, i32 noundef %85, i64 noundef %77, i64 noundef %84) #14
-  br label %86
+88:                                               ; preds = %80, %85
+  %89 = phi i32 [ %87, %85 ], [ 0, %80 ]
+  %90 = zext i32 %89 to i64
+  %91 = trunc i64 %28 to i32
+  tail call void (i32, ptr, ptr, ...) @Perl_dump_indent(i32 noundef %26, ptr noundef %1, ptr noundef nonnull @.str.14, i32 noundef %91, i64 noundef %83, i64 noundef %90) #12
+  br label %92
 
-86:                                               ; preds = %73, %82, %47, %62
-  %87 = add nuw i64 %26, 1
-  %88 = load i64, ptr %9, align 8, !tbaa !173
-  %89 = icmp slt i64 %88, %87
-  br i1 %89, label %90, label %25, !llvm.loop !419
+92:                                               ; preds = %79, %88, %53, %68
+  %93 = add nuw i64 %28, 1
+  %94 = load i64, ptr %9, align 8, !tbaa !133
+  %95 = icmp slt i64 %94, %93
+  br i1 %95, label %96, label %27, !llvm.loop !393
 
-90:                                               ; preds = %86, %6, %4
+96:                                               ; preds = %92, %6, %4
   ret void
 }
 
-; Function Attrs: optsize
 declare void @Perl_dump_indent(i32 noundef, ptr noundef, ptr noundef, ...) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local ptr @Perl_cv_clone(ptr noundef %0) local_unnamed_addr #0 !prof !420 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !181
+; Function Attrs: cold nounwind uwtable
+define dso_local ptr @Perl_cv_clone(ptr noundef %0) local_unnamed_addr #3 !prof !394 {
+  %2 = load ptr, ptr %0, align 8, !tbaa !148
   %3 = getelementptr inbounds %struct.xpvcv, ptr %2, i64 0, i32 9
-  %4 = load ptr, ptr %3, align 8, !tbaa !168
+  %4 = load ptr, ptr %3, align 8, !tbaa !137
   %5 = icmp eq ptr %4, null
-  br i1 %5, label %6, label %7, !prof !421
+  br i1 %5, label %6, label %7, !prof !395
 
 6:                                                ; preds = %1
-  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.15) #14
+  tail call void (ptr, ...) @Perl_croak(ptr noundef nonnull @.str.15) #12
   br label %7
 
 7:                                                ; preds = %6, %1
-  %8 = tail call fastcc ptr @S_cv_clone(ptr noundef nonnull %0, ptr noundef null, ptr noundef null, ptr noundef null) #15
+  %8 = tail call fastcc ptr @S_cv_clone(ptr noundef nonnull %0, ptr noundef null, ptr noundef null, ptr noundef null)
   ret ptr %8
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define internal fastcc ptr @S_cv_clone(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) unnamed_addr #0 !prof !420 !PGOFuncName !422 {
-  %5 = icmp eq ptr %1, null
-  br i1 %5, label %6, label %11, !prof !423
+; Function Attrs: nounwind uwtable
+define internal fastcc ptr @S_cv_clone(ptr noundef %0, ptr noundef %1, ptr noundef %2, ptr noundef %3) unnamed_addr #0 !prof !394 !PGOFuncName !396 {
+  %5 = alloca ptr, align 8
+  %6 = alloca ptr, align 8
+  %7 = icmp eq ptr %1, null
+  br i1 %7, label %8, label %13, !prof !397
 
-6:                                                ; preds = %4
-  %7 = getelementptr inbounds %struct.cv, ptr %0, i64 0, i32 2
-  %8 = load i32, ptr %7, align 4, !tbaa !216
-  %9 = and i32 %8, 255
-  %10 = tail call ptr @Perl_newSV_type(i32 noundef %9) #14
-  br label %11
+8:                                                ; preds = %4
+  %9 = getelementptr inbounds %struct.cv, ptr %0, i64 0, i32 2
+  %10 = load i32, ptr %9, align 4, !tbaa !184
+  %11 = and i32 %10, 255
+  %12 = tail call ptr @Perl_newSV_type(i32 noundef %11) #12
+  br label %13
 
-11:                                               ; preds = %6, %4
-  %12 = phi ptr [ %1, %4 ], [ %10, %6 ]
-  %13 = load ptr, ptr %0, align 8, !tbaa !181
-  %14 = getelementptr inbounds %struct.xpvcv, ptr %13, i64 0, i32 12
-  %15 = load i32, ptr %14, align 4, !tbaa !186
-  %16 = and i32 %15, -3185
-  %17 = load ptr, ptr %12, align 8, !tbaa !181
-  %18 = getelementptr inbounds %struct.xpvcv, ptr %17, i64 0, i32 12
-  %19 = or disjoint i32 %16, 64
-  store i32 %19, ptr %18, align 4, !tbaa !186
-  %20 = load i32, ptr %14, align 4, !tbaa !186
-  %21 = and i32 %20, 4096
-  %22 = icmp eq i32 %21, 0
-  %23 = getelementptr inbounds %struct.xpvcv, ptr %13, i64 0, i32 8
-  %24 = load ptr, ptr %23, align 8, !tbaa !183
-  br i1 %22, label %31, label %25, !prof !423
+13:                                               ; preds = %8, %4
+  %14 = phi ptr [ %1, %4 ], [ %12, %8 ]
+  %15 = load ptr, ptr %0, align 8, !tbaa !148
+  %16 = getelementptr inbounds %struct.xpvcv, ptr %15, i64 0, i32 12
+  %17 = load i32, ptr %16, align 4, !tbaa !153
+  %18 = and i32 %17, -3185
+  %19 = load ptr, ptr %14, align 8, !tbaa !148
+  %20 = getelementptr inbounds %struct.xpvcv, ptr %19, i64 0, i32 12
+  %21 = or disjoint i32 %18, 64
+  store i32 %21, ptr %20, align 4, !tbaa !153
+  %22 = load i32, ptr %16, align 4, !tbaa !153
+  %23 = and i32 %22, 4096
+  %24 = icmp eq i32 %23, 0
+  %25 = getelementptr inbounds %struct.xpvcv, ptr %15, i64 0, i32 8
+  %26 = load ptr, ptr %25, align 8, !tbaa !150
+  br i1 %24, label %29, label %27, !prof !397
 
-25:                                               ; preds = %11
-  %26 = tail call ptr @Perl_savepv(ptr noundef %24) #14
-  %27 = load ptr, ptr %12, align 8, !tbaa !181
-  %28 = load ptr, ptr %0, align 8, !tbaa !181
-  %29 = getelementptr inbounds %struct.xpvcv, ptr %28, i64 0, i32 12
-  %30 = load i32, ptr %29, align 4, !tbaa !186
-  br label %31
+27:                                               ; preds = %13
+  %28 = tail call ptr @Perl_savepv(ptr noundef %26) #12
+  br label %29
 
-31:                                               ; preds = %11, %25
-  %32 = phi i32 [ %30, %25 ], [ %20, %11 ]
-  %33 = phi ptr [ %27, %25 ], [ %17, %11 ]
-  %34 = phi ptr [ %26, %25 ], [ %24, %11 ]
-  %35 = getelementptr inbounds %struct.xpvcv, ptr %33, i64 0, i32 8
-  store ptr %34, ptr %35, align 8, !tbaa !183
-  %36 = and i32 %32, 32768
+29:                                               ; preds = %13, %27
+  %30 = phi ptr [ %28, %27 ], [ %26, %13 ]
+  %31 = load ptr, ptr %14, align 8, !tbaa !148
+  %32 = getelementptr inbounds %struct.xpvcv, ptr %31, i64 0, i32 8
+  store ptr %30, ptr %32, align 8, !tbaa !150
+  %33 = load ptr, ptr %0, align 8, !tbaa !148
+  %34 = getelementptr inbounds %struct.xpvcv, ptr %33, i64 0, i32 12
+  %35 = load i32, ptr %34, align 4, !tbaa !153
+  %36 = and i32 %35, 32768
   %37 = icmp eq i32 %36, 0
-  br i1 %37, label %56, label %38, !prof !423
+  br i1 %37, label %79, label %38, !prof !397
 
-38:                                               ; preds = %31
-  %39 = tail call fastcc ptr @CvNAME_HEK(ptr noundef nonnull %12) #15
-  %40 = icmp eq ptr %39, null
-  br i1 %40, label %44, label %41
+38:                                               ; preds = %29
+  %39 = getelementptr inbounds %struct.xpvcv, ptr %31, i64 0, i32 12
+  %40 = load i32, ptr %39, align 4, !tbaa !153
+  %41 = and i32 %40, 32768
+  %42 = icmp eq i32 %41, 0
+  br i1 %42, label %46, label %43
 
-41:                                               ; preds = %38
-  %42 = getelementptr inbounds %struct.xpvcv, ptr %33, i64 0, i32 7
-  %43 = load ptr, ptr %42, align 8, !tbaa !168
-  tail call void @Perl_unshare_hek(ptr noundef %43) #14
-  br label %44
+43:                                               ; preds = %38
+  %44 = getelementptr inbounds %struct.xpvcv, ptr %31, i64 0, i32 7
+  %45 = load ptr, ptr %44, align 8, !tbaa !137
+  br label %46
 
-44:                                               ; preds = %38, %41
-  %45 = tail call fastcc ptr @CvNAME_HEK(ptr noundef nonnull %0) #15
-  %46 = getelementptr inbounds i8, ptr %45, i64 -8
-  %47 = load i64, ptr %46, align 8, !tbaa !168
-  %48 = add i64 %47, 1
-  store i64 %48, ptr %46, align 8, !tbaa !168
-  %49 = tail call fastcc ptr @CvNAME_HEK(ptr noundef nonnull %0) #15
-  %50 = load ptr, ptr %12, align 8, !tbaa !181
-  %51 = getelementptr inbounds %struct.xpvcv, ptr %50, i64 0, i32 7
-  store ptr %49, ptr %51, align 8, !tbaa !168
-  %52 = load ptr, ptr %12, align 8, !tbaa !181
-  %53 = getelementptr inbounds %struct.xpvcv, ptr %52, i64 0, i32 12
-  %54 = load i32, ptr %53, align 4, !tbaa !186
-  %55 = or i32 %54, 32768
-  store i32 %55, ptr %53, align 4, !tbaa !186
-  br label %58
+46:                                               ; preds = %38, %43
+  %47 = phi ptr [ %45, %43 ], [ null, %38 ]
+  %48 = icmp eq ptr %47, null
+  br i1 %48, label %52, label %49
 
-56:                                               ; preds = %31
-  %57 = tail call fastcc ptr @S_CvGV(ptr noundef nonnull %0) #15
-  tail call void @Perl_cvgv_set(ptr noundef nonnull %12, ptr noundef %57) #14
-  br label %58
+49:                                               ; preds = %46
+  %50 = getelementptr inbounds %struct.xpvcv, ptr %31, i64 0, i32 7
+  %51 = load ptr, ptr %50, align 8, !tbaa !137
+  tail call void @Perl_unshare_hek(ptr noundef %51) #12
+  br label %52
 
-58:                                               ; preds = %56, %44
-  %59 = load ptr, ptr %0, align 8, !tbaa !181
-  %60 = getelementptr inbounds %struct.xpvcv, ptr %59, i64 0, i32 4
-  %61 = load ptr, ptr %60, align 8, !tbaa !424
-  tail call void @Perl_cvstash_set(ptr noundef nonnull %12, ptr noundef %61) #14
-  %62 = load ptr, ptr %0, align 8, !tbaa !181
-  %63 = getelementptr inbounds %struct.xpvcv, ptr %62, i64 0, i32 6
-  %64 = load ptr, ptr %63, align 8, !tbaa !168
-  %65 = icmp eq ptr %64, null
-  br i1 %65, label %71, label %66, !prof !421
+52:                                               ; preds = %46, %49
+  %53 = load ptr, ptr %0, align 8, !tbaa !148
+  %54 = getelementptr inbounds %struct.xpvcv, ptr %53, i64 0, i32 12
+  %55 = load i32, ptr %54, align 4, !tbaa !153
+  %56 = and i32 %55, 32768
+  %57 = icmp ne i32 %56, 0
+  tail call void @llvm.assume(i1 %57)
+  %58 = getelementptr inbounds %struct.xpvcv, ptr %53, i64 0, i32 7
+  %59 = load ptr, ptr %58, align 8, !tbaa !137
+  %60 = getelementptr inbounds i8, ptr %59, i64 -8
+  %61 = load i64, ptr %60, align 8, !tbaa !137
+  %62 = add i64 %61, 1
+  store i64 %62, ptr %60, align 8, !tbaa !137
+  %63 = load ptr, ptr %0, align 8, !tbaa !148
+  %64 = getelementptr inbounds %struct.xpvcv, ptr %63, i64 0, i32 12
+  %65 = load i32, ptr %64, align 4, !tbaa !153
+  %66 = and i32 %65, 32768
+  %67 = icmp eq i32 %66, 0
+  br i1 %67, label %71, label %68
 
-66:                                               ; preds = %58
-  %67 = getelementptr inbounds %struct.op, ptr %64, i64 0, i32 3
-  %68 = load i64, ptr %67, align 8, !tbaa !377
-  %69 = add i64 %68, 1
-  store i64 %69, ptr %67, align 8, !tbaa !377
-  %70 = load ptr, ptr %63, align 8, !tbaa !168
+68:                                               ; preds = %52
+  %69 = getelementptr inbounds %struct.xpvcv, ptr %63, i64 0, i32 7
+  %70 = load ptr, ptr %69, align 8, !tbaa !137
   br label %71
 
-71:                                               ; preds = %58, %66
-  %72 = phi ptr [ %70, %66 ], [ null, %58 ]
-  %73 = load ptr, ptr %12, align 8, !tbaa !181
-  %74 = getelementptr inbounds %struct.xpvcv, ptr %73, i64 0, i32 6
-  store ptr %72, ptr %74, align 8, !tbaa !168
-  %75 = load ptr, ptr %0, align 8, !tbaa !181
-  %76 = getelementptr inbounds %struct.xpvcv, ptr %75, i64 0, i32 5
-  %77 = load ptr, ptr %76, align 8, !tbaa !168
-  %78 = load ptr, ptr %12, align 8, !tbaa !181
-  %79 = getelementptr inbounds %struct.xpvcv, ptr %78, i64 0, i32 5
-  store ptr %77, ptr %79, align 8, !tbaa !168
-  %80 = load ptr, ptr %0, align 8, !tbaa !181
-  %81 = getelementptr inbounds %struct.xpvcv, ptr %80, i64 0, i32 11
-  %82 = load i32, ptr %81, align 8, !tbaa !205
-  %83 = load ptr, ptr %12, align 8, !tbaa !181
-  %84 = getelementptr inbounds %struct.xpvcv, ptr %83, i64 0, i32 11
-  store i32 %82, ptr %84, align 8, !tbaa !205
-  %85 = getelementptr inbounds %struct.cv, ptr %0, i64 0, i32 2
-  %86 = load i32, ptr %85, align 4, !tbaa !216
-  %87 = and i32 %86, 1024
-  %88 = icmp eq i32 %87, 0
-  br i1 %88, label %101, label %89, !prof !425
+71:                                               ; preds = %52, %68
+  %72 = phi ptr [ %70, %68 ], [ null, %52 ]
+  %73 = load ptr, ptr %14, align 8, !tbaa !148
+  %74 = getelementptr inbounds %struct.xpvcv, ptr %73, i64 0, i32 7
+  store ptr %72, ptr %74, align 8, !tbaa !137
+  %75 = load ptr, ptr %14, align 8, !tbaa !148
+  %76 = getelementptr inbounds %struct.xpvcv, ptr %75, i64 0, i32 12
+  %77 = load i32, ptr %76, align 4, !tbaa !153
+  %78 = or i32 %77, 32768
+  store i32 %78, ptr %76, align 4, !tbaa !153
+  br label %82
 
-89:                                               ; preds = %71
-  %90 = getelementptr inbounds %struct.cv, ptr %0, i64 0, i32 3
-  %91 = load ptr, ptr %90, align 8, !tbaa !168
-  %92 = getelementptr inbounds %struct.xpv, ptr %80, i64 0, i32 2
-  %93 = load i64, ptr %92, align 8, !tbaa !290
-  tail call void @Perl_sv_setpvn(ptr noundef nonnull %12, ptr noundef %91, i64 noundef %93) #14
-  %94 = load i32, ptr %85, align 4, !tbaa !216
-  %95 = and i32 %94, 536870912
-  %96 = icmp eq i32 %95, 0
-  br i1 %96, label %101, label %97, !prof !217
+79:                                               ; preds = %29
+  %80 = getelementptr inbounds %struct.xpvcv, ptr %33, i64 0, i32 7
+  %81 = load ptr, ptr %80, align 8, !tbaa !137
+  tail call void @Perl_cvgv_set(ptr noundef nonnull %14, ptr noundef %81) #12
+  br label %82
 
-97:                                               ; preds = %89
-  %98 = getelementptr inbounds %struct.sv, ptr %12, i64 0, i32 2
-  %99 = load i32, ptr %98, align 4, !tbaa !199
-  %100 = or i32 %99, 536870912
-  store i32 %100, ptr %98, align 4, !tbaa !199
-  br label %101
+82:                                               ; preds = %79, %71
+  %83 = load ptr, ptr %0, align 8, !tbaa !148
+  %84 = getelementptr inbounds %struct.xpvcv, ptr %83, i64 0, i32 4
+  %85 = load ptr, ptr %84, align 8, !tbaa !398
+  tail call void @Perl_cvstash_set(ptr noundef nonnull %14, ptr noundef %85) #12
+  %86 = load ptr, ptr %0, align 8, !tbaa !148
+  %87 = getelementptr inbounds %struct.xpvcv, ptr %86, i64 0, i32 6
+  %88 = load ptr, ptr %87, align 8, !tbaa !137
+  %89 = icmp eq ptr %88, null
+  br i1 %89, label %95, label %90, !prof !395
 
-101:                                              ; preds = %89, %97, %71
-  %102 = load ptr, ptr %0, align 8, !tbaa !181
-  %103 = getelementptr inbounds %struct.xpvmg, ptr %102, i64 0, i32 1
-  %104 = load ptr, ptr %103, align 8, !tbaa !168
-  %105 = icmp eq ptr %104, null
-  br i1 %105, label %109, label %106, !prof !423
+90:                                               ; preds = %82
+  %91 = getelementptr inbounds %struct.op, ptr %88, i64 0, i32 3
+  %92 = load i64, ptr %91, align 8, !tbaa !351
+  %93 = add i64 %92, 1
+  store i64 %93, ptr %91, align 8, !tbaa !351
+  %94 = load ptr, ptr %87, align 8, !tbaa !137
+  br label %95
 
-106:                                              ; preds = %101
-  %107 = tail call i32 @Perl_mg_copy(ptr noundef nonnull %0, ptr noundef nonnull %12, ptr noundef null, i32 noundef 0) #14
-  %108 = load ptr, ptr %0, align 8, !tbaa !181
-  br label %109
+95:                                               ; preds = %82, %90
+  %96 = phi ptr [ %94, %90 ], [ null, %82 ]
+  %97 = load ptr, ptr %14, align 8, !tbaa !148
+  %98 = getelementptr inbounds %struct.xpvcv, ptr %97, i64 0, i32 6
+  store ptr %96, ptr %98, align 8, !tbaa !137
+  %99 = load ptr, ptr %0, align 8, !tbaa !148
+  %100 = getelementptr inbounds %struct.xpvcv, ptr %99, i64 0, i32 5
+  %101 = load ptr, ptr %100, align 8, !tbaa !137
+  %102 = load ptr, ptr %14, align 8, !tbaa !148
+  %103 = getelementptr inbounds %struct.xpvcv, ptr %102, i64 0, i32 5
+  store ptr %101, ptr %103, align 8, !tbaa !137
+  %104 = load ptr, ptr %0, align 8, !tbaa !148
+  %105 = getelementptr inbounds %struct.xpvcv, ptr %104, i64 0, i32 11
+  %106 = load i32, ptr %105, align 8, !tbaa !172
+  %107 = load ptr, ptr %14, align 8, !tbaa !148
+  %108 = getelementptr inbounds %struct.xpvcv, ptr %107, i64 0, i32 11
+  store i32 %106, ptr %108, align 8, !tbaa !172
+  %109 = getelementptr inbounds %struct.cv, ptr %0, i64 0, i32 2
+  %110 = load i32, ptr %109, align 4, !tbaa !184
+  %111 = and i32 %110, 1024
+  %112 = icmp eq i32 %111, 0
+  br i1 %112, label %125, label %113, !prof !205
 
-109:                                              ; preds = %106, %101
-  %110 = phi ptr [ %108, %106 ], [ %102, %101 ]
-  %111 = getelementptr inbounds %struct.xpvcv, ptr %110, i64 0, i32 9
-  %112 = load ptr, ptr %111, align 8, !tbaa !168
-  %113 = icmp eq ptr %112, null
-  br i1 %113, label %116, label %114, !prof !421
+113:                                              ; preds = %95
+  %114 = getelementptr inbounds %struct.cv, ptr %0, i64 0, i32 3
+  %115 = load ptr, ptr %114, align 8, !tbaa !137
+  %116 = getelementptr inbounds %struct.xpv, ptr %104, i64 0, i32 2
+  %117 = load i64, ptr %116, align 8, !tbaa !259
+  tail call void @Perl_sv_setpvn(ptr noundef nonnull %14, ptr noundef %115, i64 noundef %117) #12
+  %118 = load i32, ptr %109, align 4, !tbaa !184
+  %119 = and i32 %118, 536870912
+  %120 = icmp eq i32 %119, 0
+  br i1 %120, label %125, label %121, !prof !185
 
-114:                                              ; preds = %109
-  %115 = tail call fastcc ptr @S_cv_clone_pad(ptr noundef nonnull %0, ptr noundef nonnull %12, ptr noundef %2, ptr noundef %3, i1 noundef zeroext %5) #15
-  br label %116
+121:                                              ; preds = %113
+  %122 = getelementptr inbounds %struct.sv, ptr %14, i64 0, i32 2
+  %123 = load i32, ptr %122, align 4, !tbaa !166
+  %124 = or i32 %123, 536870912
+  store i32 %124, ptr %122, align 4, !tbaa !166
+  br label %125
 
-116:                                              ; preds = %114, %109
-  %117 = phi ptr [ %115, %114 ], [ %12, %109 ]
-  ret ptr %117
+125:                                              ; preds = %113, %121, %95
+  %126 = load ptr, ptr %0, align 8, !tbaa !148
+  %127 = getelementptr inbounds %struct.xpvmg, ptr %126, i64 0, i32 1
+  %128 = load ptr, ptr %127, align 8, !tbaa !137
+  %129 = icmp eq ptr %128, null
+  br i1 %129, label %132, label %130, !prof !397
+
+130:                                              ; preds = %125
+  %131 = tail call i32 @Perl_mg_copy(ptr noundef nonnull %0, ptr noundef nonnull %14, ptr noundef null, i32 noundef 0) #12
+  br label %132
+
+132:                                              ; preds = %130, %125
+  %133 = load ptr, ptr %0, align 8, !tbaa !148
+  %134 = getelementptr inbounds %struct.xpvcv, ptr %133, i64 0, i32 9
+  %135 = load ptr, ptr %134, align 8, !tbaa !137
+  %136 = icmp eq ptr %135, null
+  br i1 %136, label %795, label %137, !prof !395
+
+137:                                              ; preds = %132
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %5)
+  store ptr %14, ptr %5, align 8, !tbaa !116
+  %138 = getelementptr inbounds %struct.padlist, ptr %135, i64 0, i32 1
+  %139 = load ptr, ptr %138, align 8, !tbaa !136
+  %140 = load ptr, ptr %139, align 8, !tbaa !116
+  %141 = getelementptr inbounds ptr, ptr %139, i64 1
+  %142 = load ptr, ptr %141, align 8, !tbaa !116
+  %143 = getelementptr inbounds %struct.padnamelist, ptr %140, i64 0, i32 1
+  %144 = load ptr, ptr %143, align 8, !tbaa !132
+  %145 = getelementptr inbounds %struct.av, ptr %142, i64 0, i32 3
+  %146 = load ptr, ptr %145, align 8, !tbaa !137
+  %147 = load i64, ptr %140, align 8, !tbaa !133
+  %148 = load ptr, ptr %142, align 8, !tbaa !246
+  %149 = getelementptr inbounds %struct.xpvav, ptr %148, i64 0, i32 2
+  %150 = load i64, ptr %149, align 8, !tbaa !247
+  %151 = trunc i64 %150 to i32
+  %152 = icmp eq ptr %2, null
+  br i1 %152, label %153, label %183, !prof !397
+
+153:                                              ; preds = %137
+  %154 = getelementptr inbounds %struct.xpvcv, ptr %133, i64 0, i32 12
+  %155 = load i32, ptr %154, align 4, !tbaa !153
+  %156 = and i32 %155, 16
+  %157 = icmp eq i32 %156, 0
+  br i1 %157, label %160, label %158, !prof !395
+
+158:                                              ; preds = %153
+  %159 = tail call ptr @Perl_find_runcv(ptr noundef null) #12
+  br label %183
+
+160:                                              ; preds = %153
+  %161 = getelementptr inbounds %struct.xpvcv, ptr %133, i64 0, i32 10
+  %162 = load ptr, ptr %161, align 8, !tbaa !171
+  %163 = load ptr, ptr %162, align 8, !tbaa !148
+  %164 = getelementptr inbounds %struct.xpvcv, ptr %163, i64 0, i32 12
+  %165 = load i32, ptr %164, align 4, !tbaa !153
+  %166 = and i32 %165, 96
+  %167 = icmp eq i32 %166, 32
+  br i1 %167, label %178, label %168
+
+168:                                              ; preds = %160
+  %169 = getelementptr inbounds %struct.xpvcv, ptr %163, i64 0, i32 9
+  %170 = load ptr, ptr %169, align 8, !tbaa !137
+  %171 = icmp eq ptr %170, null
+  br i1 %171, label %178, label %172
+
+172:                                              ; preds = %168
+  %173 = getelementptr inbounds %struct.padlist, ptr %170, i64 0, i32 2
+  %174 = load i32, ptr %173, align 8, !tbaa !130
+  %175 = getelementptr inbounds %struct.padlist, ptr %135, i64 0, i32 3
+  %176 = load i32, ptr %175, align 4, !tbaa !399
+  %177 = icmp eq i32 %174, %176
+  br i1 %177, label %183, label %178
+
+178:                                              ; preds = %172, %168, %160
+  %179 = getelementptr inbounds %struct.padlist, ptr %135, i64 0, i32 3
+  %180 = load i32, ptr %179, align 4, !tbaa !399
+  %181 = zext i32 %180 to i64
+  %182 = tail call ptr @Perl_find_runcv_where(i8 noundef zeroext 1, i64 noundef %181, ptr noundef null) #12
+  br label %183
+
+183:                                              ; preds = %178, %172, %158, %137
+  %184 = phi ptr [ %2, %137 ], [ %159, %158 ], [ %182, %178 ], [ %162, %172 ]
+  %185 = icmp eq ptr %184, null
+  br i1 %185, label %190, label %186, !prof !395
+
+186:                                              ; preds = %183
+  %187 = load ptr, ptr %184, align 8, !tbaa !148
+  %188 = getelementptr inbounds %struct.xpvcv, ptr %187, i64 0, i32 13
+  %189 = load i32, ptr %188, align 4, !tbaa !129
+  br label %190
+
+190:                                              ; preds = %186, %183
+  %191 = phi i32 [ %189, %186 ], [ 0, %183 ]
+  %192 = tail call i32 @llvm.umax.i32(i32 %191, i32 1)
+  %193 = sext i32 %192 to i64
+  tail call void @Perl_push_scope() #12
+  tail call void @Perl_save_sptr(ptr noundef nonnull @PL_compcv) #12
+  %194 = load ptr, ptr %5, align 8, !tbaa !116
+  store ptr %194, ptr @PL_compcv, align 8, !tbaa !116
+  br i1 %7, label %195, label %196, !prof !397
+
+195:                                              ; preds = %190
+  tail call void @Perl_save_pushptr(ptr noundef %194, i32 noundef 11) #12
+  br label %196
+
+196:                                              ; preds = %195, %190
+  %197 = load ptr, ptr %5, align 8, !tbaa !116
+  %198 = load ptr, ptr %197, align 8, !tbaa !148
+  %199 = getelementptr inbounds %struct.xpvcv, ptr %198, i64 0, i32 12
+  %200 = load i32, ptr %199, align 4, !tbaa !153
+  %201 = and i32 %200, 16384
+  %202 = icmp eq i32 %201, 0
+  br i1 %202, label %210, label %203, !prof !397
+
+203:                                              ; preds = %196
+  br i1 %185, label %208, label %204
+
+204:                                              ; preds = %203
+  %205 = getelementptr inbounds %struct.sv, ptr %184, i64 0, i32 1
+  %206 = load i32, ptr %205, align 8, !tbaa !182
+  %207 = add i32 %206, 1
+  store i32 %207, ptr %205, align 8, !tbaa !182
+  br label %208
+
+208:                                              ; preds = %203, %204
+  %209 = getelementptr inbounds %struct.xpvcv, ptr %198, i64 0, i32 10
+  store ptr %184, ptr %209, align 8, !tbaa !171
+  br label %210
+
+210:                                              ; preds = %208, %196
+  tail call void @Perl_save_sptr(ptr noundef nonnull @PL_comppad_name) #12
+  store ptr %140, ptr @PL_comppad_name, align 8, !tbaa !116
+  %211 = tail call ptr @Perl_pad_new(i32 noundef 3)
+  %212 = load ptr, ptr %5, align 8, !tbaa !116
+  %213 = load ptr, ptr %212, align 8, !tbaa !148
+  %214 = getelementptr inbounds %struct.xpvcv, ptr %213, i64 0, i32 9
+  store ptr %211, ptr %214, align 8, !tbaa !137
+  %215 = getelementptr inbounds %struct.padlist, ptr %135, i64 0, i32 2
+  %216 = load i32, ptr %215, align 8, !tbaa !130
+  %217 = load ptr, ptr %212, align 8, !tbaa !148
+  %218 = getelementptr inbounds %struct.xpvcv, ptr %217, i64 0, i32 9
+  %219 = load ptr, ptr %218, align 8, !tbaa !137
+  %220 = getelementptr inbounds %struct.padlist, ptr %219, i64 0, i32 2
+  store i32 %216, ptr %220, align 8, !tbaa !130
+  %221 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %222 = shl i64 %150, 32
+  %223 = ashr exact i64 %222, 32
+  tail call void @Perl_av_fill(ptr noundef %221, i64 noundef %223) #12
+  %224 = load ptr, ptr @PL_comppad, align 8, !tbaa !116
+  %225 = getelementptr inbounds %struct.av, ptr %224, i64 0, i32 3
+  %226 = load ptr, ptr %225, align 8, !tbaa !137
+  store ptr %226, ptr @PL_curpad, align 8, !tbaa !116
+  br i1 %185, label %239, label %227, !prof !395
+
+227:                                              ; preds = %210
+  %228 = load ptr, ptr %184, align 8, !tbaa !148
+  %229 = getelementptr inbounds %struct.xpvcv, ptr %228, i64 0, i32 9
+  %230 = load ptr, ptr %229, align 8, !tbaa !137
+  %231 = icmp eq ptr %230, null
+  br i1 %231, label %239, label %232, !prof !395
+
+232:                                              ; preds = %227
+  %233 = getelementptr inbounds %struct.padlist, ptr %230, i64 0, i32 1
+  %234 = load ptr, ptr %233, align 8, !tbaa !136
+  %235 = getelementptr inbounds ptr, ptr %234, i64 %193
+  %236 = load ptr, ptr %235, align 8, !tbaa !116
+  %237 = getelementptr inbounds %struct.av, ptr %236, i64 0, i32 3
+  %238 = load ptr, ptr %237, align 8, !tbaa !137
+  br label %239
+
+239:                                              ; preds = %232, %227, %210
+  %240 = phi ptr [ %238, %232 ], [ null, %227 ], [ null, %210 ]
+  %241 = icmp eq ptr %240, null
+  br i1 %241, label %253, label %242, !prof !395
+
+242:                                              ; preds = %239
+  %243 = load ptr, ptr %184, align 8, !tbaa !148
+  %244 = getelementptr inbounds %struct.xpvcv, ptr %243, i64 0, i32 9
+  %245 = load ptr, ptr %244, align 8, !tbaa !137
+  %246 = getelementptr inbounds %struct.padlist, ptr %245, i64 0, i32 2
+  %247 = load i32, ptr %246, align 8, !tbaa !130
+  %248 = load ptr, ptr %5, align 8, !tbaa !116
+  %249 = load ptr, ptr %248, align 8, !tbaa !148
+  %250 = getelementptr inbounds %struct.xpvcv, ptr %249, i64 0, i32 9
+  %251 = load ptr, ptr %250, align 8, !tbaa !137
+  %252 = getelementptr inbounds %struct.padlist, ptr %251, i64 0, i32 3
+  store i32 %247, ptr %252, align 4, !tbaa !399
+  br label %253
+
+253:                                              ; preds = %242, %239
+  %254 = icmp sgt i32 %151, 0
+  br i1 %254, label %255, label %472, !prof !400
+
+255:                                              ; preds = %253
+  %256 = and i64 %150, 4294967295
+  %257 = shl i64 %147, 32
+  %258 = ashr exact i64 %257, 32
+  br label %259
+
+259:                                              ; preds = %255, %464
+  %260 = phi i64 [ %256, %255 ], [ %470, %464 ]
+  %261 = phi i32 [ 0, %255 ], [ %467, %464 ]
+  %262 = phi i8 [ 0, %255 ], [ %466, %464 ]
+  %263 = icmp sgt i64 %260, %258
+  br i1 %263, label %267, label %264, !prof !401
+
+264:                                              ; preds = %259
+  %265 = getelementptr inbounds ptr, ptr %144, i64 %260
+  %266 = load ptr, ptr %265, align 8, !tbaa !116
+  br label %267
+
+267:                                              ; preds = %264, %259
+  %268 = phi ptr [ %266, %264 ], [ null, %259 ]
+  %269 = icmp eq ptr %268, null
+  br i1 %269, label %459, label %270, !prof !401
+
+270:                                              ; preds = %267
+  %271 = getelementptr inbounds %struct.padname, ptr %268, i64 0, i32 7
+  %272 = load i8, ptr %271, align 8, !tbaa !213
+  %273 = icmp eq i8 %272, 0
+  br i1 %273, label %450, label %274, !prof !402
+
+274:                                              ; preds = %270
+  %275 = getelementptr inbounds %struct.padname, ptr %268, i64 0, i32 1
+  %276 = load ptr, ptr %275, align 8, !tbaa !228
+  %277 = icmp eq ptr %276, null
+  br i1 %277, label %278, label %464, !prof !403
+
+278:                                              ; preds = %274
+  %279 = getelementptr inbounds %struct.padname, ptr %268, i64 0, i32 8
+  %280 = load i8, ptr %279, align 1, !tbaa !220
+  %281 = zext i8 %280 to i32
+  %282 = and i32 %281, 1
+  %283 = icmp eq i32 %282, 0
+  br i1 %283, label %316, label %284, !prof !404
+
+284:                                              ; preds = %278
+  br i1 %241, label %306, label %285, !prof !405
+
+285:                                              ; preds = %284
+  %286 = getelementptr inbounds %struct.padname, ptr %268, i64 0, i32 3
+  %287 = load i32, ptr %286, align 8, !tbaa !222
+  %288 = zext i32 %287 to i64
+  %289 = getelementptr inbounds ptr, ptr %240, i64 %288
+  %290 = load ptr, ptr %289, align 8, !tbaa !116
+  %291 = icmp eq ptr %290, null
+  br i1 %291, label %306, label %292, !prof !405
+
+292:                                              ; preds = %285
+  %293 = getelementptr inbounds %struct.sv, ptr %290, i64 0, i32 2
+  %294 = load i32, ptr %293, align 4, !tbaa !166
+  %295 = and i32 %294, 262144
+  %296 = icmp ne i32 %295, 0
+  %297 = and i32 %281, 2
+  %298 = icmp eq i32 %297, 0
+  %299 = and i1 %298, %296
+  br i1 %299, label %300, label %312, !prof !405
+
+300:                                              ; preds = %292
+  br i1 %185, label %306, label %301
+
+301:                                              ; preds = %300
+  %302 = load ptr, ptr %184, align 8, !tbaa !148
+  %303 = getelementptr inbounds %struct.xpvcv, ptr %302, i64 0, i32 13
+  %304 = load i32, ptr %303, align 4, !tbaa !129
+  %305 = icmp eq i32 %304, 0
+  br i1 %305, label %306, label %312
+
+306:                                              ; preds = %301, %300, %285, %284
+  %307 = load ptr, ptr %268, align 8, !tbaa !175
+  %308 = load i8, ptr %307, align 1, !tbaa !137
+  %309 = icmp eq i8 %308, 38
+  %310 = select i1 %309, ptr @.str.29, ptr @.str.30
+  %311 = zext i8 %272 to i64
+  tail call void (i32, ptr, ...) @Perl_ck_warner(i32 noundef 1, ptr noundef nonnull @.str.31, ptr noundef nonnull %310, i32 noundef 1, i64 noundef %311, ptr noundef nonnull %307) #12
+  br label %316
+
+312:                                              ; preds = %301, %292
+  %313 = getelementptr inbounds %struct.sv, ptr %290, i64 0, i32 1
+  %314 = load i32, ptr %313, align 8, !tbaa !182
+  %315 = add i32 %314, 1
+  store i32 %315, ptr %313, align 8, !tbaa !182
+  br label %316
+
+316:                                              ; preds = %312, %306, %278
+  %317 = phi ptr [ %290, %312 ], [ null, %306 ], [ null, %278 ]
+  %318 = icmp eq ptr %317, null
+  br i1 %318, label %319, label %464, !prof !404
+
+319:                                              ; preds = %316
+  %320 = load ptr, ptr %268, align 8, !tbaa !175
+  %321 = load i8, ptr %320, align 1, !tbaa !137
+  switch i8 %321, label %435 [
+    i8 38, label %322
+    i8 64, label %431
+    i8 37, label %433
+  ], !prof !406
+
+322:                                              ; preds = %319
+  %323 = load i8, ptr %279, align 1, !tbaa !220
+  %324 = and i8 %323, 2
+  %325 = icmp eq i8 %324, 0
+  br i1 %325, label %345, label %326
+
+326:                                              ; preds = %322
+  %327 = getelementptr inbounds ptr, ptr %146, i64 %260
+  %328 = load ptr, ptr %327, align 8, !tbaa !116
+  %329 = load ptr, ptr %328, align 8, !tbaa !258
+  %330 = getelementptr inbounds %struct.xpvcv, ptr %329, i64 0, i32 12
+  %331 = load i32, ptr %330, align 4, !tbaa !153
+  %332 = and i32 %331, 64
+  %333 = icmp eq i32 %332, 0
+  br i1 %333, label %334, label %345
+
+334:                                              ; preds = %326
+  %335 = add i32 %261, 1
+  %336 = getelementptr inbounds %struct.xpvcv, ptr %329, i64 0, i32 10
+  %337 = load ptr, ptr %336, align 8, !tbaa !171
+  %338 = icmp eq ptr %337, %0
+  %339 = select i1 %338, i8 %262, i8 1
+  %340 = tail call ptr @Perl_newSV_type(i32 noundef 13) #12
+  %341 = load ptr, ptr %340, align 8, !tbaa !258
+  %342 = getelementptr inbounds %struct.xpvcv, ptr %341, i64 0, i32 12
+  %343 = load i32, ptr %342, align 4, !tbaa !153
+  %344 = or i32 %343, 65536
+  store i32 %344, ptr %342, align 4, !tbaa !153
+  br label %437
+
+345:                                              ; preds = %326, %322
+  %346 = load i8, ptr %271, align 8, !tbaa !213
+  %347 = zext i8 %346 to i64
+  %348 = icmp ugt i8 %346, 1
+  br i1 %348, label %349, label %423
+
+349:                                              ; preds = %345
+  %350 = load ptr, ptr %275, align 8, !tbaa !228
+  %351 = icmp eq ptr %350, null
+  br i1 %351, label %352, label %423
+
+352:                                              ; preds = %349
+  %353 = add nuw nsw i64 %347, 4294967295
+  %354 = and i64 %353, 4294967295
+  %355 = getelementptr i8, ptr %320, i64 %354
+  %356 = trunc i64 %353 to i32
+  %357 = add nuw nsw i32 %356, 544173908
+  %358 = icmp eq i64 %354, 0
+  br i1 %358, label %370, label %359
+
+359:                                              ; preds = %352, %359
+  %360 = phi i32 [ %368, %359 ], [ %357, %352 ]
+  %361 = phi ptr [ %362, %359 ], [ %320, %352 ]
+  %362 = getelementptr inbounds i8, ptr %361, i64 1
+  %363 = mul i32 %360, 1025
+  %364 = lshr i32 %363, 6
+  %365 = xor i32 %364, %363
+  %366 = load i8, ptr %362, align 1, !tbaa !137
+  %367 = zext i8 %366 to i32
+  %368 = add i32 %365, %367
+  %369 = icmp ult ptr %362, %355
+  br i1 %369, label %359, label %370, !llvm.loop !407
+
+370:                                              ; preds = %359, %352
+  %371 = phi i32 [ %357, %352 ], [ %368, %359 ]
+  %372 = mul i32 %371, 1025
+  %373 = lshr i32 %372, 6
+  %374 = xor i32 %373, %372
+  %375 = mul i32 %374, 1025
+  %376 = add i32 %375, 73800
+  %377 = lshr i32 %376, 6
+  %378 = xor i32 %377, %376
+  %379 = mul i32 %378, 1025
+  %380 = add i32 %379, 113775
+  %381 = lshr i32 %380, 6
+  %382 = xor i32 %381, %380
+  %383 = mul i32 %382, 1025
+  %384 = add i32 %383, 118900
+  %385 = lshr i32 %384, 6
+  %386 = xor i32 %385, %384
+  %387 = mul i32 %386, 1025
+  %388 = add i32 %387, 32800
+  %389 = lshr i32 %388, 6
+  %390 = xor i32 %389, %388
+  %391 = mul i32 %390, 9
+  %392 = lshr i32 %391, 11
+  %393 = xor i32 %392, %391
+  %394 = mul i32 %393, 32769
+  %395 = tail call ptr @Perl_newSV_type(i32 noundef 13) #12
+  %396 = load ptr, ptr %395, align 8, !tbaa !148
+  %397 = getelementptr inbounds %struct.xpvcv, ptr %396, i64 0, i32 12
+  %398 = load i32, ptr %397, align 4, !tbaa !153
+  %399 = and i32 %398, 32768
+  %400 = icmp eq i32 %399, 0
+  br i1 %400, label %404, label %401
+
+401:                                              ; preds = %370
+  %402 = getelementptr inbounds %struct.xpvcv, ptr %396, i64 0, i32 7
+  %403 = load ptr, ptr %402, align 8, !tbaa !137
+  br label %404
+
+404:                                              ; preds = %370, %401
+  %405 = phi ptr [ %403, %401 ], [ null, %370 ]
+  %406 = icmp eq ptr %405, null
+  br i1 %406, label %410, label %407
+
+407:                                              ; preds = %404
+  %408 = getelementptr inbounds %struct.xpvcv, ptr %396, i64 0, i32 7
+  %409 = load ptr, ptr %408, align 8, !tbaa !137
+  tail call void @Perl_unshare_hek(ptr noundef %409) #12
+  br label %410
+
+410:                                              ; preds = %407, %404
+  %411 = load ptr, ptr %268, align 8, !tbaa !175
+  %412 = getelementptr inbounds i8, ptr %411, i64 1
+  %413 = load i8, ptr %271, align 8, !tbaa !213
+  %414 = zext i8 %413 to i32
+  %415 = sub nsw i32 1, %414
+  %416 = tail call ptr @Perl_share_hek(ptr noundef nonnull %412, i32 noundef %415, i32 noundef %394) #12
+  %417 = load ptr, ptr %395, align 8, !tbaa !258
+  %418 = getelementptr inbounds %struct.xpvcv, ptr %417, i64 0, i32 7
+  store ptr %416, ptr %418, align 8, !tbaa !137
+  %419 = load ptr, ptr %395, align 8, !tbaa !258
+  %420 = getelementptr inbounds %struct.xpvcv, ptr %419, i64 0, i32 12
+  %421 = load i32, ptr %420, align 4, !tbaa !153
+  %422 = or i32 %421, 98304
+  store i32 %422, ptr %420, align 4, !tbaa !153
+  br label %437
+
+423:                                              ; preds = %349, %345
+  %424 = getelementptr inbounds ptr, ptr %146, i64 %260
+  %425 = load ptr, ptr %424, align 8, !tbaa !116
+  %426 = icmp eq ptr %425, null
+  br i1 %426, label %437, label %427
+
+427:                                              ; preds = %423
+  %428 = getelementptr inbounds %struct.sv, ptr %425, i64 0, i32 1
+  %429 = load i32, ptr %428, align 8, !tbaa !182
+  %430 = add i32 %429, 1
+  store i32 %430, ptr %428, align 8, !tbaa !182
+  br label %437
+
+431:                                              ; preds = %319
+  %432 = tail call ptr @Perl_newSV_type(i32 noundef 11) #12
+  br label %437
+
+433:                                              ; preds = %319
+  %434 = tail call ptr @Perl_newSV_type(i32 noundef 12) #12
+  br label %437
+
+435:                                              ; preds = %319
+  %436 = tail call ptr @Perl_newSV(i64 noundef 0) #12
+  br label %437
+
+437:                                              ; preds = %427, %423, %435, %433, %431, %410, %334
+  %438 = phi ptr [ %395, %410 ], [ %340, %334 ], [ %432, %431 ], [ %434, %433 ], [ %436, %435 ], [ %425, %423 ], [ %425, %427 ]
+  %439 = phi i8 [ %262, %410 ], [ %339, %334 ], [ %262, %431 ], [ %262, %433 ], [ %262, %435 ], [ %262, %423 ], [ %262, %427 ]
+  %440 = phi i32 [ %261, %410 ], [ %335, %334 ], [ %261, %431 ], [ %261, %433 ], [ %261, %435 ], [ %261, %423 ], [ %261, %427 ]
+  %441 = icmp eq i8 %321, 38
+  br i1 %441, label %464, label %442, !prof !408
+
+442:                                              ; preds = %437
+  %443 = load i8, ptr %279, align 1, !tbaa !220
+  %444 = and i8 %443, 2
+  %445 = icmp eq i8 %444, 0
+  br i1 %445, label %464, label %446, !prof !409
+
+446:                                              ; preds = %442
+  %447 = getelementptr inbounds %struct.sv, ptr %438, i64 0, i32 2
+  %448 = load i32, ptr %447, align 4, !tbaa !166
+  %449 = or i32 %448, 262144
+  store i32 %449, ptr %447, align 4, !tbaa !166
+  br label %464
+
+450:                                              ; preds = %270
+  %451 = load ptr, ptr %268, align 8, !tbaa !175
+  %452 = icmp eq ptr %451, null
+  br i1 %452, label %459, label %453, !prof !410
+
+453:                                              ; preds = %450
+  %454 = getelementptr inbounds ptr, ptr %146, i64 %260
+  %455 = load ptr, ptr %454, align 8, !tbaa !116
+  %456 = getelementptr inbounds %struct.sv, ptr %455, i64 0, i32 1
+  %457 = load i32, ptr %456, align 8, !tbaa !182
+  %458 = add i32 %457, 1
+  store i32 %458, ptr %456, align 8, !tbaa !182
+  br label %464
+
+459:                                              ; preds = %450, %267
+  %460 = tail call ptr @Perl_newSV(i64 noundef 0) #12
+  %461 = getelementptr inbounds %struct.sv, ptr %460, i64 0, i32 2
+  %462 = load i32, ptr %461, align 4, !tbaa !166
+  %463 = or i32 %462, 131072
+  store i32 %463, ptr %461, align 4, !tbaa !166
+  br label %464
+
+464:                                              ; preds = %459, %453, %446, %442, %437, %316, %274
+  %465 = phi ptr [ null, %274 ], [ %317, %316 ], [ %455, %453 ], [ %460, %459 ], [ %438, %446 ], [ %438, %442 ], [ %438, %437 ]
+  %466 = phi i8 [ %262, %274 ], [ %262, %316 ], [ %262, %453 ], [ %262, %459 ], [ %439, %446 ], [ %439, %442 ], [ %439, %437 ]
+  %467 = phi i32 [ %261, %274 ], [ %261, %316 ], [ %261, %453 ], [ %261, %459 ], [ %440, %446 ], [ %440, %442 ], [ %440, %437 ]
+  %468 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %469 = getelementptr inbounds ptr, ptr %468, i64 %260
+  store ptr %465, ptr %469, align 8, !tbaa !116
+  %470 = add nsw i64 %260, -1
+  %471 = icmp sgt i64 %260, 1
+  br i1 %471, label %259, label %472, !prof !411, !llvm.loop !412
+
+472:                                              ; preds = %464, %253
+  %473 = phi i8 [ 0, %253 ], [ %466, %464 ]
+  %474 = phi i32 [ 0, %253 ], [ %467, %464 ]
+  %475 = icmp eq i32 %474, 0
+  br i1 %475, label %661, label %476, !prof !397
+
+476:                                              ; preds = %472
+  %477 = and i8 %473, 1
+  %478 = icmp ne i8 %477, 0
+  %479 = icmp ne ptr %3, null
+  %480 = or i1 %479, %478
+  br i1 %480, label %487, label %481
+
+481:                                              ; preds = %476
+  %482 = icmp sgt i32 %151, 0
+  br i1 %482, label %483, label %661
+
+483:                                              ; preds = %481
+  %484 = and i64 %150, 4294967295
+  %485 = shl i64 %147, 32
+  %486 = ashr exact i64 %485, 32
+  br label %626
+
+487:                                              ; preds = %476
+  br i1 %479, label %491, label %488
+
+488:                                              ; preds = %487
+  %489 = tail call ptr @Perl_newSV_type(i32 noundef 12) #12
+  %490 = tail call ptr @Perl_sv_2mortal(ptr noundef %489) #12
+  br label %491
+
+491:                                              ; preds = %488, %487
+  %492 = phi ptr [ %3, %487 ], [ %490, %488 ]
+  %493 = icmp sgt i32 %151, 0
+  %494 = and i64 %150, 4294967295
+  %495 = shl i64 %147, 32
+  %496 = ashr exact i64 %495, 32
+  br label %497
+
+497:                                              ; preds = %571, %491
+  %498 = phi i32 [ %474, %491 ], [ %573, %571 ]
+  br i1 %493, label %499, label %571
+
+499:                                              ; preds = %497, %566
+  %500 = phi i64 [ %569, %566 ], [ %494, %497 ]
+  %501 = phi i32 [ %568, %566 ], [ %498, %497 ]
+  %502 = phi i8 [ %567, %566 ], [ 0, %497 ]
+  %503 = icmp sgt i64 %500, %496
+  br i1 %503, label %507, label %504
+
+504:                                              ; preds = %499
+  %505 = getelementptr inbounds ptr, ptr %144, i64 %500
+  %506 = load ptr, ptr %505, align 8, !tbaa !116
+  br label %507
+
+507:                                              ; preds = %504, %499
+  %508 = phi ptr [ %506, %504 ], [ null, %499 ]
+  %509 = icmp ne ptr %508, null
+  %510 = icmp ne ptr %508, @PL_padname_undef
+  %511 = and i1 %509, %510
+  br i1 %511, label %512, label %566
+
+512:                                              ; preds = %507
+  %513 = getelementptr inbounds %struct.padname, ptr %508, i64 0, i32 8
+  %514 = load i8, ptr %513, align 1, !tbaa !220
+  %515 = zext i8 %514 to i32
+  %516 = and i32 %515, 1
+  %517 = icmp eq i32 %516, 0
+  br i1 %517, label %518, label %566
+
+518:                                              ; preds = %512
+  %519 = load ptr, ptr %508, align 8, !tbaa !175
+  %520 = load i8, ptr %519, align 1, !tbaa !137
+  %521 = icmp ne i8 %520, 38
+  %522 = and i32 %515, 2
+  %523 = icmp eq i32 %522, 0
+  %524 = or i1 %523, %521
+  br i1 %524, label %566, label %525
+
+525:                                              ; preds = %518
+  %526 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %527 = getelementptr inbounds ptr, ptr %526, i64 %500
+  %528 = load ptr, ptr %527, align 8, !tbaa !116
+  %529 = load ptr, ptr %528, align 8, !tbaa !258
+  %530 = getelementptr inbounds %struct.xpvcv, ptr %529, i64 0, i32 12
+  %531 = load i32, ptr %530, align 4, !tbaa !153
+  %532 = and i32 %531, 64
+  %533 = icmp eq i32 %532, 0
+  br i1 %533, label %534, label %566
+
+534:                                              ; preds = %525
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %6) #12
+  %535 = getelementptr inbounds ptr, ptr %146, i64 %500
+  %536 = load ptr, ptr %535, align 8, !tbaa !116
+  %537 = load ptr, ptr %536, align 8, !tbaa !258
+  %538 = getelementptr inbounds %struct.xpvcv, ptr %537, i64 0, i32 10
+  %539 = load ptr, ptr %538, align 8, !tbaa !171
+  store ptr %539, ptr %6, align 8, !tbaa !116
+  %540 = icmp eq ptr %539, %0
+  br i1 %540, label %543, label %541
+
+541:                                              ; preds = %534
+  %542 = call ptr @Perl_hv_common_key_len(ptr noundef %492, ptr noundef nonnull %6, i32 noundef 8, i32 noundef 32, ptr noundef null, i32 noundef 0) #12
+  br label %543
+
+543:                                              ; preds = %541, %534
+  %544 = phi ptr [ %542, %541 ], [ %5, %534 ]
+  %545 = icmp eq ptr %544, null
+  br i1 %545, label %563, label %546
+
+546:                                              ; preds = %543
+  %547 = load ptr, ptr %544, align 8, !tbaa !116
+  %548 = icmp eq ptr %547, null
+  br i1 %548, label %563, label %549
+
+549:                                              ; preds = %546
+  %550 = load ptr, ptr %535, align 8, !tbaa !116
+  %551 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %552 = getelementptr inbounds ptr, ptr %551, i64 %500
+  %553 = load ptr, ptr %552, align 8, !tbaa !116
+  %554 = call fastcc ptr @S_cv_clone(ptr noundef %550, ptr noundef %553, ptr noundef nonnull %547, ptr noundef %492)
+  %555 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %556 = getelementptr inbounds ptr, ptr %555, i64 %500
+  %557 = load ptr, ptr %556, align 8, !tbaa !116
+  %558 = getelementptr inbounds %struct.sv, ptr %557, i64 0, i32 1
+  %559 = load i32, ptr %558, align 8, !tbaa !182
+  %560 = add i32 %559, 1
+  store i32 %560, ptr %558, align 8, !tbaa !182
+  %561 = call ptr @Perl_hv_common_key_len(ptr noundef %492, ptr noundef nonnull %535, i32 noundef 8, i32 noundef 36, ptr noundef %557, i32 noundef 0) #12
+  %562 = add i32 %501, -1
+  br label %563
+
+563:                                              ; preds = %549, %546, %543
+  %564 = phi i8 [ 1, %549 ], [ %502, %546 ], [ %502, %543 ]
+  %565 = phi i32 [ %562, %549 ], [ %501, %546 ], [ %501, %543 ]
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %6) #12
+  br label %566
+
+566:                                              ; preds = %563, %525, %518, %512, %507
+  %567 = phi i8 [ %502, %512 ], [ %502, %525 ], [ %564, %563 ], [ %502, %518 ], [ %502, %507 ]
+  %568 = phi i32 [ %501, %512 ], [ %501, %525 ], [ %565, %563 ], [ %501, %518 ], [ %501, %507 ]
+  %569 = add nsw i64 %500, -1
+  %570 = icmp sgt i64 %500, 1
+  br i1 %570, label %499, label %571, !llvm.loop !413
+
+571:                                              ; preds = %566, %497
+  %572 = phi i8 [ 0, %497 ], [ %567, %566 ]
+  %573 = phi i32 [ %498, %497 ], [ %568, %566 ]
+  %574 = and i8 %572, 1
+  %575 = icmp eq i8 %574, 0
+  br i1 %575, label %576, label %497, !llvm.loop !414
+
+576:                                              ; preds = %571
+  %577 = icmp ne i32 %573, 0
+  %578 = icmp sgt i32 %151, 0
+  %579 = select i1 %577, i1 %578, i1 false
+  br i1 %579, label %580, label %661
+
+580:                                              ; preds = %576
+  %581 = shl i64 %147, 32
+  %582 = ashr exact i64 %581, 32
+  br label %583
+
+583:                                              ; preds = %580, %623
+  %584 = phi i64 [ %494, %580 ], [ %624, %623 ]
+  %585 = icmp sgt i64 %584, %582
+  br i1 %585, label %589, label %586
+
+586:                                              ; preds = %583
+  %587 = getelementptr inbounds ptr, ptr %144, i64 %584
+  %588 = load ptr, ptr %587, align 8, !tbaa !116
+  br label %589
+
+589:                                              ; preds = %586, %583
+  %590 = phi ptr [ %588, %586 ], [ null, %583 ]
+  %591 = icmp ne ptr %590, null
+  %592 = icmp ne ptr %590, @PL_padname_undef
+  %593 = and i1 %591, %592
+  br i1 %593, label %594, label %623
+
+594:                                              ; preds = %589
+  %595 = getelementptr inbounds %struct.padname, ptr %590, i64 0, i32 8
+  %596 = load i8, ptr %595, align 1, !tbaa !220
+  %597 = zext i8 %596 to i32
+  %598 = and i32 %597, 1
+  %599 = icmp eq i32 %598, 0
+  br i1 %599, label %600, label %623
+
+600:                                              ; preds = %594
+  %601 = load ptr, ptr %590, align 8, !tbaa !175
+  %602 = load i8, ptr %601, align 1, !tbaa !137
+  %603 = icmp ne i8 %602, 38
+  %604 = and i32 %597, 2
+  %605 = icmp eq i32 %604, 0
+  %606 = or i1 %605, %603
+  br i1 %606, label %623, label %607
+
+607:                                              ; preds = %600
+  %608 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %609 = getelementptr inbounds ptr, ptr %608, i64 %584
+  %610 = load ptr, ptr %609, align 8, !tbaa !116
+  %611 = load ptr, ptr %610, align 8, !tbaa !258
+  %612 = getelementptr inbounds %struct.xpvcv, ptr %611, i64 0, i32 12
+  %613 = load i32, ptr %612, align 4, !tbaa !153
+  %614 = and i32 %613, 64
+  %615 = icmp eq i32 %614, 0
+  br i1 %615, label %616, label %623
+
+616:                                              ; preds = %607
+  %617 = getelementptr inbounds ptr, ptr %146, i64 %584
+  %618 = load ptr, ptr %617, align 8, !tbaa !116
+  %619 = load ptr, ptr %618, align 8, !tbaa !258
+  %620 = getelementptr inbounds %struct.xpvcv, ptr %619, i64 0, i32 10
+  %621 = load ptr, ptr %620, align 8, !tbaa !171
+  %622 = call fastcc ptr @S_cv_clone(ptr noundef nonnull %618, ptr noundef nonnull %610, ptr noundef %621, ptr noundef %492)
+  br label %623
+
+623:                                              ; preds = %616, %607, %600, %594, %589
+  %624 = add nsw i64 %584, -1
+  %625 = icmp sgt i64 %584, 1
+  br i1 %625, label %583, label %661, !llvm.loop !415
+
+626:                                              ; preds = %483, %658
+  %627 = phi i64 [ %484, %483 ], [ %659, %658 ]
+  %628 = icmp sgt i64 %627, %486
+  br i1 %628, label %632, label %629
+
+629:                                              ; preds = %626
+  %630 = getelementptr inbounds ptr, ptr %144, i64 %627
+  %631 = load ptr, ptr %630, align 8, !tbaa !116
+  br label %632
+
+632:                                              ; preds = %629, %626
+  %633 = phi ptr [ %631, %629 ], [ null, %626 ]
+  %634 = icmp ne ptr %633, null
+  %635 = icmp ne ptr %633, @PL_padname_undef
+  %636 = and i1 %634, %635
+  br i1 %636, label %637, label %658
+
+637:                                              ; preds = %632
+  %638 = getelementptr inbounds %struct.padname, ptr %633, i64 0, i32 8
+  %639 = load i8, ptr %638, align 1, !tbaa !220
+  %640 = zext i8 %639 to i32
+  %641 = and i32 %640, 1
+  %642 = icmp eq i32 %641, 0
+  br i1 %642, label %643, label %658
+
+643:                                              ; preds = %637
+  %644 = load ptr, ptr %633, align 8, !tbaa !175
+  %645 = load i8, ptr %644, align 1, !tbaa !137
+  %646 = icmp ne i8 %645, 38
+  %647 = and i32 %640, 2
+  %648 = icmp eq i32 %647, 0
+  %649 = or i1 %648, %646
+  br i1 %649, label %658, label %650
+
+650:                                              ; preds = %643
+  %651 = getelementptr inbounds ptr, ptr %146, i64 %627
+  %652 = load ptr, ptr %651, align 8, !tbaa !116
+  %653 = load ptr, ptr @PL_curpad, align 8, !tbaa !116
+  %654 = getelementptr inbounds ptr, ptr %653, i64 %627
+  %655 = load ptr, ptr %654, align 8, !tbaa !116
+  %656 = load ptr, ptr %5, align 8, !tbaa !116
+  %657 = tail call fastcc ptr @S_cv_clone(ptr noundef %652, ptr noundef %655, ptr noundef %656, ptr noundef null)
+  br label %658
+
+658:                                              ; preds = %650, %643, %637, %632
+  %659 = add nsw i64 %627, -1
+  %660 = icmp sgt i64 %627, 1
+  br i1 %660, label %626, label %661, !llvm.loop !416
+
+661:                                              ; preds = %658, %623, %481, %576, %472
+  br i1 %7, label %662, label %667, !prof !397
+
+662:                                              ; preds = %661
+  %663 = load ptr, ptr %5, align 8, !tbaa !116
+  %664 = getelementptr inbounds %struct.sv, ptr %663, i64 0, i32 1
+  %665 = load i32, ptr %664, align 8, !tbaa !182
+  %666 = add i32 %665, 1
+  store i32 %666, ptr %664, align 8, !tbaa !182
+  br label %667
+
+667:                                              ; preds = %662, %661
+  call void @Perl_pop_scope() #12
+  %668 = load ptr, ptr %5, align 8, !tbaa !116
+  %669 = load ptr, ptr %668, align 8, !tbaa !148
+  %670 = getelementptr inbounds %struct.xpvcv, ptr %669, i64 0, i32 12
+  %671 = load i32, ptr %670, align 4, !tbaa !153
+  %672 = and i32 %671, 4
+  %673 = icmp eq i32 %672, 0
+  br i1 %673, label %793, label %674, !prof !205
+
+674:                                              ; preds = %667
+  %675 = getelementptr inbounds %struct.xpvcv, ptr %669, i64 0, i32 5
+  br label %676
+
+676:                                              ; preds = %680, %674
+  %677 = phi ptr [ %675, %674 ], [ %678, %680 ]
+  %678 = load ptr, ptr %677, align 8, !tbaa !137
+  %679 = icmp eq ptr %678, null
+  br i1 %679, label %685, label %680, !prof !417
+
+680:                                              ; preds = %676
+  %681 = getelementptr inbounds %struct.op, ptr %678, i64 0, i32 4
+  %682 = load i16, ptr %681, align 8
+  %683 = and i16 %682, 511
+  %684 = icmp eq i16 %683, 9
+  br i1 %684, label %685, label %676, !prof !418, !llvm.loop !419
+
+685:                                              ; preds = %680, %676
+  %686 = getelementptr inbounds %struct.xpvcv, ptr %669, i64 0, i32 9
+  %687 = load ptr, ptr %686, align 8, !tbaa !137
+  %688 = getelementptr inbounds %struct.padlist, ptr %687, i64 0, i32 1
+  %689 = load ptr, ptr %688, align 8, !tbaa !136
+  %690 = getelementptr inbounds ptr, ptr %689, i64 1
+  %691 = load ptr, ptr %690, align 8, !tbaa !116
+  %692 = icmp eq ptr %691, null
+  br i1 %692, label %700, label %693, !prof !186
+
+693:                                              ; preds = %685
+  %694 = getelementptr inbounds %struct.av, ptr %691, i64 0, i32 3
+  %695 = load ptr, ptr %694, align 8, !tbaa !137
+  %696 = getelementptr inbounds %struct.op, ptr %678, i64 0, i32 3
+  %697 = load i64, ptr %696, align 8, !tbaa !351
+  %698 = getelementptr inbounds ptr, ptr %695, i64 %697
+  %699 = load ptr, ptr %698, align 8, !tbaa !116
+  br label %700
+
+700:                                              ; preds = %693, %685
+  %701 = phi ptr [ %699, %693 ], [ null, %685 ]
+  %702 = icmp eq ptr %701, null
+  br i1 %702, label %787, label %703, !prof !186
+
+703:                                              ; preds = %700
+  %704 = getelementptr inbounds %struct.sv, ptr %701, i64 0, i32 1
+  %705 = load i32, ptr %704, align 8, !tbaa !182
+  %706 = icmp eq i32 %705, 2
+  br i1 %706, label %707, label %787, !prof !185
+
+707:                                              ; preds = %703
+  %708 = and i32 %671, 1
+  %709 = icmp eq i32 %708, 0
+  br i1 %185, label %756, label %710, !prof !186
+
+710:                                              ; preds = %707
+  %711 = load ptr, ptr %184, align 8, !tbaa !148
+  %712 = getelementptr inbounds %struct.xpvcv, ptr %711, i64 0, i32 9
+  %713 = load ptr, ptr %712, align 8, !tbaa !137
+  %714 = getelementptr inbounds %struct.padlist, ptr %713, i64 0, i32 1
+  %715 = load ptr, ptr %714, align 8, !tbaa !136
+  %716 = load ptr, ptr %715, align 8, !tbaa !116
+  %717 = getelementptr inbounds %struct.padnamelist, ptr %716, i64 0, i32 1
+  %718 = load ptr, ptr %717, align 8, !tbaa !132
+  %719 = load ptr, ptr %689, align 8, !tbaa !116
+  %720 = getelementptr inbounds %struct.padnamelist, ptr %719, i64 0, i32 1
+  %721 = load ptr, ptr %720, align 8, !tbaa !132
+  %722 = getelementptr inbounds %struct.op, ptr %678, i64 0, i32 3
+  %723 = load i64, ptr %722, align 8, !tbaa !351
+  %724 = getelementptr inbounds ptr, ptr %721, i64 %723
+  %725 = load ptr, ptr %724, align 8, !tbaa !116
+  %726 = getelementptr inbounds %struct.padname, ptr %725, i64 0, i32 3
+  %727 = load i32, ptr %726, align 8, !tbaa !222
+  %728 = zext i32 %727 to i64
+  %729 = getelementptr inbounds ptr, ptr %718, i64 %728
+  %730 = load ptr, ptr %729, align 8, !tbaa !116
+  %731 = getelementptr inbounds %struct.padname, ptr %730, i64 0, i32 8
+  %732 = load i8, ptr %731, align 1, !tbaa !220
+  %733 = and i8 %732, 4
+  %734 = icmp ne i8 %733, 0
+  br i1 %734, label %735, label %751, !prof !186
+
+735:                                              ; preds = %710
+  %736 = getelementptr inbounds %struct.xpvcv, ptr %669, i64 0, i32 6
+  %737 = load ptr, ptr %736, align 8, !tbaa !137
+  %738 = getelementptr inbounds %struct.unop, ptr %737, i64 0, i32 7
+  %739 = load ptr, ptr %738, align 8, !tbaa !420
+  %740 = getelementptr inbounds %struct.unop, ptr %739, i64 0, i32 7
+  %741 = load ptr, ptr %740, align 8, !tbaa !420
+  %742 = getelementptr inbounds %struct.op, ptr %741, i64 0, i32 1
+  %743 = load ptr, ptr %742, align 8, !tbaa !422
+  %744 = icmp eq ptr %743, %678
+  br i1 %744, label %745, label %751
+
+745:                                              ; preds = %735
+  %746 = getelementptr inbounds %struct.op, ptr %678, i64 0, i32 1
+  %747 = load ptr, ptr %746, align 8, !tbaa !422
+  %748 = icmp eq ptr %747, null
+  br i1 %748, label %749, label %751
+
+749:                                              ; preds = %745
+  call void (i32, ptr, ...) @Perl_ck_warner_d(i32 noundef 2, ptr noundef nonnull @.str.33) #12
+  %750 = call ptr @Perl_newSVsv(ptr noundef nonnull %701) #12
+  br label %751
+
+751:                                              ; preds = %749, %745, %735, %710
+  %752 = phi ptr [ %701, %745 ], [ %701, %735 ], [ %750, %749 ], [ %701, %710 ]
+  %753 = phi i1 [ false, %745 ], [ false, %735 ], [ true, %749 ], [ %734, %710 ]
+  %754 = phi i1 [ false, %745 ], [ false, %735 ], [ true, %749 ], [ true, %710 ]
+  %755 = phi i32 [ 19, %745 ], [ 19, %735 ], [ 0, %749 ], [ 0, %710 ]
+  br i1 %754, label %756, label %784, !prof !185
+
+756:                                              ; preds = %751, %707
+  %757 = phi ptr [ %752, %751 ], [ %701, %707 ]
+  %758 = phi i1 [ %753, %751 ], [ false, %707 ]
+  br i1 %758, label %763, label %759, !prof !186
+
+759:                                              ; preds = %756
+  %760 = getelementptr inbounds %struct.sv, ptr %757, i64 0, i32 1
+  %761 = load i32, ptr %760, align 8, !tbaa !182
+  %762 = add i32 %761, 1
+  store i32 %762, ptr %760, align 8, !tbaa !182
+  br label %763
+
+763:                                              ; preds = %759, %756
+  %764 = getelementptr inbounds %struct.sv, ptr %757, i64 0, i32 2
+  %765 = load i32, ptr %764, align 4, !tbaa !166
+  %766 = or i32 %765, 134414336
+  store i32 %766, ptr %764, align 4, !tbaa !166
+  %767 = load ptr, ptr %5, align 8, !tbaa !116
+  %768 = getelementptr inbounds %struct.sv, ptr %767, i64 0, i32 1
+  %769 = load i32, ptr %768, align 8, !tbaa !182
+  %770 = icmp ugt i32 %769, 1
+  br i1 %770, label %771, label %773, !prof !186
+
+771:                                              ; preds = %763
+  %772 = add i32 %769, -1
+  store i32 %772, ptr %768, align 8, !tbaa !182
+  br label %774
+
+773:                                              ; preds = %763
+  call void @Perl_sv_free2(ptr noundef %767, i32 noundef %769) #12
+  br label %774
+
+774:                                              ; preds = %771, %773
+  %775 = load ptr, ptr %0, align 8, !tbaa !148
+  %776 = getelementptr inbounds %struct.xpvcv, ptr %775, i64 0, i32 4
+  %777 = load ptr, ptr %776, align 8, !tbaa !398
+  %778 = call ptr @Perl_newCONSTSUB(ptr noundef %777, ptr noundef null, ptr noundef %757) #12
+  store ptr %778, ptr %5, align 8, !tbaa !116
+  br i1 %709, label %784, label %779, !prof !185
+
+779:                                              ; preds = %774
+  %780 = load ptr, ptr %778, align 8, !tbaa !148
+  %781 = getelementptr inbounds %struct.xpvcv, ptr %780, i64 0, i32 12
+  %782 = load i32, ptr %781, align 4, !tbaa !153
+  %783 = or i32 %782, 1
+  store i32 %783, ptr %781, align 4, !tbaa !153
+  br label %784
+
+784:                                              ; preds = %779, %774, %751
+  %785 = phi i32 [ %755, %751 ], [ 0, %779 ], [ 0, %774 ]
+  %786 = icmp eq i32 %785, 0
+  br i1 %786, label %793, label %787, !prof !185
+
+787:                                              ; preds = %784, %703, %700
+  %788 = load ptr, ptr %5, align 8, !tbaa !116
+  %789 = load ptr, ptr %788, align 8, !tbaa !148
+  %790 = getelementptr inbounds %struct.xpvcv, ptr %789, i64 0, i32 12
+  %791 = load i32, ptr %790, align 4, !tbaa !153
+  %792 = and i32 %791, -5
+  store i32 %792, ptr %790, align 4, !tbaa !153
+  br label %793
+
+793:                                              ; preds = %667, %784, %787
+  %794 = load ptr, ptr %5, align 8, !tbaa !116
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %5)
+  br label %795
+
+795:                                              ; preds = %793, %132
+  %796 = phi ptr [ %794, %793 ], [ %14, %132 ]
+  ret ptr %796
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local ptr @Perl_cv_clone_into(ptr noundef %0, ptr noundef %1) local_unnamed_addr #0 !prof !228 {
-  tail call void @Perl_cv_undef(ptr noundef %1) #15
-  %3 = tail call fastcc ptr @S_cv_clone(ptr noundef %0, ptr noundef %1, ptr noundef null, ptr noundef null) #15
+; Function Attrs: cold nounwind uwtable
+define dso_local ptr @Perl_cv_clone_into(ptr noundef %0, ptr noundef %1) local_unnamed_addr #3 !prof !140 {
+  tail call void @Perl_cv_undef_flags(ptr noundef %1, i32 noundef 0)
+  %3 = tail call fastcc ptr @S_cv_clone(ptr noundef %0, ptr noundef %1, ptr noundef null, ptr noundef null)
   ret ptr %3
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local ptr @Perl_cv_name(ptr noundef %0, ptr noundef %1, i32 noundef %2) local_unnamed_addr #0 !prof !426 {
+; Function Attrs: cold nounwind uwtable
+define dso_local ptr @Perl_cv_name(ptr noundef %0, ptr noundef %1, i32 noundef %2) local_unnamed_addr #3 !prof !423 {
   %4 = getelementptr inbounds %struct.cv, ptr %0, i64 0, i32 2
-  %5 = load i32, ptr %4, align 4, !tbaa !216
+  %5 = load i32, ptr %4, align 4, !tbaa !184
   %6 = and i32 %5, 49152
   %7 = icmp eq i32 %6, 32768
-  br i1 %7, label %8, label %10, !prof !427
+  %8 = and i32 %5, 255
+  br i1 %7, label %9, label %15, !prof !424
 
-8:                                                ; preds = %3
-  %9 = trunc i32 %5 to i8
-  switch i8 %9, label %13 [
-    i8 13, label %16
-    i8 10, label %16
-    i8 9, label %16
-  ]
+9:                                                ; preds = %3
+  %10 = add nsw i32 %8, -9
+  %11 = icmp ult i32 %10, 2
+  %12 = and i32 %5, 255
+  %13 = icmp eq i32 %12, 13
+  %14 = or i1 %13, %11
+  br i1 %14, label %20, label %17, !prof !180
 
-10:                                               ; preds = %3
-  %11 = and i32 %5, 255
-  %12 = icmp eq i32 %11, 13
-  br i1 %12, label %16, label %13, !prof !428
+15:                                               ; preds = %3
+  %16 = icmp eq i32 %8, 13
+  br i1 %16, label %20, label %17, !prof !425
 
-13:                                               ; preds = %8, %10
-  %14 = icmp eq ptr %1, null
-  br i1 %14, label %94, label %15
+17:                                               ; preds = %9, %15
+  %18 = icmp eq ptr %1, null
+  br i1 %18, label %105, label %19
 
-15:                                               ; preds = %13
-  tail call void @Perl_sv_setsv_flags(ptr noundef nonnull %1, ptr noundef nonnull %0, i32 noundef 1538) #14
-  br label %94
+19:                                               ; preds = %17
+  tail call void @Perl_sv_setsv_flags(ptr noundef nonnull %1, ptr noundef %0, i32 noundef 1538) #12
+  br label %105
 
-16:                                               ; preds = %8, %8, %8, %10
-  %17 = icmp eq ptr %1, null
-  br i1 %17, label %18, label %21, !prof !428
+20:                                               ; preds = %9, %15
+  %21 = icmp eq ptr %1, null
+  br i1 %21, label %22, label %24, !prof !425
 
-18:                                               ; preds = %16
-  %19 = tail call ptr @Perl_sv_newmortal() #14
-  %20 = load i32, ptr %4, align 4, !tbaa !216
-  br label %21
+22:                                               ; preds = %20
+  %23 = tail call ptr @Perl_sv_newmortal() #12
+  br label %24
 
-21:                                               ; preds = %16, %18
-  %22 = phi i32 [ %20, %18 ], [ %5, %16 ]
-  %23 = phi ptr [ %19, %18 ], [ %1, %16 ]
-  %24 = and i32 %22, 255
-  %25 = icmp eq i32 %24, 13
-  br i1 %25, label %26, label %86, !prof !428
+24:                                               ; preds = %20, %22
+  %25 = phi ptr [ %23, %22 ], [ %1, %20 ]
+  %26 = load i32, ptr %4, align 4, !tbaa !184
+  %27 = and i32 %26, 255
+  %28 = icmp eq i32 %27, 13
+  br i1 %28, label %29, label %97, !prof !425
 
-26:                                               ; preds = %21
-  %27 = load ptr, ptr %0, align 8, !tbaa !181
-  %28 = getelementptr inbounds %struct.xpvcv, ptr %27, i64 0, i32 12
-  %29 = load i32, ptr %28, align 4, !tbaa !186
-  %30 = and i32 %29, 32768
-  %31 = icmp eq i32 %30, 0
-  %32 = and i32 %29, 65536
-  %33 = and i32 %2, 1
-  %34 = or disjoint i32 %32, %33
-  %35 = icmp eq i32 %34, 0
-  br i1 %31, label %75, label %36, !prof !428
+29:                                               ; preds = %24
+  %30 = load ptr, ptr %0, align 8, !tbaa !148
+  %31 = getelementptr inbounds %struct.xpvcv, ptr %30, i64 0, i32 12
+  %32 = load i32, ptr %31, align 4, !tbaa !153
+  %33 = and i32 %32, 32768
+  %34 = icmp eq i32 %33, 0
+  %35 = and i32 %32, 65536
+  %36 = and i32 %2, 1
+  %37 = or disjoint i32 %35, %36
+  %38 = icmp eq i32 %37, 0
+  br i1 %34, label %85, label %39, !prof !425
 
-36:                                               ; preds = %26
-  br i1 %35, label %39, label %37
+39:                                               ; preds = %29
+  br i1 %38, label %43, label %40
 
-37:                                               ; preds = %36
-  %38 = tail call fastcc ptr @CvNAME_HEK(ptr noundef nonnull %0) #15
-  tail call void @Perl_sv_sethek(ptr noundef %23, ptr noundef %38) #14
-  br label %94
+40:                                               ; preds = %39
+  %41 = getelementptr inbounds %struct.xpvcv, ptr %30, i64 0, i32 7
+  %42 = load ptr, ptr %41, align 8, !tbaa !137
+  tail call void @Perl_sv_sethek(ptr noundef %25, ptr noundef %42) #12
+  br label %105
 
-39:                                               ; preds = %36
-  %40 = getelementptr inbounds %struct.xpvcv, ptr %27, i64 0, i32 4
-  %41 = load ptr, ptr %40, align 8, !tbaa !424
-  %42 = getelementptr inbounds %struct.hv, ptr %41, i64 0, i32 2
-  %43 = load i32, ptr %42, align 4, !tbaa !429
-  %44 = and i32 %43, 33554432
-  %45 = icmp eq i32 %44, 0
-  br i1 %45, label %62, label %46
+43:                                               ; preds = %39
+  %44 = getelementptr inbounds %struct.xpvcv, ptr %30, i64 0, i32 4
+  %45 = load ptr, ptr %44, align 8, !tbaa !398
+  %46 = getelementptr inbounds %struct.hv, ptr %45, i64 0, i32 2
+  %47 = load i32, ptr %46, align 4, !tbaa !426
+  %48 = and i32 %47, 33554432
+  %49 = icmp eq i32 %48, 0
+  br i1 %49, label %66, label %50
 
-46:                                               ; preds = %39
-  %47 = getelementptr inbounds %struct.hv, ptr %41, i64 0, i32 3
-  %48 = load ptr, ptr %47, align 8, !tbaa !168
-  %49 = load ptr, ptr %41, align 8, !tbaa !431
-  %50 = getelementptr inbounds %struct.xpvhv, ptr %49, i64 0, i32 3
-  %51 = load i64, ptr %50, align 8, !tbaa !432
-  %52 = getelementptr ptr, ptr %48, i64 %51
-  %53 = getelementptr ptr, ptr %52, i64 1
-  %54 = load ptr, ptr %53, align 8, !tbaa !168
-  %55 = icmp eq ptr %54, null
-  br i1 %55, label %62, label %56
+50:                                               ; preds = %43
+  %51 = getelementptr inbounds %struct.hv, ptr %45, i64 0, i32 3
+  %52 = load ptr, ptr %51, align 8, !tbaa !137
+  %53 = load ptr, ptr %45, align 8, !tbaa !428
+  %54 = getelementptr inbounds %struct.xpvhv, ptr %53, i64 0, i32 3
+  %55 = load i64, ptr %54, align 8, !tbaa !429
+  %56 = getelementptr ptr, ptr %52, i64 %55
+  %57 = getelementptr ptr, ptr %56, i64 1
+  %58 = load ptr, ptr %57, align 8, !tbaa !137
+  %59 = icmp eq ptr %58, null
+  br i1 %59, label %66, label %60
 
-56:                                               ; preds = %46
-  %57 = getelementptr i8, ptr %52, i64 36
-  %58 = load i32, ptr %57, align 4, !tbaa !434
-  %59 = icmp eq i32 %58, 0
-  br i1 %59, label %62, label %60
+60:                                               ; preds = %50
+  %61 = getelementptr i8, ptr %56, i64 36
+  %62 = load i32, ptr %61, align 4, !tbaa !431
+  %63 = icmp eq i32 %62, 0
+  br i1 %63, label %66, label %64
 
-60:                                               ; preds = %56
-  %61 = load ptr, ptr %54, align 8, !tbaa !150
-  br label %62
+64:                                               ; preds = %60
+  %65 = load ptr, ptr %58, align 8, !tbaa !116
+  br label %66
 
-62:                                               ; preds = %56, %39, %46, %60
-  %63 = phi ptr [ %61, %60 ], [ null, %46 ], [ null, %39 ], [ %54, %56 ]
-  tail call void @Perl_sv_sethek(ptr noundef %23, ptr noundef %63) #14
-  tail call void @Perl_sv_catpvn_flags(ptr noundef %23, ptr noundef nonnull @.str.16, i64 noundef 2, i32 noundef 2) #14
-  %64 = tail call fastcc ptr @CvNAME_HEK(ptr noundef nonnull %0) #15
-  %65 = getelementptr inbounds %struct.hek, ptr %64, i64 0, i32 2
-  %66 = getelementptr inbounds %struct.hek, ptr %64, i64 0, i32 1
-  %67 = load i32, ptr %66, align 4, !tbaa !436
-  %68 = sext i32 %67 to i64
-  %69 = getelementptr inbounds i8, ptr %65, i64 %68
-  %70 = getelementptr inbounds i8, ptr %69, i64 1
-  %71 = load i8, ptr %70, align 1, !tbaa !168
-  %72 = and i8 %71, 1
-  %73 = icmp eq i8 %72, 0
-  %74 = select i1 %73, i32 16384, i32 32768
-  tail call void @Perl_sv_catpvn_flags(ptr noundef %23, ptr noundef nonnull %65, i64 noundef %68, i32 noundef %74) #14
-  br label %94
+66:                                               ; preds = %60, %43, %50, %64
+  %67 = phi ptr [ %65, %64 ], [ null, %50 ], [ null, %43 ], [ %58, %60 ]
+  tail call void @Perl_sv_sethek(ptr noundef %25, ptr noundef %67) #12
+  tail call void @Perl_sv_catpvn_flags(ptr noundef %25, ptr noundef nonnull @.str.16, i64 noundef 2, i32 noundef 2) #12
+  %68 = load ptr, ptr %0, align 8, !tbaa !148
+  %69 = getelementptr inbounds %struct.xpvcv, ptr %68, i64 0, i32 12
+  %70 = load i32, ptr %69, align 4, !tbaa !153
+  %71 = and i32 %70, 32768
+  %72 = icmp ne i32 %71, 0
+  tail call void @llvm.assume(i1 %72)
+  %73 = getelementptr inbounds %struct.xpvcv, ptr %68, i64 0, i32 7
+  %74 = load ptr, ptr %73, align 8, !tbaa !137
+  %75 = getelementptr inbounds %struct.hek, ptr %74, i64 0, i32 2
+  %76 = getelementptr inbounds %struct.hek, ptr %74, i64 0, i32 1
+  %77 = load i32, ptr %76, align 4, !tbaa !433
+  %78 = sext i32 %77 to i64
+  %79 = getelementptr inbounds i8, ptr %75, i64 %78
+  %80 = getelementptr inbounds i8, ptr %79, i64 1
+  %81 = load i8, ptr %80, align 1, !tbaa !137
+  %82 = and i8 %81, 1
+  %83 = icmp eq i8 %82, 0
+  %84 = select i1 %83, i32 16384, i32 32768
+  tail call void @Perl_sv_catpvn_flags(ptr noundef %25, ptr noundef nonnull %75, i64 noundef %78, i32 noundef %84) #12
+  br label %105
 
-75:                                               ; preds = %26
-  %76 = tail call fastcc ptr @S_CvGV(ptr noundef nonnull %0) #15
-  br i1 %35, label %85, label %77, !prof !438
+85:                                               ; preds = %29
+  %86 = getelementptr inbounds %struct.xpvcv, ptr %30, i64 0, i32 7
+  %87 = load ptr, ptr %86, align 8, !tbaa !137
+  br i1 %38, label %96, label %88, !prof !425
 
-77:                                               ; preds = %75
-  %78 = getelementptr inbounds %struct.gv, ptr %76, i64 0, i32 3
-  %79 = load ptr, ptr %78, align 8, !tbaa !168
-  %80 = getelementptr inbounds %struct.gp, ptr %79, i64 0, i32 8
-  %81 = load ptr, ptr %80, align 8, !tbaa !439
-  %82 = load ptr, ptr %81, align 8, !tbaa !440
-  %83 = getelementptr inbounds %struct.xpvgv, ptr %82, i64 0, i32 4
-  %84 = load ptr, ptr %83, align 8, !tbaa !168
-  tail call void @Perl_sv_sethek(ptr noundef %23, ptr noundef %84) #14
-  br label %94
+88:                                               ; preds = %85
+  %89 = getelementptr inbounds %struct.gv, ptr %87, i64 0, i32 3
+  %90 = load ptr, ptr %89, align 8, !tbaa !137
+  %91 = getelementptr inbounds %struct.gp, ptr %90, i64 0, i32 8
+  %92 = load ptr, ptr %91, align 8, !tbaa !435
+  %93 = load ptr, ptr %92, align 8, !tbaa !436
+  %94 = getelementptr inbounds %struct.xpvgv, ptr %93, i64 0, i32 4
+  %95 = load ptr, ptr %94, align 8, !tbaa !137
+  tail call void @Perl_sv_sethek(ptr noundef %25, ptr noundef %95) #12
+  br label %105
 
-85:                                               ; preds = %75
-  tail call void @Perl_gv_efullname4(ptr noundef %23, ptr noundef %76, ptr noundef null, i1 noundef zeroext true) #14
-  br label %94
+96:                                               ; preds = %85
+  tail call void @Perl_gv_efullname4(ptr noundef %25, ptr noundef %87, ptr noundef null, i1 noundef zeroext true) #12
+  br label %105
 
-86:                                               ; preds = %21
-  %87 = and i32 %2, 1
-  %88 = icmp eq i32 %87, 0
-  br i1 %88, label %93, label %89
+97:                                               ; preds = %24
+  %98 = and i32 %2, 1
+  %99 = icmp eq i32 %98, 0
+  br i1 %99, label %104, label %100
 
-89:                                               ; preds = %86
-  %90 = load ptr, ptr %0, align 8, !tbaa !181
-  %91 = getelementptr inbounds %struct.xpvgv, ptr %90, i64 0, i32 4
-  %92 = load ptr, ptr %91, align 8, !tbaa !168
-  tail call void @Perl_sv_sethek(ptr noundef %23, ptr noundef %92) #14
-  br label %94
+100:                                              ; preds = %97
+  %101 = load ptr, ptr %0, align 8, !tbaa !148
+  %102 = getelementptr inbounds %struct.xpvgv, ptr %101, i64 0, i32 4
+  %103 = load ptr, ptr %102, align 8, !tbaa !137
+  tail call void @Perl_sv_sethek(ptr noundef %25, ptr noundef %103) #12
+  br label %105
 
-93:                                               ; preds = %86
-  tail call void @Perl_gv_efullname4(ptr noundef %23, ptr noundef nonnull %0, ptr noundef null, i1 noundef zeroext true) #14
-  br label %94
+104:                                              ; preds = %97
+  tail call void @Perl_gv_efullname4(ptr noundef %25, ptr noundef %0, ptr noundef null, i1 noundef zeroext true) #12
+  br label %105
 
-94:                                               ; preds = %77, %85, %37, %62, %93, %89, %13, %15
-  %95 = phi ptr [ %1, %15 ], [ %0, %13 ], [ %23, %89 ], [ %23, %93 ], [ %23, %62 ], [ %23, %37 ], [ %23, %85 ], [ %23, %77 ]
-  ret ptr %95
+105:                                              ; preds = %88, %96, %40, %66, %104, %100, %17, %19
+  %106 = phi ptr [ %1, %19 ], [ %0, %17 ], [ %25, %100 ], [ %25, %104 ], [ %25, %66 ], [ %25, %40 ], [ %25, %96 ], [ %25, %88 ]
+  ret ptr %106
 }
 
-; Function Attrs: optsize
 declare void @Perl_sv_setsv_flags(ptr noundef, ptr noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_sv_newmortal() local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_sv_sethek(ptr noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_sv_catpvn_flags(ptr noundef, ptr noundef, i64 noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define internal fastcc ptr @S_CvGV(ptr noundef %0) unnamed_addr #0 !prof !442 !PGOFuncName !443 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !181
-  %3 = getelementptr inbounds %struct.xpvcv, ptr %2, i64 0, i32 12
-  %4 = load i32, ptr %3, align 4, !tbaa !186
-  %5 = and i32 %4, 32768
-  %6 = icmp eq i32 %5, 0
-  br i1 %6, label %9, label %7, !prof !388
-
-7:                                                ; preds = %1
-  %8 = tail call ptr @Perl_cvgv_from_hek(ptr noundef nonnull %0) #14
-  br label %12
-
-9:                                                ; preds = %1
-  %10 = getelementptr inbounds %struct.xpvcv, ptr %2, i64 0, i32 7
-  %11 = load ptr, ptr %10, align 8, !tbaa !168
-  br label %12
-
-12:                                               ; preds = %9, %7
-  %13 = phi ptr [ %8, %7 ], [ %11, %9 ]
-  ret ptr %13
-}
-
-; Function Attrs: optsize
 declare void @Perl_gv_efullname4(ptr noundef, ptr noundef, ptr noundef, i1 noundef zeroext) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_pad_fixup_inner_anons(ptr nocapture noundef readonly %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 !prof !444 {
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_pad_fixup_inner_anons(ptr nocapture noundef readonly %0, ptr noundef %1, ptr noundef %2) local_unnamed_addr #0 !prof !438 {
   %4 = getelementptr inbounds %struct.padlist, ptr %0, i64 0, i32 1
-  %5 = load ptr, ptr %4, align 8, !tbaa !167
-  %6 = load ptr, ptr %5, align 8, !tbaa !150
+  %5 = load ptr, ptr %4, align 8, !tbaa !136
+  %6 = load ptr, ptr %5, align 8, !tbaa !116
   %7 = getelementptr inbounds ptr, ptr %5, i64 1
-  %8 = load ptr, ptr %7, align 8, !tbaa !150
+  %8 = load ptr, ptr %7, align 8, !tbaa !116
   %9 = getelementptr inbounds %struct.padnamelist, ptr %6, i64 0, i32 1
-  %10 = load ptr, ptr %9, align 8, !tbaa !172
+  %10 = load ptr, ptr %9, align 8, !tbaa !132
   %11 = getelementptr inbounds %struct.av, ptr %8, i64 0, i32 3
-  %12 = load ptr, ptr %11, align 8, !tbaa !168
-  %13 = load i64, ptr %6, align 8, !tbaa !173
+  %12 = load ptr, ptr %11, align 8, !tbaa !137
+  %13 = load i64, ptr %6, align 8, !tbaa !133
   %14 = trunc i64 %13 to i32
   %15 = icmp sgt i32 %14, 0
-  br i1 %15, label %16, label %117, !prof !445
+  br i1 %15, label %16, label %146, !prof !439
 
 16:                                               ; preds = %3
   %17 = and i64 %13, 4294967295
   br label %18
 
-18:                                               ; preds = %16, %114
-  %19 = phi i64 [ %17, %16 ], [ %115, %114 ]
+18:                                               ; preds = %16, %143
+  %19 = phi i64 [ %17, %16 ], [ %144, %143 ]
   %20 = getelementptr inbounds ptr, ptr %10, i64 %19
-  %21 = load ptr, ptr %20, align 8, !tbaa !150
+  %21 = load ptr, ptr %20, align 8, !tbaa !116
   %22 = icmp ne ptr %21, null
   %23 = icmp ne ptr %21, @PL_padname_undef
   %24 = and i1 %22, %23
-  br i1 %24, label %25, label %114, !prof !446
+  br i1 %24, label %25, label %143, !prof !440
 
 25:                                               ; preds = %18
   %26 = getelementptr inbounds %struct.padname, ptr %21, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !270
+  %27 = load ptr, ptr %26, align 8, !tbaa !228
   %28 = icmp eq ptr %27, null
-  br i1 %28, label %29, label %114, !prof !447
+  br i1 %28, label %29, label %143, !prof !441
 
 29:                                               ; preds = %25
-  %30 = load ptr, ptr %21, align 8, !tbaa !208
-  %31 = load i8, ptr %30, align 1, !tbaa !168
+  %30 = load ptr, ptr %21, align 8, !tbaa !175
+  %31 = load i8, ptr %30, align 1, !tbaa !137
   %32 = icmp eq i8 %31, 38
-  br i1 %32, label %33, label %114, !prof !448
+  br i1 %32, label %33, label %143, !prof !442
 
 33:                                               ; preds = %29
   %34 = getelementptr inbounds ptr, ptr %12, i64 %19
   %35 = getelementptr inbounds %struct.padname, ptr %21, i64 0, i32 8
-  %36 = load i8, ptr %35, align 1, !tbaa !265
+  %36 = load i8, ptr %35, align 1, !tbaa !220
   %37 = and i8 %36, 1
   %38 = icmp eq i8 %37, 0
-  br i1 %38, label %69, label %39
+  br i1 %38, label %80, label %39
 
 39:                                               ; preds = %33
-  %40 = load ptr, ptr %2, align 8, !tbaa !181
-  br label %41
+  %40 = getelementptr inbounds %struct.padname, ptr %21, i64 0, i32 8
+  %41 = load i8, ptr %40, align 1, !tbaa !220
+  %42 = and i8 %41, 1
+  %43 = icmp eq i8 %42, 0
+  br i1 %43, label %67, label %44
 
-41:                                               ; preds = %39, %41
-  %42 = phi ptr [ %46, %41 ], [ %40, %39 ]
-  %43 = phi ptr [ %58, %41 ], [ %21, %39 ]
-  %44 = getelementptr inbounds %struct.xpvcv, ptr %42, i64 0, i32 10
-  %45 = load ptr, ptr %44, align 8, !tbaa !204
-  %46 = load ptr, ptr %45, align 8, !tbaa !181
-  %47 = getelementptr inbounds %struct.xpvcv, ptr %46, i64 0, i32 9
-  %48 = load ptr, ptr %47, align 8, !tbaa !168
-  %49 = getelementptr inbounds %struct.padlist, ptr %48, i64 0, i32 1
-  %50 = load ptr, ptr %49, align 8, !tbaa !167
-  %51 = load ptr, ptr %50, align 8, !tbaa !150
-  %52 = getelementptr inbounds %struct.padnamelist, ptr %51, i64 0, i32 1
-  %53 = load ptr, ptr %52, align 8, !tbaa !172
-  %54 = getelementptr inbounds %struct.padname, ptr %43, i64 0, i32 3
-  %55 = load i32, ptr %54, align 8, !tbaa !251
-  %56 = zext i32 %55 to i64
-  %57 = getelementptr inbounds ptr, ptr %53, i64 %56
-  %58 = load ptr, ptr %57, align 8, !tbaa !150
-  %59 = getelementptr inbounds %struct.padname, ptr %58, i64 0, i32 8
-  %60 = load i8, ptr %59, align 1, !tbaa !265
-  %61 = and i8 %60, 1
-  %62 = icmp eq i8 %61, 0
-  br i1 %62, label %63, label %41, !llvm.loop !449
+44:                                               ; preds = %39, %44
+  %45 = phi ptr [ %62, %44 ], [ %21, %39 ]
+  %46 = phi ptr [ %49, %44 ], [ %2, %39 ]
+  %47 = load ptr, ptr %46, align 8, !tbaa !148
+  %48 = getelementptr inbounds %struct.xpvcv, ptr %47, i64 0, i32 10
+  %49 = load ptr, ptr %48, align 8, !tbaa !171
+  %50 = load ptr, ptr %49, align 8, !tbaa !148
+  %51 = getelementptr inbounds %struct.xpvcv, ptr %50, i64 0, i32 9
+  %52 = load ptr, ptr %51, align 8, !tbaa !137
+  %53 = getelementptr inbounds %struct.padlist, ptr %52, i64 0, i32 1
+  %54 = load ptr, ptr %53, align 8, !tbaa !136
+  %55 = load ptr, ptr %54, align 8, !tbaa !116
+  %56 = getelementptr inbounds %struct.padnamelist, ptr %55, i64 0, i32 1
+  %57 = load ptr, ptr %56, align 8, !tbaa !132
+  %58 = getelementptr inbounds %struct.padname, ptr %45, i64 0, i32 3
+  %59 = load i32, ptr %58, align 8, !tbaa !222
+  %60 = zext i32 %59 to i64
+  %61 = getelementptr inbounds ptr, ptr %57, i64 %60
+  %62 = load ptr, ptr %61, align 8, !tbaa !116
+  %63 = getelementptr inbounds %struct.padname, ptr %62, i64 0, i32 8
+  %64 = load i8, ptr %63, align 1, !tbaa !220
+  %65 = and i8 %64, 1
+  %66 = icmp eq i8 %65, 0
+  br i1 %66, label %67, label %44, !llvm.loop !443
 
-63:                                               ; preds = %41
-  %64 = getelementptr inbounds ptr, ptr %50, i64 1
-  %65 = load ptr, ptr %64, align 8, !tbaa !150
-  %66 = getelementptr inbounds %struct.av, ptr %65, i64 0, i32 3
-  %67 = load ptr, ptr %66, align 8, !tbaa !168
-  %68 = getelementptr inbounds ptr, ptr %67, i64 %56
-  br label %69
+67:                                               ; preds = %44, %39
+  %68 = phi ptr [ %2, %39 ], [ %49, %44 ]
+  %69 = phi i64 [ %19, %39 ], [ %60, %44 ]
+  %70 = load ptr, ptr %68, align 8, !tbaa !148
+  %71 = getelementptr inbounds %struct.xpvcv, ptr %70, i64 0, i32 9
+  %72 = load ptr, ptr %71, align 8, !tbaa !137
+  %73 = getelementptr inbounds %struct.padlist, ptr %72, i64 0, i32 1
+  %74 = load ptr, ptr %73, align 8, !tbaa !136
+  %75 = getelementptr inbounds ptr, ptr %74, i64 1
+  %76 = load ptr, ptr %75, align 8, !tbaa !116
+  %77 = getelementptr inbounds %struct.av, ptr %76, i64 0, i32 3
+  %78 = load ptr, ptr %77, align 8, !tbaa !137
+  %79 = getelementptr inbounds ptr, ptr %78, i64 %69
+  br label %80
 
-69:                                               ; preds = %33, %63
-  %70 = phi ptr [ %68, %63 ], [ %34, %33 ]
-  %71 = load ptr, ptr %70, align 8, !tbaa !150
-  %72 = getelementptr inbounds %struct.cv, ptr %71, i64 0, i32 2
-  %73 = load i32, ptr %72, align 4, !tbaa !216
-  %74 = and i32 %73, 255
-  %75 = icmp eq i32 %74, 13
-  br i1 %75, label %76, label %86
+80:                                               ; preds = %33, %67
+  %81 = phi ptr [ %79, %67 ], [ %34, %33 ]
+  %82 = load ptr, ptr %81, align 8, !tbaa !116
+  %83 = getelementptr inbounds %struct.cv, ptr %82, i64 0, i32 2
+  %84 = load i32, ptr %83, align 4, !tbaa !184
+  %85 = and i32 %84, 255
+  %86 = icmp eq i32 %85, 13
+  br i1 %86, label %87, label %107
 
-76:                                               ; preds = %69
-  %77 = load ptr, ptr %71, align 8, !tbaa !181
-  %78 = getelementptr inbounds %struct.xpvcv, ptr %77, i64 0, i32 10
-  %79 = load ptr, ptr %78, align 8, !tbaa !204
-  %80 = icmp eq ptr %79, %1
-  br i1 %80, label %81, label %114
+87:                                               ; preds = %80
+  %88 = load ptr, ptr %82, align 8, !tbaa !148
+  %89 = getelementptr inbounds %struct.xpvcv, ptr %88, i64 0, i32 10
+  %90 = load ptr, ptr %89, align 8, !tbaa !171
+  %91 = icmp eq ptr %90, %1
+  br i1 %91, label %92, label %143
 
-81:                                               ; preds = %76
-  %82 = getelementptr inbounds %struct.xpvcv, ptr %77, i64 0, i32 12
-  %83 = load i32, ptr %82, align 4, !tbaa !186
-  %84 = and i32 %83, 16
-  %85 = icmp eq i32 %84, 0
-  br i1 %85, label %104, label %111
+92:                                               ; preds = %87
+  %93 = getelementptr inbounds %struct.xpvcv, ptr %88, i64 0, i32 12
+  %94 = load i32, ptr %93, align 4, !tbaa !153
+  %95 = and i32 %94, 16
+  %96 = icmp eq i32 %95, 0
+  br i1 %96, label %97, label %139
 
-86:                                               ; preds = %69
-  %87 = load ptr, ptr %34, align 8, !tbaa !150
-  %88 = getelementptr inbounds %struct.sv, ptr %87, i64 0, i32 2
-  %89 = load i32, ptr %88, align 4, !tbaa !199
-  %90 = and i32 %89, 65280
-  %91 = icmp ne i32 %90, 0
-  %92 = and i32 %89, 255
-  %93 = icmp eq i32 %92, 8
-  %94 = or i1 %91, %93
-  %95 = and i32 %89, 16777471
-  %96 = icmp eq i32 %95, 16777226
-  %97 = or i1 %96, %94
-  br i1 %97, label %98, label %114
+97:                                               ; preds = %92
+  %98 = icmp eq ptr %1, null
+  %99 = getelementptr inbounds %struct.sv, ptr %2, i64 0, i32 1
+  br i1 %98, label %134, label %100
 
-98:                                               ; preds = %86
-  %99 = getelementptr inbounds %struct.sv, ptr %87, i64 0, i32 3
-  %100 = load ptr, ptr %99, align 8, !tbaa !168
-  %101 = load ptr, ptr %100, align 8, !tbaa !181
-  %102 = getelementptr inbounds %struct.xpvcv, ptr %101, i64 0, i32 10
-  %103 = load ptr, ptr %102, align 8, !tbaa !204
-  br label %104
+100:                                              ; preds = %97
+  %101 = getelementptr inbounds %struct.sv, ptr %1, i64 0, i32 1
+  %102 = load i32, ptr %101, align 8, !tbaa !182
+  %103 = icmp ugt i32 %102, 1
+  br i1 %103, label %104, label %106
 
-104:                                              ; preds = %81, %98
-  %105 = phi ptr [ %103, %98 ], [ %1, %81 ]
-  %106 = phi ptr [ %100, %98 ], [ %71, %81 ]
-  %107 = getelementptr inbounds %struct.cv, ptr %2, i64 0, i32 1
-  tail call fastcc void @S_SvREFCNT_dec(ptr noundef %105) #15
-  %108 = load i32, ptr %107, align 8, !tbaa !163
-  %109 = add i32 %108, 1
-  store i32 %109, ptr %107, align 8, !tbaa !163
-  %110 = load ptr, ptr %106, align 8, !tbaa !181
-  br label %111
+104:                                              ; preds = %100
+  %105 = add i32 %102, -1
+  store i32 %105, ptr %101, align 8, !tbaa !182
+  br label %134
 
-111:                                              ; preds = %104, %81
-  %112 = phi ptr [ %77, %81 ], [ %110, %104 ]
-  %113 = getelementptr inbounds %struct.xpvcv, ptr %112, i64 0, i32 10
-  store ptr %2, ptr %113, align 8, !tbaa !204
-  br label %114
+106:                                              ; preds = %100
+  tail call void @Perl_sv_free2(ptr noundef nonnull %1, i32 noundef %102) #12
+  br label %134
 
-114:                                              ; preds = %111, %76, %86, %18, %25, %29
-  %115 = add nsw i64 %19, -1
-  %116 = icmp sgt i64 %19, 1
-  br i1 %116, label %18, label %117, !prof !450, !llvm.loop !451
+107:                                              ; preds = %80
+  %108 = load ptr, ptr %34, align 8, !tbaa !116
+  %109 = getelementptr inbounds %struct.sv, ptr %108, i64 0, i32 2
+  %110 = load i32, ptr %109, align 4, !tbaa !166
+  %111 = and i32 %110, 65280
+  %112 = icmp ne i32 %111, 0
+  %113 = and i32 %110, 255
+  %114 = icmp eq i32 %113, 8
+  %115 = or i1 %112, %114
+  %116 = and i32 %110, 16777471
+  %117 = icmp eq i32 %116, 16777226
+  %118 = or i1 %117, %115
+  br i1 %118, label %119, label %143
 
-117:                                              ; preds = %114, %3
+119:                                              ; preds = %107
+  %120 = getelementptr inbounds %struct.cv, ptr %2, i64 0, i32 1
+  %121 = getelementptr inbounds %struct.sv, ptr %108, i64 0, i32 3
+  %122 = load ptr, ptr %121, align 8, !tbaa !137
+  %123 = load ptr, ptr %122, align 8, !tbaa !148
+  %124 = getelementptr inbounds %struct.xpvcv, ptr %123, i64 0, i32 10
+  %125 = load ptr, ptr %124, align 8, !tbaa !171
+  %126 = icmp eq ptr %125, null
+  br i1 %126, label %134, label %127
+
+127:                                              ; preds = %119
+  %128 = getelementptr inbounds %struct.sv, ptr %125, i64 0, i32 1
+  %129 = load i32, ptr %128, align 8, !tbaa !182
+  %130 = icmp ugt i32 %129, 1
+  br i1 %130, label %131, label %133
+
+131:                                              ; preds = %127
+  %132 = add i32 %129, -1
+  store i32 %132, ptr %128, align 8, !tbaa !182
+  br label %134
+
+133:                                              ; preds = %127
+  tail call void @Perl_sv_free2(ptr noundef nonnull %125, i32 noundef %129) #12
+  br label %134
+
+134:                                              ; preds = %133, %131, %119, %106, %104, %97
+  %135 = phi ptr [ %99, %97 ], [ %99, %104 ], [ %99, %106 ], [ %120, %119 ], [ %120, %131 ], [ %120, %133 ]
+  %136 = phi ptr [ %82, %97 ], [ %82, %104 ], [ %82, %106 ], [ %122, %119 ], [ %122, %131 ], [ %122, %133 ]
+  %137 = load i32, ptr %135, align 8, !tbaa !129
+  %138 = add i32 %137, 1
+  store i32 %138, ptr %135, align 8, !tbaa !129
+  br label %139
+
+139:                                              ; preds = %134, %92
+  %140 = phi ptr [ %82, %92 ], [ %136, %134 ]
+  %141 = load ptr, ptr %140, align 8, !tbaa !148
+  %142 = getelementptr inbounds %struct.xpvcv, ptr %141, i64 0, i32 10
+  store ptr %2, ptr %142, align 8, !tbaa !171
+  br label %143
+
+143:                                              ; preds = %139, %87, %107, %18, %25, %29
+  %144 = add nsw i64 %19, -1
+  %145 = icmp sgt i64 %19, 1
+  br i1 %145, label %18, label %146, !prof !444, !llvm.loop !445
+
+146:                                              ; preds = %143, %3
   ret void
 }
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_pad_push(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 !prof !452 {
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_pad_push(ptr noundef %0, i32 noundef %1) local_unnamed_addr #0 !prof !446 {
   %3 = sext i32 %1 to i64
-  %4 = load i64, ptr %0, align 8, !tbaa !166
+  %4 = load i64, ptr %0, align 8, !tbaa !135
   %5 = icmp slt i64 %4, %3
-  %6 = getelementptr inbounds %struct.padlist, ptr %0, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !167
-  br i1 %5, label %12, label %8, !prof !453
+  br i1 %5, label %12, label %6, !prof !447
 
-8:                                                ; preds = %2
-  %9 = getelementptr inbounds ptr, ptr %7, i64 %3
-  %10 = load ptr, ptr %9, align 8, !tbaa !150
+6:                                                ; preds = %2
+  %7 = getelementptr inbounds %struct.padlist, ptr %0, i64 0, i32 1
+  %8 = load ptr, ptr %7, align 8, !tbaa !136
+  %9 = getelementptr inbounds ptr, ptr %8, i64 %3
+  %10 = load ptr, ptr %9, align 8, !tbaa !116
   %11 = icmp eq ptr %10, null
-  br i1 %11, label %12, label %96, !prof !454
+  br i1 %11, label %12, label %107, !prof !448
 
-12:                                               ; preds = %2, %8
-  %13 = tail call ptr @Perl_newSV_type(i32 noundef 11) #14
-  %14 = getelementptr ptr, ptr %7, i64 %3
-  %15 = getelementptr ptr, ptr %14, i64 -1
-  %16 = load ptr, ptr %15, align 8, !tbaa !150
-  %17 = getelementptr inbounds %struct.av, ptr %16, i64 0, i32 3
-  %18 = load ptr, ptr %17, align 8, !tbaa !168
-  %19 = getelementptr inbounds ptr, ptr %7, i64 1
-  %20 = load ptr, ptr %19, align 8, !tbaa !150
-  %21 = load ptr, ptr %20, align 8, !tbaa !299
-  %22 = getelementptr inbounds %struct.xpvav, ptr %21, i64 0, i32 2
-  %23 = load i64, ptr %22, align 8, !tbaa !300
-  %24 = trunc i64 %23 to i32
-  %25 = load ptr, ptr %7, align 8, !tbaa !150
-  %26 = getelementptr inbounds %struct.padnamelist, ptr %25, i64 0, i32 1
-  %27 = load ptr, ptr %26, align 8, !tbaa !172
-  %28 = icmp sgt i32 %24, 0
-  br i1 %28, label %29, label %88, !prof !455
+12:                                               ; preds = %6, %2
+  %13 = getelementptr inbounds %struct.padlist, ptr %0, i64 0, i32 1
+  %14 = load ptr, ptr %13, align 8, !tbaa !136
+  %15 = tail call ptr @Perl_newSV_type(i32 noundef 11) #12
+  %16 = getelementptr ptr, ptr %14, i64 %3
+  %17 = getelementptr ptr, ptr %16, i64 -1
+  %18 = load ptr, ptr %17, align 8, !tbaa !116
+  %19 = getelementptr inbounds %struct.av, ptr %18, i64 0, i32 3
+  %20 = load ptr, ptr %19, align 8, !tbaa !137
+  %21 = getelementptr inbounds ptr, ptr %14, i64 1
+  %22 = load ptr, ptr %21, align 8, !tbaa !116
+  %23 = load ptr, ptr %22, align 8, !tbaa !246
+  %24 = getelementptr inbounds %struct.xpvav, ptr %23, i64 0, i32 2
+  %25 = load i64, ptr %24, align 8, !tbaa !247
+  %26 = trunc i64 %25 to i32
+  %27 = load ptr, ptr %14, align 8, !tbaa !116
+  %28 = getelementptr inbounds %struct.padnamelist, ptr %27, i64 0, i32 1
+  %29 = load ptr, ptr %28, align 8, !tbaa !132
+  %30 = icmp sgt i32 %26, 0
+  br i1 %30, label %31, label %99, !prof !449
 
-29:                                               ; preds = %12
-  %30 = load i64, ptr %25, align 8, !tbaa !173
-  %31 = and i64 %23, 4294967295
-  %32 = shl i64 %30, 32
-  %33 = ashr exact i64 %32, 32
-  br label %34
+31:                                               ; preds = %12
+  %32 = load i64, ptr %27, align 8, !tbaa !133
+  %33 = and i64 %25, 4294967295
+  %34 = shl i64 %32, 32
+  %35 = ashr exact i64 %34, 32
+  br label %36
 
-34:                                               ; preds = %29, %85
-  %35 = phi i64 [ %31, %29 ], [ %86, %85 ]
-  %36 = icmp sgt i64 %35, %33
-  %37 = getelementptr inbounds ptr, ptr %27, i64 %35
-  %38 = load ptr, ptr %37, align 8, !tbaa !150
-  br i1 %36, label %71, label %39, !prof !456
+36:                                               ; preds = %31, %96
+  %37 = phi i64 [ %33, %31 ], [ %97, %96 ]
+  %38 = icmp sgt i64 %37, %35
+  br i1 %38, label %78, label %39, !prof !450
 
-39:                                               ; preds = %34
-  %40 = getelementptr inbounds %struct.padname, ptr %38, i64 0, i32 7
-  %41 = load i8, ptr %40, align 8, !tbaa !257
-  %42 = icmp eq i8 %41, 0
-  br i1 %42, label %71, label %43, !prof !457
+39:                                               ; preds = %36
+  %40 = getelementptr inbounds ptr, ptr %29, i64 %37
+  %41 = load ptr, ptr %40, align 8, !tbaa !116
+  %42 = getelementptr inbounds %struct.padname, ptr %41, i64 0, i32 7
+  %43 = load i8, ptr %42, align 8, !tbaa !213
+  %44 = icmp eq i8 %43, 0
+  br i1 %44, label %78, label %45, !prof !451
 
-43:                                               ; preds = %39
-  %44 = getelementptr inbounds %struct.padname, ptr %38, i64 0, i32 8
-  %45 = load i8, ptr %44, align 1, !tbaa !265
-  %46 = zext i8 %45 to i32
-  %47 = and i32 %46, 1
-  %48 = icmp eq i32 %47, 0
-  br i1 %48, label %49, label %56, !prof !458
+45:                                               ; preds = %39
+  %46 = getelementptr inbounds %struct.padname, ptr %41, i64 0, i32 8
+  %47 = load i8, ptr %46, align 1, !tbaa !220
+  %48 = zext i8 %47 to i32
+  %49 = and i32 %48, 1
+  %50 = icmp eq i32 %49, 0
+  br i1 %50, label %51, label %58, !prof !452
 
-49:                                               ; preds = %43
-  %50 = load ptr, ptr %38, align 8, !tbaa !208
-  %51 = load i8, ptr %50, align 1, !tbaa !168
-  %52 = and i32 %46, 2
-  %53 = icmp ne i32 %52, 0
-  %54 = icmp eq i8 %51, 38
-  %55 = select i1 %53, i1 true, i1 %54
-  br i1 %55, label %56, label %61, !prof !459
+51:                                               ; preds = %45
+  %52 = load ptr, ptr %41, align 8, !tbaa !175
+  %53 = load i8, ptr %52, align 1, !tbaa !137
+  %54 = and i32 %48, 2
+  %55 = icmp ne i32 %54, 0
+  %56 = icmp eq i8 %53, 38
+  %57 = select i1 %55, i1 true, i1 %56, !prof !453
+  br i1 %57, label %58, label %68, !prof !453
 
-56:                                               ; preds = %49, %43
-  %57 = getelementptr inbounds ptr, ptr %18, i64 %35
-  %58 = load ptr, ptr %57, align 8, !tbaa !150
-  %59 = tail call fastcc ptr @S_SvREFCNT_inc(ptr noundef %58) #15
-  %60 = tail call ptr @Perl_av_store(ptr noundef %13, i64 noundef %35, ptr noundef %58) #14
-  br label %85
+58:                                               ; preds = %51, %45
+  %59 = getelementptr inbounds ptr, ptr %20, i64 %37
+  %60 = load ptr, ptr %59, align 8, !tbaa !116
+  %61 = icmp eq ptr %60, null
+  br i1 %61, label %66, label %62, !prof !454
 
-61:                                               ; preds = %49
-  switch i8 %51, label %66 [
-    i8 64, label %62
-    i8 37, label %64
-  ], !prof !460
+62:                                               ; preds = %58
+  %63 = getelementptr inbounds %struct.sv, ptr %60, i64 0, i32 1
+  %64 = load i32, ptr %63, align 8, !tbaa !182
+  %65 = add i32 %64, 1
+  store i32 %65, ptr %63, align 8, !tbaa !182
+  br label %66
 
-62:                                               ; preds = %61
-  %63 = tail call ptr @Perl_newSV_type(i32 noundef 11) #14
-  br label %68
-
-64:                                               ; preds = %61
-  %65 = tail call ptr @Perl_newSV_type(i32 noundef 12) #14
-  br label %68
-
-66:                                               ; preds = %61
-  %67 = tail call ptr @Perl_newSV(i64 noundef 0) #14
-  br label %68
-
-68:                                               ; preds = %64, %66, %62
-  %69 = phi ptr [ %63, %62 ], [ %65, %64 ], [ %67, %66 ]
-  %70 = tail call ptr @Perl_av_store(ptr noundef %13, i64 noundef %35, ptr noundef %69) #14
-  br label %85
-
-71:                                               ; preds = %34, %39
-  %72 = load ptr, ptr %38, align 8, !tbaa !208
-  %73 = icmp eq ptr %72, null
-  br i1 %73, label %79, label %74, !prof !461
-
-74:                                               ; preds = %71
-  %75 = getelementptr inbounds ptr, ptr %18, i64 %35
-  %76 = load ptr, ptr %75, align 8, !tbaa !150
-  %77 = tail call fastcc ptr @S_SvREFCNT_inc_NN(ptr noundef %76) #15
-  %78 = tail call ptr @Perl_av_store(ptr noundef %13, i64 noundef %35, ptr noundef %76) #14
-  br label %85
-
-79:                                               ; preds = %71
-  %80 = tail call ptr @Perl_newSV(i64 noundef 0) #14
-  %81 = tail call ptr @Perl_av_store(ptr noundef %13, i64 noundef %35, ptr noundef %80) #14
-  %82 = getelementptr inbounds %struct.sv, ptr %80, i64 0, i32 2
-  %83 = load i32, ptr %82, align 4, !tbaa !199
-  %84 = or i32 %83, 131072
-  store i32 %84, ptr %82, align 4, !tbaa !199
-  br label %85
-
-85:                                               ; preds = %56, %68, %79, %74
-  %86 = add nsw i64 %35, -1
-  %87 = icmp sgt i64 %35, 1
-  br i1 %87, label %34, label %88, !prof !462, !llvm.loop !463
-
-88:                                               ; preds = %85, %12
-  %89 = tail call ptr @Perl_newSV_type(i32 noundef 11) #14
-  %90 = tail call ptr @Perl_av_store(ptr noundef %13, i64 noundef 0, ptr noundef %89) #14
-  %91 = getelementptr inbounds %struct.av, ptr %89, i64 0, i32 2
-  %92 = load i32, ptr %91, align 4, !tbaa !157
-  %93 = and i32 %92, 1073741823
-  %94 = or disjoint i32 %93, -2147483648
-  store i32 %94, ptr %91, align 4, !tbaa !157
-  %95 = tail call ptr @Perl_padlist_store(ptr noundef nonnull %0, i32 noundef %1, ptr noundef %13) #15
+66:                                               ; preds = %58, %62
+  %67 = tail call ptr @Perl_av_store(ptr noundef %15, i64 noundef %37, ptr noundef %60) #12
   br label %96
 
-96:                                               ; preds = %88, %8
+68:                                               ; preds = %51
+  switch i8 %53, label %73 [
+    i8 64, label %69
+    i8 37, label %71
+  ], !prof !455
+
+69:                                               ; preds = %68
+  %70 = tail call ptr @Perl_newSV_type(i32 noundef 11) #12
+  br label %75
+
+71:                                               ; preds = %68
+  %72 = tail call ptr @Perl_newSV_type(i32 noundef 12) #12
+  br label %75
+
+73:                                               ; preds = %68
+  %74 = tail call ptr @Perl_newSV(i64 noundef 0) #12
+  br label %75
+
+75:                                               ; preds = %71, %73, %69
+  %76 = phi ptr [ %70, %69 ], [ %72, %71 ], [ %74, %73 ]
+  %77 = tail call ptr @Perl_av_store(ptr noundef %15, i64 noundef %37, ptr noundef %76) #12
+  br label %96
+
+78:                                               ; preds = %39, %36
+  %79 = getelementptr inbounds ptr, ptr %29, i64 %37
+  %80 = load ptr, ptr %79, align 8, !tbaa !116
+  %81 = load ptr, ptr %80, align 8, !tbaa !175
+  %82 = icmp eq ptr %81, null
+  br i1 %82, label %90, label %83, !prof !456
+
+83:                                               ; preds = %78
+  %84 = getelementptr inbounds ptr, ptr %20, i64 %37
+  %85 = load ptr, ptr %84, align 8, !tbaa !116
+  %86 = getelementptr inbounds %struct.sv, ptr %85, i64 0, i32 1
+  %87 = load i32, ptr %86, align 8, !tbaa !182
+  %88 = add i32 %87, 1
+  store i32 %88, ptr %86, align 8, !tbaa !182
+  %89 = tail call ptr @Perl_av_store(ptr noundef %15, i64 noundef %37, ptr noundef %85) #12
+  br label %96
+
+90:                                               ; preds = %78
+  %91 = tail call ptr @Perl_newSV(i64 noundef 0) #12
+  %92 = tail call ptr @Perl_av_store(ptr noundef %15, i64 noundef %37, ptr noundef %91) #12
+  %93 = getelementptr inbounds %struct.sv, ptr %91, i64 0, i32 2
+  %94 = load i32, ptr %93, align 4, !tbaa !166
+  %95 = or i32 %94, 131072
+  store i32 %95, ptr %93, align 4, !tbaa !166
+  br label %96
+
+96:                                               ; preds = %66, %75, %90, %83
+  %97 = add nsw i64 %37, -1
+  %98 = icmp sgt i64 %37, 1
+  br i1 %98, label %36, label %99, !prof !457, !llvm.loop !458
+
+99:                                               ; preds = %96, %12
+  %100 = tail call ptr @Perl_newSV_type(i32 noundef 11) #12
+  %101 = tail call ptr @Perl_av_store(ptr noundef %15, i64 noundef 0, ptr noundef %100) #12
+  %102 = getelementptr inbounds %struct.av, ptr %100, i64 0, i32 2
+  %103 = load i32, ptr %102, align 4, !tbaa !123
+  %104 = and i32 %103, 1073741823
+  %105 = or disjoint i32 %104, -2147483648
+  store i32 %105, ptr %102, align 4, !tbaa !123
+  %106 = tail call ptr @Perl_padlist_store(ptr noundef nonnull %0, i32 noundef %1, ptr noundef %15)
+  br label %107
+
+107:                                              ; preds = %99, %6
   ret void
 }
 
-; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: readwrite) uwtable
-define internal fastcc noundef ptr @S_SvREFCNT_inc(ptr noundef returned %0) unnamed_addr #8 !prof !464 !PGOFuncName !465 {
-  %2 = icmp eq ptr %0, null
-  br i1 %2, label %7, label %3, !prof !466
-
-3:                                                ; preds = %1
-  %4 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 1
-  %5 = load i32, ptr %4, align 8, !tbaa !219
-  %6 = add i32 %5, 1
-  store i32 %6, ptr %4, align 8, !tbaa !219
-  br label %7
-
-7:                                                ; preds = %1, %3
-  ret ptr %0
-}
-
-; Function Attrs: optsize
 declare ptr @Perl_newSV(i64 noundef) local_unnamed_addr #2
 
-; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: readwrite) uwtable
-define internal fastcc noundef ptr @S_SvREFCNT_inc_NN(ptr noundef returned %0) unnamed_addr #8 !prof !228 !PGOFuncName !467 {
-  %2 = getelementptr inbounds %struct.sv, ptr %0, i64 0, i32 1
-  %3 = load i32, ptr %2, align 8, !tbaa !219
-  %4 = add i32 %3, 1
-  store i32 %4, ptr %2, align 8, !tbaa !219
-  ret ptr %0
-}
-
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local noundef ptr @Perl_padlist_store(ptr noundef %0, i32 noundef %1, ptr noundef %2) local_unnamed_addr #0 !prof !468 {
-  %4 = load i64, ptr %0, align 8, !tbaa !166
+; Function Attrs: cold nounwind uwtable
+define dso_local noundef ptr @Perl_padlist_store(ptr noundef %0, i32 noundef %1, ptr noundef %2) local_unnamed_addr #3 !prof !459 {
+  %4 = load i64, ptr %0, align 8, !tbaa !135
   %5 = sext i32 %1 to i64
   %6 = icmp slt i64 %4, %5
-  br i1 %6, label %7, label %15, !prof !469
+  br i1 %6, label %7, label %15, !prof !460
 
 7:                                                ; preds = %3
   %8 = getelementptr inbounds %struct.padlist, ptr %0, i64 0, i32 1
-  tail call void @Perl_av_extend_guts(ptr noundef null, i64 noundef %5, ptr noundef nonnull %0, ptr noundef nonnull %8, ptr noundef nonnull %8) #14
-  %9 = load ptr, ptr %8, align 8, !tbaa !167
+  tail call void @Perl_av_extend_guts(ptr noundef null, i64 noundef %5, ptr noundef nonnull %0, ptr noundef nonnull %8, ptr noundef nonnull %8) #12
+  %9 = load ptr, ptr %8, align 8, !tbaa !136
   %10 = getelementptr inbounds ptr, ptr %9, i64 %4
   %11 = getelementptr inbounds ptr, ptr %10, i64 1
-  %12 = load i64, ptr %0, align 8, !tbaa !166
+  %12 = load i64, ptr %0, align 8, !tbaa !135
   %13 = sub nsw i64 %12, %4
   %14 = shl i64 %13, 3
-  tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %11, i8 0, i64 %14, i1 false)
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %11, i8 0, i64 %14, i1 false), !prof !461
   br label %15
 
 15:                                               ; preds = %7, %3
   %16 = getelementptr inbounds %struct.padlist, ptr %0, i64 0, i32 1
-  %17 = load ptr, ptr %16, align 8, !tbaa !167
+  %17 = load ptr, ptr %16, align 8, !tbaa !136
   %18 = getelementptr inbounds ptr, ptr %17, i64 %5
-  %19 = load ptr, ptr %18, align 8, !tbaa !150
-  tail call fastcc void @S_SvREFCNT_dec(ptr noundef %19) #15
-  store ptr %2, ptr %18, align 8, !tbaa !150
+  %19 = load ptr, ptr %18, align 8, !tbaa !116
+  %20 = icmp eq ptr %19, null
+  br i1 %20, label %28, label %21, !prof !460
+
+21:                                               ; preds = %15
+  %22 = getelementptr inbounds %struct.sv, ptr %19, i64 0, i32 1
+  %23 = load i32, ptr %22, align 8, !tbaa !182
+  %24 = icmp ugt i32 %23, 1
+  br i1 %24, label %25, label %27
+
+25:                                               ; preds = %21
+  %26 = add i32 %23, -1
+  store i32 %26, ptr %22, align 8, !tbaa !182
+  br label %28
+
+27:                                               ; preds = %21
+  tail call void @Perl_sv_free2(ptr noundef nonnull %19, i32 noundef %23) #12
+  br label %28
+
+28:                                               ; preds = %15, %25, %27
+  store ptr %2, ptr %18, align 8, !tbaa !116
   ret ptr %18
 }
 
-; Function Attrs: optsize
 declare void @Perl_av_extend_guts(ptr noundef, i64 noundef, ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #2
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: write)
-declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #9
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #6
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local void @Perl_padname_free(ptr noundef %0) local_unnamed_addr #0 !prof !470 {
+; Function Attrs: nounwind uwtable
+define dso_local void @Perl_padname_free(ptr noundef %0) local_unnamed_addr #0 !prof !462 {
   %2 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 5
-  %3 = load i32, ptr %2, align 8, !tbaa !249
+  %3 = load i32, ptr %2, align 8, !tbaa !211
   %4 = add i32 %3, -1
-  store i32 %4, ptr %2, align 8, !tbaa !249
+  store i32 %4, ptr %2, align 8, !tbaa !211
   %5 = icmp eq i32 %4, 0
-  br i1 %5, label %6, label %24, !prof !471
+  br i1 %5, label %6, label %42, !prof !463
 
 6:                                                ; preds = %1
   %7 = icmp eq ptr %0, @PL_padname_undef
   %8 = icmp eq ptr %0, @PL_padname_const
   %9 = or i1 %7, %8
-  br i1 %9, label %10, label %11, !prof !472
+  br i1 %9, label %10, label %11, !prof !464
 
 10:                                               ; preds = %6
-  store i32 2147483647, ptr %2, align 8, !tbaa !249
-  br label %24
+  store i32 2147483647, ptr %2, align 8, !tbaa !211
+  br label %42
 
 11:                                               ; preds = %6
   %12 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 2
-  %13 = load ptr, ptr %12, align 8, !tbaa !168
-  tail call fastcc void @S_SvREFCNT_dec(ptr noundef %13) #15
-  %14 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !270
-  tail call fastcc void @S_SvREFCNT_dec(ptr noundef %15) #15
-  %16 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 8
-  %17 = load i8, ptr %16, align 1, !tbaa !265
-  %18 = and i8 %17, 1
-  %19 = icmp eq i8 %18, 0
-  br i1 %19, label %23, label %20, !prof !473
+  %13 = load ptr, ptr %12, align 8, !tbaa !137
+  %14 = icmp eq ptr %13, null
+  br i1 %14, label %22, label %15, !prof !465
 
-20:                                               ; preds = %11
-  %21 = load ptr, ptr %0, align 8, !tbaa !208
-  %22 = getelementptr inbounds i8, ptr %21, i64 -42
-  tail call void @Perl_padname_free(ptr noundef nonnull %22) #15
-  br label %23
+15:                                               ; preds = %11
+  %16 = getelementptr inbounds %struct.sv, ptr %13, i64 0, i32 1
+  %17 = load i32, ptr %16, align 8, !tbaa !182
+  %18 = icmp ugt i32 %17, 1
+  br i1 %18, label %19, label %21
 
-23:                                               ; preds = %20, %11
-  tail call void @Perl_safesysfree(ptr noundef %0) #14
-  br label %24
+19:                                               ; preds = %15
+  %20 = add i32 %17, -1
+  store i32 %20, ptr %16, align 8, !tbaa !182
+  br label %22
 
-24:                                               ; preds = %10, %23, %1
+21:                                               ; preds = %15
+  tail call void @Perl_sv_free2(ptr noundef nonnull %13, i32 noundef %17) #12
+  br label %22
+
+22:                                               ; preds = %11, %19, %21
+  %23 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 1
+  %24 = load ptr, ptr %23, align 8, !tbaa !228
+  %25 = icmp eq ptr %24, null
+  br i1 %25, label %33, label %26, !prof !466
+
+26:                                               ; preds = %22
+  %27 = getelementptr inbounds %struct.sv, ptr %24, i64 0, i32 1
+  %28 = load i32, ptr %27, align 8, !tbaa !182
+  %29 = icmp ugt i32 %28, 1
+  br i1 %29, label %30, label %32, !prof !185
+
+30:                                               ; preds = %26
+  %31 = add i32 %28, -1
+  store i32 %31, ptr %27, align 8, !tbaa !182
+  br label %33
+
+32:                                               ; preds = %26
+  tail call void @Perl_sv_free2(ptr noundef nonnull %24, i32 noundef %28) #12
+  br label %33
+
+33:                                               ; preds = %22, %30, %32
+  %34 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 8
+  %35 = load i8, ptr %34, align 1, !tbaa !220
+  %36 = and i8 %35, 1
+  %37 = icmp eq i8 %36, 0
+  br i1 %37, label %41, label %38, !prof !467
+
+38:                                               ; preds = %33
+  %39 = load ptr, ptr %0, align 8, !tbaa !175
+  %40 = getelementptr inbounds i8, ptr %39, i64 -42
+  tail call void @Perl_padname_free(ptr noundef nonnull %40)
+  br label %41
+
+41:                                               ; preds = %38, %33
+  tail call void @Perl_safesysfree(ptr noundef %0) #12
+  br label %42
+
+42:                                               ; preds = %10, %41, %1
   ret void
 }
 
-; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(read, inaccessiblemem: none) uwtable
-define dso_local ptr @Perl_padnamelist_fetch(ptr nocapture noundef readonly %0, i64 noundef %1) local_unnamed_addr #3 !prof !474 {
-  %3 = load i64, ptr %0, align 8, !tbaa !173
+; Function Attrs: mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
+define dso_local ptr @Perl_padnamelist_fetch(ptr nocapture noundef readonly %0, i64 noundef %1) local_unnamed_addr #7 !prof !468 {
+  %3 = load i64, ptr %0, align 8, !tbaa !133
   %4 = icmp slt i64 %3, %1
-  br i1 %4, label %10, label %5, !prof !475
+  br i1 %4, label %10, label %5, !prof !469
 
 5:                                                ; preds = %2
   %6 = getelementptr inbounds %struct.padnamelist, ptr %0, i64 0, i32 1
-  %7 = load ptr, ptr %6, align 8, !tbaa !172
+  %7 = load ptr, ptr %6, align 8, !tbaa !132
   %8 = getelementptr inbounds ptr, ptr %7, i64 %1
-  %9 = load ptr, ptr %8, align 8, !tbaa !150
+  %9 = load ptr, ptr %8, align 8, !tbaa !116
   br label %10
 
 10:                                               ; preds = %2, %5
@@ -3801,1511 +5330,553 @@ define dso_local ptr @Perl_padnamelist_fetch(ptr nocapture noundef readonly %0, 
 }
 
 ; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #10
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #8
 
-; Function Attrs: noinline nounwind optsize uwtable
-define dso_local noundef ptr @Perl_newPADNAMEouter(ptr nocapture noundef readonly %0) local_unnamed_addr #0 !prof !476 {
-  %2 = tail call ptr @Perl_safesyscalloc(i64 noundef 1, i64 noundef 48) #14
+; Function Attrs: cold nounwind uwtable
+define dso_local noundef ptr @Perl_newPADNAMEouter(ptr nocapture noundef readonly %0) local_unnamed_addr #3 !prof !140 {
+  %2 = tail call ptr @Perl_safesyscalloc(i64 noundef 1, i64 noundef 48) #12
   %3 = getelementptr inbounds %struct.padname, ptr %2, i64 0, i32 5
-  store i32 1, ptr %3, align 8, !tbaa !249
-  %4 = load ptr, ptr %0, align 8, !tbaa !208
-  store ptr %4, ptr %2, align 8, !tbaa !208
-  %5 = getelementptr inbounds i8, ptr %4, i64 -10
-  %6 = load i32, ptr %5, align 8, !tbaa !249
-  %7 = add i32 %6, 1
-  store i32 %7, ptr %5, align 8, !tbaa !249
-  %8 = getelementptr inbounds %struct.padname, ptr %2, i64 0, i32 8
-  store i8 1, ptr %8, align 1, !tbaa !265
-  %9 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 7
-  %10 = load i8, ptr %9, align 8, !tbaa !257
-  %11 = getelementptr inbounds %struct.padname, ptr %2, i64 0, i32 7
-  store i8 %10, ptr %11, align 8, !tbaa !257
+  store i32 1, ptr %3, align 8, !tbaa !211
+  %4 = load ptr, ptr %0, align 8, !tbaa !175
+  store ptr %4, ptr %2, align 8, !tbaa !175
+  %5 = load ptr, ptr %0, align 8, !tbaa !175
+  %6 = getelementptr inbounds i8, ptr %5, i64 -10
+  %7 = load i32, ptr %6, align 8, !tbaa !211
+  %8 = add i32 %7, 1
+  store i32 %8, ptr %6, align 8, !tbaa !211
+  %9 = getelementptr inbounds %struct.padname, ptr %2, i64 0, i32 8
+  store i8 1, ptr %9, align 1, !tbaa !220
+  %10 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 7
+  %11 = load i8, ptr %10, align 8, !tbaa !213
+  %12 = getelementptr inbounds %struct.padname, ptr %2, i64 0, i32 7
+  store i8 %11, ptr %12, align 8, !tbaa !213
   ret ptr %2
 }
 
-; Function Attrs: optsize
 declare void @Perl_sv_free2(ptr noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare zeroext i1 @Perl_ckwarn(i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_warner(i32 noundef, ptr noundef, ...) local_unnamed_addr #2
 
-; Function Attrs: mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: read) uwtable
-define internal fastcc noundef zeroext i1 @PadnameIN_SCOPE(ptr nocapture noundef readonly %0, i32 noundef %1) unnamed_addr #6 !prof !477 !PGOFuncName !478 {
-  %3 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 3
-  %4 = load i32, ptr %3, align 8, !tbaa !251
-  %5 = icmp eq i32 %4, -1
-  br i1 %5, label %27, label %6, !prof !479
-
-6:                                                ; preds = %2
-  %7 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 4
-  %8 = load i32, ptr %7, align 4, !tbaa !252
-  %9 = icmp eq i32 %8, -1
-  br i1 %9, label %10, label %18, !prof !480
-
-10:                                               ; preds = %6
-  %11 = icmp ult i32 %4, %1
-  br i1 %11, label %12, label %15, !prof !481
-
-12:                                               ; preds = %10
-  %13 = sub i32 %1, %4
-  %14 = icmp ult i32 %13, 2147483647
-  br i1 %14, label %27, label %26, !prof !481
-
-15:                                               ; preds = %10
-  %16 = sub i32 %4, %1
-  %17 = icmp slt i32 %16, 0
-  br i1 %17, label %27, label %26, !prof !482
-
-18:                                               ; preds = %6
-  %19 = icmp ugt i32 %4, %8
-  %20 = icmp uge i32 %4, %1
-  %21 = icmp ult i32 %8, %1
-  br i1 %19, label %22, label %24, !prof !483
-
-22:                                               ; preds = %18
-  %23 = and i1 %20, %21
-  br i1 %23, label %26, label %27, !prof !484
-
-24:                                               ; preds = %18
-  %25 = or i1 %20, %21
-  br i1 %25, label %26, label %27, !prof !485
-
-26:                                               ; preds = %22, %24, %12, %15
-  br label %27
-
-27:                                               ; preds = %22, %24, %12, %15, %2, %26
-  %28 = phi i1 [ false, %26 ], [ false, %2 ], [ true, %15 ], [ true, %12 ], [ true, %24 ], [ true, %22 ]
-  ret i1 %28
-}
-
-; Function Attrs: noinline nounwind optsize uwtable
-define internal fastcc void @S_unavailable(ptr nocapture noundef readonly %0) unnamed_addr #0 !prof !228 !PGOFuncName !486 {
-  %2 = load ptr, ptr %0, align 8, !tbaa !208
-  %3 = load i8, ptr %2, align 1, !tbaa !168
-  %4 = icmp eq i8 %3, 38
-  %5 = select i1 %4, ptr @.str.29, ptr @.str.30
-  %6 = getelementptr inbounds %struct.padname, ptr %0, i64 0, i32 7
-  %7 = load i8, ptr %6, align 8, !tbaa !257
-  %8 = zext i8 %7 to i64
-  tail call void (i32, ptr, ...) @Perl_ck_warner(i32 noundef 1, ptr noundef nonnull @.str.31, ptr noundef nonnull %5, i32 noundef 1, i64 noundef %8, ptr noundef nonnull %2) #14
-  ret void
-}
-
-; Function Attrs: optsize
 declare ptr @Perl_sv_2mortal(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_ck_warner(i32 noundef, ptr noundef, ...) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_savepv(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_cvstash_set(ptr noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_sv_setpvn(ptr noundef, ptr noundef, i64 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare i32 @Perl_mg_copy(ptr noundef, ptr noundef, ptr noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: noinline nounwind optsize uwtable
-define internal fastcc ptr @S_cv_clone_pad(ptr noundef readonly %0, ptr noundef %1, ptr noundef %2, ptr noundef %3, i1 noundef zeroext %4) unnamed_addr #0 !prof !228 !PGOFuncName !487 {
-  %6 = alloca ptr, align 8
-  %7 = alloca ptr, align 8
-  store ptr %1, ptr %6, align 8, !tbaa !150
-  %8 = load ptr, ptr %0, align 8, !tbaa !181
-  %9 = getelementptr inbounds %struct.xpvcv, ptr %8, i64 0, i32 9
-  %10 = load ptr, ptr %9, align 8, !tbaa !168
-  %11 = getelementptr inbounds %struct.padlist, ptr %10, i64 0, i32 1
-  %12 = load ptr, ptr %11, align 8, !tbaa !167
-  %13 = load ptr, ptr %12, align 8, !tbaa !150
-  %14 = getelementptr inbounds ptr, ptr %12, i64 1
-  %15 = load ptr, ptr %14, align 8, !tbaa !150
-  %16 = getelementptr inbounds %struct.padnamelist, ptr %13, i64 0, i32 1
-  %17 = load ptr, ptr %16, align 8, !tbaa !172
-  %18 = getelementptr inbounds %struct.av, ptr %15, i64 0, i32 3
-  %19 = load ptr, ptr %18, align 8, !tbaa !168
-  %20 = load i64, ptr %13, align 8, !tbaa !173
-  %21 = load ptr, ptr %15, align 8, !tbaa !299
-  %22 = getelementptr inbounds %struct.xpvav, ptr %21, i64 0, i32 2
-  %23 = load i64, ptr %22, align 8, !tbaa !300
-  %24 = trunc i64 %23 to i32
-  %25 = icmp eq ptr %2, null
-  br i1 %25, label %26, label %59, !prof !423
-
-26:                                               ; preds = %5
-  %27 = getelementptr inbounds %struct.xpvcv, ptr %8, i64 0, i32 12
-  %28 = load i32, ptr %27, align 4, !tbaa !186
-  %29 = and i32 %28, 16
-  %30 = icmp eq i32 %29, 0
-  br i1 %30, label %33, label %31, !prof !421
-
-31:                                               ; preds = %26
-  %32 = tail call ptr @Perl_find_runcv(ptr noundef null) #14
-  br label %56
-
-33:                                               ; preds = %26
-  %34 = getelementptr inbounds %struct.xpvcv, ptr %8, i64 0, i32 10
-  %35 = load ptr, ptr %34, align 8, !tbaa !204
-  %36 = load ptr, ptr %35, align 8, !tbaa !181
-  %37 = getelementptr inbounds %struct.xpvcv, ptr %36, i64 0, i32 12
-  %38 = load i32, ptr %37, align 4, !tbaa !186
-  %39 = and i32 %38, 96
-  %40 = icmp eq i32 %39, 32
-  br i1 %40, label %51, label %41
-
-41:                                               ; preds = %33
-  %42 = getelementptr inbounds %struct.xpvcv, ptr %36, i64 0, i32 9
-  %43 = load ptr, ptr %42, align 8, !tbaa !168
-  %44 = icmp eq ptr %43, null
-  br i1 %44, label %51, label %45
-
-45:                                               ; preds = %41
-  %46 = getelementptr inbounds %struct.padlist, ptr %43, i64 0, i32 2
-  %47 = load i32, ptr %46, align 8, !tbaa !164
-  %48 = getelementptr inbounds %struct.padlist, ptr %10, i64 0, i32 3
-  %49 = load i32, ptr %48, align 4, !tbaa !488
-  %50 = icmp eq i32 %47, %49
-  br i1 %50, label %59, label %51
-
-51:                                               ; preds = %33, %45, %41
-  %52 = getelementptr inbounds %struct.padlist, ptr %10, i64 0, i32 3
-  %53 = load i32, ptr %52, align 4, !tbaa !488
-  %54 = zext i32 %53 to i64
-  %55 = tail call ptr @Perl_find_runcv_where(i8 noundef zeroext 1, i64 noundef %54, ptr noundef null) #14
-  br label %56
-
-56:                                               ; preds = %31, %51
-  %57 = phi ptr [ %32, %31 ], [ %55, %51 ]
-  %58 = icmp eq ptr %57, null
-  br i1 %58, label %63, label %59, !prof !489
-
-59:                                               ; preds = %45, %5, %56
-  %60 = phi ptr [ %57, %56 ], [ %35, %45 ], [ %2, %5 ]
-  %61 = tail call fastcc ptr @S_CvDEPTHp(ptr noundef nonnull %60) #15
-  %62 = load i32, ptr %61, align 4, !tbaa !163
-  br label %63
-
-63:                                               ; preds = %56, %59
-  %64 = phi i1 [ false, %59 ], [ true, %56 ]
-  %65 = phi ptr [ %60, %59 ], [ null, %56 ]
-  %66 = phi i32 [ %62, %59 ], [ 0, %56 ]
-  %67 = tail call i32 @llvm.umax.i32(i32 %66, i32 1)
-  %68 = sext i32 %67 to i64
-  tail call void @Perl_push_scope() #14
-  tail call void @Perl_save_sptr(ptr noundef nonnull @PL_compcv) #14
-  store ptr %1, ptr @PL_compcv, align 8, !tbaa !150
-  br i1 %4, label %69, label %70, !prof !423
-
-69:                                               ; preds = %63
-  tail call void @Perl_save_pushptr(ptr noundef %1, i32 noundef 11) #14
-  br label %70
-
-70:                                               ; preds = %69, %63
-  %71 = load ptr, ptr %1, align 8, !tbaa !181
-  %72 = getelementptr inbounds %struct.xpvcv, ptr %71, i64 0, i32 12
-  %73 = load i32, ptr %72, align 4, !tbaa !186
-  %74 = and i32 %73, 16384
-  %75 = icmp eq i32 %74, 0
-  br i1 %75, label %80, label %76, !prof !423
-
-76:                                               ; preds = %70
-  %77 = tail call fastcc ptr @S_SvREFCNT_inc(ptr noundef %65) #15
-  %78 = load ptr, ptr %1, align 8, !tbaa !181
-  %79 = getelementptr inbounds %struct.xpvcv, ptr %78, i64 0, i32 10
-  store ptr %65, ptr %79, align 8, !tbaa !204
-  br label %80
-
-80:                                               ; preds = %76, %70
-  tail call void @Perl_save_sptr(ptr noundef nonnull @PL_comppad_name) #14
-  store ptr %13, ptr @PL_comppad_name, align 8, !tbaa !150
-  %81 = tail call ptr @Perl_pad_new(i32 noundef 3) #15
-  %82 = load ptr, ptr %1, align 8, !tbaa !181
-  %83 = getelementptr inbounds %struct.xpvcv, ptr %82, i64 0, i32 9
-  store ptr %81, ptr %83, align 8, !tbaa !168
-  %84 = getelementptr inbounds %struct.padlist, ptr %10, i64 0, i32 2
-  %85 = load i32, ptr %84, align 8, !tbaa !164
-  %86 = load ptr, ptr %1, align 8, !tbaa !181
-  %87 = getelementptr inbounds %struct.xpvcv, ptr %86, i64 0, i32 9
-  %88 = load ptr, ptr %87, align 8, !tbaa !168
-  %89 = getelementptr inbounds %struct.padlist, ptr %88, i64 0, i32 2
-  store i32 %85, ptr %89, align 8, !tbaa !164
-  %90 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %91 = shl i64 %23, 32
-  %92 = ashr exact i64 %91, 32
-  tail call void @Perl_av_fill(ptr noundef %90, i64 noundef %92) #14
-  %93 = load ptr, ptr @PL_comppad, align 8, !tbaa !150
-  %94 = getelementptr inbounds %struct.av, ptr %93, i64 0, i32 3
-  %95 = load ptr, ptr %94, align 8, !tbaa !168
-  store ptr %95, ptr @PL_curpad, align 8, !tbaa !150
-  br i1 %64, label %116, label %96, !prof !421
-
-96:                                               ; preds = %80
-  %97 = load ptr, ptr %65, align 8, !tbaa !181
-  %98 = getelementptr inbounds %struct.xpvcv, ptr %97, i64 0, i32 9
-  %99 = load ptr, ptr %98, align 8, !tbaa !168
-  %100 = icmp eq ptr %99, null
-  br i1 %100, label %116, label %101, !prof !421
-
-101:                                              ; preds = %96
-  %102 = getelementptr inbounds %struct.padlist, ptr %99, i64 0, i32 1
-  %103 = load ptr, ptr %102, align 8, !tbaa !167
-  %104 = getelementptr inbounds ptr, ptr %103, i64 %68
-  %105 = load ptr, ptr %104, align 8, !tbaa !150
-  %106 = getelementptr inbounds %struct.av, ptr %105, i64 0, i32 3
-  %107 = load ptr, ptr %106, align 8, !tbaa !168
-  %108 = icmp eq ptr %107, null
-  br i1 %108, label %116, label %109, !prof !490
-
-109:                                              ; preds = %101
-  %110 = getelementptr inbounds %struct.padlist, ptr %99, i64 0, i32 2
-  %111 = load i32, ptr %110, align 8, !tbaa !164
-  %112 = load ptr, ptr %1, align 8, !tbaa !181
-  %113 = getelementptr inbounds %struct.xpvcv, ptr %112, i64 0, i32 9
-  %114 = load ptr, ptr %113, align 8, !tbaa !168
-  %115 = getelementptr inbounds %struct.padlist, ptr %114, i64 0, i32 3
-  store i32 %111, ptr %115, align 4, !tbaa !488
-  br label %116
-
-116:                                              ; preds = %80, %96, %109, %101
-  %117 = phi i1 [ false, %109 ], [ true, %101 ], [ true, %96 ], [ true, %80 ]
-  %118 = phi ptr [ %107, %109 ], [ null, %101 ], [ null, %96 ], [ null, %80 ]
-  %119 = icmp sgt i32 %24, 0
-  br i1 %119, label %120, label %438, !prof !445
-
-120:                                              ; preds = %116
-  %121 = and i64 %23, 4294967295
-  %122 = shl i64 %20, 32
-  %123 = ashr exact i64 %122, 32
-  br label %124
-
-124:                                              ; preds = %120, %259
-  %125 = phi i64 [ %121, %120 ], [ %265, %259 ]
-  %126 = phi i32 [ 0, %120 ], [ %262, %259 ]
-  %127 = phi i8 [ 0, %120 ], [ %261, %259 ]
-  %128 = icmp sgt i64 %125, %123
-  br i1 %128, label %254, label %129, !prof !491
-
-129:                                              ; preds = %124
-  %130 = getelementptr inbounds ptr, ptr %17, i64 %125
-  %131 = load ptr, ptr %130, align 8, !tbaa !150
-  %132 = icmp eq ptr %131, null
-  br i1 %132, label %254, label %133, !prof !490
-
-133:                                              ; preds = %129
-  %134 = getelementptr inbounds %struct.padname, ptr %131, i64 0, i32 7
-  %135 = load i8, ptr %134, align 8, !tbaa !257
-  %136 = icmp eq i8 %135, 0
-  br i1 %136, label %247, label %137, !prof !492
-
-137:                                              ; preds = %133
-  %138 = getelementptr inbounds %struct.padname, ptr %131, i64 0, i32 1
-  %139 = load ptr, ptr %138, align 8, !tbaa !270
-  %140 = icmp eq ptr %139, null
-  br i1 %140, label %141, label %259, !prof !493
-
-141:                                              ; preds = %137
-  %142 = getelementptr inbounds %struct.padname, ptr %131, i64 0, i32 8
-  %143 = load i8, ptr %142, align 1, !tbaa !265
-  %144 = zext i8 %143 to i32
-  %145 = and i32 %144, 1
-  %146 = icmp eq i32 %145, 0
-  br i1 %146, label %173, label %147, !prof !494
-
-147:                                              ; preds = %141
-  br i1 %117, label %168, label %148, !prof !495
-
-148:                                              ; preds = %147
-  %149 = getelementptr inbounds %struct.padname, ptr %131, i64 0, i32 3
-  %150 = load i32, ptr %149, align 8, !tbaa !251
-  %151 = zext i32 %150 to i64
-  %152 = getelementptr inbounds ptr, ptr %118, i64 %151
-  %153 = load ptr, ptr %152, align 8, !tbaa !150
-  %154 = icmp eq ptr %153, null
-  br i1 %154, label %168, label %155, !prof !495
-
-155:                                              ; preds = %148
-  %156 = getelementptr inbounds %struct.sv, ptr %153, i64 0, i32 2
-  %157 = load i32, ptr %156, align 4, !tbaa !199
-  %158 = and i32 %157, 262144
-  %159 = icmp ne i32 %158, 0
-  %160 = and i32 %144, 2
-  %161 = icmp eq i32 %160, 0
-  %162 = and i1 %161, %159
-  br i1 %162, label %163, label %169, !prof !496
-
-163:                                              ; preds = %155
-  br i1 %64, label %168, label %164
-
-164:                                              ; preds = %163
-  %165 = tail call fastcc ptr @S_CvDEPTHp(ptr noundef nonnull %65) #15
-  %166 = load i32, ptr %165, align 4, !tbaa !163
-  %167 = icmp eq i32 %166, 0
-  br i1 %167, label %168, label %169
-
-168:                                              ; preds = %164, %163, %148, %147
-  tail call fastcc void @S_unavailable(ptr noundef nonnull %131) #15
-  br label %173
-
-169:                                              ; preds = %155, %164
-  %170 = getelementptr inbounds %struct.sv, ptr %153, i64 0, i32 1
-  %171 = load i32, ptr %170, align 8, !tbaa !219
-  %172 = add i32 %171, 1
-  store i32 %172, ptr %170, align 8, !tbaa !219
-  br label %259
-
-173:                                              ; preds = %168, %141
-  %174 = load ptr, ptr %131, align 8, !tbaa !208
-  %175 = load i8, ptr %174, align 1, !tbaa !168
-  switch i8 %175, label %239 [
-    i8 38, label %176
-    i8 64, label %235
-    i8 37, label %237
-  ], !prof !497
-
-176:                                              ; preds = %173
-  %177 = load i8, ptr %142, align 1, !tbaa !265
-  %178 = and i8 %177, 2
-  %179 = icmp eq i8 %178, 0
-  br i1 %179, label %199, label %180
-
-180:                                              ; preds = %176
-  %181 = getelementptr inbounds ptr, ptr %19, i64 %125
-  %182 = load ptr, ptr %181, align 8, !tbaa !150
-  %183 = load ptr, ptr %182, align 8, !tbaa !289
-  %184 = getelementptr inbounds %struct.xpvcv, ptr %183, i64 0, i32 12
-  %185 = load i32, ptr %184, align 4, !tbaa !186
-  %186 = and i32 %185, 64
-  %187 = icmp eq i32 %186, 0
-  br i1 %187, label %188, label %199
-
-188:                                              ; preds = %180
-  %189 = add i32 %126, 1
-  %190 = getelementptr inbounds %struct.xpvcv, ptr %183, i64 0, i32 10
-  %191 = load ptr, ptr %190, align 8, !tbaa !204
-  %192 = icmp eq ptr %191, %0
-  %193 = select i1 %192, i8 %127, i8 1
-  %194 = tail call ptr @Perl_newSV_type(i32 noundef 13) #14
-  %195 = load ptr, ptr %194, align 8, !tbaa !289
-  %196 = getelementptr inbounds %struct.xpvcv, ptr %195, i64 0, i32 12
-  %197 = load i32, ptr %196, align 4, !tbaa !186
-  %198 = or i32 %197, 65536
-  store i32 %198, ptr %196, align 4, !tbaa !186
-  br label %259
-
-199:                                              ; preds = %180, %176
-  %200 = load i8, ptr %134, align 8, !tbaa !257
-  %201 = zext i8 %200 to i64
-  %202 = icmp ugt i8 %200, 1
-  br i1 %202, label %203, label %231
-
-203:                                              ; preds = %199
-  %204 = load ptr, ptr %138, align 8, !tbaa !270
-  %205 = icmp eq ptr %204, null
-  br i1 %205, label %206, label %231
-
-206:                                              ; preds = %203
-  %207 = getelementptr inbounds i8, ptr %174, i64 1
-  %208 = add nuw nsw i64 %201, 4294967295
-  %209 = and i64 %208, 4294967295
-  %210 = tail call fastcc i32 @S_perl_hash_one_at_a_time_hard(ptr noundef nonnull %207, i64 noundef %209) #15
-  %211 = tail call ptr @Perl_newSV_type(i32 noundef 13) #14
-  %212 = tail call fastcc ptr @CvNAME_HEK(ptr noundef %211) #15
-  %213 = icmp eq ptr %212, null
-  br i1 %213, label %218, label %214
-
-214:                                              ; preds = %206
-  %215 = load ptr, ptr %211, align 8, !tbaa !181
-  %216 = getelementptr inbounds %struct.xpvcv, ptr %215, i64 0, i32 7
-  %217 = load ptr, ptr %216, align 8, !tbaa !168
-  tail call void @Perl_unshare_hek(ptr noundef %217) #14
-  br label %218
-
-218:                                              ; preds = %206, %214
-  %219 = load ptr, ptr %131, align 8, !tbaa !208
-  %220 = getelementptr inbounds i8, ptr %219, i64 1
-  %221 = load i8, ptr %134, align 8, !tbaa !257
-  %222 = zext i8 %221 to i32
-  %223 = sub nsw i32 1, %222
-  %224 = tail call ptr @Perl_share_hek(ptr noundef nonnull %220, i32 noundef %223, i32 noundef %210) #14
-  %225 = load ptr, ptr %211, align 8, !tbaa !289
-  %226 = getelementptr inbounds %struct.xpvcv, ptr %225, i64 0, i32 7
-  store ptr %224, ptr %226, align 8, !tbaa !168
-  %227 = load ptr, ptr %211, align 8, !tbaa !289
-  %228 = getelementptr inbounds %struct.xpvcv, ptr %227, i64 0, i32 12
-  %229 = load i32, ptr %228, align 4, !tbaa !186
-  %230 = or i32 %229, 98304
-  store i32 %230, ptr %228, align 4, !tbaa !186
-  br label %259
-
-231:                                              ; preds = %203, %199
-  %232 = getelementptr inbounds ptr, ptr %19, i64 %125
-  %233 = load ptr, ptr %232, align 8, !tbaa !150
-  %234 = tail call fastcc ptr @S_SvREFCNT_inc(ptr noundef %233) #15
-  br label %259
-
-235:                                              ; preds = %173
-  %236 = tail call ptr @Perl_newSV_type(i32 noundef 11) #14
-  br label %241
-
-237:                                              ; preds = %173
-  %238 = tail call ptr @Perl_newSV_type(i32 noundef 12) #14
-  br label %241
-
-239:                                              ; preds = %173
-  %240 = tail call ptr @Perl_newSV(i64 noundef 0) #14
-  br label %241
-
-241:                                              ; preds = %239, %237, %235
-  %242 = phi ptr [ %240, %239 ], [ %238, %237 ], [ %236, %235 ]
-  %243 = load i8, ptr %142, align 1, !tbaa !265
-  %244 = and i8 %243, 2
-  %245 = icmp eq i8 %244, 0
-  br i1 %245, label %259, label %246, !prof !498
-
-246:                                              ; preds = %241
-  tail call fastcc void @S_SvPADSTALE_on(ptr noundef %242) #15
-  br label %259
-
-247:                                              ; preds = %133
-  %248 = load ptr, ptr %131, align 8, !tbaa !208
-  %249 = icmp eq ptr %248, null
-  br i1 %249, label %254, label %250, !prof !499
-
-250:                                              ; preds = %247
-  %251 = getelementptr inbounds ptr, ptr %19, i64 %125
-  %252 = load ptr, ptr %251, align 8, !tbaa !150
-  %253 = tail call fastcc ptr @S_SvREFCNT_inc_NN(ptr noundef %252) #15
-  br label %259
-
-254:                                              ; preds = %124, %129, %247
-  %255 = tail call ptr @Perl_newSV(i64 noundef 0) #14
-  %256 = getelementptr inbounds %struct.sv, ptr %255, i64 0, i32 2
-  %257 = load i32, ptr %256, align 4, !tbaa !199
-  %258 = or i32 %257, 131072
-  store i32 %258, ptr %256, align 4, !tbaa !199
-  br label %259
-
-259:                                              ; preds = %218, %231, %188, %169, %241, %246, %250, %254, %137
-  %260 = phi ptr [ null, %137 ], [ %153, %169 ], [ %252, %250 ], [ %255, %254 ], [ %242, %246 ], [ %242, %241 ], [ %194, %188 ], [ %211, %218 ], [ %233, %231 ]
-  %261 = phi i8 [ %127, %137 ], [ %127, %169 ], [ %127, %250 ], [ %127, %254 ], [ %127, %246 ], [ %127, %241 ], [ %193, %188 ], [ %127, %218 ], [ %127, %231 ]
-  %262 = phi i32 [ %126, %137 ], [ %126, %169 ], [ %126, %250 ], [ %126, %254 ], [ %126, %246 ], [ %126, %241 ], [ %189, %188 ], [ %126, %218 ], [ %126, %231 ]
-  %263 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %264 = getelementptr inbounds ptr, ptr %263, i64 %125
-  store ptr %260, ptr %264, align 8, !tbaa !150
-  %265 = add nsw i64 %125, -1
-  %266 = icmp sgt i64 %125, 1
-  br i1 %266, label %124, label %267, !prof !500, !llvm.loop !501
-
-267:                                              ; preds = %259
-  %268 = icmp eq i32 %262, 0
-  br i1 %268, label %438, label %269, !prof !502
-
-269:                                              ; preds = %267
-  %270 = and i8 %261, 1
-  %271 = icmp ne i8 %270, 0
-  %272 = icmp ne ptr %3, null
-  %273 = or i1 %272, %271
-  br i1 %273, label %279, label %274
-
-274:                                              ; preds = %269
-  br i1 %119, label %275, label %438
-
-275:                                              ; preds = %274
-  %276 = and i64 %23, 4294967295
-  %277 = shl i64 %20, 32
-  %278 = ashr exact i64 %277, 32
-  br label %406
-
-279:                                              ; preds = %269
-  br i1 %272, label %283, label %280
-
-280:                                              ; preds = %279
-  %281 = tail call ptr @Perl_newSV_type(i32 noundef 12) #14
-  %282 = tail call ptr @Perl_sv_2mortal(ptr noundef %281) #14
-  br label %283
-
-283:                                              ; preds = %280, %279
-  %284 = phi ptr [ %3, %279 ], [ %282, %280 ]
-  %285 = and i64 %23, 4294967295
-  %286 = shl i64 %20, 32
-  %287 = ashr exact i64 %286, 32
-  br label %288
-
-288:                                              ; preds = %359, %283
-  %289 = phi i32 [ %262, %283 ], [ %356, %359 ]
-  br i1 %119, label %290, label %438
-
-290:                                              ; preds = %288, %354
-  %291 = phi i64 [ %357, %354 ], [ %285, %288 ]
-  %292 = phi i32 [ %356, %354 ], [ %289, %288 ]
-  %293 = phi i8 [ %355, %354 ], [ 0, %288 ]
-  %294 = icmp sgt i64 %291, %287
-  br i1 %294, label %354, label %295
-
-295:                                              ; preds = %290
-  %296 = getelementptr inbounds ptr, ptr %17, i64 %291
-  %297 = load ptr, ptr %296, align 8, !tbaa !150
-  %298 = icmp ne ptr %297, null
-  %299 = icmp ne ptr %297, @PL_padname_undef
-  %300 = and i1 %298, %299
-  br i1 %300, label %301, label %354
-
-301:                                              ; preds = %295
-  %302 = getelementptr inbounds %struct.padname, ptr %297, i64 0, i32 8
-  %303 = load i8, ptr %302, align 1, !tbaa !265
-  %304 = zext i8 %303 to i32
-  %305 = and i32 %304, 1
-  %306 = icmp eq i32 %305, 0
-  br i1 %306, label %307, label %354
-
-307:                                              ; preds = %301
-  %308 = load ptr, ptr %297, align 8, !tbaa !208
-  %309 = load i8, ptr %308, align 1, !tbaa !168
-  %310 = icmp ne i8 %309, 38
-  %311 = and i32 %304, 2
-  %312 = icmp eq i32 %311, 0
-  %313 = or i1 %312, %310
-  br i1 %313, label %354, label %314
-
-314:                                              ; preds = %307
-  %315 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %316 = getelementptr inbounds ptr, ptr %315, i64 %291
-  %317 = load ptr, ptr %316, align 8, !tbaa !150
-  %318 = load ptr, ptr %317, align 8, !tbaa !289
-  %319 = getelementptr inbounds %struct.xpvcv, ptr %318, i64 0, i32 12
-  %320 = load i32, ptr %319, align 4, !tbaa !186
-  %321 = and i32 %320, 64
-  %322 = icmp eq i32 %321, 0
-  br i1 %322, label %323, label %354
-
-323:                                              ; preds = %314
-  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %7) #16
-  %324 = getelementptr inbounds ptr, ptr %19, i64 %291
-  %325 = load ptr, ptr %324, align 8, !tbaa !150
-  %326 = load ptr, ptr %325, align 8, !tbaa !289
-  %327 = getelementptr inbounds %struct.xpvcv, ptr %326, i64 0, i32 10
-  %328 = load ptr, ptr %327, align 8, !tbaa !204
-  store ptr %328, ptr %7, align 8, !tbaa !150
-  %329 = icmp eq ptr %328, %0
-  br i1 %329, label %333, label %330
-
-330:                                              ; preds = %323
-  %331 = call ptr @Perl_hv_common_key_len(ptr noundef %284, ptr noundef nonnull %7, i32 noundef 8, i32 noundef 32, ptr noundef null, i32 noundef 0) #14
-  %332 = icmp eq ptr %331, null
-  br i1 %332, label %351, label %333
-
-333:                                              ; preds = %323, %330
-  %334 = phi ptr [ %331, %330 ], [ %6, %323 ]
-  %335 = load ptr, ptr %334, align 8, !tbaa !150
-  %336 = icmp eq ptr %335, null
-  br i1 %336, label %351, label %337
-
-337:                                              ; preds = %333
-  %338 = load ptr, ptr %324, align 8, !tbaa !150
-  %339 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %340 = getelementptr inbounds ptr, ptr %339, i64 %291
-  %341 = load ptr, ptr %340, align 8, !tbaa !150
-  %342 = call fastcc ptr @S_cv_clone(ptr noundef %338, ptr noundef %341, ptr noundef nonnull %335, ptr noundef %284) #15
-  %343 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %344 = getelementptr inbounds ptr, ptr %343, i64 %291
-  %345 = load ptr, ptr %344, align 8, !tbaa !150
-  %346 = getelementptr inbounds %struct.sv, ptr %345, i64 0, i32 1
-  %347 = load i32, ptr %346, align 8, !tbaa !219
-  %348 = add i32 %347, 1
-  store i32 %348, ptr %346, align 8, !tbaa !219
-  %349 = call ptr @Perl_hv_common_key_len(ptr noundef %284, ptr noundef nonnull %324, i32 noundef 8, i32 noundef 36, ptr noundef %345, i32 noundef 0) #14
-  %350 = add i32 %292, -1
-  br label %351
-
-351:                                              ; preds = %337, %333, %330
-  %352 = phi i8 [ 1, %337 ], [ %293, %333 ], [ %293, %330 ]
-  %353 = phi i32 [ %350, %337 ], [ %292, %333 ], [ %292, %330 ]
-  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %7) #16
-  br label %354
-
-354:                                              ; preds = %290, %351, %314, %307, %301, %295
-  %355 = phi i8 [ %293, %301 ], [ %293, %314 ], [ %352, %351 ], [ %293, %307 ], [ %293, %295 ], [ %293, %290 ]
-  %356 = phi i32 [ %292, %301 ], [ %292, %314 ], [ %353, %351 ], [ %292, %307 ], [ %292, %295 ], [ %292, %290 ]
-  %357 = add nsw i64 %291, -1
-  %358 = icmp sgt i64 %291, 1
-  br i1 %358, label %290, label %359, !llvm.loop !503
-
-359:                                              ; preds = %354
-  %360 = and i8 %355, 1
-  %361 = icmp eq i8 %360, 0
-  br i1 %361, label %362, label %288, !llvm.loop !504
-
-362:                                              ; preds = %359
-  %363 = icmp ne i32 %356, 0
-  %364 = and i1 %363, %119
-  br i1 %364, label %365, label %438
-
-365:                                              ; preds = %362, %403
-  %366 = phi i64 [ %404, %403 ], [ %285, %362 ]
-  %367 = icmp sgt i64 %366, %287
-  br i1 %367, label %403, label %368
-
-368:                                              ; preds = %365
-  %369 = getelementptr inbounds ptr, ptr %17, i64 %366
-  %370 = load ptr, ptr %369, align 8, !tbaa !150
-  %371 = icmp ne ptr %370, null
-  %372 = icmp ne ptr %370, @PL_padname_undef
-  %373 = and i1 %371, %372
-  br i1 %373, label %374, label %403
-
-374:                                              ; preds = %368
-  %375 = getelementptr inbounds %struct.padname, ptr %370, i64 0, i32 8
-  %376 = load i8, ptr %375, align 1, !tbaa !265
-  %377 = zext i8 %376 to i32
-  %378 = and i32 %377, 1
-  %379 = icmp eq i32 %378, 0
-  br i1 %379, label %380, label %403
-
-380:                                              ; preds = %374
-  %381 = load ptr, ptr %370, align 8, !tbaa !208
-  %382 = load i8, ptr %381, align 1, !tbaa !168
-  %383 = icmp ne i8 %382, 38
-  %384 = and i32 %377, 2
-  %385 = icmp eq i32 %384, 0
-  %386 = or i1 %385, %383
-  br i1 %386, label %403, label %387
-
-387:                                              ; preds = %380
-  %388 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %389 = getelementptr inbounds ptr, ptr %388, i64 %366
-  %390 = load ptr, ptr %389, align 8, !tbaa !150
-  %391 = load ptr, ptr %390, align 8, !tbaa !289
-  %392 = getelementptr inbounds %struct.xpvcv, ptr %391, i64 0, i32 12
-  %393 = load i32, ptr %392, align 4, !tbaa !186
-  %394 = and i32 %393, 64
-  %395 = icmp eq i32 %394, 0
-  br i1 %395, label %396, label %403
-
-396:                                              ; preds = %387
-  %397 = getelementptr inbounds ptr, ptr %19, i64 %366
-  %398 = load ptr, ptr %397, align 8, !tbaa !150
-  %399 = load ptr, ptr %398, align 8, !tbaa !289
-  %400 = getelementptr inbounds %struct.xpvcv, ptr %399, i64 0, i32 10
-  %401 = load ptr, ptr %400, align 8, !tbaa !204
-  %402 = call fastcc ptr @S_cv_clone(ptr noundef nonnull %398, ptr noundef nonnull %390, ptr noundef %401, ptr noundef %284) #15
-  br label %403
-
-403:                                              ; preds = %365, %396, %387, %380, %374, %368
-  %404 = add nsw i64 %366, -1
-  %405 = icmp sgt i64 %366, 1
-  br i1 %405, label %365, label %438, !llvm.loop !505
-
-406:                                              ; preds = %275, %435
-  %407 = phi i64 [ %276, %275 ], [ %436, %435 ]
-  %408 = icmp sgt i64 %407, %278
-  br i1 %408, label %435, label %409
-
-409:                                              ; preds = %406
-  %410 = getelementptr inbounds ptr, ptr %17, i64 %407
-  %411 = load ptr, ptr %410, align 8, !tbaa !150
-  %412 = icmp ne ptr %411, null
-  %413 = icmp ne ptr %411, @PL_padname_undef
-  %414 = and i1 %412, %413
-  br i1 %414, label %415, label %435
-
-415:                                              ; preds = %409
-  %416 = getelementptr inbounds %struct.padname, ptr %411, i64 0, i32 8
-  %417 = load i8, ptr %416, align 1, !tbaa !265
-  %418 = zext i8 %417 to i32
-  %419 = and i32 %418, 1
-  %420 = icmp eq i32 %419, 0
-  br i1 %420, label %421, label %435
-
-421:                                              ; preds = %415
-  %422 = load ptr, ptr %411, align 8, !tbaa !208
-  %423 = load i8, ptr %422, align 1, !tbaa !168
-  %424 = icmp ne i8 %423, 38
-  %425 = and i32 %418, 2
-  %426 = icmp eq i32 %425, 0
-  %427 = or i1 %426, %424
-  br i1 %427, label %435, label %428
-
-428:                                              ; preds = %421
-  %429 = getelementptr inbounds ptr, ptr %19, i64 %407
-  %430 = load ptr, ptr %429, align 8, !tbaa !150
-  %431 = load ptr, ptr @PL_curpad, align 8, !tbaa !150
-  %432 = getelementptr inbounds ptr, ptr %431, i64 %407
-  %433 = load ptr, ptr %432, align 8, !tbaa !150
-  %434 = tail call fastcc ptr @S_cv_clone(ptr noundef %430, ptr noundef %433, ptr noundef nonnull %1, ptr noundef null) #15
-  br label %435
-
-435:                                              ; preds = %406, %428, %421, %415, %409
-  %436 = add nsw i64 %407, -1
-  %437 = icmp sgt i64 %407, 1
-  br i1 %437, label %406, label %438, !llvm.loop !506
-
-438:                                              ; preds = %435, %288, %403, %116, %274, %362, %267
-  %439 = load ptr, ptr %6, align 8, !tbaa !150
-  br i1 %4, label %440, label %444, !prof !423
-
-440:                                              ; preds = %438
-  %441 = getelementptr inbounds %struct.sv, ptr %439, i64 0, i32 1
-  %442 = load i32, ptr %441, align 8, !tbaa !219
-  %443 = add i32 %442, 1
-  store i32 %443, ptr %441, align 8, !tbaa !219
-  br label %444
-
-444:                                              ; preds = %440, %438
-  call void @Perl_pop_scope() #14
-  %445 = load ptr, ptr %439, align 8, !tbaa !181
-  %446 = getelementptr inbounds %struct.xpvcv, ptr %445, i64 0, i32 12
-  %447 = load i32, ptr %446, align 4, !tbaa !186
-  %448 = and i32 %447, 4
-  %449 = icmp eq i32 %448, 0
-  br i1 %449, label %540, label %450, !prof !425
-
-450:                                              ; preds = %444
-  %451 = getelementptr inbounds %struct.xpvcv, ptr %445, i64 0, i32 5
-  br label %452
-
-452:                                              ; preds = %456, %450
-  %453 = phi ptr [ %451, %450 ], [ %454, %456 ]
-  %454 = load ptr, ptr %453, align 8, !tbaa !168
-  %455 = icmp eq ptr %454, null
-  br i1 %455, label %461, label %456, !prof !507
-
-456:                                              ; preds = %452
-  %457 = getelementptr inbounds %struct.op, ptr %454, i64 0, i32 4
-  %458 = load i16, ptr %457, align 8
-  %459 = and i16 %458, 511
-  %460 = icmp eq i16 %459, 9
-  br i1 %460, label %461, label %452, !prof !508, !llvm.loop !509
-
-461:                                              ; preds = %456, %452
-  %462 = getelementptr inbounds %struct.xpvcv, ptr %445, i64 0, i32 9
-  %463 = load ptr, ptr %462, align 8, !tbaa !168
-  %464 = getelementptr inbounds %struct.padlist, ptr %463, i64 0, i32 1
-  %465 = load ptr, ptr %464, align 8, !tbaa !167
-  %466 = getelementptr inbounds ptr, ptr %465, i64 1
-  %467 = load ptr, ptr %466, align 8, !tbaa !150
-  %468 = icmp eq ptr %467, null
-  br i1 %468, label %538, label %469, !prof !218
-
-469:                                              ; preds = %461
-  %470 = getelementptr inbounds %struct.av, ptr %467, i64 0, i32 3
-  %471 = load ptr, ptr %470, align 8, !tbaa !168
-  %472 = getelementptr inbounds %struct.op, ptr %454, i64 0, i32 3
-  %473 = load i64, ptr %472, align 8, !tbaa !377
-  %474 = getelementptr inbounds ptr, ptr %471, i64 %473
-  %475 = load ptr, ptr %474, align 8, !tbaa !150
-  %476 = icmp eq ptr %475, null
-  br i1 %476, label %538, label %477, !prof !490
-
-477:                                              ; preds = %469
-  %478 = getelementptr inbounds %struct.sv, ptr %475, i64 0, i32 1
-  %479 = load i32, ptr %478, align 8, !tbaa !219
-  %480 = icmp eq i32 %479, 2
-  br i1 %480, label %481, label %538, !prof !217
-
-481:                                              ; preds = %477
-  %482 = and i32 %447, 1
-  %483 = icmp eq i32 %482, 0
-  br i1 %64, label %523, label %484, !prof !218
-
-484:                                              ; preds = %481
-  %485 = load ptr, ptr %65, align 8, !tbaa !181
-  %486 = getelementptr inbounds %struct.xpvcv, ptr %485, i64 0, i32 9
-  %487 = load ptr, ptr %486, align 8, !tbaa !168
-  %488 = getelementptr inbounds %struct.padlist, ptr %487, i64 0, i32 1
-  %489 = load ptr, ptr %488, align 8, !tbaa !167
-  %490 = load ptr, ptr %489, align 8, !tbaa !150
-  %491 = getelementptr inbounds %struct.padnamelist, ptr %490, i64 0, i32 1
-  %492 = load ptr, ptr %491, align 8, !tbaa !172
-  %493 = load ptr, ptr %465, align 8, !tbaa !150
-  %494 = getelementptr inbounds %struct.padnamelist, ptr %493, i64 0, i32 1
-  %495 = load ptr, ptr %494, align 8, !tbaa !172
-  %496 = getelementptr inbounds ptr, ptr %495, i64 %473
-  %497 = load ptr, ptr %496, align 8, !tbaa !150
-  %498 = getelementptr inbounds %struct.padname, ptr %497, i64 0, i32 3
-  %499 = load i32, ptr %498, align 8, !tbaa !251
-  %500 = zext i32 %499 to i64
-  %501 = getelementptr inbounds ptr, ptr %492, i64 %500
-  %502 = load ptr, ptr %501, align 8, !tbaa !150
-  %503 = getelementptr inbounds %struct.padname, ptr %502, i64 0, i32 8
-  %504 = load i8, ptr %503, align 1, !tbaa !265
-  %505 = and i8 %504, 4
-  %506 = icmp eq i8 %505, 0
-  br i1 %506, label %523, label %507, !prof !217
-
-507:                                              ; preds = %484
-  %508 = getelementptr inbounds %struct.xpvcv, ptr %445, i64 0, i32 6
-  %509 = load ptr, ptr %508, align 8, !tbaa !168
-  %510 = getelementptr inbounds %struct.unop, ptr %509, i64 0, i32 7
-  %511 = load ptr, ptr %510, align 8, !tbaa !510
-  %512 = getelementptr inbounds %struct.unop, ptr %511, i64 0, i32 7
-  %513 = load ptr, ptr %512, align 8, !tbaa !510
-  %514 = getelementptr inbounds %struct.op, ptr %513, i64 0, i32 1
-  %515 = load ptr, ptr %514, align 8, !tbaa !512
-  %516 = icmp eq ptr %515, %454
-  br i1 %516, label %517, label %538
-
-517:                                              ; preds = %507
-  %518 = getelementptr inbounds %struct.op, ptr %454, i64 0, i32 1
-  %519 = load ptr, ptr %518, align 8, !tbaa !512
-  %520 = icmp eq ptr %519, null
-  br i1 %520, label %521, label %538, !prof !513
-
-521:                                              ; preds = %517
-  call void (i32, ptr, ...) @Perl_ck_warner_d(i32 noundef 2, ptr noundef nonnull @.str.33) #14
-  %522 = call ptr @Perl_newSVsv(ptr noundef nonnull %475) #14
-  br label %524
-
-523:                                              ; preds = %481, %484
-  store i32 3, ptr %478, align 8, !tbaa !219
-  br label %524
-
-524:                                              ; preds = %521, %523
-  %525 = phi ptr [ %475, %523 ], [ %522, %521 ]
-  %526 = getelementptr inbounds %struct.sv, ptr %525, i64 0, i32 2
-  %527 = load i32, ptr %526, align 4, !tbaa !199
-  %528 = or i32 %527, 134414336
-  store i32 %528, ptr %526, align 4, !tbaa !199
-  call fastcc void @S_SvREFCNT_dec_NN(ptr noundef nonnull %439) #15
-  %529 = load ptr, ptr %0, align 8, !tbaa !181
-  %530 = getelementptr inbounds %struct.xpvcv, ptr %529, i64 0, i32 4
-  %531 = load ptr, ptr %530, align 8, !tbaa !424
-  %532 = call ptr @Perl_newCONSTSUB(ptr noundef %531, ptr noundef null, ptr noundef %525) #14
-  br i1 %483, label %540, label %533, !prof !217
-
-533:                                              ; preds = %524
-  %534 = load ptr, ptr %532, align 8, !tbaa !181
-  %535 = getelementptr inbounds %struct.xpvcv, ptr %534, i64 0, i32 12
-  %536 = load i32, ptr %535, align 4, !tbaa !186
-  %537 = or i32 %536, 1
-  store i32 %537, ptr %535, align 4, !tbaa !186
-  br label %540
-
-538:                                              ; preds = %461, %507, %517, %469, %477
-  %539 = and i32 %447, -5
-  store i32 %539, ptr %446, align 4, !tbaa !186
-  br label %540
-
-540:                                              ; preds = %524, %533, %538, %444
-  %541 = phi ptr [ %532, %524 ], [ %532, %533 ], [ %439, %538 ], [ %439, %444 ]
-  ret ptr %541
-}
-
-; Function Attrs: optsize
 declare ptr @Perl_find_runcv_where(i8 noundef zeroext, i64 noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare void @Perl_av_fill(ptr noundef, i64 noundef) local_unnamed_addr #2
 
-; Function Attrs: nofree noinline norecurse nosync nounwind optsize memory(read, inaccessiblemem: none) uwtable
-define internal fastcc i32 @S_perl_hash_one_at_a_time_hard(ptr noundef readonly %0, i64 noundef %1) unnamed_addr #11 !prof !228 !PGOFuncName !514 {
-  %3 = getelementptr inbounds i8, ptr %0, i64 %1
-  %4 = trunc i64 %1 to i32
-  %5 = add nuw nsw i32 %4, 544173908
-  %6 = icmp sgt i64 %1, 0
-  br i1 %6, label %7, label %18
-
-7:                                                ; preds = %2, %7
-  %8 = phi i32 [ %16, %7 ], [ %5, %2 ]
-  %9 = phi ptr [ %13, %7 ], [ %0, %2 ]
-  %10 = mul i32 %8, 1025
-  %11 = lshr i32 %10, 6
-  %12 = xor i32 %11, %10
-  %13 = getelementptr inbounds i8, ptr %9, i64 1
-  %14 = load i8, ptr %9, align 1, !tbaa !168
-  %15 = zext i8 %14 to i32
-  %16 = add i32 %12, %15
-  %17 = icmp ult ptr %13, %3
-  br i1 %17, label %7, label %18, !llvm.loop !515
-
-18:                                               ; preds = %7, %2
-  %19 = phi i32 [ %5, %2 ], [ %16, %7 ]
-  %20 = mul i32 %19, 1025
-  %21 = lshr i32 %20, 6
-  %22 = xor i32 %21, %20
-  %23 = mul i32 %22, 1025
-  %24 = add i32 %23, 73800
-  %25 = lshr i32 %24, 6
-  %26 = xor i32 %25, %24
-  %27 = mul i32 %26, 1025
-  %28 = add i32 %27, 113775
-  %29 = lshr i32 %28, 6
-  %30 = xor i32 %29, %28
-  %31 = mul i32 %30, 1025
-  %32 = add i32 %31, 118900
-  %33 = lshr i32 %32, 6
-  %34 = xor i32 %33, %32
-  %35 = mul i32 %34, 1025
-  %36 = add i32 %35, 32800
-  %37 = lshr i32 %36, 6
-  %38 = xor i32 %37, %36
-  %39 = mul i32 %38, 9
-  %40 = lshr i32 %39, 11
-  %41 = xor i32 %40, %39
-  %42 = mul i32 %41, 32769
-  ret i32 %42
-}
-
-; Function Attrs: optsize
 declare ptr @Perl_share_hek(ptr noundef, i32 noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_hv_common_key_len(ptr noundef, ptr noundef, i32 noundef, i32 noundef, ptr noundef, i32 noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_newSVsv(ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
 declare ptr @Perl_newCONSTSUB(ptr noundef, ptr noundef, ptr noundef) local_unnamed_addr #2
 
-; Function Attrs: optsize
-declare ptr @Perl_cvgv_from_hek(ptr noundef) local_unnamed_addr #2
-
 ; Function Attrs: nofree nounwind willreturn memory(argmem: read)
-declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #12
+declare i32 @bcmp(ptr nocapture, ptr nocapture, i64) local_unnamed_addr #9
 
 ; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare i32 @llvm.umax.i32(i32, i32) #13
+declare i32 @llvm.umax.i32(i32, i32) #10
 
-attributes #0 = { noinline nounwind optsize uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: write)
+declare void @llvm.assume(i1 noundef) #11
+
+attributes #0 = { nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
 attributes #1 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
-attributes #2 = { optsize "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #3 = { mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #4 = { mustprogress nofree nounwind optsize willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #5 = { mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(write, argmem: none, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #6 = { mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: read) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #7 = { nofree noinline norecurse nosync nounwind optsize memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #8 = { mustprogress nofree noinline norecurse nosync nounwind optsize willreturn memory(argmem: readwrite) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #9 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #10 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
-attributes #11 = { nofree noinline norecurse nosync nounwind optsize memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
-attributes #12 = { nofree nounwind willreturn memory(argmem: read) }
-attributes #13 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #14 = { nounwind optsize }
-attributes #15 = { optsize }
-attributes #16 = { nounwind }
-attributes #17 = { nounwind optsize willreturn memory(read) }
+attributes #2 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { cold nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #4 = { mustprogress nofree nounwind willreturn memory(argmem: read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #5 = { nofree norecurse nosync nounwind memory(readwrite, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #6 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #7 = { mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #8 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #9 = { nofree nounwind willreturn memory(argmem: read) }
+attributes #10 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #11 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: write) }
+attributes #12 = { nounwind }
+attributes #13 = { nounwind willreturn memory(read) }
 
-!llvm.module.flags = !{!0, !29, !30, !31, !32, !33}
-!llvm.ident = !{!147}
+!llvm.module.flags = !{!0, !1, !2, !3, !4, !33}
+!llvm.ident = !{!113}
 
-!0 = !{i32 1, !"ProfileSummary", !1}
-!1 = !{!2, !3, !4, !5, !6, !7, !8, !9, !10, !11}
-!2 = !{!"ProfileFormat", !"InstrProf"}
-!3 = !{!"TotalCount", i64 43491971510}
-!4 = !{!"MaxCount", i64 4342352624}
-!5 = !{!"MaxInternalCount", i64 4342352624}
-!6 = !{!"MaxFunctionCount", i64 3033009960}
-!7 = !{!"NumCounts", i64 40262}
-!8 = !{!"NumFunctions", i64 2170}
-!9 = !{!"IsPartialProfile", i64 0}
-!10 = !{!"PartialProfileRatio", double 0.000000e+00}
-!11 = !{!"DetailedSummary", !12}
-!12 = !{!13, !14, !15, !16, !17, !18, !19, !20, !21, !22, !23, !24, !25, !26, !27, !28}
-!13 = !{i32 10000, i64 4342352624, i32 1}
-!14 = !{i32 100000, i64 3033009960, i32 2}
-!15 = !{i32 200000, i64 2317897115, i32 3}
-!16 = !{i32 300000, i64 528717179, i32 7}
-!17 = !{i32 400000, i64 462639867, i32 16}
-!18 = !{i32 500000, i64 457545339, i32 26}
-!19 = !{i32 600000, i64 423510107, i32 35}
-!20 = !{i32 700000, i64 420555191, i32 45}
-!21 = !{i32 800000, i64 220071415, i32 59}
-!22 = !{i32 900000, i64 40456743, i32 99}
-!23 = !{i32 950000, i64 21523442, i32 170}
-!24 = !{i32 990000, i64 1957094, i32 384}
-!25 = !{i32 999000, i64 104162, i32 1106}
-!26 = !{i32 999900, i64 11423, i32 2014}
-!27 = !{i32 999990, i64 757, i32 3020}
-!28 = !{i32 999999, i64 63, i32 4652}
-!29 = !{i32 1, !"wchar_size", i32 4}
-!30 = !{i32 8, !"PIC Level", i32 2}
-!31 = !{i32 7, !"PIE Level", i32 2}
-!32 = !{i32 7, !"uwtable", i32 2}
+!0 = !{i32 1, !"wchar_size", i32 4}
+!1 = !{i32 8, !"PIC Level", i32 2}
+!2 = !{i32 7, !"PIE Level", i32 2}
+!3 = !{i32 7, !"uwtable", i32 2}
+!4 = !{i32 1, !"ProfileSummary", !5}
+!5 = !{!6, !7, !8, !9, !10, !11, !12, !13, !14, !15}
+!6 = !{!"ProfileFormat", !"InstrProf"}
+!7 = !{!"TotalCount", i64 53336217263}
+!8 = !{!"MaxCount", i64 1126593358}
+!9 = !{!"MaxInternalCount", i64 1126593358}
+!10 = !{!"MaxFunctionCount", i64 465576726}
+!11 = !{!"NumCounts", i64 53216}
+!12 = !{!"NumFunctions", i64 2490}
+!13 = !{!"IsPartialProfile", i64 0}
+!14 = !{!"PartialProfileRatio", double 0.000000e+00}
+!15 = !{!"DetailedSummary", !16}
+!16 = !{!17, !18, !19, !20, !21, !22, !23, !24, !25, !26, !27, !28, !29, !30, !31, !32}
+!17 = !{i32 10000, i64 1126593358, i32 1}
+!18 = !{i32 100000, i64 852534058, i32 6}
+!19 = !{i32 200000, i64 504831111, i32 16}
+!20 = !{i32 300000, i64 482068791, i32 26}
+!21 = !{i32 400000, i64 459921484, i32 39}
+!22 = !{i32 500000, i64 444801476, i32 50}
+!23 = !{i32 600000, i64 426267029, i32 64}
+!24 = !{i32 700000, i64 422040304, i32 74}
+!25 = !{i32 800000, i64 220037356, i32 89}
+!26 = !{i32 900000, i64 39885265, i32 162}
+!27 = !{i32 950000, i64 20973884, i32 262}
+!28 = !{i32 990000, i64 1545742, i32 632}
+!29 = !{i32 999000, i64 97988, i32 1692}
+!30 = !{i32 999900, i64 9981, i32 2885}
+!31 = !{i32 999990, i64 671, i32 4392}
+!32 = !{i32 999999, i64 57, i32 6648}
 !33 = !{i32 5, !"CG Profile", !34}
-!34 = distinct !{!35, !36, !37, !38, !39, !40, !41, !42, !43, !44, !45, !46, !47, !48, !49, !50, !51, !52, !53, !54, !55, !56, !57, !58, !59, !60, !61, !62, !63, !64, !65, !66, !67, !68, !69, !70, !71, !72, !73, !74, !75, !76, !77, !78, !79, !80, !81, !82, !83, !84, !85, !86, !87, !88, !89, !90, !91, !92, !93, !94, !95, !96, !97, !98, !99, !100, !101, !102, !103, !104, !105, !106, !107, !108, !109, !110, !111, !112, !113, !114, !115, !116, !117, !118, !119, !120, !121, !122, !123, !124, !125, !126, !127, !128, !129, !130, !131, !132, !133, !134, !135, !136, !137, !138, !139, !140, !141, !142, !143, !144, !145, !146}
-!35 = !{ptr @Perl_pad_new, ptr @Perl_save_pushptr, i64 1306}
-!36 = !{ptr @Perl_pad_new, ptr @Perl_save_sptr, i64 1300}
-!37 = !{ptr @Perl_pad_new, ptr @Perl_save_I32, i64 6500}
-!38 = !{ptr @Perl_pad_new, ptr @Perl_save_bool, i64 2416}
-!39 = !{ptr @Perl_pad_new, ptr @Perl_safesyscalloc, i64 1308}
-!40 = !{ptr @Perl_pad_new, ptr @Perl_newSV_type, i64 1314}
+!34 = distinct !{!35, !36, !37, !38, !39, !40, !41, !42, !43, !44, !45, !46, !47, !48, !49, !50, !51, !52, !53, !54, !55, !56, !57, !58, !59, !60, !61, !62, !63, !64, !65, !66, !67, !68, !69, !70, !71, !72, !73, !74, !75, !76, !77, !78, !79, !80, !81, !82, !83, !84, !85, !86, !87, !88, !89, !90, !91, !92, !93, !94, !95, !96, !97, !98, !99, !100, !101, !102, !103, !104, !105, !106, !107, !108, !109, !110, !111, !112}
+!35 = !{ptr @Perl_pad_new, ptr @Perl_save_pushptr, i64 1307}
+!36 = !{ptr @Perl_pad_new, ptr @Perl_save_sptr, i64 1302}
+!37 = !{ptr @Perl_pad_new, ptr @Perl_save_I32, i64 6510}
+!38 = !{ptr @Perl_pad_new, ptr @Perl_save_bool, i64 2420}
+!39 = !{ptr @Perl_pad_new, ptr @Perl_safesyscalloc, i64 2611}
+!40 = !{ptr @Perl_pad_new, ptr @Perl_newSV_type, i64 1313}
 !41 = !{ptr @Perl_pad_new, ptr @Perl_av_store, i64 1308}
-!42 = !{ptr @Perl_pad_new, ptr @Perl_newPADNAMELIST, i64 1302}
-!43 = !{ptr @Perl_pad_new, ptr @Perl_padnamelist_store, i64 1302}
-!44 = !{ptr @Perl_pad_new, ptr @Perl_safesysmalloc, i64 1308}
-!45 = !{ptr @Perl_newPADNAMELIST, ptr @Perl_safesysmalloc, i64 1303}
-!46 = !{ptr @Perl_newPADNAMELIST, ptr @Perl_safesyscalloc, i64 1303}
-!47 = !{ptr @Perl_padnamelist_store, ptr @Perl_av_extend_guts, i64 2806}
-!48 = !{ptr @Perl_padnamelist_store, ptr @Perl_padname_free, i64 1}
-!49 = !{ptr @Perl_cv_undef, ptr @Perl_cv_undef_flags, i64 530}
-!50 = !{ptr @Perl_cv_undef_flags, ptr @Perl_safesysfree, i64 1005}
-!51 = !{ptr @Perl_cv_undef_flags, ptr @Perl_croak, i64 1}
-!52 = !{ptr @Perl_cv_undef_flags, ptr @Perl_push_scope, i64 357}
-!53 = !{ptr @Perl_cv_undef_flags, ptr @Perl_save_pushptr, i64 357}
-!54 = !{ptr @Perl_cv_undef_flags, ptr @Perl_op_free, i64 335}
-!55 = !{ptr @Perl_cv_undef_flags, ptr @Perl_pop_scope, i64 357}
-!56 = !{ptr @Perl_cv_undef_flags, ptr @Perl_parser_free_nexttoke_ops, i64 21}
-!57 = !{ptr @Perl_cv_undef_flags, ptr @Perl_opslab_force_free, i64 22}
-!58 = !{ptr @Perl_cv_undef_flags, ptr @Perl_sv_unmagic, i64 530}
-!59 = !{ptr @Perl_cv_undef_flags, ptr @CvNAME_HEK, i64 1}
-!60 = !{ptr @Perl_cv_undef_flags, ptr @Perl_unshare_hek, i64 1}
-!61 = !{ptr @Perl_cv_undef_flags, ptr @Perl_cvgv_set, i64 528}
-!62 = !{ptr @Perl_cv_undef_flags, ptr @S_SvREFCNT_dec_NN, i64 994}
-!63 = !{ptr @Perl_cv_undef_flags, ptr @Perl_padnamelist_free, i64 500}
-!64 = !{ptr @Perl_cv_undef_flags, ptr @S_SvREFCNT_dec, i64 13}
-!65 = !{ptr @S_SvREFCNT_dec_NN, ptr @Perl_sv_free2, i64 1148}
-!66 = !{ptr @Perl_padnamelist_free, ptr @Perl_padname_free, i64 1134}
-!67 = !{ptr @Perl_padnamelist_free, ptr @Perl_safesysfree, i64 992}
-!68 = !{ptr @S_SvREFCNT_dec, ptr @Perl_sv_free2, i64 1}
-!69 = !{ptr @Perl_cv_forget_slab, ptr @Perl_opslab_free_nopad, i64 1}
-!70 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_croak, i64 1}
-!71 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_newPADNAMEpvn, i64 2315}
-!72 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_push_scope, i64 2226}
-!73 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_save_pushptr, i64 2226}
-!74 = !{ptr @Perl_pad_add_name_pvn, ptr @S_pad_check_dup, i64 2226}
-!75 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_pop_scope, i64 2226}
-!76 = !{ptr @Perl_pad_add_name_pvn, ptr @S_pad_alloc_name, i64 2315}
-!77 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_sv_upgrade, i64 264}
-!78 = !{ptr @Perl_newPADNAMEpvn, ptr @Perl_safesyscalloc, i64 2468}
-!79 = !{ptr @S_pad_check_dup, ptr @Perl_ckwarn, i64 2226}
-!80 = !{ptr @S_pad_check_dup, ptr @bcmp, i64 60}
-!81 = !{ptr @S_pad_check_dup, ptr @Perl_warner, i64 1}
-!82 = !{ptr @S_pad_alloc_name, ptr @Perl_pad_alloc, i64 2557}
-!83 = !{ptr @S_pad_alloc_name, ptr @Perl_padnamelist_store, i64 2557}
-!84 = !{ptr @Perl_pad_alloc, ptr @Perl_croak, i64 1}
-!85 = !{ptr @Perl_pad_alloc, ptr @S_pad_reset, i64 3359}
-!86 = !{ptr @Perl_pad_alloc, ptr @Perl_av_fetch, i64 241763}
-!87 = !{ptr @Perl_pad_alloc, ptr @Perl_padnamelist_store, i64 12}
-!88 = !{ptr @Perl_pad_add_anon, ptr @Perl_newPADNAMEpvn, i64 151}
-!89 = !{ptr @Perl_pad_add_anon, ptr @Perl_pad_alloc, i64 151}
-!90 = !{ptr @Perl_pad_add_anon, ptr @Perl_padnamelist_store, i64 151}
-!91 = !{ptr @Perl_pad_add_anon, ptr @Perl_av_store, i64 151}
-!92 = !{ptr @Perl_pad_add_anon, ptr @S_SvREFCNT_dec_NN, i64 146}
-!93 = !{ptr @Perl_pad_add_weakref, ptr @Perl_pad_alloc, i64 2}
-!94 = !{ptr @Perl_pad_add_weakref, ptr @Perl_newPADNAMEpvn, i64 2}
-!95 = !{ptr @Perl_pad_add_weakref, ptr @Perl_newRV, i64 2}
-!96 = !{ptr @Perl_pad_add_weakref, ptr @Perl_padnamelist_store, i64 2}
-!97 = !{ptr @Perl_pad_add_weakref, ptr @Perl_sv_rvweaken, i64 2}
-!98 = !{ptr @Perl_pad_add_weakref, ptr @Perl_av_store, i64 2}
-!99 = !{ptr @Perl_pad_findmy_pvn, ptr @Perl_croak, i64 1}
-!100 = !{ptr @Perl_pad_findmy_pvn, ptr @S_pad_findlex, i64 35997}
-!101 = !{ptr @Perl_pad_findmy_pvn, ptr @bcmp, i64 1}
-!102 = !{ptr @S_pad_findlex, ptr @Perl_croak, i64 1}
-!103 = !{ptr @S_pad_findlex, ptr @bcmp, i64 43048}
-!104 = !{ptr @S_pad_findlex, ptr @PadnameIN_SCOPE, i64 11686}
-!105 = !{ptr @S_pad_findlex, ptr @S_CvDEPTHp, i64 167}
-!106 = !{ptr @S_pad_findlex, ptr @S_unavailable, i64 1}
-!107 = !{ptr @S_pad_findlex, ptr @Perl_sv_newmortal, i64 1}
-!108 = !{ptr @S_pad_findlex, ptr @S_pad_findlex, i64 25712}
-!109 = !{ptr @S_pad_findlex, ptr @Perl_newPADNAMEouter, i64 241}
-!110 = !{ptr @S_pad_findlex, ptr @S_pad_alloc_name, i64 241}
-!111 = !{ptr @S_pad_findlex, ptr @S_SvREFCNT_inc, i64 162}
-!112 = !{ptr @S_pad_findlex, ptr @Perl_av_store, i64 162}
-!113 = !{ptr @Perl_pad_block_start, ptr @Perl_save_I32, i64 34575}
-!114 = !{ptr @Perl_pad_leavemy, ptr @Perl_ck_warner_d, i64 3}
-!115 = !{ptr @Perl_pad_swipe, ptr @Perl_croak, i64 3}
-!116 = !{ptr @Perl_pad_swipe, ptr @S_SvREFCNT_dec, i64 1}
-!117 = !{ptr @Perl_pad_free, ptr @Perl_croak, i64 2}
-!118 = !{ptr @Perl_cv_clone, ptr @Perl_croak, i64 1}
-!119 = !{ptr @Perl_cv_clone, ptr @S_cv_clone, i64 5}
-!120 = !{ptr @S_cv_clone, ptr @Perl_newSV_type, i64 4}
-!121 = !{ptr @S_cv_clone, ptr @Perl_savepv, i64 1}
-!122 = !{ptr @S_cv_clone, ptr @CvNAME_HEK, i64 3}
-!123 = !{ptr @S_cv_clone, ptr @S_CvGV, i64 4}
-!124 = !{ptr @S_cv_clone, ptr @Perl_cvgv_set, i64 4}
-!125 = !{ptr @S_cv_clone, ptr @Perl_cvstash_set, i64 5}
-!126 = !{ptr @S_cv_clone, ptr @Perl_sv_setpvn, i64 2}
-!127 = !{ptr @S_cv_clone, ptr @Perl_mg_copy, i64 1}
-!128 = !{ptr @S_cv_clone, ptr @S_cv_clone_pad, i64 4}
-!129 = !{ptr @Perl_cv_name, ptr @Perl_sv_setsv_flags, i64 1}
-!130 = !{ptr @Perl_cv_name, ptr @Perl_sv_newmortal, i64 5}
-!131 = !{ptr @Perl_cv_name, ptr @S_CvGV, i64 4}
-!132 = !{ptr @Perl_cv_name, ptr @Perl_sv_sethek, i64 1}
-!133 = !{ptr @Perl_cv_name, ptr @Perl_gv_efullname4, i64 3}
-!134 = !{ptr @S_CvGV, ptr @Perl_cvgv_from_hek, i64 1}
-!135 = !{ptr @Perl_pad_push, ptr @Perl_newSV_type, i64 17}
-!136 = !{ptr @Perl_pad_push, ptr @S_SvREFCNT_inc, i64 19}
-!137 = !{ptr @Perl_pad_push, ptr @Perl_av_store, i64 469}
-!138 = !{ptr @Perl_pad_push, ptr @Perl_newSV, i64 437}
-!139 = !{ptr @Perl_pad_push, ptr @S_SvREFCNT_inc_NN, i64 1}
-!140 = !{ptr @Perl_pad_push, ptr @Perl_padlist_store, i64 6}
-!141 = !{ptr @Perl_padlist_store, ptr @Perl_av_extend_guts, i64 3}
-!142 = !{ptr @Perl_padlist_store, ptr @S_SvREFCNT_dec, i64 4}
-!143 = !{ptr @Perl_padname_free, ptr @S_SvREFCNT_dec, i64 228}
-!144 = !{ptr @Perl_padname_free, ptr @Perl_padname_free, i64 11}
-!145 = !{ptr @Perl_padname_free, ptr @Perl_safesysfree, i64 114}
-!146 = !{ptr @Perl_newPADNAMEouter, ptr @Perl_safesyscalloc, i64 242}
-!147 = !{!"Ubuntu clang version 18.1.8 (++20240731024944+3b5b5c1ec4a3-1~exp1~20240731145000.144)"}
-!148 = !{!"function_entry_count", i64 1308}
-!149 = !{!"branch_weights", i32 2, i32 1308}
-!150 = !{!151, !151, i64 0}
-!151 = !{!"any pointer", !152, i64 0}
-!152 = !{!"omnipotent char", !153, i64 0}
-!153 = !{!"Simple C/C++ TBAA"}
-!154 = !{!"branch_weights", i32 1303, i32 6}
-!155 = !{!"branch_weights", i32 185, i32 1119}
-!156 = !{!"branch_weights", i32 1304, i32 6}
-!157 = !{!158, !159, i64 12}
-!158 = !{!"av", !151, i64 0, !159, i64 8, !159, i64 12, !152, i64 16}
-!159 = !{!"int", !152, i64 0}
-!160 = !{!161, !159, i64 32}
-!161 = !{!"padnamelist", !162, i64 0, !151, i64 8, !162, i64 16, !162, i64 24, !159, i64 32}
-!162 = !{!"long", !152, i64 0}
-!163 = !{!159, !159, i64 0}
-!164 = !{!165, !159, i64 16}
-!165 = !{!"padlist", !162, i64 0, !151, i64 8, !159, i64 16, !159, i64 20}
-!166 = !{!165, !162, i64 0}
-!167 = !{!165, !151, i64 8}
-!168 = !{!152, !152, i64 0}
-!169 = !{!170, !170, i64 0}
-!170 = !{!"_Bool", !152, i64 0}
-!171 = !{!"function_entry_count", i64 1303}
-!172 = !{!161, !151, i64 8}
-!173 = !{!161, !162, i64 0}
-!174 = !{!161, !162, i64 24}
-!175 = !{!161, !162, i64 16}
-!176 = !{!"function_entry_count", i64 4823}
-!177 = !{!"branch_weights", i32 2807, i32 2018}
-!178 = !{!"branch_weights", i32 4822, i32 3}
-!179 = !{!"branch_weights", i32 4824, i32 1}
-!180 = !{!"function_entry_count", i64 530}
-!181 = !{!182, !151, i64 0}
-!182 = !{!"cv", !151, i64 0, !159, i64 8, !159, i64 12, !152, i64 16}
-!183 = !{!184, !151, i64 64}
-!184 = !{!"xpvcv", !151, i64 0, !152, i64 8, !162, i64 16, !152, i64 24, !151, i64 32, !152, i64 40, !152, i64 48, !152, i64 56, !151, i64 64, !152, i64 72, !151, i64 80, !159, i64 88, !159, i64 92, !159, i64 96}
-!185 = !{!"branch_weights", i32 190, i32 342}
-!186 = !{!184, !159, i64 92}
-!187 = !{!"branch_weights", i32 337, i32 6}
-!188 = !{!"branch_weights", i32 526, i32 6}
-!189 = !{!"branch_weights", i32 190, i32 337}
-!190 = !{!184, !159, i64 96}
-!191 = !{!"branch_weights", i32 337, i32 1}
-!192 = !{!193, !151, i64 8}
-!193 = !{!"opslot", !151, i64 0, !151, i64 8, !194, i64 16}
-!194 = !{!"op", !151, i64 0, !151, i64 8, !151, i64 16, !162, i64 24, !159, i64 32, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !152, i64 34, !152, i64 35}
-!195 = !{!196, !162, i64 24}
-!196 = !{!"opslab", !151, i64 0, !151, i64 8, !151, i64 16, !162, i64 24, !193, i64 32}
-!197 = !{!"branch_weights", i32 168, i32 23}
-!198 = !{!"branch_weights", i32 1, i32 23}
-!199 = !{!200, !159, i64 12}
-!200 = !{!"sv", !151, i64 0, !159, i64 8, !159, i64 12, !152, i64 16}
-!201 = !{!"branch_weights", i32 531, i32 1}
-!202 = !{!"branch_weights", i32 24, i32 503}
-!203 = !{!"branch_weights", i32 1, i32 503}
-!204 = !{!184, !151, i64 80}
-!205 = !{!184, !159, i64 88}
-!206 = !{!"branch_weights", i32 502, i32 1}
-!207 = !{!"branch_weights", i32 20, i32 712}
-!208 = !{!209, !151, i64 0}
-!209 = !{!"padname", !151, i64 0, !151, i64 8, !152, i64 16, !159, i64 24, !159, i64 28, !159, i64 32, !159, i64 36, !152, i64 40, !152, i64 41}
-!210 = !{!"branch_weights", i32 562, i32 151}
-!211 = !{!"branch_weights", i32 13, i32 139}
-!212 = !{!182, !159, i64 8}
-!213 = !{!158, !159, i64 8}
-!214 = !{!"branch_weights", i32 13, i32 1}
-!215 = !{!"branch_weights", i32 11, i32 3}
-!216 = !{!182, !159, i64 12}
-!217 = !{!"branch_weights", i32 3, i32 1}
-!218 = !{!"branch_weights", i32 1, i32 3}
-!219 = !{!200, !159, i64 8}
-!220 = !{!"branch_weights", i32 229, i32 502}
-!221 = distinct !{!221, !222}
-!222 = !{!"llvm.loop.mustprogress"}
-!223 = !{!"branch_weights", i32 1, i32 502}
-!224 = distinct !{!224, !222}
-!225 = !{!"branch_weights", i32 37, i32 495}
-!226 = !{!"branch_weights", i32 487, i32 9}
-!227 = !{!"branch_weights", i32 519, i32 13}
-!228 = !{!"function_entry_count", i64 0}
-!229 = !{!"pad.c:CvNAME_HEK"}
-!230 = !{!"function_entry_count", i64 1149}
-!231 = !{!"pad.c:S_SvREFCNT_dec_NN"}
-!232 = !{!"branch_weights", i32 1, i32 1150}
-!233 = !{!"function_entry_count", i64 502}
-!234 = !{!"branch_weights", i32 498, i32 6}
-!235 = !{!"branch_weights", i32 497, i32 1}
-!236 = !{!"branch_weights", i32 20, i32 1139}
-!237 = !{!"branch_weights", i32 661, i32 497}
-!238 = distinct !{!238, !222}
-!239 = !{!"function_entry_count", i64 320}
-!240 = !{!"pad.c:S_SvREFCNT_dec"}
-!241 = !{!"branch_weights", i32 321, i32 1}
-!242 = !{!"branch_weights", i32 1, i32 82}
-!243 = !{!"function_entry_count", i64 185}
-!244 = !{!"branch_weights", i32 1, i32 186}
-!245 = !{!"branch_weights", i32 186, i32 1}
-!246 = !{!"function_entry_count", i64 2315}
-!247 = !{!"branch_weights", i32 2316, i32 1}
-!248 = !{!"branch_weights", i32 2228, i32 89}
-!249 = !{!209, !159, i64 32}
-!250 = !{i64 -2147483648, i64 2147483648}
-!251 = !{!209, !159, i64 24}
-!252 = !{!209, !159, i64 28}
-!253 = !{!"branch_weights", i32 1717, i32 600}
-!254 = !{!"branch_weights", i32 1, i32 2316}
-!255 = !{!"branch_weights", i32 -2051485265, i32 209810688, i32 77549750, i32 1091718}
-!256 = !{!"function_entry_count", i64 2468}
-!257 = !{!209, !152, i64 40}
-!258 = !{!"function_entry_count", i64 2227}
-!259 = !{!"pad.c:S_pad_check_dup"}
-!260 = !{!"branch_weights", i32 1, i32 2228}
-!261 = !{!"branch_weights", i32 227, i32 2002}
-!262 = !{!"branch_weights", i32 226, i32 1}
-!263 = !{!"branch_weights", i32 458, i32 511}
-!264 = !{!"branch_weights", i32 62, i32 450}
-!265 = !{!209, !152, i64 41}
-!266 = !{!"branch_weights", i32 62, i32 1}
-!267 = !{!"branch_weights", i32 17, i32 46}
-!268 = !{!"branch_weights", i32 46, i32 1}
-!269 = !{!"branch_weights", i32 1, i32 62}
-!270 = !{!209, !151, i64 8}
-!271 = !{!272, !273, i64 236}
-!272 = !{!"yy_parser", !151, i64 0, !152, i64 8, !159, i64 16, !159, i64 20, !159, i64 24, !159, i64 28, !151, i64 32, !151, i64 40, !159, i64 48, !159, i64 52, !151, i64 56, !151, i64 64, !152, i64 72, !152, i64 73, !152, i64 74, !152, i64 75, !159, i64 76, !151, i64 80, !151, i64 88, !151, i64 96, !273, i64 104, !273, i64 106, !159, i64 108, !151, i64 112, !159, i64 120, !159, i64 124, !152, i64 128, !152, i64 129, !170, i64 130, !170, i64 131, !159, i64 132, !274, i64 136, !151, i64 160, !151, i64 168, !151, i64 176, !151, i64 184, !151, i64 192, !151, i64 200, !151, i64 208, !151, i64 216, !151, i64 224, !159, i64 232, !273, i64 236, !152, i64 238, !152, i64 239, !151, i64 240, !151, i64 248, !151, i64 256, !152, i64 264, !152, i64 272, !152, i64 312, !159, i64 332, !151, i64 336, !152, i64 344, !159, i64 600, !159, i64 604, !152, i64 608, !152, i64 609, !159, i64 610, !159, i64 610, !159, i64 610, !159, i64 610}
-!273 = !{!"short", !152, i64 0}
-!274 = !{!"_sublex_info", !152, i64 0, !273, i64 2, !151, i64 8, !151, i64 16}
-!275 = !{!"branch_weights", i32 742, i32 226}
-!276 = distinct !{!276, !222}
-!277 = !{!"branch_weights", i32 1971, i32 20829}
-!278 = !{!"branch_weights", i32 58, i32 16}
-!279 = !{!"branch_weights", i32 2, i32 15}
-!280 = !{!"branch_weights", i32 2, i32 1}
-!281 = !{!"branch_weights", i32 1, i32 2}
-!282 = !{!"branch_weights", i32 1362612276, i32 784871372}
-!283 = !{!"function_entry_count", i64 2557}
-!284 = !{!"pad.c:S_pad_alloc_name"}
-!285 = !{!"branch_weights", i32 2558, i32 1}
-!286 = !{!"branch_weights", i32 2419, i32 140}
-!287 = !{!"branch_weights", i32 2331, i32 89}
-!288 = !{!"branch_weights", i32 2470, i32 89}
-!289 = !{!200, !151, i64 0}
-!290 = !{!291, !162, i64 16}
-!291 = !{!"xpv", !151, i64 0, !152, i64 8, !162, i64 16, !152, i64 24}
-!292 = !{!162, !162, i64 0}
-!293 = !{!"function_entry_count", i64 12136}
-!294 = !{!"branch_weights", i32 12137, i32 1}
-!295 = !{i8 0, i8 2}
-!296 = !{}
-!297 = !{!"branch_weights", i32 8778, i32 3360}
-!298 = !{!"branch_weights", i32 2711, i32 9427}
-!299 = !{!158, !151, i64 0}
-!300 = !{!301, !162, i64 16}
-!301 = !{!"xpvav", !151, i64 0, !152, i64 8, !162, i64 16, !162, i64 24, !151, i64 32}
-!302 = !{!"branch_weights", i32 9598, i32 16351}
-!303 = !{!"branch_weights", i32 4208, i32 5391}
-!304 = !{!"branch_weights", i32 8, i32 5384}
-!305 = !{!"branch_weights", i32 9416, i32 12}
-!306 = !{!"function_entry_count", i64 3359}
-!307 = !{!"pad.c:S_pad_reset"}
-!308 = !{!"function_entry_count", i64 151}
-!309 = !{!"branch_weights", i32 5, i32 148}
-!310 = !{!"function_entry_count", i64 2}
-!311 = !{!"function_entry_count", i64 35998}
-!312 = !{!"branch_weights", i32 35999, i32 1}
-!313 = !{!"branch_weights", i32 1, i32 35999}
-!314 = !{!"branch_weights", i32 24222, i32 11778}
-!315 = !{!"branch_weights", i32 15818, i32 8405}
-!316 = !{!"branch_weights", i32 8404, i32 1}
-!317 = !{!"branch_weights", i32 186623, i32 65247}
-!318 = !{!"branch_weights", i32 3858, i32 61390}
-!319 = !{!"branch_weights", i32 3803, i32 56}
-!320 = !{!"branch_weights", i32 3803, i32 1}
-!321 = !{!"branch_weights", i32 243465, i32 8404}
-!322 = distinct !{!322, !222}
-!323 = !{!"function_entry_count", i64 61757}
-!324 = !{!"pad.c:S_pad_findlex"}
-!325 = !{!"branch_weights", i32 61758, i32 1}
-!326 = !{!"branch_weights", i32 50236, i32 1}
-!327 = !{!"branch_weights", i32 822428, i32 376319}
-!328 = !{!"branch_weights", i32 42714, i32 333606}
-!329 = !{!"branch_weights", i32 1, i32 42714}
-!330 = !{!"branch_weights", i32 11852, i32 30863}
-!331 = !{!"branch_weights", i32 11596, i32 257}
-!332 = !{!"branch_weights", i32 11522, i32 75}
-!333 = !{!"branch_weights", i32 1148510, i32 50236}
-!334 = distinct !{!334, !222}
-!335 = !{!"branch_weights", i32 2136443182, i32 11040466}
-!336 = !{!"branch_weights", i32 11396, i32 127}
-!337 = !{!"branch_weights", i32 10861, i32 662}
-!338 = !{!"branch_weights", i32 11554, i32 225}
-!339 = !{!"branch_weights", i32 167, i32 59}
-!340 = !{!"branch_weights", i32 167, i32 1}
-!341 = !{!"branch_weights", i32 24222, i32 25760}
-!342 = !{!"branch_weights", i32 21122, i32 4639}
-!343 = !{!"branch_weights", i32 435765625, i32 102021011}
-!344 = !{!"branch_weights", i32 -1, i32 1}
-!345 = !{!"branch_weights", i32 25518, i32 243}
-!346 = !{!"branch_weights", i32 59049, i32 487}
-!347 = !{!"branch_weights", i32 183, i32 61}
-!348 = !{!"branch_weights", i32 27889, i32 3023}
-!349 = !{!"branch_weights", i32 1, i32 167}
-!350 = !{!"branch_weights", i32 1, i32 243}
-!351 = !{!352, !159, i64 60}
-!352 = !{!"cop", !151, i64 0, !151, i64 8, !151, i64 16, !162, i64 24, !159, i64 32, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !152, i64 34, !152, i64 35, !159, i64 36, !151, i64 40, !151, i64 48, !159, i64 56, !159, i64 60, !151, i64 64, !151, i64 72}
-!353 = !{!354, !151, i64 0}
-!354 = !{!"gp", !151, i64 0, !151, i64 8, !151, i64 16, !159, i64 24, !159, i64 28, !151, i64 32, !151, i64 40, !151, i64 48, !151, i64 56, !159, i64 64, !159, i64 67, !151, i64 72}
-!355 = !{!"function_entry_count", i64 171}
-!356 = !{!"pad.c:S_CvDEPTHp"}
-!357 = !{!"function_entry_count", i64 6915}
-!358 = !{!"branch_weights", i32 2908, i32 4009}
-!359 = !{!"branch_weights", i32 1, i32 6916}
-!360 = !{!"function_entry_count", i64 17194}
-!361 = !{!"branch_weights", i32 13130, i32 4066}
-!362 = !{!"branch_weights", i32 15479, i32 1717}
-!363 = !{!"branch_weights", i32 1, i32 1716}
-!364 = !{!"branch_weights", i32 18, i32 2316}
-!365 = !{!"branch_weights", i32 1716, i32 617}
-!366 = distinct !{!366, !222}
-!367 = !{!"branch_weights", i32 1, i32 1717}
-!368 = !{!"branch_weights", i32 6855, i32 62}
-!369 = distinct !{!369, !222}
-!370 = !{!"branch_weights", i32 6915, i32 1}
-!371 = !{!"branch_weights", i32 15606, i32 5280}
-!372 = !{!"branch_weights", i32 35, i32 5246}
-!373 = !{!"branch_weights", i32 4489, i32 758}
-!374 = !{!"branch_weights", i32 2316, i32 2174}
-!375 = !{!"branch_weights", i32 2149, i32 80}
-!376 = !{!"branch_weights", i32 1, i32 2149}
-!377 = !{!194, !162, i64 24}
-!378 = !{!"branch_weights", i32 13970, i32 6915}
-!379 = distinct !{!379, !222}
-!380 = !{!"function_entry_count", i64 658}
-!381 = !{!"branch_weights", i32 1, i32 659}
-!382 = !{!"branch_weights", i32 659, i32 1}
-!383 = !{!"branch_weights", i32 1319, i32 434281}
-!384 = !{!"branch_weights", i32 432964, i32 2636}
-!385 = !{!"branch_weights", i32 13779, i32 1121481}
-!386 = !{!"branch_weights", i32 1, i32 191}
-!387 = !{!"branch_weights", i32 12, i32 12}
-!388 = !{!"branch_weights", i32 12, i32 1}
-!389 = !{!"branch_weights", i32 191, i32 177}
-!390 = distinct !{!390, !222}
-!391 = !{!"branch_weights", i32 800, i32 271}
-!392 = !{!"branch_weights", i32 1060, i32 11671, i32 1123600}
-!393 = !{!"branch_weights", i32 1, i32 175}
-!394 = !{!"branch_weights", i32 43, i32 33}
-!395 = !{!"branch_weights", i32 1, i32 75}
-!396 = !{!"branch_weights", i32 75, i32 1}
-!397 = !{!"branch_weights", i32 1, i32 33}
-!398 = !{!"branch_weights", i32 175, i32 1025}
-!399 = distinct !{!399, !222}
-!400 = !{!"branch_weights", i32 344654252, i32 1802829396}
-!401 = !{!"branch_weights", i32 1, i32 1059}
-!402 = !{!"branch_weights", i32 8255, i32 2284}
-!403 = !{!"branch_weights", i32 308, i32 10231}
-!404 = !{!"branch_weights", i32 10231, i32 1}
-!405 = !{!"branch_weights", i32 17580, i32 2884}
-!406 = !{!"branch_weights", i32 2884, i32 7348}
-!407 = !{!"branch_weights", i32 2658, i32 227}
-!408 = !{!"branch_weights", i32 1059, i32 9479}
-!409 = distinct !{!409, !222}
-!410 = !{!"function_entry_count", i64 2657}
-!411 = !{!"pad.c:S_SvPADSTALE_on"}
-!412 = !{!"function_entry_count", i64 5543}
-!413 = !{!"branch_weights", i32 1366, i32 4179}
-!414 = !{!"branch_weights", i32 4179, i32 1}
-!415 = !{!"branch_weights", i32 1, i32 4179}
-!416 = !{!"branch_weights", i32 12397441, i32 2324519}
-!417 = !{!"branch_weights", i32 2102, i32 1420}
-!418 = !{!"branch_weights", i32 853, i32 3327}
-!419 = distinct !{!419, !222}
-!420 = !{!"function_entry_count", i64 5}
-!421 = !{!"branch_weights", i32 1, i32 6}
-!422 = !{!"pad.c:S_cv_clone"}
-!423 = !{!"branch_weights", i32 6, i32 1}
-!424 = !{!184, !151, i64 32}
-!425 = !{!"branch_weights", i32 4, i32 3}
-!426 = !{!"function_entry_count", i64 6}
-!427 = !{!"branch_weights", i32 1, i32 7}
-!428 = !{!"branch_weights", i32 7, i32 1}
-!429 = !{!430, !159, i64 12}
-!430 = !{!"hv", !151, i64 0, !159, i64 8, !159, i64 12, !152, i64 16}
-!431 = !{!430, !151, i64 0}
-!432 = !{!433, !162, i64 24}
-!433 = !{!"xpvhv", !151, i64 0, !152, i64 8, !162, i64 16, !162, i64 24}
-!434 = !{!435, !159, i64 28}
-!435 = !{!"xpvhv_aux", !152, i64 0, !151, i64 8, !151, i64 16, !159, i64 24, !159, i64 28, !151, i64 32, !159, i64 40, !159, i64 44, !159, i64 48, !159, i64 52}
-!436 = !{!437, !159, i64 4}
-!437 = !{!"hek", !159, i64 0, !159, i64 4, !152, i64 8}
-!438 = !{!"branch_weights", i32 49, i32 15}
-!439 = !{!354, !151, i64 56}
-!440 = !{!441, !151, i64 0}
-!441 = !{!"gv", !151, i64 0, !159, i64 8, !159, i64 12, !152, i64 16}
-!442 = !{!"function_entry_count", i64 11}
-!443 = !{!"pad.c:S_CvGV"}
-!444 = !{!"function_entry_count", i64 23}
-!445 = !{!"branch_weights", i32 191, i32 1}
-!446 = !{!"branch_weights", i32 14762, i32 66787}
-!447 = !{!"branch_weights", i32 118, i32 4}
-!448 = !{!"branch_weights", i32 1, i32 118}
-!449 = distinct !{!449, !222}
-!450 = !{!"branch_weights", i32 5105, i32 191}
-!451 = distinct !{!451, !222}
-!452 = !{!"function_entry_count", i64 51928}
-!453 = !{!"branch_weights", i32 5, i32 51925}
-!454 = !{!"branch_weights", i32 1, i32 51925}
-!455 = !{!"branch_weights", i32 159, i32 1}
-!456 = !{!"branch_weights", i32 1, i32 386}
-!457 = !{!"branch_weights", i32 311, i32 76}
-!458 = !{!"branch_weights", i32 63, i32 14}
-!459 = !{!"branch_weights", i32 127, i32 3969}
-!460 = !{!"branch_weights", i32 3600, i32 244, i32 60}
-!461 = !{!"branch_weights", i32 311, i32 1}
-!462 = !{!"branch_weights", i32 12193, i32 159}
-!463 = distinct !{!463, !222}
-!464 = !{!"function_entry_count", i64 179}
-!465 = !{!"pad.c:S_SvREFCNT_inc"}
-!466 = !{!"branch_weights", i32 180, i32 1}
-!467 = !{!"pad.c:S_SvREFCNT_inc_NN"}
-!468 = !{!"function_entry_count", i64 4}
-!469 = !{!"branch_weights", i32 5, i32 1}
-!470 = !{!"function_entry_count", i64 3375}
-!471 = !{!"branch_weights", i32 116, i32 3261}
-!472 = !{!"branch_weights", i32 233, i32 13456}
-!473 = !{!"branch_weights", i32 106, i32 11}
-!474 = !{!"function_entry_count", i64 253}
-!475 = !{!"branch_weights", i32 1, i32 254}
-!476 = !{!"function_entry_count", i64 242}
-!477 = !{!"function_entry_count", i64 11595}
-!478 = !{!"pad.c:PadnameIN_SCOPE"}
-!479 = !{!"branch_weights", i32 2, i32 11595}
-!480 = !{!"branch_weights", i32 11522, i32 74}
-!481 = !{!"branch_weights", i32 1, i32 11522}
-!482 = !{!"branch_weights", i32 11522, i32 1}
-!483 = !{!"branch_weights", i32 1, i32 74}
-!484 = !{!"branch_weights", i32 0, i32 -1778384897}
-!485 = !{!"branch_weights", i32 5551, i32 74}
-!486 = !{!"pad.c:S_unavailable"}
-!487 = !{!"pad.c:S_cv_clone_pad"}
-!488 = !{!165, !159, i64 20}
-!489 = !{!"branch_weights", i32 366085491, i32 1781398157}
-!490 = !{!"branch_weights", i32 0, i32 -2147483648}
-!491 = !{!"branch_weights", i32 1, i32 71}
-!492 = !{!"branch_weights", i32 43, i32 29}
-!493 = !{!"branch_weights", i32 29, i32 1}
-!494 = !{!"branch_weights", i32 18, i32 12}
-!495 = !{!"branch_weights", i32 1, i32 12}
-!496 = !{!"branch_weights", i32 1, i32 25}
-!497 = !{!"branch_weights", i32 5832, i32 361, i32 342, i32 324}
-!498 = !{!"branch_weights", i32 18, i32 1}
-!499 = !{!"branch_weights", i32 43, i32 1}
-!500 = !{!"branch_weights", i32 2081, i32 191}
-!501 = distinct !{!501, !222}
-!502 = !{!"branch_weights", i32 1839094074, i32 308389574}
-!503 = distinct !{!503, !222}
-!504 = distinct !{!504, !222}
-!505 = distinct !{!505, !222}
-!506 = distinct !{!506, !222}
-!507 = !{!"branch_weights", i32 1, i32 5}
-!508 = !{!"branch_weights", i32 3, i32 3}
-!509 = distinct !{!509, !222}
-!510 = !{!511, !151, i64 40}
-!511 = !{!"unop", !151, i64 0, !151, i64 8, !151, i64 16, !162, i64 24, !159, i64 32, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !159, i64 33, !152, i64 34, !152, i64 35, !151, i64 40}
-!512 = !{!194, !151, i64 8}
-!513 = !{!"branch_weights", i32 894784854, i32 1252698794}
-!514 = !{!"pad.c:S_perl_hash_one_at_a_time_hard"}
-!515 = distinct !{!515, !222}
+!42 = !{ptr @Perl_pad_new, ptr @Perl_safesysmalloc, i64 2611}
+!43 = !{ptr @Perl_padnamelist_store, ptr @Perl_av_extend_guts, i64 8}
+!44 = !{ptr @Perl_cv_undef, ptr @Perl_cv_undef_flags, i64 530}
+!45 = !{ptr @Perl_cv_undef_flags, ptr @Perl_safesysfree, i64 2003}
+!46 = !{ptr @Perl_cv_undef_flags, ptr @Perl_push_scope, i64 358}
+!47 = !{ptr @Perl_cv_undef_flags, ptr @Perl_save_pushptr, i64 358}
+!48 = !{ptr @Perl_cv_undef_flags, ptr @Perl_op_free, i64 336}
+!49 = !{ptr @Perl_cv_undef_flags, ptr @Perl_pop_scope, i64 358}
+!50 = !{ptr @Perl_cv_undef_flags, ptr @Perl_parser_free_nexttoke_ops, i64 22}
+!51 = !{ptr @Perl_cv_undef_flags, ptr @Perl_opslab_force_free, i64 22}
+!52 = !{ptr @Perl_cv_undef_flags, ptr @Perl_sv_unmagic, i64 530}
+!53 = !{ptr @Perl_cv_undef_flags, ptr @Perl_cvgv_set, i64 530}
+!54 = !{ptr @Perl_cv_undef_flags, ptr @Perl_sv_free2, i64 619}
+!55 = !{ptr @Perl_cv_undef_flags, ptr @Perl_padname_free, i64 1138}
+!56 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_safesyscalloc, i64 2315}
+!57 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_push_scope, i64 2227}
+!58 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_save_pushptr, i64 2227}
+!59 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_ckwarn, i64 2227}
+!60 = !{ptr @Perl_pad_add_name_pvn, ptr @bcmp, i64 61}
+!61 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_pop_scope, i64 2227}
+!62 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_av_fetch, i64 2315}
+!63 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_av_extend_guts, i64 1347}
+!64 = !{ptr @Perl_pad_add_name_pvn, ptr @Perl_sv_upgrade, i64 261}
+!65 = !{ptr @Perl_pad_alloc, ptr @Perl_av_fetch, i64 18080}
+!66 = !{ptr @Perl_pad_alloc, ptr @Perl_padnamelist_store, i64 9}
+!67 = !{ptr @Perl_pad_add_anon, ptr @Perl_safesyscalloc, i64 151}
+!68 = !{ptr @Perl_pad_add_anon, ptr @Perl_av_fetch, i64 151}
+!69 = !{ptr @Perl_pad_add_anon, ptr @Perl_av_extend_guts, i64 88}
+!70 = !{ptr @Perl_pad_add_anon, ptr @Perl_av_store, i64 151}
+!71 = !{ptr @Perl_pad_add_weakref, ptr @Perl_pad_alloc, i64 2}
+!72 = !{ptr @Perl_pad_add_weakref, ptr @Perl_safesyscalloc, i64 2}
+!73 = !{ptr @Perl_pad_add_weakref, ptr @Perl_newRV, i64 2}
+!74 = !{ptr @Perl_pad_add_weakref, ptr @Perl_padnamelist_store, i64 2}
+!75 = !{ptr @Perl_pad_add_weakref, ptr @Perl_sv_rvweaken, i64 2}
+!76 = !{ptr @Perl_pad_add_weakref, ptr @Perl_av_store, i64 2}
+!77 = !{ptr @Perl_pad_findmy_pvn, ptr @S_pad_findlex, i64 35998}
+!78 = !{ptr @S_pad_findlex, ptr @bcmp, i64 43049}
+!79 = !{ptr @S_pad_findlex, ptr @S_pad_findlex, i64 25759}
+!80 = !{ptr @S_pad_findlex, ptr @Perl_safesyscalloc, i64 242}
+!81 = !{ptr @S_pad_findlex, ptr @Perl_av_fetch, i64 242}
+!82 = !{ptr @S_pad_findlex, ptr @Perl_av_extend_guts, i64 141}
+!83 = !{ptr @S_pad_findlex, ptr @Perl_av_store, i64 166}
+!84 = !{ptr @Perl_pad_block_start, ptr @Perl_save_I32, i64 34575}
+!85 = !{ptr @Perl_pad_tidy, ptr @Perl_av_extend_guts, i64 465}
+!86 = !{ptr @Perl_pad_tidy, ptr @Perl_sv_free2, i64 74}
+!87 = !{ptr @Perl_pad_tidy, ptr @Perl_newSV_type, i64 1059}
+!88 = !{ptr @Perl_pad_tidy, ptr @Perl_av_store, i64 1059}
+!89 = !{ptr @Perl_cv_clone, ptr @S_cv_clone, i64 5}
+!90 = !{ptr @S_cv_clone, ptr @Perl_newSV_type, i64 5}
+!91 = !{ptr @S_cv_clone, ptr @Perl_cvgv_set, i64 5}
+!92 = !{ptr @S_cv_clone, ptr @Perl_cvstash_set, i64 5}
+!93 = !{ptr @S_cv_clone, ptr @Perl_sv_setpvn, i64 2}
+!94 = !{ptr @S_cv_clone, ptr @Perl_find_runcv, i64 5}
+!95 = !{ptr @S_cv_clone, ptr @Perl_push_scope, i64 5}
+!96 = !{ptr @S_cv_clone, ptr @Perl_save_sptr, i64 10}
+!97 = !{ptr @S_cv_clone, ptr @Perl_save_pushptr, i64 5}
+!98 = !{ptr @S_cv_clone, ptr @Perl_pad_new, i64 5}
+!99 = !{ptr @S_cv_clone, ptr @Perl_av_fill, i64 5}
+!100 = !{ptr @S_cv_clone, ptr @Perl_newSV, i64 59}
+!101 = !{ptr @S_cv_clone, ptr @Perl_pop_scope, i64 5}
+!102 = !{ptr @S_cv_clone, ptr @Perl_sv_free2, i64 2}
+!103 = !{ptr @S_cv_clone, ptr @Perl_newCONSTSUB, i64 2}
+!104 = !{ptr @Perl_cv_name, ptr @Perl_sv_newmortal, i64 6}
+!105 = !{ptr @Perl_cv_name, ptr @Perl_gv_efullname4, i64 6}
+!106 = !{ptr @Perl_pad_push, ptr @Perl_newSV_type, i64 11}
+!107 = !{ptr @Perl_pad_push, ptr @Perl_av_store, i64 389}
+!108 = !{ptr @Perl_pad_push, ptr @Perl_newSV, i64 369}
+!109 = !{ptr @Perl_pad_push, ptr @Perl_padlist_store, i64 4}
+!110 = !{ptr @Perl_padlist_store, ptr @Perl_av_extend_guts, i64 4}
+!111 = !{ptr @Perl_padname_free, ptr @Perl_padname_free, i64 10}
+!112 = !{ptr @Perl_padname_free, ptr @Perl_safesysfree, i64 115}
+!113 = !{!"Ubuntu clang version 18.1.8 (++20240731024944+3b5b5c1ec4a3-1~exp1~20240731145000.144)"}
+!114 = !{!"function_entry_count", i64 1308}
+!115 = !{!"branch_weights", i32 1, i32 1307}
+!116 = !{!117, !117, i64 0}
+!117 = !{!"any pointer", !118, i64 0}
+!118 = !{!"omnipotent char", !119, i64 0}
+!119 = !{!"Simple C/C++ TBAA"}
+!120 = !{!"branch_weights", i32 1302, i32 5}
+!121 = !{!"branch_weights", i32 184, i32 1118}
+!122 = !{!"branch_weights", i32 1303, i32 5}
+!123 = !{!124, !125, i64 12}
+!124 = !{!"av", !117, i64 0, !125, i64 8, !125, i64 12, !118, i64 16}
+!125 = !{!"int", !118, i64 0}
+!126 = !{!127, !125, i64 32}
+!127 = !{!"padnamelist", !128, i64 0, !117, i64 8, !128, i64 16, !128, i64 24, !125, i64 32}
+!128 = !{!"long", !118, i64 0}
+!129 = !{!125, !125, i64 0}
+!130 = !{!131, !125, i64 16}
+!131 = !{!"padlist", !128, i64 0, !117, i64 8, !125, i64 16, !125, i64 20}
+!132 = !{!127, !117, i64 8}
+!133 = !{!127, !128, i64 0}
+!134 = !{!"branch_weights", i32 4823, i32 0}
+!135 = !{!131, !128, i64 0}
+!136 = !{!131, !117, i64 8}
+!137 = !{!118, !118, i64 0}
+!138 = !{!139, !139, i64 0}
+!139 = !{!"_Bool", !118, i64 0}
+!140 = !{!"function_entry_count", i64 0}
+!141 = !{!127, !128, i64 24}
+!142 = !{!127, !128, i64 16}
+!143 = !{!"function_entry_count", i64 13}
+!144 = !{!"branch_weights", i32 2806, i32 2017}
+!145 = !{!"branch_weights", i32 4821, i32 2}
+!146 = !{!"VP", i32 1, i64 12, i64 8, i64 9, i64 16, i64 1, i64 17, i64 0, i64 33, i64 0}
+!147 = !{!"function_entry_count", i64 530}
+!148 = !{!149, !117, i64 0}
+!149 = !{!"cv", !117, i64 0, !125, i64 8, !125, i64 12, !118, i64 16}
+!150 = !{!151, !117, i64 64}
+!151 = !{!"xpvcv", !117, i64 0, !118, i64 8, !128, i64 16, !118, i64 24, !117, i64 32, !118, i64 40, !118, i64 48, !118, i64 56, !117, i64 64, !118, i64 72, !117, i64 80, !125, i64 88, !125, i64 92, !125, i64 96}
+!152 = !{!"branch_weights", i32 189, i32 341}
+!153 = !{!151, !125, i64 92}
+!154 = !{!"branch_weights", i32 336, i32 5}
+!155 = !{!"branch_weights", i32 525, i32 5}
+!156 = !{!"branch_weights", i32 189, i32 336}
+!157 = !{!151, !125, i64 96}
+!158 = !{!"branch_weights", i32 336, i32 0}
+!159 = !{!160, !117, i64 8}
+!160 = !{!"opslot", !117, i64 0, !117, i64 8, !161, i64 16}
+!161 = !{!"op", !117, i64 0, !117, i64 8, !117, i64 16, !128, i64 24, !125, i64 32, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !118, i64 34, !118, i64 35}
+!162 = !{!163, !128, i64 24}
+!163 = !{!"opslab", !117, i64 0, !117, i64 8, !117, i64 16, !128, i64 24, !160, i64 32}
+!164 = !{!"branch_weights", i32 167, i32 22}
+!165 = !{!"branch_weights", i32 0, i32 22}
+!166 = !{!167, !125, i64 12}
+!167 = !{!"sv", !117, i64 0, !125, i64 8, !125, i64 12, !118, i64 16}
+!168 = !{!"branch_weights", i32 530, i32 0}
+!169 = !{!"branch_weights", i32 23, i32 502}
+!170 = !{!"branch_weights", i32 0, i32 502}
+!171 = !{!151, !117, i64 80}
+!172 = !{!151, !125, i64 88}
+!173 = !{!"branch_weights", i32 501, i32 1}
+!174 = !{!"branch_weights", i32 19, i32 711}
+!175 = !{!176, !117, i64 0}
+!176 = !{!"padname", !117, i64 0, !117, i64 8, !118, i64 16, !125, i64 24, !125, i64 28, !125, i64 32, !125, i64 36, !118, i64 40, !118, i64 41}
+!177 = !{!"branch_weights", i32 561, i32 150}
+!178 = !{!"branch_weights", i32 12, i32 138}
+!179 = !{!124, !125, i64 8}
+!180 = !{!"branch_weights", i32 12, i32 0}
+!181 = !{!"branch_weights", i32 2, i32 10}
+!182 = !{!167, !125, i64 8}
+!183 = !{!"branch_weights", i32 10, i32 2}
+!184 = !{!149, !125, i64 12}
+!185 = !{!"branch_weights", i32 2, i32 0}
+!186 = !{!"branch_weights", i32 0, i32 2}
+!187 = !{!"branch_weights", i32 229, i32 501}
+!188 = distinct !{!188, !189, !190}
+!189 = !{!"llvm.loop.mustprogress"}
+!190 = !{!"llvm.loop.unroll.disable"}
+!191 = !{!"branch_weights", i32 1, i32 501}
+!192 = distinct !{!192, !189, !190}
+!193 = !{!"branch_weights", i32 497, i32 5}
+!194 = !{!"branch_weights", i32 496, i32 1}
+!195 = !{!"branch_weights", i32 19, i32 1138}
+!196 = !{!"branch_weights", i32 661, i32 496}
+!197 = distinct !{!197, !189, !190}
+!198 = !{!"branch_weights", i32 23, i32 5}
+!199 = !{!149, !125, i64 8}
+!200 = !{!"branch_weights", i32 36, i32 494}
+!201 = !{!"branch_weights", i32 486, i32 8}
+!202 = !{!"branch_weights", i32 381, i32 105}
+!203 = !{!"branch_weights", i32 518, i32 12}
+!204 = !{!"branch_weights", i32 7, i32 5}
+!205 = !{!"branch_weights", i32 3, i32 2}
+!206 = !{!"function_entry_count", i64 185}
+!207 = !{!"branch_weights", i32 0, i32 185}
+!208 = !{!"branch_weights", i32 185, i32 0}
+!209 = !{!"function_entry_count", i64 2315}
+!210 = !{!"branch_weights", i32 2315, i32 0}
+!211 = !{!176, !125, i64 32}
+!212 = !{!"VP", i32 1, i64 2315, i64 5, i64 442, i64 4, i64 424, i64 9, i64 335, i64 6, i64 260}
+!213 = !{!176, !118, i64 40}
+!214 = !{!"branch_weights", i32 2227, i32 88}
+!215 = !{!"branch_weights", i32 0, i32 2227}
+!216 = !{!"branch_weights", i32 226, i32 2001}
+!217 = !{!"branch_weights", i32 225, i32 1}
+!218 = !{!"branch_weights", i32 457, i32 510}
+!219 = !{!"branch_weights", i32 61, i32 449}
+!220 = !{!176, !118, i64 41}
+!221 = !{!"branch_weights", i32 61, i32 0}
+!222 = !{!176, !125, i64 24}
+!223 = !{!"branch_weights", i32 16, i32 45}
+!224 = !{!176, !125, i64 28}
+!225 = !{!"branch_weights", i32 45, i32 0}
+!226 = !{!"VP", i32 1, i64 61, i64 6, i64 21, i64 5, i64 11, i64 9, i64 10, i64 2, i64 8}
+!227 = !{!"branch_weights", i32 0, i32 61}
+!228 = !{!176, !117, i64 8}
+!229 = !{!230, !231, i64 236}
+!230 = !{!"yy_parser", !117, i64 0, !118, i64 8, !125, i64 16, !125, i64 20, !125, i64 24, !125, i64 28, !117, i64 32, !117, i64 40, !125, i64 48, !125, i64 52, !117, i64 56, !117, i64 64, !118, i64 72, !118, i64 73, !118, i64 74, !118, i64 75, !125, i64 76, !117, i64 80, !117, i64 88, !117, i64 96, !231, i64 104, !231, i64 106, !125, i64 108, !117, i64 112, !125, i64 120, !125, i64 124, !118, i64 128, !118, i64 129, !139, i64 130, !139, i64 131, !125, i64 132, !232, i64 136, !117, i64 160, !117, i64 168, !117, i64 176, !117, i64 184, !117, i64 192, !117, i64 200, !117, i64 208, !117, i64 216, !117, i64 224, !125, i64 232, !231, i64 236, !118, i64 238, !118, i64 239, !117, i64 240, !117, i64 248, !117, i64 256, !118, i64 264, !118, i64 272, !118, i64 312, !125, i64 332, !117, i64 336, !118, i64 344, !125, i64 600, !125, i64 604, !118, i64 608, !118, i64 609, !125, i64 610, !125, i64 610, !125, i64 610, !125, i64 610}
+!231 = !{!"short", !118, i64 0}
+!232 = !{!"_sublex_info", !118, i64 0, !231, i64 2, !117, i64 8, !117, i64 16}
+!233 = !{!"branch_weights", i32 967, i32 0}
+!234 = !{!"branch_weights", i32 742, i32 225}
+!235 = distinct !{!235, !189, !190}
+!236 = !{!"branch_weights", i32 2, i32 224}
+!237 = !{!"branch_weights", i32 57, i32 15}
+!238 = !{!"branch_weights", i32 1, i32 14}
+!239 = !{!"branch_weights", i32 1, i32 0}
+!240 = !{!"branch_weights", i32 0, i32 1}
+!241 = !{!"branch_weights", i32 2, i32 70}
+!242 = !{!"branch_weights", i32 12136, i32 0}
+!243 = !{i8 0, i8 2}
+!244 = !{}
+!245 = !{!"branch_weights", i32 8777, i32 3359}
+!246 = !{!124, !117, i64 0}
+!247 = !{!248, !128, i64 16}
+!248 = !{!"xpvav", !117, i64 0, !118, i64 8, !128, i64 16, !128, i64 24, !117, i64 32}
+!249 = !{!"branch_weights", i32 2557, i32 0}
+!250 = !{!"branch_weights", i32 2418, i32 139}
+!251 = !{!"branch_weights", i32 2330, i32 88}
+!252 = !{!"VP", i32 1, i64 2313, i64 8, i64 1617, i64 16, i64 220, i64 17, i64 144, i64 33, i64 104}
+!253 = !{!"branch_weights", i32 2469, i32 88}
+!254 = !{!"branch_weights", i32 1716, i32 599}
+!255 = !{!"branch_weights", i32 0, i32 2315}
+!256 = !{!"branch_weights", i32 2054, i32 191, i32 70, i32 0}
+!257 = !{i64 -2147483648, i64 2147483648}
+!258 = !{!167, !117, i64 0}
+!259 = !{!260, !128, i64 16}
+!260 = !{!"xpv", !117, i64 0, !118, i64 8, !128, i64 16, !118, i64 24}
+!261 = !{!128, !128, i64 0}
+!262 = !{!"function_entry_count", i64 9428}
+!263 = !{!"branch_weights", i32 2710, i32 9426}
+!264 = !{!"branch_weights", i32 9415, i32 11}
+!265 = !{!"branch_weights", i32 9597, i32 16350}
+!266 = !{!"branch_weights", i32 4207, i32 5390}
+!267 = !{!"branch_weights", i32 7, i32 5383}
+!268 = distinct !{!268, !190}
+!269 = !{!"branch_weights", i32 9426, i32 16521}
+!270 = !{!"function_entry_count", i64 151}
+!271 = !{!"VP", i32 1, i64 150, i64 8, i64 105, i64 16, i64 14, i64 17, i64 9, i64 33, i64 6}
+!272 = !{!"branch_weights", i32 4, i32 147}
+!273 = !{!"branch_weights", i32 147, i32 0}
+!274 = !{!"function_entry_count", i64 2}
+!275 = !{!"function_entry_count", i64 35998}
+!276 = !{!"branch_weights", i32 35998, i32 0}
+!277 = !{!"branch_weights", i32 0, i32 35998}
+!278 = !{!"branch_weights", i32 24221, i32 11777}
+!279 = !{!"branch_weights", i32 15817, i32 8404}
+!280 = !{!"branch_weights", i32 8403, i32 1}
+!281 = !{!"branch_weights", i32 243465, i32 8403}
+!282 = distinct !{!282, !189, !190}
+!283 = !{!"branch_weights", i32 186622, i32 65246}
+!284 = !{!"branch_weights", i32 3857, i32 61389}
+!285 = !{!"branch_weights", i32 3802, i32 55}
+!286 = !{!"branch_weights", i32 3802, i32 0}
+!287 = !{!"branch_weights", i32 251868, i32 0}
+!288 = !{!"function_entry_count", i64 61757}
+!289 = !{!"pad.c;S_pad_findlex"}
+!290 = !{!"branch_weights", i32 61757, i32 0}
+!291 = !{!"branch_weights", i32 1, i32 50235}
+!292 = !{!"branch_weights", i32 822427, i32 376318}
+!293 = !{!"branch_weights", i32 42713, i32 333605}
+!294 = !{!"branch_weights", i32 0, i32 42713}
+!295 = !{!"VP", i32 1, i64 42713, i64 5, i64 12479, i64 4, i64 9039, i64 6, i64 4866, i64 7, i64 4017}
+!296 = !{!"branch_weights", i32 11851, i32 30862}
+!297 = !{!"branch_weights", i32 11595, i32 256}
+!298 = !{!"branch_weights", i32 1, i32 11594}
+!299 = !{!"branch_weights", i32 11521, i32 73}
+!300 = !{!"branch_weights", i32 11521, i32 0}
+!301 = !{!"branch_weights", i32 0, i32 73}
+!302 = !{!"branch_weights", i32 73, i32 0}
+!303 = !{!"branch_weights", i32 11521, i32 1187224}
+!304 = !{!"branch_weights", i32 50235, i32 1148510}
+!305 = distinct !{!305, !189, !190}
+!306 = !{!"branch_weights", i32 50236, i32 11521}
+!307 = !{!"branch_weights", i32 49980, i32 11777}
+!308 = !{!"branch_weights", i32 256, i32 11521}
+!309 = !{!"branch_weights", i32 11395, i32 126}
+!310 = !{!"branch_weights", i32 10860, i32 535}
+!311 = !{!"branch_weights", i32 11553, i32 224}
+!312 = !{!"branch_weights", i32 166, i32 58}
+!313 = !{!"branch_weights", i32 0, i32 166}
+!314 = !{!"branch_weights", i32 166, i32 0}
+!315 = !{!"branch_weights", i32 27556, i32 0}
+!316 = !{!"branch_weights", i32 24221, i32 25759}
+!317 = !{!"branch_weights", i32 21121, i32 4638}
+!318 = !{!"branch_weights", i32 20874, i32 247}
+!319 = !{!"branch_weights", i32 0, i32 20874}
+!320 = !{!"branch_weights", i32 20874, i32 4885}
+!321 = !{!"branch_weights", i32 25517, i32 242}
+!322 = !{!"branch_weights", i32 242, i32 0}
+!323 = !{!"VP", i32 1, i64 241, i64 8, i64 168, i64 16, i64 22, i64 17, i64 14, i64 33, i64 10}
+!324 = !{!"branch_weights", i32 182, i32 60}
+!325 = !{!"branch_weights", i32 166, i32 16}
+!326 = !{!"branch_weights", i32 0, i32 242}
+!327 = !{!328, !125, i64 60}
+!328 = !{!"cop", !117, i64 0, !117, i64 8, !117, i64 16, !128, i64 24, !125, i64 32, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !118, i64 34, !118, i64 35, !125, i64 36, !117, i64 40, !117, i64 48, !125, i64 56, !125, i64 60, !117, i64 64, !117, i64 72}
+!329 = !{!330, !117, i64 0}
+!330 = !{!"gp", !117, i64 0, !117, i64 8, !117, i64 16, !125, i64 24, !125, i64 28, !117, i64 32, !117, i64 40, !117, i64 48, !117, i64 56, !125, i64 64, !125, i64 67, !117, i64 72}
+!331 = !{!"function_entry_count", i64 6915}
+!332 = !{!"branch_weights", i32 2907, i32 4008}
+!333 = !{!"branch_weights", i32 0, i32 6915}
+!334 = !{!"function_entry_count", i64 17194}
+!335 = !{!"branch_weights", i32 13129, i32 4065}
+!336 = !{!"branch_weights", i32 15478, i32 1716}
+!337 = !{!"branch_weights", i32 1, i32 1715}
+!338 = !{!"branch_weights", i32 17, i32 2315}
+!339 = !{!"branch_weights", i32 1715, i32 617}
+!340 = distinct !{!340, !189, !190}
+!341 = !{!"branch_weights", i32 0, i32 1716}
+!342 = !{!"branch_weights", i32 61, i32 6854}
+!343 = distinct !{!343, !189, !190}
+!344 = !{!"branch_weights", i32 6914, i32 1}
+!345 = !{!"branch_weights", i32 15605, i32 5279}
+!346 = !{!"branch_weights", i32 34, i32 5245}
+!347 = !{!"branch_weights", i32 4488, i32 757}
+!348 = !{!"branch_weights", i32 2315, i32 2173}
+!349 = !{!"branch_weights", i32 2148, i32 79}
+!350 = !{!"branch_weights", i32 0, i32 2148}
+!351 = !{!161, !128, i64 24}
+!352 = !{!"branch_weights", i32 13970, i32 6914}
+!353 = distinct !{!353, !189, !190}
+!354 = !{!"function_entry_count", i64 658}
+!355 = !{!"branch_weights", i32 0, i32 658}
+!356 = !{!"branch_weights", i32 658, i32 0}
+!357 = !{!"branch_weights", i32 655, i32 3}
+!358 = !{!"function_entry_count", i64 1069}
+!359 = !{!"branch_weights", i32 11, i32 1058}
+!360 = !{!"branch_weights", i32 1, i32 175}
+!361 = !{!"branch_weights", i32 11, i32 11}
+!362 = !{!"branch_weights", i32 11, i32 0}
+!363 = !{!"branch_weights", i32 22, i32 0}
+!364 = !{!"branch_weights", i32 175, i32 177}
+!365 = distinct !{!365, !189, !190}
+!366 = !{!"branch_weights", i32 799, i32 270}
+!367 = !{!"VP", i32 1, i64 798, i64 8, i64 556, i64 16, i64 75, i64 17, i64 49, i64 33, i64 35}
+!368 = !{!"branch_weights", i32 0, i32 10, i32 1059}
+!369 = !{!"branch_weights", i32 1, i32 159}
+!370 = !{!"branch_weights", i32 42, i32 32}
+!371 = !{!"branch_weights", i32 0, i32 74}
+!372 = !{!"branch_weights", i32 74, i32 0}
+!373 = !{!"branch_weights", i32 0, i32 32}
+!374 = !{!"branch_weights", i32 159, i32 1025}
+!375 = distinct !{!375, !189, !190}
+!376 = !{!"branch_weights", i32 1059, i32 10}
+!377 = !{!"branch_weights", i32 1, i32 1058}
+!378 = !{!"branch_weights", i32 8254, i32 2283}
+!379 = !{!"branch_weights", i32 307, i32 10230}
+!380 = !{!"branch_weights", i32 10230, i32 0}
+!381 = !{!"branch_weights", i32 17577, i32 2883}
+!382 = !{!"branch_weights", i32 2883, i32 7347}
+!383 = !{!"branch_weights", i32 2657, i32 226}
+!384 = !{!"branch_weights", i32 1058, i32 9479}
+!385 = distinct !{!385, !189, !190}
+!386 = !{!"function_entry_count", i64 5543}
+!387 = !{!"branch_weights", i32 1365, i32 4178}
+!388 = !{!"branch_weights", i32 4178, i32 0}
+!389 = !{!"branch_weights", i32 0, i32 4178}
+!390 = !{!"branch_weights", i32 3520, i32 658}
+!391 = !{!"branch_weights", i32 2101, i32 1419}
+!392 = !{!"branch_weights", i32 852, i32 3326}
+!393 = distinct !{!393, !189, !190}
+!394 = !{!"function_entry_count", i64 5}
+!395 = !{!"branch_weights", i32 0, i32 5}
+!396 = !{!"pad.c;S_cv_clone"}
+!397 = !{!"branch_weights", i32 5, i32 0}
+!398 = !{!151, !117, i64 32}
+!399 = !{!131, !125, i64 20}
+!400 = !{!"branch_weights", i32 159, i32 1}
+!401 = !{!"branch_weights", i32 0, i32 70}
+!402 = !{!"branch_weights", i32 42, i32 28}
+!403 = !{!"branch_weights", i32 28, i32 0}
+!404 = !{!"branch_weights", i32 17, i32 11}
+!405 = !{!"branch_weights", i32 0, i32 11}
+!406 = !{!"branch_weights", i32 17, i32 0, i32 0, i32 0}
+!407 = distinct !{!407, !189, !190}
+!408 = !{!"branch_weights", i32 0, i32 17}
+!409 = !{!"branch_weights", i32 17, i32 0}
+!410 = !{!"branch_weights", i32 42, i32 0}
+!411 = !{!"branch_weights", i32 2081, i32 159}
+!412 = distinct !{!412, !189, !190}
+!413 = distinct !{!413, !189, !190}
+!414 = distinct !{!414, !189, !190}
+!415 = distinct !{!415, !189, !190}
+!416 = distinct !{!416, !189, !190}
+!417 = !{!"branch_weights", i32 0, i32 4}
+!418 = !{!"branch_weights", i32 2, i32 2}
+!419 = distinct !{!419, !189, !190}
+!420 = !{!421, !117, i64 40}
+!421 = !{!"unop", !117, i64 0, !117, i64 8, !117, i64 16, !128, i64 24, !125, i64 32, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !125, i64 33, !118, i64 34, !118, i64 35, !117, i64 40}
+!422 = !{!161, !117, i64 8}
+!423 = !{!"function_entry_count", i64 6}
+!424 = !{!"branch_weights", i32 0, i32 6}
+!425 = !{!"branch_weights", i32 6, i32 0}
+!426 = !{!427, !125, i64 12}
+!427 = !{!"hv", !117, i64 0, !125, i64 8, !125, i64 12, !118, i64 16}
+!428 = !{!427, !117, i64 0}
+!429 = !{!430, !128, i64 24}
+!430 = !{!"xpvhv", !117, i64 0, !118, i64 8, !128, i64 16, !128, i64 24}
+!431 = !{!432, !125, i64 28}
+!432 = !{!"xpvhv_aux", !118, i64 0, !117, i64 8, !117, i64 16, !125, i64 24, !125, i64 28, !117, i64 32, !125, i64 40, !125, i64 44, !125, i64 48, !125, i64 52}
+!433 = !{!434, !125, i64 4}
+!434 = !{!"hek", !125, i64 0, !125, i64 4, !118, i64 8}
+!435 = !{!330, !117, i64 56}
+!436 = !{!437, !117, i64 0}
+!437 = !{!"gv", !117, i64 0, !125, i64 8, !125, i64 12, !118, i64 16}
+!438 = !{!"function_entry_count", i64 23}
+!439 = !{!"branch_weights", i32 183, i32 1}
+!440 = !{!"branch_weights", i32 120, i32 541}
+!441 = !{!"branch_weights", i32 117, i32 3}
+!442 = !{!"branch_weights", i32 0, i32 117}
+!443 = distinct !{!443, !189, !190}
+!444 = !{!"branch_weights", i32 5105, i32 183}
+!445 = distinct !{!445, !189, !190}
+!446 = !{!"function_entry_count", i64 51928}
+!447 = !{!"branch_weights", i32 4, i32 51924}
+!448 = !{!"branch_weights", i32 0, i32 51924}
+!449 = !{!"branch_weights", i32 127, i32 1}
+!450 = !{!"branch_weights", i32 0, i32 385}
+!451 = !{!"branch_weights", i32 310, i32 75}
+!452 = !{!"branch_weights", i32 62, i32 13}
+!453 = !{!"branch_weights", i32 0, i32 62}
+!454 = !{!"branch_weights", i32 0, i32 13}
+!455 = !{!"branch_weights", i32 59, i32 3, i32 0}
+!456 = !{!"branch_weights", i32 310, i32 0}
+!457 = !{!"branch_weights", i32 12193, i32 127}
+!458 = distinct !{!458, !189, !190}
+!459 = !{!"function_entry_count", i64 4}
+!460 = !{!"branch_weights", i32 4, i32 0}
+!461 = !{!"VP", i32 1, i64 4, i64 8, i64 4}
+!462 = !{!"function_entry_count", i64 3375}
+!463 = !{!"branch_weights", i32 115, i32 3260}
+!464 = !{!"branch_weights", i32 0, i32 115}
+!465 = !{!"branch_weights", i32 115, i32 0}
+!466 = !{!"branch_weights", i32 113, i32 2}
+!467 = !{!"branch_weights", i32 105, i32 10}
+!468 = !{!"function_entry_count", i64 253}
+!469 = !{!"branch_weights", i32 0, i32 253}

@@ -4,8 +4,9 @@
 #include <filesystem>
 using namespace std;
 
-string IR_DIR = "../bench/SPEC2017/-fno-inline_-Os/";
+string IR_DIR = "../bench/SPEC2017/-O1/";
 string INPUT_DIR = "../bench/SPEC2017/input/";
+string INPUT_PER_FUNC_DIR = "../bench/SPEC2017/input-per-func/";
 string ANSWER_DIR = "../results/SPEC2017/";
 
 int numNode, numVar, numReg = 6, numAff;
@@ -85,6 +86,7 @@ int main() {
     configFile >> numReg;
 
     INPUT_DIR += "k="+to_string(numReg)+"/";
+    INPUT_PER_FUNC_DIR += "k="+to_string(numReg)+"/";
     ANSWER_DIR += "k="+to_string(numReg)+"/Prelim/";
     mkdir(INPUT_DIR.c_str(), 0777);
 
@@ -99,18 +101,16 @@ int main() {
             filesystem::path inputFile(file.path());
             string fileName = inputFile.filename().stem();
 
-            mkdir("tmp/", 0777), H.push_back(vector <int> ());
-            system(("opt -load-pass-plugin ./libCC.so -passes=CC -disable-output "+inputFile.u8string()).c_str());
-            for (auto &graph : filesystem::directory_iterator("tmp")) {
-                string graphNum = filesystem::path(graph.path()).filename().stem();
+            H.push_back(vector <int> ());
+            for (auto &graph : filesystem::directory_iterator(INPUT_PER_FUNC_DIR+folderName+fileName)) {
+                string graphName = filesystem::path(graph.path()).filename().stem();
                 // if (isValid(graph.path())) loadGraph(graph.path());
-                if (isFeasible(ANSWER_DIR+folderName+fileName+"/"+fileName+"_"+graphNum))
+                if (isFeasible(ANSWER_DIR+folderName+fileName+"/"+graphName))
                     loadGraph(graph.path());
             }
 
             outputGraph(INPUT_DIR+folderName+fileName);
-            filesystem::remove_all("tmp"), clearGraph();
-            cerr << "  Complete." << endl;
+            clearGraph(), cerr << "  Complete." << endl;
         }
 
         cerr << "Preprocessing merged input for " << str << "......";
@@ -118,14 +118,11 @@ int main() {
         for (auto &file : filesystem::directory_iterator(IR_DIR+folderName+"units")) {
             filesystem::path inputFile(file.path());
             string fileName = inputFile.filename().stem();
-            mkdir("tmp/", 0777);
-            system(("opt -load-pass-plugin ./libCC.so -passes=CC -disable-output "+inputFile.u8string()).c_str());
-            for (auto &graph : filesystem::directory_iterator("tmp")) {
-                string graphNum = filesystem::path(graph.path()).filename().stem();
-                if (isFeasible(ANSWER_DIR+folderName+fileName+"/"+fileName+"_"+graphNum))
+            for (auto &graph : filesystem::directory_iterator(INPUT_PER_FUNC_DIR+folderName+fileName)) {
+                string graphName = filesystem::path(graph.path()).filename().stem();
+                if (isFeasible(ANSWER_DIR+folderName+fileName+"/"+graphName))
                     loadGraph(graph.path());
             }
-            filesystem::remove_all("tmp");
         }
         outputGraph(INPUT_DIR+str+"_merged");
         clearGraph(), cerr << "  Complete." << endl;

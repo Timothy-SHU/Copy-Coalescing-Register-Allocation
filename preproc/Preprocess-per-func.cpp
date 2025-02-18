@@ -5,7 +5,7 @@
 using namespace std;
 
 int numReg = 6;
-string IR_DIR = "../bench/SPEC2017/-fno-inline_-Os/";
+string IR_DIR = "../bench/SPEC2017/-O1/";
 string INPUT_DIR = "../bench/SPEC2017/input-per-func/";
 
 int main() {

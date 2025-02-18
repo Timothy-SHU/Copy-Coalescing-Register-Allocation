@@ -1,0 +1,53 @@
+; ModuleID = 'state.cpp'
+source_filename = "state.cpp"
+target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-linux-gnu"
+
+%struct.state_t = type { i32, [64 x i32], i64, i64, i64, [13 x i64], i32, i32, [13 x i32], i32, i32, i32, i32, i32, i32, i32, i64, i64, [64 x %struct.move_x], [64 x i32], [64 x i32], [64 x %struct.anon], i64, i64, i32, [64 x i32], i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, [1000 x i64] }
+%struct.move_x = type { i32, i32, i32, i32, i64, i64 }
+%struct.anon = type { i32, i32, i32, i32 }
+%struct.gamestate_t = type { i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, [1000 x i32], [1000 x %struct.move_x], i64, i32, i32, i32, i32, i32, i32, i32, i32 }
+%struct.scoreboard_t = type { i32, i32, [8 x %struct.anon.0], [8 x i32], [8 x %struct.state_t] }
+%struct.anon.0 = type { i32, i32, i32 }
+
+@state = dso_local local_unnamed_addr global %struct.state_t zeroinitializer, align 8
+@gamestate = dso_local local_unnamed_addr global %struct.gamestate_t zeroinitializer, align 8
+@scoreboard = dso_local local_unnamed_addr global %struct.scoreboard_t zeroinitializer, align 8
+
+!llvm.module.flags = !{!0, !1, !2, !3, !4}
+!llvm.ident = !{!33}
+
+!0 = !{i32 1, !"wchar_size", i32 4}
+!1 = !{i32 8, !"PIC Level", i32 2}
+!2 = !{i32 7, !"PIE Level", i32 2}
+!3 = !{i32 7, !"uwtable", i32 2}
+!4 = !{i32 1, !"ProfileSummary", !5}
+!5 = !{!6, !7, !8, !9, !10, !11, !12, !13, !14, !15}
+!6 = !{!"ProfileFormat", !"InstrProf"}
+!7 = !{!"TotalCount", i64 128361366639}
+!8 = !{!"MaxCount", i64 7592818589}
+!9 = !{!"MaxInternalCount", i64 5393808666}
+!10 = !{!"MaxFunctionCount", i64 7592818589}
+!11 = !{!"NumCounts", i64 1723}
+!12 = !{!"NumFunctions", i64 109}
+!13 = !{!"IsPartialProfile", i64 0}
+!14 = !{!"PartialProfileRatio", double 0.000000e+00}
+!15 = !{!"DetailedSummary", !16}
+!16 = !{!17, !18, !19, !20, !21, !22, !23, !24, !25, !26, !27, !28, !29, !30, !31, !32}
+!17 = !{i32 10000, i64 7592818589, i32 1}
+!18 = !{i32 100000, i64 5393808666, i32 2}
+!19 = !{i32 200000, i64 2869551984, i32 6}
+!20 = !{i32 300000, i64 1728514292, i32 11}
+!21 = !{i32 400000, i64 824050972, i32 24}
+!22 = !{i32 500000, i64 588473769, i32 42}
+!23 = !{i32 600000, i64 446369574, i32 68}
+!24 = !{i32 700000, i64 286932458, i32 105}
+!25 = !{i32 800000, i64 196614852, i32 160}
+!26 = !{i32 900000, i64 107044397, i32 249}
+!27 = !{i32 950000, i64 60101921, i32 326}
+!28 = !{i32 990000, i64 15736932, i32 482}
+!29 = !{i32 999000, i64 2025695, i32 659}
+!30 = !{i32 999900, i64 318185, i32 779}
+!31 = !{i32 999990, i64 50049, i32 848}
+!32 = !{i32 999999, i64 3896, i32 923}
+!33 = !{!"Ubuntu clang version 18.1.8 (++20240731024944+3b5b5c1ec4a3-1~exp1~20240731145000.144)"}

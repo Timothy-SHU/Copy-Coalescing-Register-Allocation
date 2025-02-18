@@ -1,0 +1,1106 @@
+; ModuleID = 'Matcher.cpp'
+source_filename = "Matcher.cpp"
+target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-linux-gnu"
+
+%"class.boost::array" = type { [806 x i32] }
+%"class.boost::array.0" = type { [806 x float] }
+%"class.std::vector" = type { %"struct.std::_Vector_base" }
+%"struct.std::_Vector_base" = type { %"struct.std::_Vector_base<unsigned char, std::allocator<unsigned char>>::_Vector_impl" }
+%"struct.std::_Vector_base<unsigned char, std::allocator<unsigned char>>::_Vector_impl" = type { %"struct.std::_Vector_base<unsigned char, std::allocator<unsigned char>>::_Vector_impl_data" }
+%"struct.std::_Vector_base<unsigned char, std::allocator<unsigned char>>::_Vector_impl_data" = type { ptr, ptr, ptr }
+%class.FastBoard = type <{ %"class.boost::array.2", %"class.boost::array.2", i32, i32, i32, %"class.boost::array.3", %"class.boost::array.4", %"class.boost::array.4", %"class.boost::array.4", %"class.boost::array.4", %"class.boost::array.2", [2 x i8], %"class.boost::array.5", %"class.boost::array.6", %"class.boost::array.7", %"class.boost::array.7", %"class.std::vector.8", i32, [4 x i8] }>
+%"class.boost::array.3" = type { [441 x i32] }
+%"class.boost::array.4" = type { [442 x i16] }
+%"class.boost::array.2" = type { [441 x i16] }
+%"class.boost::array.5" = type { [4 x i32] }
+%"class.boost::array.6" = type { [8 x i32] }
+%"class.boost::array.7" = type { [2 x i32] }
+%"class.std::vector.8" = type { %"struct.std::_Vector_base.9" }
+%"struct.std::_Vector_base.9" = type { %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl" }
+%"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl" = type { %"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data" }
+%"struct.std::_Vector_base<int, std::allocator<int>>::_Vector_impl_data" = type { ptr, ptr, ptr }
+%"class.std::map" = type { %"class.std::_Rb_tree" }
+%"class.std::_Rb_tree" = type { %"struct.std::_Rb_tree<int, std::pair<const int, float>, std::_Select1st<std::pair<const int, float>>, std::less<int>>::_Rb_tree_impl" }
+%"struct.std::_Rb_tree<int, std::pair<const int, float>, std::_Select1st<std::pair<const int, float>>, std::less<int>>::_Rb_tree_impl" = type { %"struct.std::_Rb_tree_key_compare", %"struct.std::_Rb_tree_header" }
+%"struct.std::_Rb_tree_key_compare" = type { %"struct.std::less" }
+%"struct.std::less" = type { i8 }
+%"struct.std::_Rb_tree_header" = type { %"struct.std::_Rb_tree_node_base", i64 }
+%"struct.std::_Rb_tree_node_base" = type { i32, ptr, ptr, ptr }
+%"struct.std::pair" = type { i32, float }
+%"struct.std::_Rb_tree_node" = type { %"struct.std::_Rb_tree_node_base", %"struct.__gnu_cxx::__aligned_membuf" }
+%"struct.__gnu_cxx::__aligned_membuf" = type { [8 x i8] }
+
+$_ZNSt3mapIifSt4lessIiESaISt4pairIKifEEE6insertIRS2_IifEEENSt9enable_ifIXsr16is_constructibleIS4_T_EE5valueES2_ISt17_Rb_tree_iteratorIS4_EbEE4typeEOSB_ = comdat any
+
+$__clang_call_terminate = comdat any
+
+$_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E = comdat any
+
+$_ZNSt6vectorIhSaIhEE17_M_default_appendEm = comdat any
+
+$_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE22_M_emplace_hint_uniqueIJRS0_IifEEEESt17_Rb_tree_iteratorIS2_ESt23_Rb_tree_const_iteratorIS2_EDpOT_ = comdat any
+
+$_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE29_M_get_insert_hint_unique_posESt23_Rb_tree_const_iteratorIS2_ERS1_ = comdat any
+
+$_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE24_M_get_insert_unique_posERS1_ = comdat any
+
+@internal_patterns_fast = dso_local local_unnamed_addr global %"class.boost::array" { [806 x i32] [i32 43690, i32 43711, i32 27306, i32 10922, i32 39594, i32 35498, i32 23210, i32 2730, i32 27327, i32 10943, i32 44799, i32 9898, i32 26282, i32 23231, i32 6847, i32 27242, i32 19135, i32 8874, i32 2751, i32 10794, i32 6826, i32 19114, i32 22186, i32 682, i32 39615, i32 39338, i32 34986, i32 35519, i32 65535, i32 18858, i32 2474, i32 35494, i32 5546, i32 1578, i32 10858, i32 27178, i32 5823, i32 1727, i32 23194, i32 2698, i32 35242, i32 39590, i32 35490, i32 1706, i32 5802, i32 6570, i32 18602, i32 23146, i32 2602, i32 26303, i32 8895, i32 23206, i32 2722, i32 22207, i32 703, i32 6506, i32 18474, i32 9919, i32 5542, i32 1570, i32 1642, i32 2458, i32 39359, i32 9834, i32 2714, i32 35007, i32 6810, i32 1058, i32 9897, i32 22170, i32 9770, i32 18854, i32 8858, i32 650, i32 2346, i32 21930, i32 28415, i32 18842, i32 12031, i32 170, i32 426, i32 2726, i32 23202, i32 9894, i32 22954, i32 9890, i32 2218, i32 6822, i32 19106, i32 18730, i32 2470, i32 6591, i32 23209, i32 10921, i32 24299, i32 18623, i32 2728, i32 3819, i32 35238, i32 34922, i32 6783, i32 18466, i32 19007, i32 19098, i32 5482, i32 6794, i32 1066, i32 5530, i32 19110, i32 5465, i32 1576, i32 5567, i32 144, i32 26266, i32 1599, i32 5545, i32 6818, i32 1546, i32 8842, i32 2473, i32 10789, i32 26274, i32 6762, i32 666, i32 9833, i32 8870, i32 5541, i32 18986, i32 1538, i32 27174, i32 27305, i32 5798, i32 39274, i32 1698, i32 34858, i32 10790, i32 130705, i32 8857, i32 18857, i32 6806, i32 10920, i32 1369, i32 2706, i32 2666, i32 400, i32 2472, i32 130692, i32 23082, i32 23190, i32 2690, i32 10854, i32 27170, i32 2729, i32 23193, i32 10857, i32 18794, i32 22182, i32 2341, i32 26278, i32 2696, i32 5481, i32 2710, i32 674, i32 22975, i32 146, i32 2466, i32 8866, i32 2239, i32 1638, i32 22166, i32 2330, i32 23167, i32 642, i32 18, i32 2623, i32 422, i32 18714, i32 5529, i32 19094, i32 678, i32 22178, i32 2694, i32 5466, i32 1544, i32 22890, i32 1064, i32 2090, i32 1601, i32 345, i32 1633, i32 6505, i32 18850, i32 346, i32 24283, i32 2410, i32 2593, i32 2393, i32 3787, i32 1602, i32 662, i32 2457, i32 1370, i32 2709, i32 1610, i32 1632, i32 23142, i32 108945, i32 447, i32 5540, i32 19931, i32 2469, i32 2597, i32 1626, i32 1554, i32 2594, i32 2456, i32 18853, i32 108676, i32 2713, i32 8854, i32 421, i32 2581, i32 6730, i32 5797, i32 2344, i32 1663, i32 9830, i32 18970, i32 18879, i32 1666, i32 3547, i32 1056, i32 2586, i32 18841, i32 3563, i32 40683, i32 23130, i32 661, i32 424, i32 1641, i32 19093, i32 410, i32 9817, i32 1386, i32 646, i32 2450, i32 649, i32 1674, i32 5801, i32 2570, i32 5781, i32 665, i32 36587, i32 8853, i32 2394, i32 409, i32 9893, i32 1609, i32 641, i32 1634, i32 2697, i32 6805, i32 23138, i32 21951, i32 1702, i32 1622, i32 658, i32 2598, i32 2325, i32 2328, i32 86, i32 191, i32 5794, i32 18838, i32 1, i32 1705, i32 106, i32 10793, i32 4799, i32 5770, i32 18111, i32 1685, i32 5786, i32 425, i32 9825, i32 645, i32 6825, i32 18726, i32 1704, i32 1382, i32 2342, i32 2322, i32 18495, i32 1625, i32 408, i32 23126, i32 5769, i32 2454, i32 21914, i32 5785, i32 1673, i32 1130, i32 6758, i32 9882, i32 27238, i32 2562, i32 23145, i32 405, i32 1672, i32 138, i32 149, i32 18978, i32 18777, i32 9889, i32 1697, i32 2600, i32 5766, i32 9818, i32 18725, i32 6793, i32 10786, i32 9896, i32 2340, i32 416, i32 1042, i32 2712, i32 109201, i32 1194, i32 5738, i32 67601, i32 18778, i32 2725, i32 5782, i32 24319, i32 18790, i32 418, i32 1696, i32 88388, i32 3839, i32 18837, i32 1385, i32 2338, i32 6569, i32 74, i32 402, i32 9881, i32 1621, i32 22169, i32 8841, i32 1606, i32 73, i32 35234, i32 6821, i32 2329, i32 2406, i32 21925, i32 10785, i32 18722, i32 2721, i32 6698, i32 648, i32 23066, i32 23205, i32 160, i32 2634, i32 7935, i32 6809, i32 2720, i32 21926, i32 1057, i32 109188, i32 2662, i32 1121, i32 8850, i32 342, i32 18793, i32 19050, i32 162, i32 20223, i32 23074, i32 85, i32 2464, i32 2650, i32 35178, i32 9826, i32 18834, i32 420, i32 18713, i32 362, i32 23078, i32 2409, i32 2657, i32 2658, i32 5464, i32 18706, i32 1048, i32 358, i32 6729, i32 2453, i32 2585, i32 19109, i32 150, i32 100369, i32 19090, i32 6790, i32 2724, i32 19113, i32 21929, i32 2495, i32 154, i32 5737, i32 6753, i32 2345, i32 6442, i32 168, i32 6824, i32 104772, i32 18538, i32 19947, i32 1701, i32 17442, i32 5765, i32 1381, i32 2693, i32 1665, i32 2081, i32 19943, i32 19967, i32 97, i32 2367, i32 18709, i32 3583, i32 70, i32 2646, i32 2601, i32 6761, i32 2582, i32 19097, i32 1040, i32 1365, i32 5, i32 1562, i32 6792, i32 5544, i32 1366, i32 1087, i32 1120, i32 6742, i32 18751, i32 4778, i32 4543, i32 1690, i32 2578, i32 2111, i32 1689, i32 65553, i32 22889, i32 1686, i32 3559, i32 18729, i32 104849, i32 5768, i32 17599, i32 2708, i32 21866, i32 23129, i32 17754, i32 2468, i32 2088, i32 27263, i32 100484, i32 386, i32 87364, i32 18465, i32 42, i32 2568, i32 5674, i32 10815, i32 6746, i32 1574, i32 5800, i32 4522, i32 4442, i32 18982, i32 17834, i32 2442, i32 92561, i32 406, i32 5538, i32 1129, i32 9762, i32 21850, i32 6754, i32 5705, i32 2082, i32 1569, i32 153, i32 1450, i32 22165, i32 1322, i32 5418, i32 75908, i32 10, i32 17578, i32 640, i32 108881, i32 22826, i32 2154, i32 2665, i32 40703, i32 1637, i32 108548, i32 105, i32 36607, i32 4441, i32 6504, i32 6437, i32 18090, i32 92497, i32 23062, i32 18473, i32 2626, i32 5759, i32 1537, i32 75780, i32 2337, i32 4458, i32 1215, i32 21913, i32 1669, i32 18966, i32 18710, i32 2630, i32 102, i32 17, i32 1110, i32 2324, i32 136, i32 17750, i32 17766, i32 1605, i32 18774, i32 35174, i32 2306, i32 89, i32 96, i32 17770, i32 17753, i32 17450, i32 108689, i32 384, i32 2434, i32 98, i32 34854, i32 7915, i32 2649, i32 34879, i32 5473, i32 21922, i32 2633, i32 82, i32 166, i32 34918, i32 1445, i32 2565, i32 148, i32 1429, i32 9855, i32 1608, i32 5734, i32 6726, i32 1433, i32 9829, i32 3803, i32 18962, i32 1186, i32 1670, i32 169, i32 1113, i32 404, i32 5793, i32 1126, i32 2326, i32 2390, i32 1320, i32 5402, i32 1122, i32 1560, i32 130449, i32 341, i32 19034, i32 21, i32 130180, i32 6666, i32 5528, i32 1109, i32 19030, i32 69, i32 21849, i32 2405, i32 2566, i32 34, i32 34850, i32 26265, i32 24279, i32 2085, i32 8, i32 8840, i32 3779, i32 6802, i32 100497, i32 5729, i32 19046, i32 90, i32 17830, i32 6745, i32 6690, i32 7883, i32 2314, i32 109779, i32 2569, i32 2438, i32 5666, i32 1446, i32 17514, i32 1577, i32 4518, i32 9814, i32 101587, i32 2584, i32 108932, i32 5480, i32 4506, i32 1050, i32 17570, i32 20203, i32 17829, i32 68819, i32 2312, i32 9754, i32 77011, i32 22953, i32 2664, i32 18470, i32 5702, i32 5706, i32 18601, i32 1193, i32 6677, i32 6808, i32 18789, i32 36095, i32 2216, i32 6568, i32 17813, i32 1185, i32 1682, i32 6741, i32 417, i32 105105, i32 89543, i32 72, i32 5721, i32 5537, i32 2452, i32 1542, i32 105927, i32 1114, i32 20187, i32 127, i32 161, i32 2084, i32 19927, i32 19049, i32 152, i32 35263, i32 1449, i32 5642, i32 5796, i32 100996, i32 2645, i32 1640, i32 18773, i32 92753, i32 36331, i32 6817, i32 130193, i32 6682, i32 165, i32 88721, i32 19033, i32 2632, i32 76292, i32 6, i32 1434, i32 104836, i32 1558, i32 22822, i32 1282, i32 1304, i32 68228, i32 2644, i32 9813, i32 137, i32 2086, i32 4505, i32 1620, i32 5413, i32 1314, i32 75921, i32 1545, i32 9766, i32 7899, i32 92817, i32 5414, i32 91537, i32 6438, i32 130436, i32 1557, i32 389, i32 392, i32 73860, i32 2, i32 17817, i32 88657, i32 93639, i32 5718, i32 9791, i32 68100, i32 1184, i32 108865, i32 108929, i32 4501, i32 63, i32 76420, i32 145, i32 2392, i32 2389, i32 17749, i32 130433, i32 4, i32 108549, i32 22, i32 2660, i32 1618, i32 73745, i32 91473, i32 394, i32 19029, i32 1688, i32 17833, i32 164, i32 73732, i32 5784, i32 91460, i32 80, i32 92548, i32 18469, i32 18537, i32 88465, i32 2440, i32 5397, i32 4517, i32 1306, i32 1636, i32 2404, i32 67716, i32 130196, i32 17818, i32 5722, i32 110023, i32 1151, i32 2577, i32 5717, i32 1192, i32 3543, i32 9, i32 6757, i32 1573, i32 75793, i32 73873, i32 100356, i32 108625, i32 108692, i32 67588, i32 2089, i32 108561, i32 2437, i32 91524, i32 87441, i32 24295, i32 1190, i32 108612, i32 83972, i32 5730, i32 1125, i32 2692, i32 5478, i32 6693, i32 101, i32 65668, i32 18070, i32 3811, i32 1062, i32 4762, i32 1298] }, align 4
+@internal_weights_fast = dso_local local_unnamed_addr global %"class.boost::array.0" { [806 x float] [float 0x3FC29CA180000000, float 0x3F6B9F1D40000000, float 0x3FC9E2C560000000, float 0x3FC3BD2FA0000000, float 0x3FC858D580000000, float 0x3F9FBA2A40000000, float 0x3F9E193980000000, float 0x3F882EBD80000000, float 0x3F94131220000000, float 0x3FA7408E60000000, float 0x3F0C6D9EE0000000, float 0x3FD7834D20000000, float 0x3FDD140140000000, float 0x3F9B57ED20000000, float 0x3FDCA94780000000, float 0x3FD0711D80000000, float 0x3FC68DD1E0000000, float 0x3FB5A87F00000000, float 0x3F750A6E20000000, float 0x3FA352EB60000000, float 0x4000E5FD80000000, float 0x3FFE28F5C0000000, float 0x3F7B933920000000, float 0x3F92785800000000, float 0x3F9AE0AD60000000, float 0x3F8C1C5320000000, float 0x3F654175A0000000, float 0x3F876D1EE0000000, float 0x3FFCED5280000000, float 0x3FF3DE69A0000000, float 0x3FF6108C40000000, float 0x3FC686E7E0000000, float 0x3FE2F179C0000000, float 0x3FDDBC5160000000, float 0x3FDD529BA0000000, float 0x3FBDA90040000000, float 0x3FD8385400000000, float 0x3FBFDFC1A0000000, float 0x3FA926E620000000, float 0x3F90492360000000, float 0x3FF90125A0000000, float 0x3FAE933D60000000, float 0x3F704C25C0000000, float 0x3FC83C1060000000, float 0x3FDEA04D20000000, float 0x3FF54115E0000000, float 0x3FFAD00920000000, float 0x3F82374FA0000000, float 0x3F78CEE100000000, float 0x3FC1187620000000, float 0x3FB57ADB60000000, float 0x3FA25E60E0000000, float 0x3F7D0C6000000000, float 0x3F92221280000000, float 0x3F7A7C04E0000000, float 0x3FE710A560000000, float 0x3F98F033E0000000, float 0x3FB7F73620000000, float 0x400033E040000000, float 0x3F969827A0000000, float 0x3FD83C46E0000000, float 0x3FD563D820000000, float 0x3FFED66280000000, float 0x3FBF6D1180000000, float 0x3FA29EBF80000000, float 0x3F63950840000000, float 0x3FF6D57140000000, float 0x3F63740080000000, float 0x3FE128F5C0000000, float 0x3FA00C2D40000000, float 0x3FF97D60E0000000, float 0x3FD083A960000000, float 0x3FC3342EE0000000, float 0x3F90721C80000000, float 0x3FD0A85440000000, float 0x3F47BFEDC0000000, float 0x3F67CD6140000000, float 0x3FCEF494A0000000, float 0x3F80BA2B60000000, float 0x3F41C707A0000000, float 0x3FE40FD3C0000000, float 0x3FBEAE9EE0000000, float 0x3FB7A9E7C0000000, float 0x3FD49FECA0000000, float 0x3F58D7A7C0000000, float 0x3FB7F71140000000, float 0x3F564C3CE0000000, float 0x3FEA86D940000000, float 0x3FD8157260000000, float 0x3FC6C04000000000, float 0x3FDDDC8FC0000000, float 0x3FFDB24200000000, float 0x3FB1DEE420000000, float 0x3FD6FD2EA0000000, float 0x3F830BEE40000000, float 0x3FC9707180000000, float 0x3FA0A62240000000, float 0x3F656B7720000000, float 0x3FCA12D780000000, float 0x3FCA2CBA80000000, float 0x3FF2D09C00000000, float 0x3F61CA9840000000, float 0x3FB0279DE0000000, float 0x3FFB5FE320000000, float 0x3FE9071C60000000, float 0x4001B251C0000000, float 0x3F80376020000000, float 0x3FD7096360000000, float 0x3FF6D6F540000000, float 0x3FFFF4DBE0000000, float 0x3FC2D4DC60000000, float 0x40214B22E0000000, float 0x3F49811040000000, float 0x3FDB142F60000000, float 0x3FD41287C0000000, float 0x3FD7070FC0000000, float 0x3FF5499AE0000000, float 0x3FC29FA540000000, float 0x3FB59DB8E0000000, float 0x3FE6CCE1C0000000, float 0x3FDCFD08E0000000, float 0x3FD443A220000000, float 0x3FE6FD3F60000000, float 0x3F8A6EC680000000, float 0x3F934BF240000000, float 0x3FC7BC44C0000000, float 0x40142A5260000000, float 0x3FB0323A00000000, float 0x3F8269CE20000000, float 0x3FE9D696E0000000, float 0x3FDFFB2240000000, float 0x3FC49C5600000000, float 0x3FB1271880000000, float 0x3FB0082560000000, float 0x3F54FC7120000000, float 0x3FDCB15720000000, float 0x3FB9815500000000, float 0x3FCF0856E0000000, float 0x3FE6C40F20000000, float 0x3FDBCF7020000000, float 0x3FD06B5D40000000, float 0x3FCD8C08C0000000, float 0x3FC61C36A0000000, float 0x3FD5F1B6A0000000, float 0x3FC77FF160000000, float 0x3FDB18F820000000, float 0x3FF7A602C0000000, float 0x3FCC436FC0000000, float 0x3F822B9680000000, float 0x3F539B07A0000000, float 0x3FB10E08E0000000, float 0x3F94700DA0000000, float 0x3FAB8A81C0000000, float 0x3FB289F0A0000000, float 0x3FBBBB7300000000, float 0x3FF6ADCB20000000, float 0x3FA0C20D60000000, float 0x3FD4CE63A0000000, float 0x3FC9471720000000, float 0x3F9A2764C0000000, float 0x3FF480F120000000, float 0x3F932D9720000000, float 0x3F87532B20000000, float 0x3FAFD354A0000000, float 0x3F710DD9E0000000, float 0x3FEEFA82E0000000, float 0x3F9E0FA160000000, float 0x3F4ECD7140000000, float 0x3FBDFB9380000000, float 0x3F8C0881A0000000, float 0x3FB7189B00000000, float 0x4000497100000000, float 0x3F65A1E2E0000000, float 0x3F56733400000000, float 0x3F734B3E60000000, float 0x3FCE3D1CC0000000, float 0x3FB5A8EC20000000, float 0x3FD08F0420000000, float 0x3FE067AB80000000, float 0x3FB5478780000000, float 0x3FAA356E80000000, float 0x3FDF1B2E60000000, float 0x3FF26171A0000000, float 0x3FADF4F860000000, float 0x3FA9E7B160000000, float 0x3F83262FE0000000, float 0x3F5BC476E0000000, float 0x3FB78D4AE0000000, float 0x3FD14EA4A0000000, float 0x3FD21198A0000000, float 0x3FF4AD0E60000000, float 0x3FF56F73C0000000, float 0x3FEBB20100000000, float 0x3FB8E275A0000000, float 0x3FFA55C520000000, float 0x3FAC057DE0000000, float 0x3FC527CC00000000, float 0x3FA38F39C0000000, float 0x3FA70421C0000000, float 0x3F703A6280000000, float 0x3FD516A060000000, float 0x3FE62E9040000000, float 0x3F7227FB20000000, float 0x3FB85FCCE0000000, float 0x3FDE709740000000, float 0x3FAFF104C0000000, float 0x3FDE241800000000, float 0x3FE26E0B00000000, float 0x400A1F7520000000, float 0x3FD2E98140000000, float 0x3FCEC3A000000000, float 0x3FB5D83D40000000, float 0x3FD601E680000000, float 0x3FDC98EDA0000000, float 0x3F5FD1ED00000000, float 0x3FD3F56640000000, float 0x3FC1FB15C0000000, float 0x3FDDBC2340000000, float 0x3FC1185480000000, float 0x3FA71ADC20000000, float 0x3FB9CB89E0000000, float 0x3FB47F95E0000000, float 0x3FE5F89C60000000, float 0x3FB4396080000000, float 0x3FBDA2F8C0000000, float 0x3FD73ADA00000000, float 0x3FAE2C5260000000, float 0x3FC2986FC0000000, float 0x3FE66F2A60000000, float 0x3F9666CB20000000, float 0x3FDAA6EFC0000000, float 0x3F5D000B40000000, float 0x3F74FF0DA0000000, float 0x3FD126C7E0000000, float 0x3FDFBC0A00000000, float 0x3FC7B01420000000, float 0x3F80088100000000, float 0x3F4A371000000000, float 0x3FCA862F60000000, float 0x3FB92A8940000000, float 0x3FD3AB0C80000000, float 0x3FB83FB1C0000000, float 0x3FBB965B20000000, float 0x3FFB4F95E0000000, float 0x3FD22D83C0000000, float 0x3FFC450F00000000, float 0x3F7DB86240000000, float 0x3FCE347620000000, float 0x3FD56B6E00000000, float 0x3F84FEF2C0000000, float 0x3FBAA3F040000000, float 0x3FB0666B60000000, float 0x3FA6B87380000000, float 0x3F9F541600000000, float 0x3FEAE8E820000000, float 0x3FCBE79680000000, float 0x3FC5B33120000000, float 0x3FB258EB60000000, float 0x3F8959A300000000, float 0x3FCF9C51E0000000, float 0x3FA6A95A00000000, float 0x3FD4AE8180000000, float 0x3FB1C9EB80000000, float 0x3FD1677F60000000, float 0x3FDAA9DA60000000, float 0x3FB4CFE9C0000000, float 0x3FB5063AA0000000, float 0x3FB26644E0000000, float 0x3FBD19DEC0000000, float 0x3FB5BE7D80000000, float 0x3FC1F1CFC0000000, float 0x3F573F4180000000, float 0x3FE097E340000000, float 0x3FA877D380000000, float 0x3F5EA648E0000000, float 0x3FD245E4E0000000, float 0x3FB0628380000000, float 0x3FF68BAC80000000, float 0x4004FC6000000000, float 0x3FE1AF70A0000000, float 0x3FEA5100A0000000, float 0x3FCED58420000000, float 0x3FDAED02C0000000, float 0x3FDA4E7260000000, float 0x3FCDBDF0A0000000, float 0x3FC2849440000000, float 0x3FF988EDE0000000, float 0x3FC7E63620000000, float 0x3FC8D84D40000000, float 0x3FD6B02920000000, float 0x3FD1AE5BC0000000, float 0x3FD6474960000000, float 0x3FC5657FC0000000, float 0x3FC91D7120000000, float 0x3FBD455220000000, float 0x3FCDDA05A0000000, float 0x3FDA86B160000000, float 0x3FAC89BE60000000, float 0x3F652CA7E0000000, float 0x3FD26BF440000000, float 0x3FC97CEDA0000000, float 0x3FA8350EE0000000, float 0x3FC73708A0000000, float 0x3FF27FC120000000, float 0x3F9DADE080000000, float 0x3F769AD420000000, float 0x3F82CB7C40000000, float 0x3F8636A320000000, float 0x3FA6358CA0000000, float 0x3F5C290080000000, float 0x3F8980BFA0000000, float 0x3F9E6F2120000000, float 0x3FC7A38760000000, float 0x3FE5711D80000000, float 0x3FD803C080000000, float 0x3F62AC5500000000, float 0x3FE2A62660000000, float 0x3FC2C721A0000000, float 0x3FCB3B2140000000, float 0x3FF3E7D560000000, float 0x3F762E2CE0000000, float 0x3FD69567E0000000, float 0x3FDE176580000000, float 0x3FC6D57360000000, float 0x3FB199D2A0000000, float 0x3FA5E1E640000000, float 0x40064A3300000000, float 0x3F8FBCFF00000000, float 0x3FC1E4EF00000000, float 0x3FCEFFB8C0000000, float 0x3FE0C81D40000000, float 0x3FB13AFAA0000000, float 0x3FC8BC4900000000, float 0x3FB1B41700000000, float 0x3FD0630220000000, float 0x3FDA639920000000, float 0x3FAD8B0D00000000, float 0x3FFAD3E2E0000000, float 0x3F62F5BB80000000, float 0x3F864DB4C0000000, float 0x3FE84D9E80000000, float 0x3FC2CE91C0000000, float 0x3FE855FBC0000000, float 0x3F924554A0000000, float 0x3FE62187A0000000, float 0x3FE576B7E0000000, float 0x3F6C249920000000, float 0x3FB2875340000000, float 0x3FB69BD9E0000000, float 0x3FE0D0E340000000, float 0x3F91D924C0000000, float 0x400BE7A640000000, float 0x3FDC662780000000, float 0x3FD92E5DE0000000, float 0x3FDB0DD400000000, float 0x3FDA567120000000, float 0x3FDBEE41A0000000, float 0x3FC4EE2000000000, float 0x3FC28F3AA0000000, float 0x4012986C20000000, float 0x3F92427920000000, float 0x3FCD6976C0000000, float 0x3FA9224C60000000, float 0x3F65428760000000, float 0x3FC60F4520000000, float 0x3FE354B8C0000000, float 0x3FEE6C7220000000, float 0x3F907D6FA0000000, float 0x3FB72A4620000000, float 0x3FB810AF80000000, float 0x3FF2E1B080000000, float 0x3FB800B020000000, float 0x3FC33B53A0000000, float 0x3FD3E33260000000, float 0x3FC8E47DC0000000, float 0x3FE3837F80000000, float 0x4010DFC660000000, float 0x3F66A2AEC0000000, float 0x3F82C8BA40000000, float 0x3FA77FB1A0000000, float 0x3FA3AF0620000000, float 0x3FD489ACC0000000, float 0x3FD1BD2B60000000, float 0x4000F52FC0000000, float 0x3FBDAA7160000000, float 0x3FE98EEAE0000000, float 0x3FE5E510A0000000, float 0x3FD5D3FE20000000, float 0x3FFCA732E0000000, float 0x3FE1C42420000000, float 0x3FE35BCAA0000000, float 0x3FCEE05CC0000000, float 0x3FD903E200000000, float 0x4004746880000000, float 0x3FD417A460000000, float 0x3FD1135980000000, float 0x3FDFEEE960000000, float 0x3FD0A2C660000000, float 0x3F927F2F80000000, float 0x3FBE82A560000000, float 0x3FE1C9A9A0000000, float 0x3F7F380400000000, float 0x3FDDFA82E0000000, float 0x3FF3A5E360000000, float 0x3FF58A9BC0000000, float 0x3FE34AA100000000, float 0x4006B17AC0000000, float 0x3F82C3A5C0000000, float 0x3FF3BC9480000000, float 0x3F812A0AC0000000, float 0x3F8ED55020000000, float 0x3FF279B140000000, float 0x3FE9D83E80000000, float 0x400A376B40000000, float 0x3F904B9380000000, float 0x3FFB29D200000000, float 0x400C204C00000000, float 0x4012268340000000, float 0x3FE936AC60000000, float 0x3FD35B4680000000, float 0x3FB8138B00000000, float 0x3FC9967440000000, float 0x3FBDCEBFE0000000, float 0x3FD07A6380000000, float 0x3FC333CA40000000, float 0x3F81B58600000000, float 0x3FE60D9940000000, float 0x3FC564F980000000, float 0x3FC0FA50A0000000, float 0x3FD059D120000000, float 0x3FC0A8F3A0000000, float 0x3FA62C1CC0000000, float 0x3FCD1A2A40000000, float 0x3FA97B84E0000000, float 0x3F9674DEC0000000, float 0x3FD4362A60000000, float 0x3F91FE1460000000, float 0x3FFBE04180000000, float 0x3FB10CED40000000, float 0x3FA5BF55E0000000, float 0x3FA9D08840000000, float 0x3FED9F1280000000, float 0x3FF13A3EC0000000, float 0x3FF1612840000000, float 0x3FC16512A0000000, float 0x3FC74B72C0000000, float 0x3FC15D2D00000000, float 0x3FEEFD9BA0000000, float 0x3FE42A3AE0000000, float 0x401B303080000000, float 0x3FFCBD07C0000000, float 0x3FEAFDE0E0000000, float 0x3FA15C63A0000000, float 0x3F713287C0000000, float 0x3FE59DE260000000, float 0x3FC77225C0000000, float 0x3FC0EFED60000000, float 0x3FD1A222E0000000, float 0x3FE596CA40000000, float 0x3FE6CDA900000000, float 0x3FD5C7EAE0000000, float 0x3FE1B1A4C0000000, float 0x3FCFDADFC0000000, float 0x3FD48BE300000000, float 0x3FB9ADB840000000, float 0x3FA456CBC0000000, float 0x3FE529F160000000, float 0x3FF9E57FC0000000, float 0x3F71A89C40000000, float 0x3FCA962D00000000, float 0x3FD20FB660000000, float 0x3FEAE30020000000, float 0x3FE8B12B20000000, float 0x3F9EAFC620000000, float 0x3F70B3FFA0000000, float 0x3FAF6EC5C0000000, float 0x401DF64840000000, float 0x3FC25B1000000000, float 0x3FDDE20460000000, float 0x4010A17980000000, float 0x3FEB477780000000, float 0x4005CC0AE0000000, float 0x40112AEA80000000, float 0x3FE8ED3100000000, float 0x400BB2BFE0000000, float 0x40141A07C0000000, float 0x3FCC978D40000000, float 0x3F822AD6A0000000, float 0x3FF611A760000000, float 0x3F8A54AA80000000, float 0x3FB343F6C0000000, float 0x3FBD62BF20000000, float 0x3FF3150DA0000000, float 0x3FA0E58BE0000000, float 0x3F75355920000000, float 0x3FD123CC80000000, float 0x3F9D11ED60000000, float 0x40142D4020000000, float 0x3FB8C87CE0000000, float 0x4009D5B040000000, float 0x3FFC9E98E0000000, float 0x3FD4720860000000, float 0x3F6E685B00000000, float 0x400B308460000000, float 0x3FAA94F1A0000000, float 0x3FD6CD3E00000000, float 0x3F97928E00000000, float 0x3FA954B200000000, float 0x3FAF55CDA0000000, float 0x3FC205AB40000000, float 0x3F86B2A1A0000000, float 0x3FC0CE91C0000000, float 0x3F860F9400000000, float 0x3F72F62440000000, float 0x4038DB6AE0000000, float 0x3FFBF48800000000, float 0x3FFAA16C60000000, float 0x400E725700000000, float 0x3FD6B52860000000, float 0x3FC29DF980000000, float 0x3FD38954A0000000, float 0x3FBB480A60000000, float 0x3FFAB50B00000000, float 0x3FDB759AC0000000, float 0x3FB666DD80000000, float 0x3FF2DF5AE0000000, float 0x400283FE60000000, float 0x3F970E03C0000000, float 0x3FBE12F900000000, float 0x3FE2EB9800000000, float 0x3FD372DA20000000, float 0x3FAB98CB40000000, float 0x3FE05C1400000000, float 0x3FBF7CDCC0000000, float 0x3FC0A89FC0000000, float 0x3FBE3CD9A0000000, float 0x3FBA6FC580000000, float 0x3FB6080FA0000000, float 0x3FBF30C680000000, float 0x3FD49AF180000000, float 0x3FD09FBE80000000, float 0x3FB45267A0000000, float 0x3FCB48A9C0000000, float 0x3FD3F5FD40000000, float 0x3FD8429180000000, float 0x3FC0C06180000000, float 0x3FF3624DE0000000, float 0x3FD17E1760000000, float 0x3FD62AF140000000, float 0x400C0663C0000000, float 0x3FD32174C0000000, float 0x3FF4D31BA0000000, float 0x3FB4A6F0A0000000, float 0x3FC7DB6E60000000, float 0x400CA06100000000, float 0x3FBE76EA40000000, float 0x3F7BBA9380000000, float 0x3FE2D16DC0000000, float 0x3F8762BD60000000, float 0x3FA2F97680000000, float 0x3FE2583200000000, float 0x3F91B66220000000, float 0x3FB75EBFA0000000, float 0x3FE49D64A0000000, float 0x3FE3D93E60000000, float 0x3FD8170500000000, float 0x3FD1EB1820000000, float 0x3FC4579F20000000, float 0x3FF357B200000000, float 0x3FD6239A40000000, float 0x400BB9B140000000, float 0x3FF45197A0000000, float 0x3F7A3EE5C0000000, float 0x3FA75F7320000000, float 0x3FCAB1BBC0000000, float 0x3F84F0B000000000, float 0x3FED8FDE20000000, float 0x3F704A3520000000, float 0x3FD4668C20000000, float 0x3FCD694460000000, float 0x3FF1932B60000000, float 0x3FB9A7F3C0000000, float 0x3FAC236DC0000000, float 0x3FC0808420000000, float 0x3FFBA06640000000, float 0x3FF1E5E8A0000000, float 0x3FB1A76BE0000000, float 0x3FEA3E8580000000, float 0x4001B482C0000000, float 0x3FA2506B60000000, float 0x40013DF3C0000000, float 0x3FA071BB20000000, float 0x3FC8FCE740000000, float 0x3FFBED9160000000, float 0x3FEA4DE1A0000000, float 0x3F9F18B5E0000000, float 0x3FDA2FCAC0000000, float 0x3FACCF9780000000, float 0x3FE75B9A60000000, float 0x3FB839F420000000, float 0x3FDE060780000000, float 0x3F7CC321E0000000, float 0x3F8516F5E0000000, float 0x3FDB69CAA0000000, float 0x3FD33E9EA0000000, float 0x3FB3A176E0000000, float 0x3F787F95E0000000, float 0x3FB8E1B4C0000000, float 0x3F78C6C340000000, float 0x4001D6BBA0000000, float 0x3FF91B8660000000, float 0x3FDD5B5B80000000, float 0x3FE5A567A0000000, float 0x3FD6774260000000, float 0x3FE2545A60000000, float 0x3FD253DA80000000, float 0x3FEBFA7EC0000000, float 0x3FFE47ED00000000, float 0x3FF816E580000000, float 0x4018B3DDA0000000, float 0x3FA7F770E0000000, float 0x40003CC3A0000000, float 0x3FFD6D6780000000, float 0x3FF239FFE0000000, float 0x400044BB20000000, float 0x3FF8597F60000000, float 0x3FD86C11A0000000, float 0x3F9EFFF6C0000000, float 0x3FE409FE80000000, float 0x3FA006D0E0000000, float 0x3FF7487FC0000000, float 0x3FF524A8C0000000, float 0x3FFB60C9E0000000, float 0x3FCA90EEE0000000, float 0x3FDD53AC40000000, float 0x3FE9A81FE0000000, float 0x3FDC87DB20000000, float 0x3FD725B740000000, float 0x3FE740DF60000000, float 0x3FFA5CBBC0000000, float 0x40029C1940000000, float 0x3F89CE14C0000000, float 0x3FFAF928E0000000, float 0x401D9389C0000000, float 0x3FF8FD0D00000000, float 0x3FB69F88C0000000, float 0x3FFBB3E580000000, float 0x3FAA6BDA40000000, float 0x3FF9C2F840000000, float 0x3FFA55CFA0000000, float 0x3FB5494FE0000000, float 0x3F878B1C20000000, float 0x3F83E69B20000000, float 0x3FF96833C0000000, float 0x3FCDD63020000000, float 0x3FBB353B40000000, float 0x3FF17B9E00000000, float 0x3FE39287C0000000, float 0x3FFAA40100000000, float 0x3FD39D55E0000000, float 0x3FF6CC5980000000, float 0x3FD928FE20000000, float 0x3F7A014080000000, float 0x3FF568A720000000, float 0x3FE46CF420000000, float 0x4002B40F60000000, float 0x4003FFB160000000, float 0x3FD84CA500000000, float 0x3FE0C89F40000000, float 0x3FB1787700000000, float 0x3F80AA7CE0000000, float 0x3FB2F510C0000000, float 0x3FD6D805E0000000, float 0x3FFADF45E0000000, float 0x3F7F96B660000000, float 0x3FE88BE940000000, float 0x40046C56E0000000, float 0x4002194B00000000, float 0x3FF3546B20000000, float 0x3FEE310DC0000000, float 0x3F6794C1C0000000, float 0x4004E37DE0000000, float 0x3F8995E0A0000000, float 0x3FB9C560C0000000, float 0x3FF0C7ED00000000, float 0x40001561A0000000, float 0x3FE2272860000000, float 0x4009CC3A00000000, float 0x3F7FCB74C0000000, float 0x3FBFE09BC0000000, float 0x3FEED0E120000000, float 0x3FED29BF20000000, float 0x3FD5FE2600000000, float 0x3F805DD0E0000000, float 0x40059B2D40000000, float 0x3FF31B4780000000, float 0x3FFE136A40000000, float 0x3FADA1FD20000000, float 0x3FFAD681E0000000, float 0x3FFB93C8A0000000, float 0x3FE1484F80000000, float 0x3FEBCAC2A0000000, float 0x3F736204E0000000, float 0x3F756F5040000000, float 0x3FA8FE47A0000000, float 0x3FF1473040000000, float 0x3FE7DCC860000000, float 0x3FEFF56000000000, float 0x40048CA2E0000000, float 0x3FF5839040000000, float 0x3FEB390220000000, float 0x4003834C20000000, float 0x3FF2B5DCC0000000, float 0x3FF1DCB140000000, float 0x3FF6DFAEC0000000, float 0x3FBFC99AE0000000, float 0x4000EF2A60000000, float 0x3FED8E0CA0000000, float 0x3FF5A771C0000000, float 0x3FE7B66300000000, float 0x3FF4DC2900000000, float 0x3FD20357A0000000, float 0x3F84333C60000000, float 0x3FE9D86A80000000, float 0x3FE688A040000000, float 0x3FE2B43520000000, float 0x3FD7EF6B60000000, float 0x3FE1805600000000, float 0x3FD14A98A0000000, float 0x3F85222E20000000, float 0x3FCE1A0D00000000, float 0x400406DC60000000, float 0x3FF55551E0000000, float 0x3F88A31460000000, float 0x3FE4151C60000000, float 0x3FCBC0CA60000000, float 0x40010BBC20000000, float 0x3F93ECD9C0000000, float 0x3F8A4CBFC0000000, float 0x3FB27B8900000000, float 0x3FB145D340000000, float 0x3FD65F0700000000, float 0x3F8D012D20000000, float 0x3FF7AB7560000000, float 0x40008E4640000000, float 0x3FE09012A0000000, float 0x4017F2F1A0000000, float 0x4006A81980000000, float 0x3FC81F85E0000000, float 0x3FEBA4D0A0000000, float 0x3FFFFFA1A0000000, float 0x3FC47B5F20000000, float 0x3FB9FCD240000000, float 0x3FE30A2CA0000000, float 0x3FE58F0200000000, float 0x3FF3F36260000000, float 0x3FE2A43DC0000000, float 0x400D3E5CA0000000, float 0x4003480200000000, float 0x3FD27FA5E0000000, float 0x40022670E0000000, float 0x3FE67AD4C0000000, float 0x3FF3A29C80000000, float 0x4004ACFEA0000000, float 0x3FF2E7F4E0000000, float 0x400133E040000000, float 0x3FD0328B60000000, float 0x3FF06963E0000000, float 0x3FF7E09FE0000000, float 0x3FA0FCAE40000000, float 0x3FF28ADAC0000000, float 0x3FBE59C060000000, float 0x3FCDF69880000000, float 0x3FC62BAE00000000, float 0x3F98AAD6E0000000, float 0x3FC57E9100000000, float 0x3F8484AF20000000, float 0x3FC1A2C660000000, float 0x3FFC52A840000000, float 0x4001932B60000000, float 0x3FD76451C0000000, float 0x3FC4A8D220000000, float 0x3FE19FAFC0000000, float 0x3FE2C14840000000, float 0x3FC4914B20000000, float 0x3F851F4C00000000, float 0x401A4D3D80000000, float 0x3FEE8BB0A0000000, float 0x3FD82B5E60000000, float 0x40164577E0000000, float 0x3FE3AC16E0000000, float 0x3FD4350900000000, float 0x3FF65AD960000000, float 0x3FBAD7F960000000, float 0x3FC7116220000000, float 0x3F7179B7E0000000, float 0x4000BF8CA0000000, float 0x3FCFD462C0000000, float 0x40076877E0000000, float 0x3F8DA97900000000, float 0x3FC87E5220000000, float 0x3FEA9C6B00000000, float 0x3F95394680000000, float 0x40040063A0000000, float 0x4008EA35A0000000, float 0x4010A710C0000000] }, align 4
+@_ZN7Matcher9s_matcherE = dso_local local_unnamed_addr global ptr null, align 8
+@.str = private unnamed_addr constant [26 x i8] c"vector::_M_default_append\00", align 1
+
+@_ZN7MatcherC1Ev = dso_local unnamed_addr alias void (ptr), ptr @_ZN7MatcherC2Ev
+
+; Function Attrs: inlinehint mustprogress uwtable
+define dso_local noundef ptr @_ZN7Matcher11get_MatcherEv() local_unnamed_addr #0 align 2 personality ptr @__gxx_personality_v0 !prof !55 {
+  %1 = load ptr, ptr @_ZN7Matcher9s_matcherE, align 8, !tbaa !56
+  %2 = icmp eq ptr %1, null
+  br i1 %2, label %3, label %8, !prof !60
+
+3:                                                ; preds = %0
+  %4 = tail call noalias noundef nonnull dereferenceable(48) ptr @_Znwm(i64 noundef 48) #18
+  invoke void @_ZN7MatcherC2Ev(ptr noundef nonnull align 8 dereferenceable(48) %4)
+          to label %5 unwind label %6, !prof !61
+
+5:                                                ; preds = %3
+  store ptr %4, ptr @_ZN7Matcher9s_matcherE, align 8, !tbaa !56
+  br label %8
+
+6:                                                ; preds = %3
+  %7 = landingpad { ptr, i32 }
+          cleanup
+  tail call void @_ZdlPv(ptr noundef %4) #19
+  resume { ptr, i32 } %7
+
+8:                                                ; preds = %5, %0
+  %9 = load ptr, ptr @_ZN7Matcher9s_matcherE, align 8, !tbaa !56
+  ret ptr %9
+}
+
+; Function Attrs: nobuiltin allocsize(0)
+declare noundef nonnull ptr @_Znwm(i64 noundef) local_unnamed_addr #1
+
+declare i32 @__gxx_personality_v0(...)
+
+; Function Attrs: nobuiltin nounwind
+declare void @_ZdlPv(ptr noundef) local_unnamed_addr #2
+
+; Function Attrs: cold mustprogress nounwind uwtable
+define dso_local void @_ZN7Matcher11set_MatcherEPS_(ptr noundef %0) local_unnamed_addr #3 align 2 personality ptr @__gxx_personality_v0 !prof !62 {
+  %2 = load ptr, ptr @_ZN7Matcher9s_matcherE, align 8, !tbaa !56
+  %3 = icmp eq ptr %2, null
+  br i1 %3, label %15, label %4
+
+4:                                                ; preds = %1
+  %5 = getelementptr inbounds %"class.std::vector", ptr %2, i64 2
+  br label %6
+
+6:                                                ; preds = %12, %4
+  %7 = phi ptr [ %5, %4 ], [ %8, %12 ]
+  %8 = getelementptr inbounds %"class.std::vector", ptr %7, i64 -1
+  %9 = load ptr, ptr %8, align 8, !tbaa !63
+  %10 = icmp eq ptr %9, null
+  br i1 %10, label %12, label %11
+
+11:                                               ; preds = %6
+  tail call void @_ZdlPv(ptr noundef %9) #19
+  br label %12
+
+12:                                               ; preds = %6, %11
+  %13 = icmp eq ptr %8, %2
+  br i1 %13, label %14, label %6
+
+14:                                               ; preds = %12
+  tail call void @_ZdlPv(ptr noundef %2) #19
+  br label %15
+
+15:                                               ; preds = %14, %1
+  store ptr %0, ptr @_ZN7Matcher9s_matcherE, align 8, !tbaa !56
+  ret void
+}
+
+; Function Attrs: mustprogress uwtable
+define dso_local void @_ZN7MatcherC2Ev(ptr noundef nonnull align 8 dereferenceable(48) %0) unnamed_addr #4 align 2 personality ptr @__gxx_personality_v0 !prof !65 {
+  %2 = alloca %class.FastBoard, align 8
+  %3 = alloca %"class.std::map", align 8
+  %4 = alloca %"struct.std::pair", align 8
+  tail call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(48) %0, i8 0, i64 48, i1 false), !tbaa !56
+  %5 = getelementptr inbounds %"struct.std::_Vector_base<unsigned char, std::allocator<unsigned char>>::_Vector_impl_data", ptr %0, i64 0, i32 1
+  %6 = load ptr, ptr %5, align 8, !tbaa !66
+  %7 = icmp ult ptr %6, inttoptr (i64 1048576 to ptr)
+  br i1 %7, label %8, label %11, !prof !61
+
+8:                                                ; preds = %1
+  %9 = ptrtoint ptr %6 to i64
+  %10 = sub nuw nsw i64 1048576, %9
+  invoke void @_ZNSt6vectorIhSaIhEE17_M_default_appendEm(ptr noundef nonnull align 8 dereferenceable(24) %0, i64 noundef %10)
+          to label %14 unwind label %41, !prof !61
+
+11:                                               ; preds = %1
+  %12 = icmp eq ptr %6, inttoptr (i64 1048576 to ptr)
+  br i1 %12, label %14, label %13
+
+13:                                               ; preds = %11
+  store ptr inttoptr (i64 1048576 to ptr), ptr %5, align 8, !tbaa !66
+  br label %14
+
+14:                                               ; preds = %13, %11, %8
+  %15 = getelementptr inbounds [2 x %"class.std::vector"], ptr %0, i64 0, i64 1
+  %16 = getelementptr inbounds [2 x %"class.std::vector"], ptr %0, i64 0, i64 1, i32 0, i32 0, i32 0, i32 1
+  %17 = load ptr, ptr %16, align 8, !tbaa !66
+  %18 = load ptr, ptr %15, align 8, !tbaa !63
+  %19 = ptrtoint ptr %17 to i64
+  %20 = ptrtoint ptr %18 to i64
+  %21 = sub i64 %19, %20
+  %22 = icmp ult i64 %21, 1048576
+  br i1 %22, label %23, label %25, !prof !61
+
+23:                                               ; preds = %14
+  %24 = sub nuw nsw i64 1048576, %21
+  invoke void @_ZNSt6vectorIhSaIhEE17_M_default_appendEm(ptr noundef nonnull align 8 dereferenceable(24) %15, i64 noundef %24)
+          to label %31 unwind label %41, !prof !61
+
+25:                                               ; preds = %14
+  %26 = icmp eq i64 %21, 1048576
+  br i1 %26, label %31, label %27
+
+27:                                               ; preds = %25
+  %28 = getelementptr inbounds i8, ptr %18, i64 1048576
+  %29 = icmp eq ptr %17, %28
+  br i1 %29, label %31, label %30
+
+30:                                               ; preds = %27
+  store ptr %28, ptr %16, align 8, !tbaa !66
+  br label %31
+
+31:                                               ; preds = %30, %27, %25, %23
+  call void @llvm.lifetime.start.p0(i64 8056, ptr nonnull %2) #20
+  %32 = getelementptr inbounds %class.FastBoard, ptr %2, i64 0, i32 16
+  call void @llvm.memset.p0.i64(ptr noundef nonnull align 8 dereferenceable(24) %32, i8 0, i64 24, i1 false)
+  invoke void @_ZN9FastBoard11reset_boardEi(ptr noundef nonnull align 8 dereferenceable(8052) %2, i32 noundef 3)
+          to label %33 unwind label %43, !prof !61
+
+33:                                               ; preds = %31
+  %34 = invoke noundef i32 @_ZN9FastBoard10get_vertexEii(ptr noundef nonnull align 8 dereferenceable(8052) %2, i32 noundef 1, i32 noundef 1)
+          to label %35 unwind label %45, !prof !61
+
+35:                                               ; preds = %33
+  call void @llvm.lifetime.start.p0(i64 48, ptr nonnull %3) #20
+  %36 = getelementptr inbounds i8, ptr %3, i64 8
+  store i32 0, ptr %36, align 8, !tbaa !67
+  %37 = getelementptr inbounds i8, ptr %3, i64 16
+  store ptr null, ptr %37, align 8, !tbaa !72
+  %38 = getelementptr inbounds i8, ptr %3, i64 24
+  store ptr %36, ptr %38, align 8, !tbaa !73
+  %39 = getelementptr inbounds i8, ptr %3, i64 32
+  store ptr %36, ptr %39, align 8, !tbaa !74
+  %40 = getelementptr inbounds i8, ptr %3, i64 40
+  store i64 0, ptr %40, align 8, !tbaa !75
+  br label %47
+
+41:                                               ; preds = %23, %8
+  %42 = landingpad { ptr, i32 }
+          cleanup
+  br label %189
+
+43:                                               ; preds = %31
+  %44 = landingpad { ptr, i32 }
+          cleanup
+  br label %183
+
+45:                                               ; preds = %33
+  %46 = landingpad { ptr, i32 }
+          cleanup
+  br label %183
+
+47:                                               ; preds = %35, %58
+  %48 = phi i64 [ 0, %35 ], [ %59, %58 ]
+  call void @llvm.lifetime.start.p0(i64 8, ptr nonnull %4) #20
+  %49 = getelementptr inbounds [806 x i32], ptr @internal_patterns_fast, i64 0, i64 %48
+  %50 = getelementptr inbounds [806 x float], ptr @internal_weights_fast, i64 0, i64 %48
+  %51 = load i32, ptr %49, align 4, !tbaa !76
+  %52 = load i32, ptr %50, align 4, !tbaa !78
+  %53 = zext i32 %52 to i64
+  %54 = shl nuw i64 %53, 32
+  %55 = zext i32 %51 to i64
+  %56 = or disjoint i64 %54, %55
+  store i64 %56, ptr %4, align 8
+  %57 = invoke { ptr, i8 } @_ZNSt3mapIifSt4lessIiESaISt4pairIKifEEE6insertIRS2_IifEEENSt9enable_ifIXsr16is_constructibleIS4_T_EE5valueES2_ISt17_Rb_tree_iteratorIS4_EbEE4typeEOSB_(ptr noundef nonnull align 8 dereferenceable(48) %3, ptr noundef nonnull align 4 dereferenceable(8) %4)
+          to label %58 unwind label %61, !prof !80
+
+58:                                               ; preds = %47
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #20
+  %59 = add nuw nsw i64 %48, 1
+  %60 = icmp eq i64 %59, 806
+  br i1 %60, label %63, label %47, !prof !81, !llvm.loop !82
+
+61:                                               ; preds = %47
+  %62 = landingpad { ptr, i32 }
+          cleanup
+  call void @llvm.lifetime.end.p0(i64 8, ptr nonnull %4) #20
+  br label %176
+
+63:                                               ; preds = %58, %170
+  %64 = phi i64 [ %174, %170 ], [ 0, %58 ]
+  %65 = trunc i64 %64 to i32
+  br label %78
+
+66:                                               ; preds = %170
+  %67 = load ptr, ptr %37, align 8, !tbaa !72
+  invoke void @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E(ptr noundef nonnull align 8 dereferenceable(48) %3, ptr noundef %67)
+          to label %71 unwind label %68, !prof !61
+
+68:                                               ; preds = %66
+  %69 = landingpad { ptr, i32 }
+          catch ptr null
+  %70 = extractvalue { ptr, i32 } %69, 0
+  call void @__clang_call_terminate(ptr %70) #21
+  unreachable
+
+71:                                               ; preds = %66
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %3) #20
+  %72 = load ptr, ptr %32, align 8, !tbaa !85
+  %73 = icmp eq ptr %72, null
+  br i1 %73, label %75, label %74, !prof !61
+
+74:                                               ; preds = %71
+  call void @_ZdlPv(ptr noundef %72) #19
+  br label %75
+
+75:                                               ; preds = %71, %74
+  call void @llvm.lifetime.end.p0(i64 8056, ptr nonnull %2) #20
+  ret void
+
+76:                                               ; preds = %85
+  %77 = invoke noundef i32 @_ZN9FastBoard25get_pattern3_augment_specEiib(ptr noundef nonnull align 8 dereferenceable(8052) %2, i32 noundef %34, i32 noundef %86, i1 noundef zeroext false)
+          to label %91 unwind label %128, !prof !87
+
+78:                                               ; preds = %63, %85
+  %79 = phi i32 [ 7, %63 ], [ %87, %85 ]
+  %80 = phi i32 [ %65, %63 ], [ %86, %85 ]
+  %81 = invoke noundef i32 @_ZN9FastBoard13get_extra_dirEi(ptr noundef nonnull align 8 dereferenceable(8052) %2, i32 noundef %79)
+          to label %82 unwind label %89, !prof !88
+
+82:                                               ; preds = %78
+  %83 = add nsw i32 %81, %34
+  %84 = and i32 %80, 3
+  invoke void @_ZN9FastBoard10set_squareEiNS_8square_tE(ptr noundef nonnull align 8 dereferenceable(8052) %2, i32 noundef %83, i32 noundef %84)
+          to label %85 unwind label %89, !prof !88
+
+85:                                               ; preds = %82
+  %86 = lshr i32 %80, 2
+  %87 = add nsw i32 %79, -1
+  %88 = icmp eq i32 %79, 0
+  br i1 %88, label %76, label %78, !prof !89, !llvm.loop !90
+
+89:                                               ; preds = %82, %78
+  %90 = landingpad { ptr, i32 }
+          cleanup
+  br label %176
+
+91:                                               ; preds = %76
+  %92 = invoke noundef i32 @_ZN9FastBoard25get_pattern3_augment_specEiib(ptr noundef nonnull align 8 dereferenceable(8052) %2, i32 noundef %34, i32 noundef %86, i1 noundef zeroext true)
+          to label %93 unwind label %130, !prof !87
+
+93:                                               ; preds = %91
+  %94 = load ptr, ptr %37, align 8, !tbaa !56
+  %95 = icmp eq ptr %94, null
+  br i1 %95, label %108, label %96, !prof !91
+
+96:                                               ; preds = %93, %96
+  %97 = phi ptr [ %106, %96 ], [ %94, %93 ]
+  %98 = phi ptr [ %104, %96 ], [ %36, %93 ]
+  %99 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %97, i64 0, i32 1
+  %100 = load i32, ptr %99, align 4, !tbaa !76
+  %101 = icmp slt i32 %100, %77
+  %102 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %97, i64 0, i32 3
+  %103 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %97, i64 0, i32 2
+  %104 = select i1 %101, ptr %98, ptr %97, !prof !92
+  %105 = select i1 %101, ptr %102, ptr %103, !prof !92
+  %106 = load ptr, ptr %105, align 8, !tbaa !56
+  %107 = icmp eq ptr %106, null
+  br i1 %107, label %108, label %96, !prof !93, !llvm.loop !94
+
+108:                                              ; preds = %96, %93
+  %109 = phi ptr [ %36, %93 ], [ %104, %96 ]
+  %110 = icmp eq ptr %109, %36
+  br i1 %110, label %116, label %111, !prof !95
+
+111:                                              ; preds = %108
+  %112 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %109, i64 0, i32 1
+  %113 = load i32, ptr %112, align 4, !tbaa !76
+  %114 = icmp slt i32 %77, %113
+  %115 = select i1 %114, ptr %36, ptr %109, !prof !96
+  br label %116
+
+116:                                              ; preds = %111, %108
+  %117 = phi ptr [ %36, %108 ], [ %115, %111 ]
+  %118 = icmp eq ptr %117, %36
+  br i1 %118, label %132, label %119, !prof !97
+
+119:                                              ; preds = %116
+  %120 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %117, i64 0, i32 1, i32 0, i64 4
+  %121 = load float, ptr %120, align 4, !tbaa !98
+  %122 = fpext float %121 to double
+  %123 = fmul double %122, 4.000000e+01
+  %124 = fptosi double %123 to i32
+  %125 = call i32 @llvm.smin.i32(i32 %124, i32 255)
+  %126 = call i32 @llvm.smax.i32(i32 %125, i32 0)
+  %127 = trunc i32 %126 to i8
+  br label %132
+
+128:                                              ; preds = %76
+  %129 = landingpad { ptr, i32 }
+          cleanup
+  br label %176
+
+130:                                              ; preds = %91
+  %131 = landingpad { ptr, i32 }
+          cleanup
+  br label %176
+
+132:                                              ; preds = %116, %119
+  %133 = phi i8 [ %127, %119 ], [ 1, %116 ]
+  %134 = load ptr, ptr %0, align 8, !tbaa !63
+  %135 = getelementptr inbounds i8, ptr %134, i64 %64
+  store i8 %133, ptr %135, align 1, !tbaa !100
+  %136 = load ptr, ptr %37, align 8, !tbaa !56
+  %137 = icmp eq ptr %136, null
+  br i1 %137, label %150, label %138, !prof !91
+
+138:                                              ; preds = %132, %138
+  %139 = phi ptr [ %148, %138 ], [ %136, %132 ]
+  %140 = phi ptr [ %146, %138 ], [ %36, %132 ]
+  %141 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %139, i64 0, i32 1
+  %142 = load i32, ptr %141, align 4, !tbaa !76
+  %143 = icmp slt i32 %142, %92
+  %144 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %139, i64 0, i32 3
+  %145 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %139, i64 0, i32 2
+  %146 = select i1 %143, ptr %140, ptr %139, !prof !92
+  %147 = select i1 %143, ptr %144, ptr %145, !prof !92
+  %148 = load ptr, ptr %147, align 8, !tbaa !56
+  %149 = icmp eq ptr %148, null
+  br i1 %149, label %150, label %138, !prof !93, !llvm.loop !94
+
+150:                                              ; preds = %138, %132
+  %151 = phi ptr [ %36, %132 ], [ %146, %138 ]
+  %152 = icmp eq ptr %151, %36
+  br i1 %152, label %158, label %153, !prof !95
+
+153:                                              ; preds = %150
+  %154 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %151, i64 0, i32 1
+  %155 = load i32, ptr %154, align 4, !tbaa !76
+  %156 = icmp slt i32 %92, %155
+  %157 = select i1 %156, ptr %36, ptr %151, !prof !96
+  br label %158
+
+158:                                              ; preds = %153, %150
+  %159 = phi ptr [ %36, %150 ], [ %157, %153 ]
+  %160 = icmp eq ptr %159, %36
+  br i1 %160, label %170, label %161, !prof !97
+
+161:                                              ; preds = %158
+  %162 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %159, i64 0, i32 1, i32 0, i64 4
+  %163 = load float, ptr %162, align 4, !tbaa !98
+  %164 = fpext float %163 to double
+  %165 = fmul double %164, 4.000000e+01
+  %166 = fptosi double %165 to i32
+  %167 = call i32 @llvm.smin.i32(i32 %166, i32 255)
+  %168 = call i32 @llvm.smax.i32(i32 %167, i32 0)
+  %169 = trunc i32 %168 to i8
+  br label %170
+
+170:                                              ; preds = %158, %161
+  %171 = phi i8 [ %169, %161 ], [ 1, %158 ]
+  %172 = load ptr, ptr %15, align 8, !tbaa !63
+  %173 = getelementptr inbounds i8, ptr %172, i64 %64
+  store i8 %171, ptr %173, align 1, !tbaa !100
+  %174 = add nuw nsw i64 %64, 1
+  %175 = icmp eq i64 %174, 1048576
+  br i1 %175, label %66, label %63, !prof !91, !llvm.loop !101
+
+176:                                              ; preds = %128, %130, %89, %61
+  %177 = phi { ptr, i32 } [ %62, %61 ], [ %90, %89 ], [ %131, %130 ], [ %129, %128 ]
+  %178 = load ptr, ptr %37, align 8, !tbaa !72
+  invoke void @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E(ptr noundef nonnull align 8 dereferenceable(48) %3, ptr noundef %178)
+          to label %182 unwind label %179
+
+179:                                              ; preds = %176
+  %180 = landingpad { ptr, i32 }
+          catch ptr null
+  %181 = extractvalue { ptr, i32 } %180, 0
+  call void @__clang_call_terminate(ptr %181) #21
+  unreachable
+
+182:                                              ; preds = %176
+  call void @llvm.lifetime.end.p0(i64 48, ptr nonnull %3) #20
+  br label %183
+
+183:                                              ; preds = %45, %182, %43
+  %184 = phi { ptr, i32 } [ %44, %43 ], [ %177, %182 ], [ %46, %45 ]
+  %185 = load ptr, ptr %32, align 8, !tbaa !85
+  %186 = icmp eq ptr %185, null
+  br i1 %186, label %188, label %187
+
+187:                                              ; preds = %183
+  call void @_ZdlPv(ptr noundef %185) #19
+  br label %188
+
+188:                                              ; preds = %183, %187
+  call void @llvm.lifetime.end.p0(i64 8056, ptr nonnull %2) #20
+  br label %189
+
+189:                                              ; preds = %188, %41
+  %190 = phi { ptr, i32 } [ %184, %188 ], [ %42, %41 ]
+  %191 = getelementptr inbounds %"class.std::vector", ptr %0, i64 2
+  br label %192
+
+192:                                              ; preds = %198, %189
+  %193 = phi ptr [ %191, %189 ], [ %194, %198 ]
+  %194 = getelementptr inbounds %"class.std::vector", ptr %193, i64 -1
+  %195 = load ptr, ptr %194, align 8, !tbaa !63
+  %196 = icmp eq ptr %195, null
+  br i1 %196, label %198, label %197
+
+197:                                              ; preds = %192
+  call void @_ZdlPv(ptr noundef %195) #19
+  br label %198
+
+198:                                              ; preds = %192, %197
+  %199 = icmp eq ptr %194, %0
+  br i1 %199, label %200, label %192
+
+200:                                              ; preds = %198
+  resume { ptr, i32 } %190
+}
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.start.p0(i64 immarg, ptr nocapture) #5
+
+declare void @_ZN9FastBoard11reset_boardEi(ptr noundef nonnull align 8 dereferenceable(8052), i32 noundef) local_unnamed_addr #6
+
+declare noundef i32 @_ZN9FastBoard10get_vertexEii(ptr noundef nonnull align 8 dereferenceable(8052), i32 noundef, i32 noundef) local_unnamed_addr #6
+
+; Function Attrs: mustprogress uwtable
+define linkonce_odr dso_local { ptr, i8 } @_ZNSt3mapIifSt4lessIiESaISt4pairIKifEEE6insertIRS2_IifEEENSt9enable_ifIXsr16is_constructibleIS4_T_EE5valueES2_ISt17_Rb_tree_iteratorIS4_EbEE4typeEOSB_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef nonnull align 4 dereferenceable(8) %1) local_unnamed_addr #4 comdat align 2 !prof !102 {
+  %3 = getelementptr inbounds i8, ptr %0, i64 16
+  %4 = getelementptr inbounds i8, ptr %0, i64 8
+  %5 = load ptr, ptr %3, align 8, !tbaa !56
+  %6 = icmp eq ptr %5, null
+  br i1 %6, label %21, label %7, !prof !81
+
+7:                                                ; preds = %2
+  %8 = load i32, ptr %1, align 4, !tbaa !76
+  br label %9
+
+9:                                                ; preds = %7, %9
+  %10 = phi ptr [ %5, %7 ], [ %19, %9 ]
+  %11 = phi ptr [ %4, %7 ], [ %17, %9 ]
+  %12 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %10, i64 0, i32 1
+  %13 = load i32, ptr %12, align 4, !tbaa !76
+  %14 = icmp slt i32 %13, %8
+  %15 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %10, i64 0, i32 3
+  %16 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %10, i64 0, i32 2
+  %17 = select i1 %14, ptr %11, ptr %10, !prof !103
+  %18 = select i1 %14, ptr %15, ptr %16, !prof !103
+  %19 = load ptr, ptr %18, align 8, !tbaa !56
+  %20 = icmp eq ptr %19, null
+  br i1 %20, label %21, label %9, !prof !104, !llvm.loop !94
+
+21:                                               ; preds = %9, %2
+  %22 = phi ptr [ %4, %2 ], [ %17, %9 ]
+  %23 = icmp eq ptr %22, %4
+  br i1 %23, label %29, label %24, !prof !105
+
+24:                                               ; preds = %21
+  %25 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %22, i64 0, i32 1
+  %26 = load i32, ptr %1, align 4, !tbaa !76
+  %27 = load i32, ptr %25, align 4, !tbaa !76
+  %28 = icmp slt i32 %26, %27
+  br i1 %28, label %29, label %31, !prof !106
+
+29:                                               ; preds = %21, %24
+  %30 = tail call ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE22_M_emplace_hint_uniqueIJRS0_IifEEEESt17_Rb_tree_iteratorIS2_ESt23_Rb_tree_const_iteratorIS2_EDpOT_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr %22, ptr noundef nonnull align 4 dereferenceable(8) %1)
+  br label %31
+
+31:                                               ; preds = %24, %29
+  %32 = phi ptr [ %30, %29 ], [ %22, %24 ]
+  %33 = phi i8 [ 1, %29 ], [ 0, %24 ]
+  %34 = insertvalue { ptr, i8 } poison, ptr %32, 0
+  %35 = insertvalue { ptr, i8 } %34, i8 %33, 1
+  ret { ptr, i8 } %35
+}
+
+; Function Attrs: mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.lifetime.end.p0(i64 immarg, ptr nocapture) #5
+
+declare void @_ZN9FastBoard10set_squareEiNS_8square_tE(ptr noundef nonnull align 8 dereferenceable(8052), i32 noundef, i32 noundef) local_unnamed_addr #6
+
+declare noundef i32 @_ZN9FastBoard13get_extra_dirEi(ptr noundef nonnull align 8 dereferenceable(8052), i32 noundef) local_unnamed_addr #6
+
+declare noundef i32 @_ZN9FastBoard25get_pattern3_augment_specEiib(ptr noundef nonnull align 8 dereferenceable(8052), i32 noundef, i32 noundef, i1 noundef zeroext) local_unnamed_addr #6
+
+; Function Attrs: cold mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable
+define dso_local noundef zeroext i8 @_ZN7Matcher4clipEi(ptr nocapture noundef nonnull readnone align 8 dereferenceable(48) %0, i32 noundef %1) local_unnamed_addr #7 align 2 !prof !62 {
+  %3 = tail call i32 @llvm.smin.i32(i32 %1, i32 255)
+  %4 = tail call i32 @llvm.smax.i32(i32 %3, i32 0)
+  %5 = trunc i32 %4 to i8
+  ret i8 %5
+}
+
+; Function Attrs: inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable
+define dso_local noundef i32 @_ZN7Matcher7matchesEii(ptr nocapture noundef nonnull readonly align 8 dereferenceable(48) %0, i32 noundef %1, i32 noundef %2) local_unnamed_addr #8 align 2 !prof !107 {
+  %4 = sext i32 %1 to i64
+  %5 = getelementptr inbounds [2 x %"class.std::vector"], ptr %0, i64 0, i64 %4
+  %6 = sext i32 %2 to i64
+  %7 = load ptr, ptr %5, align 8, !tbaa !63
+  %8 = getelementptr inbounds i8, ptr %7, i64 %6
+  %9 = load i8, ptr %8, align 1, !tbaa !100
+  %10 = zext i8 %9 to i32
+  ret i32 %10
+}
+
+; Function Attrs: cold noinline noreturn nounwind uwtable
+define linkonce_odr hidden void @__clang_call_terminate(ptr noundef %0) local_unnamed_addr #9 comdat !prof !62 {
+  %2 = tail call ptr @__cxa_begin_catch(ptr %0) #20
+  tail call void @_ZSt9terminatev() #21
+  unreachable
+}
+
+declare ptr @__cxa_begin_catch(ptr) local_unnamed_addr
+
+declare void @_ZSt9terminatev() local_unnamed_addr
+
+; Function Attrs: cold mustprogress uwtable
+define linkonce_odr dso_local void @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef %1) local_unnamed_addr #10 comdat align 2 personality ptr @__gxx_personality_v0 !prof !108 {
+  %3 = icmp eq ptr %1, null
+  br i1 %3, label %11, label %4, !prof !109
+
+4:                                                ; preds = %2, %4
+  %5 = phi ptr [ %9, %4 ], [ %1, %2 ]
+  %6 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %5, i64 0, i32 3
+  %7 = load ptr, ptr %6, align 8, !tbaa !110
+  tail call void @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef %7)
+  %8 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %5, i64 0, i32 2
+  %9 = load ptr, ptr %8, align 8, !tbaa !111
+  tail call void @_ZdlPv(ptr noundef %5) #19
+  %10 = icmp eq ptr %9, null
+  br i1 %10, label %11, label %4, !prof !80, !llvm.loop !112
+
+11:                                               ; preds = %4, %2
+  ret void
+}
+
+; Function Attrs: cold mustprogress uwtable
+define linkonce_odr dso_local void @_ZNSt6vectorIhSaIhEE17_M_default_appendEm(ptr noundef nonnull align 8 dereferenceable(24) %0, i64 noundef %1) local_unnamed_addr #10 comdat align 2 personality ptr @__gxx_personality_v0 !prof !113 {
+  %3 = icmp eq i64 %1, 0
+  br i1 %3, label %55, label %4, !prof !114
+
+4:                                                ; preds = %2
+  %5 = getelementptr inbounds %"struct.std::_Vector_base<unsigned char, std::allocator<unsigned char>>::_Vector_impl_data", ptr %0, i64 0, i32 1
+  %6 = load ptr, ptr %5, align 8, !tbaa !66
+  %7 = load ptr, ptr %0, align 8, !tbaa !63
+  %8 = ptrtoint ptr %6 to i64
+  %9 = ptrtoint ptr %7 to i64
+  %10 = sub i64 %8, %9
+  %11 = getelementptr inbounds %"struct.std::_Vector_base<unsigned char, std::allocator<unsigned char>>::_Vector_impl_data", ptr %0, i64 0, i32 2
+  %12 = load ptr, ptr %11, align 8, !tbaa !115
+  %13 = ptrtoint ptr %12 to i64
+  %14 = sub i64 %13, %8
+  %15 = icmp sgt i64 %10, -1
+  tail call void @llvm.assume(i1 %15)
+  %16 = xor i64 %10, 9223372036854775807
+  %17 = icmp ule i64 %14, %16
+  tail call void @llvm.assume(i1 %17)
+  %18 = icmp ult i64 %14, %1
+  br i1 %18, label %27, label %19, !prof !116
+
+19:                                               ; preds = %4
+  store i8 0, ptr %6, align 1, !tbaa !100
+  %20 = getelementptr inbounds i8, ptr %6, i64 1
+  %21 = add i64 %1, -1
+  %22 = icmp eq i64 %21, 0
+  br i1 %22, label %25, label %23
+
+23:                                               ; preds = %19
+  %24 = getelementptr inbounds i8, ptr %6, i64 %1
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %20, i8 0, i64 %21, i1 false)
+  br label %25
+
+25:                                               ; preds = %19, %23
+  %26 = phi ptr [ %20, %19 ], [ %24, %23 ]
+  store ptr %26, ptr %5, align 8, !tbaa !66
+  br label %55
+
+27:                                               ; preds = %4
+  %28 = icmp ult i64 %16, %1
+  br i1 %28, label %29, label %30, !prof !114
+
+29:                                               ; preds = %27
+  tail call void @_ZSt20__throw_length_errorPKc(ptr noundef nonnull @.str) #22
+  unreachable
+
+30:                                               ; preds = %27
+  %31 = tail call i64 @llvm.umax.i64(i64 %10, i64 %1)
+  %32 = add i64 %31, %10
+  %33 = icmp ult i64 %32, %10
+  %34 = tail call i64 @llvm.umin.i64(i64 %32, i64 9223372036854775807)
+  %35 = select i1 %33, i64 9223372036854775807, i64 %34, !prof !114
+  %36 = icmp eq i64 %35, 0
+  br i1 %36, label %39, label %37, !prof !114
+
+37:                                               ; preds = %30
+  %38 = tail call noalias noundef nonnull ptr @_Znwm(i64 noundef %35) #18
+  br label %39
+
+39:                                               ; preds = %30, %37
+  %40 = phi ptr [ %38, %37 ], [ null, %30 ]
+  %41 = getelementptr inbounds i8, ptr %40, i64 %10
+  store i8 0, ptr %41, align 1, !tbaa !100
+  %42 = add i64 %1, -1
+  %43 = icmp eq i64 %42, 0
+  br i1 %43, label %46, label %44, !prof !114
+
+44:                                               ; preds = %39
+  %45 = getelementptr inbounds i8, ptr %41, i64 1
+  tail call void @llvm.memset.p0.i64(ptr nonnull align 1 %45, i8 0, i64 %42, i1 false), !prof !117
+  br label %46
+
+46:                                               ; preds = %44, %39
+  %47 = icmp sgt i64 %10, 0
+  br i1 %47, label %48, label %49, !prof !114
+
+48:                                               ; preds = %46
+  tail call void @llvm.memmove.p0.p0.i64(ptr align 1 %40, ptr align 1 %7, i64 %10, i1 false)
+  br label %49
+
+49:                                               ; preds = %46, %48
+  %50 = icmp eq ptr %7, null
+  br i1 %50, label %52, label %51, !prof !116
+
+51:                                               ; preds = %49
+  tail call void @_ZdlPv(ptr noundef %7) #19
+  br label %52
+
+52:                                               ; preds = %49, %51
+  store ptr %40, ptr %0, align 8, !tbaa !63
+  %53 = getelementptr inbounds i8, ptr %41, i64 %1
+  store ptr %53, ptr %5, align 8, !tbaa !66
+  %54 = getelementptr inbounds i8, ptr %40, i64 %35
+  store ptr %54, ptr %11, align 8, !tbaa !115
+  br label %55
+
+55:                                               ; preds = %25, %52, %2
+  ret void
+}
+
+; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i64(ptr nocapture writeonly, i8, i64, i1 immarg) #11
+
+; Function Attrs: noreturn
+declare void @_ZSt20__throw_length_errorPKc(ptr noundef) local_unnamed_addr #12
+
+; Function Attrs: mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memmove.p0.p0.i64(ptr nocapture writeonly, ptr nocapture readonly, i64, i1 immarg) #13
+
+; Function Attrs: cold mustprogress uwtable
+define linkonce_odr dso_local ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE22_M_emplace_hint_uniqueIJRS0_IifEEEESt17_Rb_tree_iteratorIS2_ESt23_Rb_tree_const_iteratorIS2_EDpOT_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr %1, ptr noundef nonnull align 4 dereferenceable(8) %2) local_unnamed_addr #10 comdat align 2 personality ptr @__gxx_personality_v0 !prof !102 {
+  %4 = tail call noalias noundef nonnull dereferenceable(40) ptr @_Znwm(i64 noundef 40) #18
+  %5 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %4, i64 0, i32 1
+  %6 = load i32, ptr %2, align 4, !tbaa !118
+  store i32 %6, ptr %5, align 4, !tbaa !120
+  %7 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %4, i64 0, i32 1, i32 0, i64 4
+  %8 = getelementptr inbounds %"struct.std::pair", ptr %2, i64 0, i32 1
+  %9 = load float, ptr %8, align 4, !tbaa !121
+  store float %9, ptr %7, align 4, !tbaa !98
+  %10 = invoke { ptr, ptr } @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE29_M_get_insert_hint_unique_posESt23_Rb_tree_const_iteratorIS2_ERS1_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr %1, ptr noundef nonnull align 4 dereferenceable(4) %5)
+          to label %11 unwind label %30, !prof !80
+
+11:                                               ; preds = %3
+  %12 = extractvalue { ptr, ptr } %10, 0
+  %13 = extractvalue { ptr, ptr } %10, 1
+  %14 = icmp eq ptr %13, null
+  br i1 %14, label %32, label %15, !prof !122
+
+15:                                               ; preds = %11
+  %16 = icmp ne ptr %12, null
+  %17 = getelementptr inbounds i8, ptr %0, i64 8
+  %18 = icmp eq ptr %17, %13
+  %19 = select i1 %16, i1 true, i1 %18, !prof !123
+  br i1 %19, label %25, label %20, !prof !124
+
+20:                                               ; preds = %15
+  %21 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %13, i64 0, i32 1
+  %22 = load i32, ptr %5, align 4, !tbaa !76
+  %23 = load i32, ptr %21, align 4, !tbaa !76
+  %24 = icmp slt i32 %22, %23
+  br label %25
+
+25:                                               ; preds = %15, %20
+  %26 = phi i1 [ true, %15 ], [ %24, %20 ]
+  tail call void @_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_(i1 noundef zeroext %26, ptr noundef nonnull %4, ptr noundef nonnull %13, ptr noundef nonnull align 8 dereferenceable(32) %17) #20
+  %27 = getelementptr inbounds i8, ptr %0, i64 40
+  %28 = load i64, ptr %27, align 8, !tbaa !75
+  %29 = add i64 %28, 1
+  store i64 %29, ptr %27, align 8, !tbaa !75
+  br label %32
+
+30:                                               ; preds = %3
+  %31 = landingpad { ptr, i32 }
+          cleanup
+  tail call void @_ZdlPv(ptr noundef %4) #19
+  resume { ptr, i32 } %31
+
+32:                                               ; preds = %11, %25
+  %33 = phi ptr [ null, %25 ], [ %4, %11 ]
+  %34 = phi ptr [ %4, %25 ], [ %12, %11 ]
+  %35 = icmp eq ptr %33, null
+  br i1 %35, label %37, label %36, !prof !80
+
+36:                                               ; preds = %32
+  tail call void @_ZdlPv(ptr noundef %33) #19
+  br label %37
+
+37:                                               ; preds = %32, %36
+  ret ptr %34
+}
+
+; Function Attrs: cold mustprogress uwtable
+define linkonce_odr dso_local { ptr, ptr } @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE29_M_get_insert_hint_unique_posESt23_Rb_tree_const_iteratorIS2_ERS1_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr %1, ptr noundef nonnull align 4 dereferenceable(4) %2) local_unnamed_addr #10 comdat align 2 !prof !102 {
+  %4 = getelementptr inbounds i8, ptr %0, i64 8
+  %5 = icmp eq ptr %4, %1
+  br i1 %5, label %6, label %21, !prof !105
+
+6:                                                ; preds = %3
+  %7 = getelementptr inbounds i8, ptr %0, i64 40
+  %8 = load i64, ptr %7, align 8, !tbaa !75
+  %9 = icmp eq i64 %8, 0
+  br i1 %9, label %17, label %10, !prof !125
+
+10:                                               ; preds = %6
+  %11 = getelementptr inbounds i8, ptr %0, i64 32
+  %12 = load ptr, ptr %11, align 8, !tbaa !56
+  %13 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %12, i64 0, i32 1
+  %14 = load i32, ptr %13, align 4, !tbaa !76
+  %15 = load i32, ptr %2, align 4, !tbaa !76
+  %16 = icmp slt i32 %14, %15
+  br i1 %16, label %66, label %17, !prof !126
+
+17:                                               ; preds = %10, %6
+  %18 = tail call { ptr, ptr } @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE24_M_get_insert_unique_posERS1_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef nonnull align 4 dereferenceable(4) %2)
+  %19 = extractvalue { ptr, ptr } %18, 0
+  %20 = extractvalue { ptr, ptr } %18, 1
+  br label %66
+
+21:                                               ; preds = %3
+  %22 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %1, i64 0, i32 1
+  %23 = load i32, ptr %2, align 4, !tbaa !76
+  %24 = load i32, ptr %22, align 4, !tbaa !76
+  %25 = icmp slt i32 %23, %24
+  br i1 %25, label %26, label %45, !prof !106
+
+26:                                               ; preds = %21
+  %27 = getelementptr inbounds i8, ptr %0, i64 24
+  %28 = load ptr, ptr %27, align 8, !tbaa !56
+  %29 = icmp eq ptr %28, %1
+  br i1 %29, label %66, label %30, !prof !127
+
+30:                                               ; preds = %26
+  %31 = tail call noundef ptr @_ZSt18_Rb_tree_decrementPSt18_Rb_tree_node_base(ptr noundef %1) #23
+  %32 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %31, i64 0, i32 1
+  %33 = load i32, ptr %32, align 4, !tbaa !76
+  %34 = icmp slt i32 %33, %23
+  br i1 %34, label %35, label %41, !prof !128
+
+35:                                               ; preds = %30
+  %36 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %31, i64 0, i32 3
+  %37 = load ptr, ptr %36, align 8, !tbaa !110
+  %38 = icmp eq ptr %37, null
+  %39 = select i1 %38, ptr null, ptr %1, !prof !129
+  %40 = select i1 %38, ptr %31, ptr %1, !prof !129
+  br label %66
+
+41:                                               ; preds = %30
+  %42 = tail call { ptr, ptr } @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE24_M_get_insert_unique_posERS1_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef nonnull align 4 dereferenceable(4) %2)
+  %43 = extractvalue { ptr, ptr } %42, 0
+  %44 = extractvalue { ptr, ptr } %42, 1
+  br label %66
+
+45:                                               ; preds = %21
+  %46 = icmp slt i32 %24, %23
+  br i1 %46, label %47, label %66
+
+47:                                               ; preds = %45
+  %48 = getelementptr inbounds i8, ptr %0, i64 32
+  %49 = load ptr, ptr %48, align 8, !tbaa !56
+  %50 = icmp eq ptr %49, %1
+  br i1 %50, label %66, label %51
+
+51:                                               ; preds = %47
+  %52 = tail call noundef ptr @_ZSt18_Rb_tree_incrementPSt18_Rb_tree_node_base(ptr noundef %1) #23
+  %53 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %52, i64 0, i32 1
+  %54 = load i32, ptr %53, align 4, !tbaa !76
+  %55 = icmp slt i32 %23, %54
+  br i1 %55, label %56, label %62
+
+56:                                               ; preds = %51
+  %57 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %1, i64 0, i32 3
+  %58 = load ptr, ptr %57, align 8, !tbaa !110
+  %59 = icmp eq ptr %58, null
+  %60 = select i1 %59, ptr null, ptr %52
+  %61 = select i1 %59, ptr %1, ptr %52
+  br label %66
+
+62:                                               ; preds = %51
+  %63 = tail call { ptr, ptr } @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE24_M_get_insert_unique_posERS1_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef nonnull align 4 dereferenceable(4) %2)
+  %64 = extractvalue { ptr, ptr } %63, 0
+  %65 = extractvalue { ptr, ptr } %63, 1
+  br label %66
+
+66:                                               ; preds = %45, %62, %47, %56, %41, %26, %35, %10, %17
+  %67 = phi ptr [ %19, %17 ], [ null, %10 ], [ %43, %41 ], [ %28, %26 ], [ %39, %35 ], [ %64, %62 ], [ null, %47 ], [ %60, %56 ], [ %1, %45 ]
+  %68 = phi ptr [ %20, %17 ], [ %12, %10 ], [ %44, %41 ], [ %28, %26 ], [ %40, %35 ], [ %65, %62 ], [ %49, %47 ], [ %61, %56 ], [ null, %45 ]
+  %69 = insertvalue { ptr, ptr } poison, ptr %67, 0
+  %70 = insertvalue { ptr, ptr } %69, ptr %68, 1
+  ret { ptr, ptr } %70
+}
+
+; Function Attrs: cold mustprogress uwtable
+define linkonce_odr dso_local { ptr, ptr } @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE24_M_get_insert_unique_posERS1_(ptr noundef nonnull align 8 dereferenceable(48) %0, ptr noundef nonnull align 4 dereferenceable(4) %1) local_unnamed_addr #10 comdat align 2 !prof !65 {
+  %3 = getelementptr inbounds i8, ptr %0, i64 16
+  %4 = getelementptr inbounds i8, ptr %0, i64 8
+  %5 = load ptr, ptr %3, align 8, !tbaa !56
+  %6 = icmp eq ptr %5, null
+  br i1 %6, label %18, label %7, !prof !61
+
+7:                                                ; preds = %2, %7
+  %8 = phi ptr [ %16, %7 ], [ %5, %2 ]
+  %9 = load i32, ptr %1, align 4, !tbaa !76
+  %10 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %8, i64 0, i32 1
+  %11 = load i32, ptr %10, align 4, !tbaa !76
+  %12 = icmp slt i32 %9, %11
+  %13 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %8, i64 0, i32 2
+  %14 = getelementptr inbounds %"struct.std::_Rb_tree_node_base", ptr %8, i64 0, i32 3
+  %15 = select i1 %12, ptr %13, ptr %14
+  %16 = load ptr, ptr %15, align 8, !tbaa !56
+  %17 = icmp eq ptr %16, null
+  br i1 %17, label %18, label %7, !prof !61, !llvm.loop !130
+
+18:                                               ; preds = %7, %2
+  %19 = phi ptr [ %4, %2 ], [ %8, %7 ]
+  %20 = phi i1 [ true, %2 ], [ %12, %7 ]
+  %21 = phi ptr [ %5, %2 ], [ %16, %7 ]
+  br i1 %20, label %22, label %28, !prof !61
+
+22:                                               ; preds = %18
+  %23 = getelementptr inbounds i8, ptr %0, i64 24
+  %24 = load ptr, ptr %23, align 8, !tbaa !73
+  %25 = icmp eq ptr %19, %24
+  br i1 %25, label %36, label %26, !prof !61
+
+26:                                               ; preds = %22
+  %27 = tail call noundef ptr @_ZSt18_Rb_tree_decrementPSt18_Rb_tree_node_base(ptr noundef nonnull %19) #23
+  br label %28
+
+28:                                               ; preds = %26, %18
+  %29 = phi ptr [ %27, %26 ], [ %19, %18 ]
+  %30 = getelementptr inbounds %"struct.std::_Rb_tree_node", ptr %29, i64 0, i32 1
+  %31 = load i32, ptr %30, align 4, !tbaa !76
+  %32 = load i32, ptr %1, align 4, !tbaa !76
+  %33 = icmp slt i32 %31, %32
+  %34 = select i1 %33, ptr %21, ptr %29
+  %35 = select i1 %33, ptr %19, ptr null
+  br label %36
+
+36:                                               ; preds = %28, %22
+  %37 = phi ptr [ %21, %22 ], [ %34, %28 ]
+  %38 = phi ptr [ %19, %22 ], [ %35, %28 ]
+  %39 = insertvalue { ptr, ptr } poison, ptr %37, 0
+  %40 = insertvalue { ptr, ptr } %39, ptr %38, 1
+  ret { ptr, ptr } %40
+}
+
+; Function Attrs: mustprogress nofree nounwind willreturn memory(read)
+declare noundef ptr @_ZSt18_Rb_tree_decrementPSt18_Rb_tree_node_base(ptr noundef) local_unnamed_addr #14
+
+; Function Attrs: mustprogress nofree nounwind willreturn memory(read)
+declare noundef ptr @_ZSt18_Rb_tree_incrementPSt18_Rb_tree_node_base(ptr noundef) local_unnamed_addr #14
+
+; Function Attrs: nounwind
+declare void @_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_(i1 noundef zeroext, ptr noundef, ptr noundef, ptr noundef nonnull align 8 dereferenceable(32)) local_unnamed_addr #15
+
+; Function Attrs: nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: write)
+declare void @llvm.assume(i1 noundef) #16
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smin.i32(i32, i32) #17
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umax.i64(i64, i64) #17
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i64 @llvm.umin.i64(i64, i64) #17
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare i32 @llvm.smax.i32(i32, i32) #17
+
+attributes #0 = { inlinehint mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #1 = { nobuiltin allocsize(0) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #2 = { nobuiltin nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #3 = { cold mustprogress nounwind uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #4 = { mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #5 = { mustprogress nocallback nofree nosync nounwind willreturn memory(argmem: readwrite) }
+attributes #6 = { "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #7 = { cold mustprogress nofree norecurse nosync nounwind willreturn memory(none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #8 = { inlinehint mustprogress nofree norecurse nosync nounwind willreturn memory(read, inaccessiblemem: none) uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #9 = { cold noinline noreturn nounwind uwtable "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #10 = { cold mustprogress uwtable "min-legal-vector-width"="0" "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #11 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #12 = { noreturn "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #13 = { mustprogress nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #14 = { mustprogress nofree nounwind willreturn memory(read) "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #15 = { nounwind "no-trapping-math"="true" "stack-protector-buffer-size"="8" "target-cpu"="x86-64" "target-features"="+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87" "tune-cpu"="generic" }
+attributes #16 = { nocallback nofree nosync nounwind willreturn memory(inaccessiblemem: write) }
+attributes #17 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #18 = { builtin allocsize(0) }
+attributes #19 = { builtin nounwind }
+attributes #20 = { nounwind }
+attributes #21 = { noreturn nounwind }
+attributes #22 = { noreturn }
+attributes #23 = { nounwind willreturn memory(read) }
+
+!llvm.module.flags = !{!0, !1, !2, !3, !4, !33}
+!llvm.ident = !{!54}
+
+!0 = !{i32 1, !"wchar_size", i32 4}
+!1 = !{i32 8, !"PIC Level", i32 2}
+!2 = !{i32 7, !"PIE Level", i32 2}
+!3 = !{i32 7, !"uwtable", i32 2}
+!4 = !{i32 1, !"ProfileSummary", !5}
+!5 = !{!6, !7, !8, !9, !10, !11, !12, !13, !14, !15}
+!6 = !{!"ProfileFormat", !"InstrProf"}
+!7 = !{!"TotalCount", i64 256142274181}
+!8 = !{!"MaxCount", i64 7844141798}
+!9 = !{!"MaxInternalCount", i64 7547852578}
+!10 = !{!"MaxFunctionCount", i64 7844141798}
+!11 = !{!"NumCounts", i64 2880}
+!12 = !{!"NumFunctions", i64 415}
+!13 = !{!"IsPartialProfile", i64 0}
+!14 = !{!"PartialProfileRatio", double 0.000000e+00}
+!15 = !{!"DetailedSummary", !16}
+!16 = !{!17, !18, !19, !20, !21, !22, !23, !24, !25, !26, !27, !28, !29, !30, !31, !32}
+!17 = !{i32 10000, i64 7844141798, i32 1}
+!18 = !{i32 100000, i64 6538040572, i32 4}
+!19 = !{i32 200000, i64 5601060928, i32 8}
+!20 = !{i32 300000, i64 4731748263, i32 13}
+!21 = !{i32 400000, i64 3429140892, i32 19}
+!22 = !{i32 500000, i64 2689357797, i32 28}
+!23 = !{i32 600000, i64 2030175252, i32 39}
+!24 = !{i32 700000, i64 1513066108, i32 53}
+!25 = !{i32 800000, i64 981329770, i32 73}
+!26 = !{i32 900000, i64 723674647, i32 104}
+!27 = !{i32 950000, i64 415336410, i32 129}
+!28 = !{i32 990000, i64 64860573, i32 187}
+!29 = !{i32 999000, i64 6034043, i32 304}
+!30 = !{i32 999900, i64 678637, i32 400}
+!31 = !{i32 999990, i64 50119, i32 498}
+!32 = !{i32 999999, i64 5214, i32 613}
+!33 = !{i32 5, !"CG Profile", !34}
+!34 = distinct !{!35, !36, !37, !38, !39, !40, !41, !42, !43, !44, !45, !46, !47, !48, !49, !50, !51, !52, !53}
+!35 = !{ptr @_ZN7Matcher11get_MatcherEv, ptr @_Znwm, i64 1}
+!36 = !{ptr @_ZN7Matcher11get_MatcherEv, ptr @_ZN7MatcherC2Ev, i64 1}
+!37 = !{ptr @_ZN7MatcherC2Ev, ptr @_ZNSt6vectorIhSaIhEE17_M_default_appendEm, i64 2}
+!38 = !{ptr @_ZN7MatcherC2Ev, ptr @_ZN9FastBoard11reset_boardEi, i64 1}
+!39 = !{ptr @_ZN7MatcherC2Ev, ptr @_ZN9FastBoard10get_vertexEii, i64 1}
+!40 = !{ptr @_ZN7MatcherC2Ev, ptr @_ZNSt3mapIifSt4lessIiESaISt4pairIKifEEE6insertIRS2_IifEEENSt9enable_ifIXsr16is_constructibleIS4_T_EE5valueES2_ISt17_Rb_tree_iteratorIS4_EbEE4typeEOSB_, i64 806}
+!41 = !{ptr @_ZN7MatcherC2Ev, ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E, i64 1}
+!42 = !{ptr @_ZN7MatcherC2Ev, ptr @_ZN9FastBoard25get_pattern3_augment_specEiib, i64 2078880}
+!43 = !{ptr @_ZN7MatcherC2Ev, ptr @_ZN9FastBoard13get_extra_dirEi, i64 8315519}
+!44 = !{ptr @_ZN7MatcherC2Ev, ptr @_ZN9FastBoard10set_squareEiNS_8square_tE, i64 8315519}
+!45 = !{ptr @_ZNSt3mapIifSt4lessIiESaISt4pairIKifEEE6insertIRS2_IifEEENSt9enable_ifIXsr16is_constructibleIS4_T_EE5valueES2_ISt17_Rb_tree_iteratorIS4_EbEE4typeEOSB_, ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE22_M_emplace_hint_uniqueIJRS0_IifEEEESt17_Rb_tree_iteratorIS2_ESt23_Rb_tree_const_iteratorIS2_EDpOT_, i64 806}
+!46 = !{ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E, ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E, i64 806}
+!47 = !{ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE8_M_eraseEPSt13_Rb_tree_nodeIS2_E, ptr @_ZdlPv, i64 806}
+!48 = !{ptr @_ZNSt6vectorIhSaIhEE17_M_default_appendEm, ptr @_Znwm, i64 2}
+!49 = !{ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE22_M_emplace_hint_uniqueIJRS0_IifEEEESt17_Rb_tree_iteratorIS2_ESt23_Rb_tree_const_iteratorIS2_EDpOT_, ptr @_Znwm, i64 806}
+!50 = !{ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE22_M_emplace_hint_uniqueIJRS0_IifEEEESt17_Rb_tree_iteratorIS2_ESt23_Rb_tree_const_iteratorIS2_EDpOT_, ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE29_M_get_insert_hint_unique_posESt23_Rb_tree_const_iteratorIS2_ERS1_, i64 806}
+!51 = !{ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE22_M_emplace_hint_uniqueIJRS0_IifEEEESt17_Rb_tree_iteratorIS2_ESt23_Rb_tree_const_iteratorIS2_EDpOT_, ptr @_ZSt29_Rb_tree_insert_and_rebalancebPSt18_Rb_tree_node_baseS0_RS_, i64 806}
+!52 = !{ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE29_M_get_insert_hint_unique_posESt23_Rb_tree_const_iteratorIS2_ERS1_, ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE24_M_get_insert_unique_posERS1_, i64 1}
+!53 = !{ptr @_ZNSt8_Rb_treeIiSt4pairIKifESt10_Select1stIS2_ESt4lessIiESaIS2_EE29_M_get_insert_hint_unique_posESt23_Rb_tree_const_iteratorIS2_ERS1_, ptr @_ZSt18_Rb_tree_decrementPSt18_Rb_tree_node_base, i64 792}
+!54 = !{!"Ubuntu clang version 18.1.8 (++20240731024944+3b5b5c1ec4a3-1~exp1~20240731145000.144)"}
+!55 = !{!"function_entry_count", i64 818055992}
+!56 = !{!57, !57, i64 0}
+!57 = !{!"any pointer", !58, i64 0}
+!58 = !{!"omnipotent char", !59, i64 0}
+!59 = !{!"Simple C++ TBAA"}
+!60 = !{!"branch_weights", i32 1, i32 818055991}
+!61 = !{!"branch_weights", i32 1, i32 0}
+!62 = !{!"function_entry_count", i64 0}
+!63 = !{!64, !57, i64 0}
+!64 = !{!"_ZTSNSt12_Vector_baseIhSaIhEE17_Vector_impl_dataE", !57, i64 0, !57, i64 8, !57, i64 16}
+!65 = !{!"function_entry_count", i64 1}
+!66 = !{!64, !57, i64 8}
+!67 = !{!68, !70, i64 0}
+!68 = !{!"_ZTSSt15_Rb_tree_header", !69, i64 0, !71, i64 32}
+!69 = !{!"_ZTSSt18_Rb_tree_node_base", !70, i64 0, !57, i64 8, !57, i64 16, !57, i64 24}
+!70 = !{!"_ZTSSt14_Rb_tree_color", !58, i64 0}
+!71 = !{!"long", !58, i64 0}
+!72 = !{!68, !57, i64 8}
+!73 = !{!68, !57, i64 16}
+!74 = !{!68, !57, i64 24}
+!75 = !{!68, !71, i64 32}
+!76 = !{!77, !77, i64 0}
+!77 = !{!"int", !58, i64 0}
+!78 = !{!79, !79, i64 0}
+!79 = !{!"float", !58, i64 0}
+!80 = !{!"branch_weights", i32 806, i32 0}
+!81 = !{!"branch_weights", i32 1, i32 805}
+!82 = distinct !{!82, !83, !84}
+!83 = !{!"llvm.loop.mustprogress"}
+!84 = !{!"llvm.loop.unroll.disable"}
+!85 = !{!86, !57, i64 0}
+!86 = !{!"_ZTSNSt12_Vector_baseIiSaIiEE17_Vector_impl_dataE", !57, i64 0, !57, i64 8, !57, i64 16}
+!87 = !{!"branch_weights", i32 1048576, i32 0}
+!88 = !{!"branch_weights", i32 8388608, i32 0}
+!89 = !{!"branch_weights", i32 1048576, i32 7340032}
+!90 = distinct !{!90, !83, !84}
+!91 = !{!"branch_weights", i32 1, i32 1048575}
+!92 = !{!"branch_weights", i32 8809312, i32 1185404}
+!93 = !{!"branch_weights", i32 1048575, i32 8946141}
+!94 = distinct !{!94, !83, !84}
+!95 = !{!"branch_weights", i32 721804, i32 326772}
+!96 = !{!"branch_weights", i32 321063, i32 5709}
+!97 = !{!"branch_weights", i32 1042867, i32 5709}
+!98 = !{!99, !79, i64 4}
+!99 = !{!"_ZTSSt4pairIKifE", !77, i64 0, !79, i64 4}
+!100 = !{!58, !58, i64 0}
+!101 = distinct !{!101, !83, !84}
+!102 = !{!"function_entry_count", i64 806}
+!103 = !{!"branch_weights", i32 3194, i32 3808}
+!104 = !{!"branch_weights", i32 805, i32 6197}
+!105 = !{!"branch_weights", i32 5, i32 801}
+!106 = !{!"branch_weights", i32 801, i32 0}
+!107 = !{!"function_entry_count", i64 3685947267}
+!108 = !{!"function_entry_count", i64 807}
+!109 = !{!"branch_weights", i32 1, i32 806}
+!110 = !{!69, !57, i64 24}
+!111 = !{!69, !57, i64 16}
+!112 = distinct !{!112, !83, !84}
+!113 = !{!"function_entry_count", i64 2}
+!114 = !{!"branch_weights", i32 0, i32 2}
+!115 = !{!64, !57, i64 16}
+!116 = !{!"branch_weights", i32 2, i32 0}
+!117 = !{!"VP", i32 1, i64 2, i64 513, i64 2}
+!118 = !{!119, !77, i64 0}
+!119 = !{!"_ZTSSt4pairIifE", !77, i64 0, !79, i64 4}
+!120 = !{!99, !77, i64 0}
+!121 = !{!119, !79, i64 4}
+!122 = !{!"branch_weights", i32 0, i32 806}
+!123 = !{!"branch_weights", i32 419, i32 387}
+!124 = !{!"branch_weights", i32 420, i32 386}
+!125 = !{!"branch_weights", i32 1, i32 4}
+!126 = !{!"branch_weights", i32 4, i32 0}
+!127 = !{!"branch_weights", i32 9, i32 792}
+!128 = !{!"branch_weights", i32 792, i32 0}
+!129 = !{!"branch_weights", i32 382, i32 410}
+!130 = distinct !{!130, !83, !84}

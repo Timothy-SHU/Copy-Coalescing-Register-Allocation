@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef pair <int, int> pii;
-const int SOLVER_TIME_LIMIT = 60;
+double SOLVER_TIME_LIMIT = 1;
 
 int numVar, numReg;
 vector <vector <int>> H;
@@ -58,9 +58,14 @@ vector <vector <int>> Bag;
 vector <vector <int>> Tree;
 
 void genDecomp() {
+    if (numVar <= 2000 && numReg == 6) SOLVER_TIME_LIMIT = 0.03;
+    else if (numVar <= 6000) SOLVER_TIME_LIMIT = 0.1;
+    else if (numVar <= 20000) SOLVER_TIME_LIMIT = 1;
+    else SOLVER_TIME_LIMIT = 10;
+
     // cerr << "Time Limit = " << SOLVER_TIME_LIMIT << ". Solving graph.txt... ";
     system("../pace17/flow_cutter_pace17 < graph.txt > tree.txt &");
-    sleep(SOLVER_TIME_LIMIT);
+    usleep(SOLVER_TIME_LIMIT*1000000);
     system("pkill -INT -f ../pace17/flow_cutter_pace17");
     // cerr << "Completed.";
 
@@ -137,6 +142,7 @@ void niceDecomp() {
             Tree[u].push_back(cpy), Tree[cpy].push_back(mid);
         }
     }
+    cerr << " [" << numVar << " nodes, " << numBag << " bags, tw = " << tw << "]";
 }
 
 void printTree() {
@@ -186,7 +192,7 @@ void getAllEdges(const vector <int> &b, vector <pii> &curH, vector <pair <pii, i
         if (x <= y && find(b.begin(), b.end(), y) != b.end())
             curH.push_back(make_pair(x, y));
     for (int x : b) for (pii p : A[x]) {
-        int y = p.first, w = p.second;
+        int y = p.first; int w = p.second;
         if (x <= y && find(b.begin(), b.end(), y) != b.end())
             curA.push_back(make_pair(make_pair(x, y), w));
     }
@@ -197,7 +203,7 @@ void getRelevantEdges(const vector <int> &d, const vector <int> &b, vector <pii>
         if (find(b.begin(), b.end(), y) != b.end())
             curH.push_back(make_pair(x, y));
     for (int x : d) for (pii p : A[x]) {
-        int y = p.first, w = p.second;
+        int y = p.first; int w = p.second;
         if (find(b.begin(), b.end(), y) != b.end())
             curA.push_back(make_pair(make_pair(x, y), w));
     }
@@ -315,14 +321,11 @@ void traceCol(int u, int s, int fa) {
 }
 
 int main() {
-    clock_t prev = clock();
     bool isValid = loadGraph(); genDecomp();
     if (!isValid) { puts("-1"); return 0; }
+    clock_t prev = clock();
     niceDecomp(); // printTree(); // printTreeStat();
    
-    double decompTime = 1.0*(clock()-prev)/CLOCKS_PER_SEC+SOLVER_TIME_LIMIT;
-    // cerr << "Decomposition runtime: " << decompTime  << " s.\n", prev = clock();
-
     mark.resize(numBag+1), color.resize(numVar+1, -1);
     int ans = 0;
     for (int i = 1; i <= numBag; i++) if (!mark[i]) {
@@ -335,8 +338,7 @@ int main() {
 
     if (ans == -1) { puts("-1"); return 0; }
 
-    double DPTime = 1.0*(clock()-prev)/CLOCKS_PER_SEC;
-    // cerr << "DP runtime: " << DPTime << " s.\n";
+    double runtime = 1.0*(clock()-prev)/CLOCKS_PER_SEC+SOLVER_TIME_LIMIT;
 
     int totalWeight = 0, validWeight = 0;
     for (int u = 1; u <= numVar; u++)
@@ -351,7 +353,7 @@ int main() {
     if (validWeight != ans)
         cerr << "E: Answer doesn't match allocation!\n";
     cout << ans << " " << totalWeight << " ";
-    cout << decompTime+DPTime << " " << SOLVER_TIME_LIMIT << endl;
+    cout << runtime << " " << SOLVER_TIME_LIMIT << endl;
     for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
     return 0;
 }

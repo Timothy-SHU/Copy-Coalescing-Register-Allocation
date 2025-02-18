@@ -302,8 +302,8 @@ void recolorChunk(int cur) {
 }
 
 int main() {
-    time_t prev = clock();
     if (!loadGraph()) { puts("-1"); return 0; }
+    time_t prev = clock();
     initChunks(), initColors();
     while (!priQue.empty()) {
         int cur = priQue.top().second; priQue.pop();

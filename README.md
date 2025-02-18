@@ -22,9 +22,10 @@ Now the benchmark is insider folder `spec2017/`. Make sure that `myexpcfg.cfg` a
 ```
 cp spec2017script.sh spec2017
 cd spec2017
+export LLVM_PROFILE_FILE="default.profraw"
 chmod +x spec2017script.sh
 . shrc
-./spec2017script.sh $LLVM_DIR "-fno-inline -Os" 500.perlbench_r 502.gcc_r 505.mcf_r 520.omnetpp_r 523.xalancbmk_r 525.x264_r 531.deepsjeng_r 541.leela_r 557.xz_r 508.namd_r 510.parest_r 511.povray_r 519.lbm_r 526.blender_r 538.imagick_r 544.nab_r 600.perlbench_s 602.gcc_s 605.mcf_s 620.omnetpp_s 623.xalancbmk_s 625.x264_s 631.deepsjeng_s 641.leela_s 657.xz_s 619.lbm_s 638.imagick_s 644.nab_s
+./spec2017script.sh $LLVM_DIR "-O1" 500.perlbench_r 502.gcc_r 505.mcf_r 520.omnetpp_r 523.xalancbmk_r 525.x264_r 531.deepsjeng_r 541.leela_r 557.xz_r 508.namd_r 510.parest_r 511.povray_r 519.lbm_r 526.blender_r 538.imagick_r 544.nab_r 600.perlbench_s 602.gcc_s 605.mcf_s 620.omnetpp_s 623.xalancbmk_s 625.x264_s 631.deepsjeng_s 641.leela_s 657.xz_s 619.lbm_s 638.imagick_s 644.nab_s
 ```
 
 The script will first profile the benchmarks and then compile them into LLVM IR. The last two benchmarks are huge and takes a long time to profile. The compiled `.ll` files are now under `bench/SPEC2017/-fno-inline_-Os/` folder.
@@ -58,7 +59,7 @@ cd preproc
 cmake .
 make
 mkdir tmp
-opt -load-pass-plugin ./libCC.so -passes=CC -disable-output input/deb.ll
+opt -load-pass-plugin ./libCC.so -passes=CC -disable-output input/test.ll
 ```
 
 The configurations are set inside `config.txt`, where the first line contains a single integer representing the number of registers allowed, and each of the following lines specifies a benchmark to be preprocessed.
@@ -100,12 +101,12 @@ dot -Tpng -o test.png .main.dot
 ## Display Profiled Information
 The following shows how to profile a program and display counts / branch weights. `llvm-profdata` merges the raw data and show text report. `llvm-cov` displays coverage report and the program side-by-side. Generate LLVM IR with `-fprofile-instr-use` flag inserts profiled info into the `.ll` file.
 ```
-clang++ -fno-inline -Os -fprofile-instr-generate -fcoverage-mapping test.cpp -o test
+clang++ -O1 -fprofile-instr-generate -fcoverage-mapping test.cpp -o test
 ./test
 llvm-profdata merge -output=test.prof -instr default.profraw
 llvm-profdata show -all-functions -counts -ic-targets test.prof
 llvm-cov show test -instr-profile=test.prof
-clang++ -fno-inline -Os -fprofile-instr-use=test.prof -S -emit-llvm test.cpp
+clang++ -O1 -fprofile-instr-use=test.prof -S -emit-llvm test.cpp
 ```
 
 # Copy Coalescing Algorithms

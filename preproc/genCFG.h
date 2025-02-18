@@ -322,7 +322,10 @@ struct genCFG : PassInfoMixin <genCFG> {
             for (int i = 0; i < (int)CFG[u].size(); i++)
                 InstrFreq[CFG[u][i]] += Pr[u][i];
         double unitFreq = 1.0;
-        while (1/unitFreq < 1.0*cntNode) unitFreq /= 2;
+        for (int i = 0; 1/unitFreq < 1.0*cntNode*cntNode && unitFreq > 1e-6; i++)
+            if ((i+cntNode)%5 == 0 || (i+cntNode)%5 == 3) unitFreq /= 2;
+            else if ((i+cntNode)%5 == 1 || (i+cntNode)%5 == 2) unitFreq /= 3;
+            else unitFreq /= 7;
         for (int i = 0; i < (int)CopyNode.size(); i++)
             CopyNode[i].second = std::max(1LL, (long long)(InstrFreq[CopyNode[i].first]/unitFreq));
         

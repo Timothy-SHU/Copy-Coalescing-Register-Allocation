@@ -71,12 +71,12 @@ cp "../myexpcfg.cfg" "./config/${flags_underscored}_emit_cpp03.cfg"
 
 exprDir=$(pwd)
 
-sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-instr-generate -fcoverage-mapping|g; s|ZZZ|${flags} -fprofile-instr-generate -fcoverage-mapping|g" ./config/"${flags_underscored}".cfg
-sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-instr-use=${exprDir}/default.prof -S -emit-llvm|g; s|ZZZ|${flags} -fprofile-instr-use=${exprDir}/default.prof -S -emit-llvm|g" ./config/"${flags_underscored}_emit".cfg
-sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-instr-generate -fcoverage-mapping|g; s|ZZZ|-std=c++14 ${flags} -fprofile-instr-generate -fcoverage-mapping|g" ./config/"${flags_underscored}"cpp14.cfg
-sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-instr-use=${exprDir}/default.prof -S -emit-llvm|g; s|ZZZ|${flags} -fprofile-instr-use=${exprDir}/default.prof -S -emit-llvm|g" ./config/"${flags_underscored}_emit_"cpp14.cfg
-sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-instr-generate -fcoverage-mapping|g; s|ZZZ|-std=c++03 ${flags} -fprofile-instr-generate -fcoverage-mapping|g" ./config/"${flags_underscored}"cpp03.cfg
-sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-instr-use=${exprDir}/default.prof -S -emit-llvm|g; s|ZZZ|${flags} -fprofile-instr-use=${exprDir}/default.prof -S -emit-llvm|g" ./config/"${flags_underscored}_emit_"cpp03.cfg
+sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-generate|g; s|ZZZ|${flags} -fprofile-generate|g" ./config/"${flags_underscored}".cfg
+sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-use=${exprDir}/default.prof -S -emit-llvm|g; s|ZZZ|${flags} -fprofile-use=${exprDir}/default.prof -S -emit-llvm|g" ./config/"${flags_underscored}_emit".cfg
+sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-generate|g; s|ZZZ|-std=c++14 ${flags} -fprofile-generate|g" ./config/"${flags_underscored}"cpp14.cfg
+sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-use=${exprDir}/default.prof -S -emit-llvm|g; s|ZZZ|${flags} -fprofile-use=${exprDir}/default.prof -S -emit-llvm|g" ./config/"${flags_underscored}_emit_"cpp14.cfg
+sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-generate|g; s|ZZZ|-std=c++03 ${flags} -fprofile-generate|g" ./config/"${flags_underscored}"cpp03.cfg
+sed -i "s|XXX|${llvm_path}|g; s|YYY|${flags} -fprofile-use=${exprDir}/default.prof -S -emit-llvm|g; s|ZZZ|${flags} -fprofile-use=${exprDir}/default.prof -S -emit-llvm|g" ./config/"${flags_underscored}_emit_"cpp03.cfg
 
 # Iterate over each argument provided to the script
 
