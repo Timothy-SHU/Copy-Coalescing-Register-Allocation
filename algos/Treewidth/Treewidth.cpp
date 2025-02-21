@@ -169,6 +169,19 @@ void printTreeStat() {
     cerr << cntMerge << " merge bags." << endl;
 }
 
+vector <int> state[16];
+unordered_map <int, int> sta2idx[16];
+
+void getStates(int cur, int sta, int mx, int unit) {
+    sta2idx[cur][sta] = (int)state[cur].size();
+    state[cur].push_back(sta);
+    if (cur == tw+1) return;
+    for (int c = 0; c < min(mx, numReg); c++)
+        getStates(cur+1, sta+c*unit, mx, unit<<3);
+    if (mx < numReg)
+        getStates(cur+1, sta+mx*unit, mx+1, unit<<3);
+}
+
 vector <int> color;
 vector <bool> mark;
 unordered_map <int, vector <int>> witness;
@@ -176,14 +189,17 @@ unordered_map <int, vector <int>> witness;
 unordered_map <int, int> getAlloc(int s, const vector <int> &b) {
     unordered_map <int, int> alloc;
     for (int x : b)
-        alloc[x] = s%numReg, 
-        s /= numReg;
+        alloc[x] = s&7, s >>= 3;
     return alloc;
 }
 int getCompatible(unordered_map <int, int> &alloc, const vector <int> &b) {
-    int s = 0;
+    int s = 0, c = 0;
+    vector <int> colMap(numReg, -1);
+    for (int x : b)
+        if (colMap[alloc[x]] == -1)
+            colMap[alloc[x]] = c++;
     for (int i = (int)b.size()-1; i >= 0; i--)
-        s = s*numReg+alloc[b[i]];
+        s = (s<<3)|colMap[alloc[b[i]]];
     return s;
 }
 
@@ -209,32 +225,25 @@ void getRelevantEdges(const vector <int> &d, const vector <int> &b, vector <pii>
     }
 }
 
-// int operation_count = 0;
 void DFS(int u, vector <int> &f) {
     vector <pii> curH;
     vector <pair <pii, int>> curA;
 
-    mark[u] = true;
-    int STA = 1;
-    for (int i = 0; i < (int)Bag[u].size(); i++)
-        STA *= numReg;
-    f.resize(STA, 0);
+    mark[u] = true, f.resize(state[Bag[u].size()].size(), 0);
 
     if (bagType[u] == 0) {                                    // Leaf Bag
         getAllEdges(Bag[u], curH, curA);
-        for (int s = 0; s < STA; s++) {
+        for (int i = 0; i < (int)f.size(); i++) {
+            int s = state[Bag[u].size()][i];
             unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
             for (pii &e : curH)
                 if (alloc[e.first] == alloc[e.second])
-                    { f[s] = -1; break; }
-            if (f[s] == -1) continue;
+                    { f[i] = -1; break; }
+            if (f[i] == -1) continue;
             for (pair <pii, int> &e : curA)
                 if (alloc[e.first.first] == alloc[e.first.second])
-                    f[s] += e.second;
+                    f[i] += e.second;
         }
-        // cerr << "Leaf " << u << ' ' << Bag[u].size() << ' ' << STA << ' ' << curH.size()+curA.size() << ' ';
-        // cerr << STA*(curH.size()+curA.size()) << endl;
-        // operation_count += STA*(curH.size()+curA.size());
     } else if (bagType[u] == 1) {
         int v = Tree[u][0];
         if (Bag[u].size() > Bag[v].size()) {            // Introduce Bag
@@ -244,33 +253,32 @@ void DFS(int u, vector <int> &f) {
                     delta.push_back(x);
             getRelevantEdges(delta, Bag[v], curH, curA);
             vector <int> g; DFS(v, g);
-            for (int s = 0; s < STA; s++) {
+            for (int i = 0; i < (int)f.size(); i++) {
+                int s = state[Bag[u].size()][i];
                 unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
                 for (pii &e : curH)
                     if (alloc[e.first] == alloc[e.second])
-                        { f[s] = -1; break; }
-                if (f[s] == -1) continue;
-                f[s] = g[getCompatible(alloc, Bag[v])];
-                if (f[s] == -1) continue;
+                        { f[i] = -1; break; }
+                if (f[i] == -1) continue;
+                int t = getCompatible(alloc, Bag[v]);
+                int j = sta2idx[Bag[v].size()][t];
+                f[i] = g[j];
+                if (f[i] == -1) continue;
                 for (pair <pii, int> &e : curA)
                     if (alloc[e.first.first] == alloc[e.first.second])
-                        f[s] += e.second;
+                        f[i] += e.second;
             }
-            // cerr << "Intro " << u << ' ' << Bag[u].size() << ' ' << STA << ' ' << curH.size()+curA.size() << ' ';
-            // cerr << Bag[u].size()*Bag[v].size()+STA*(curH.size()+curA.size()) << endl;
-            // operation_count += Bag[u].size()*Bag[v].size()+STA*(curH.size()+curA.size());
         } else if (Bag[u].size() < Bag[v].size()) {     // Forget Bag
             vector <int> g; DFS(v, g);
-            for (int s = 0; s < STA; s++) f[s] = -1;
-            witness[u] = vector <int> (), witness[u].resize(STA, -1);
-            for (int t = 0; t < (int)g.size(); t++) {
+            fill(f.begin(), f.end(), -1);
+            witness[u].resize((int)f.size(), -1);
+            for (int j = 0; j < (int)g.size(); j++) {
+                int t = state[Bag[v].size()][j];
                 unordered_map <int, int> alloc = getAlloc(t, Bag[v]);
                 int s = getCompatible(alloc, Bag[u]);
-                if (f[s] < g[t]) f[s] = g[t], witness[u][s] = t;
+                int i = sta2idx[Bag[u].size()][s];
+                if (f[i] < g[j]) f[i] = g[j], witness[u][i] = j;
             }
-            // cerr << "Forget " << u << ' ' << Bag[u].size() << ' ' << Bag[v].size() << ' ' << g.size() << ' ';
-            // cerr << (Bag[u].size()+Bag[v].size())*g.size() << endl;
-            // operation_count += (Bag[u].size()+Bag[v].size())*g.size();
         } else DFS(v, f);                               // Dummy Bag
     } else {                                            // Merge Bag
         // for (int v : Tree[u]) if (Bag[u] != Bag[v])
@@ -278,19 +286,17 @@ void DFS(int u, vector <int> &f) {
         getAllEdges(Bag[u], curH, curA);
         for (int v : Tree[u]) {
             vector <int> g; DFS(v, g);
-            for (int s = 0; s < STA; s++)
-                if (f[s] == -1 || g[s] == -1) f[s] = -1;
-                else f[s] += g[s];
+            for (int i = 0; i < (int)f.size(); i++)
+                if (f[i] == -1 || g[i] == -1) f[i] = -1;
+                else f[i] += g[i];
         }
-        for (int s = 0; s < STA; s++) if (f[s] != -1) {
+        for (int i = 0; i < (int)f.size(); i++) if (f[i] != -1) {
+            int s = state[Bag[u].size()][i];
             unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
             for (pair <pii, int> &e : curA)
                 if (alloc[e.first.first] == alloc[e.first.second])
-                    f[s] -= e.second*(bagType[u]-1);
+                    f[i] -= e.second*(bagType[u]-1);
         }
-        // cerr << "Merge " << u << ' ' << Bag[u].size() << ' ' << Tree[u].size() << ' ' << STA << ' ' << curA.size() << ' ';
-        // cerr << (Tree[u].size()+curA.size()+Bag[u].size())*STA << endl;
-        // operation_count += (Tree[u].size()+curA.size()+Bag[u].size())*STA;
     }
     /*
     cerr << "Bag " << u << ": ";
@@ -305,18 +311,29 @@ void DFS(int u, vector <int> &f) {
     */
 }
 
-void traceCol(int u, int s, int fa) {
+void traceCol(int u, int i, int fa) {
+    int s = state[Bag[u].size()][i];
     unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
     // for (pii p : alloc)
     //     if (color[p.first] != -1 && color[p.first] != p.second)
     //         cerr << "E: Color mismatch of node " << p.first << " during reconstruction!\n";
-    for (pii p : alloc) color[p.first] = p.second;
+    vector <int> colMap(numReg, -1);
+    vector <bool> isUsed(numReg, false);
+    for (pii p : alloc) if (color[p.first] != -1)
+        colMap[p.second] = color[p.first], isUsed[color[p.first]] = true;
+    for (pii p : alloc) if (colMap[p.second] == -1)
+        for (int c = 0; c < numReg; c++) if (!isUsed[c])
+            { colMap[p.second] = c, isUsed[c] = true; break; }
+    for (pii p : alloc) color[p.first] = colMap[p.second];
     if (witness.find(u) != witness.end()) {
         for (int v : Tree[u]) if (v != fa)
-            traceCol(v, witness[u][s], u);
+            traceCol(v, witness[u][i], u);
     } else {
-        for (int v : Tree[u]) if (v != fa)
-            traceCol(v, getCompatible(alloc, Bag[v]), u);
+        for (int v : Tree[u]) if (v != fa) {
+            int t = getCompatible(alloc, Bag[v]);
+            int j = sta2idx[Bag[v].size()][t];
+            traceCol(v, j, u);
+        }
     }
 }
 
@@ -324,7 +341,10 @@ int main() {
     bool isValid = loadGraph(); genDecomp();
     if (!isValid) { puts("-1"); return 0; }
     clock_t prev = clock();
-    niceDecomp(); // printTree(); // printTreeStat();
+    niceDecomp();
+    // printTree();
+    // printTreeStat();
+    getStates(0, 0, 0, 1);
    
     mark.resize(numBag+1), color.resize(numVar+1, -1);
     int ans = 0;
@@ -334,7 +354,6 @@ int main() {
         if (ans == -1 || *mx == -1) ans = -1;
         else traceCol(i, (int)distance(dp.begin(), mx), 0), ans += *mx;
     }
-    // cerr << operation_count << endl;
 
     if (ans == -1) { puts("-1"); return 0; }
 
