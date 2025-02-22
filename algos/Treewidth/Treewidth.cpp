@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+typedef long long lnt;
 typedef pair <int, int> pii;
 double SOLVER_TIME_LIMIT = 1;
 
@@ -151,7 +152,7 @@ void printTree() {
         cerr << "Bag " << u << ": ";
         if (Bag[u].empty()) cerr << "empty";
         for (int x : Bag[u]) cerr << x << " ";
-        cerr << "---- Neighbors: ";
+        cerr << "---- Children: ";
         for (int v : Tree[u]) cerr << v << " ";
         cerr << endl;
     }
@@ -169,10 +170,10 @@ void printTreeStat() {
     cerr << cntMerge << " merge bags." << endl;
 }
 
-vector <int> state[16];
-unordered_map <int, int> sta2idx[16];
+vector <lnt> state[16];
+unordered_map <lnt, int> sta2idx[16];
 
-void getStates(int cur, int sta, int mx, int unit) {
+void getStates(int cur, lnt sta, int mx, lnt unit) {
     sta2idx[cur][sta] = (int)state[cur].size();
     state[cur].push_back(sta);
     if (cur == tw+1) return;
@@ -186,14 +187,14 @@ vector <int> color;
 vector <bool> mark;
 unordered_map <int, vector <int>> witness;
 
-unordered_map <int, int> getAlloc(int s, const vector <int> &b) {
+unordered_map <int, int> getAlloc(lnt s, const vector <int> &b) {
     unordered_map <int, int> alloc;
     for (int x : b)
         alloc[x] = s&7, s >>= 3;
     return alloc;
 }
-int getCompatible(unordered_map <int, int> &alloc, const vector <int> &b) {
-    int s = 0, c = 0;
+lnt getCompatible(unordered_map <int, int> &alloc, const vector <int> &b) {
+    lnt s = 0; int c = 0;
     vector <int> colMap(numReg, -1);
     for (int x : b)
         if (colMap[alloc[x]] == -1)
@@ -234,7 +235,7 @@ void DFS(int u, vector <int> &f) {
     if (bagType[u] == 0) {                                    // Leaf Bag
         getAllEdges(Bag[u], curH, curA);
         for (int i = 0; i < (int)f.size(); i++) {
-            int s = state[Bag[u].size()][i];
+            lnt s = state[Bag[u].size()][i];
             unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
             for (pii &e : curH)
                 if (alloc[e.first] == alloc[e.second])
@@ -254,13 +255,13 @@ void DFS(int u, vector <int> &f) {
             getRelevantEdges(delta, Bag[v], curH, curA);
             vector <int> g; DFS(v, g);
             for (int i = 0; i < (int)f.size(); i++) {
-                int s = state[Bag[u].size()][i];
+                lnt s = state[Bag[u].size()][i];
                 unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
                 for (pii &e : curH)
                     if (alloc[e.first] == alloc[e.second])
                         { f[i] = -1; break; }
                 if (f[i] == -1) continue;
-                int t = getCompatible(alloc, Bag[v]);
+                lnt t = getCompatible(alloc, Bag[v]);
                 int j = sta2idx[Bag[v].size()][t];
                 f[i] = g[j];
                 if (f[i] == -1) continue;
@@ -273,9 +274,9 @@ void DFS(int u, vector <int> &f) {
             fill(f.begin(), f.end(), -1);
             witness[u].resize((int)f.size(), -1);
             for (int j = 0; j < (int)g.size(); j++) {
-                int t = state[Bag[v].size()][j];
+                lnt t = state[Bag[v].size()][j];
                 unordered_map <int, int> alloc = getAlloc(t, Bag[v]);
-                int s = getCompatible(alloc, Bag[u]);
+                lnt s = getCompatible(alloc, Bag[u]);
                 int i = sta2idx[Bag[u].size()][s];
                 if (f[i] < g[j]) f[i] = g[j], witness[u][i] = j;
             }
@@ -291,7 +292,7 @@ void DFS(int u, vector <int> &f) {
                 else f[i] += g[i];
         }
         for (int i = 0; i < (int)f.size(); i++) if (f[i] != -1) {
-            int s = state[Bag[u].size()][i];
+            lnt s = state[Bag[u].size()][i];
             unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
             for (pair <pii, int> &e : curA)
                 if (alloc[e.first.first] == alloc[e.first.second])
@@ -301,22 +302,13 @@ void DFS(int u, vector <int> &f) {
     /*
     cerr << "Bag " << u << ": ";
     for (int x : Bag[u]) cerr << x << " "; cerr << endl;
-    cerr << *max_element(f.begin(), f.end()) << endl;
-    for (int s = 0; s < STA; s++) {
-        map <int, int> alloc = getAlloc(s, Bag[u]);
-        for (const pii &p : alloc) cerr << p.first << "(" << p.second << ") ";
-        cerr << ": " << f[s] << endl;
-    }
-    cerr << endl;
+    cerr << bagType[u] << " " << *max_element(f.begin(), f.end()) << endl;
     */
 }
 
 void traceCol(int u, int i, int fa) {
-    int s = state[Bag[u].size()][i];
+    lnt s = state[Bag[u].size()][i];
     unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
-    // for (pii p : alloc)
-    //     if (color[p.first] != -1 && color[p.first] != p.second)
-    //         cerr << "E: Color mismatch of node " << p.first << " during reconstruction!\n";
     vector <int> colMap(numReg, -1);
     vector <bool> isUsed(numReg, false);
     for (pii p : alloc) if (color[p.first] != -1)
@@ -330,7 +322,7 @@ void traceCol(int u, int i, int fa) {
             traceCol(v, witness[u][i], u);
     } else {
         for (int v : Tree[u]) if (v != fa) {
-            int t = getCompatible(alloc, Bag[v]);
+            lnt t = getCompatible(alloc, Bag[v]);
             int j = sta2idx[Bag[v].size()][t];
             traceCol(v, j, u);
         }
