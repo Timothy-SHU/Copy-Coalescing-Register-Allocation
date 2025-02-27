@@ -71,16 +71,6 @@ bool genDecomp() {
     algo2->setOrderingAlgorithm(new htd::MinFillOrderingAlgorithm(manager.get()));
     adaptive->addDecompositionAlgorithm(algo2);
 
-    auto algo3 = new htd::BucketEliminationTreeDecompositionAlgorithm(manager.get());
-    algo3->setOrderingAlgorithm(
-        new htd::MaximumCardinalitySearchOrderingAlgorithm(manager.get()));
-    /*
-    adaptive->addDecompositionAlgorithm(
-        algo3, [](const auto &g, const auto &preprocessed) {
-          HTD_UNUSED(g);
-          return preprocessed.vertexCount() <= 10240;
-        });
-    */
     adaptive->setIterationCount(10);
     adaptive->setNonImprovementLimit(0);
     adaptive->setDecisionRounds(5);

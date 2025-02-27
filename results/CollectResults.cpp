@@ -67,8 +67,8 @@ int main() {
             if (isAnomaly)
                 cerr << "Treewidth allocation anomaly at "+folderName+fileName+"!\n";
             if (curILPAns != curTreewidthAns)
-                cerr << "Different answer of ILP and Treewidth at "+folderName+fileName+"!\n";
-            if (curTreewidthDecompTime/numRuns > 5)
+                cerr << "Different answers of ILP and Treewidth at "+folderName+fileName+"!\n";
+            if (curTreewidthDecompTime/numRuns > 1)
                 cerr << "Tree decomp running slow (" << curTreewidthDecompTime/numRuns << "s) on "+folderName+fileName+"!\n";
         }
         cout << str+": " << numGraph << " graphs, " << totalSize << " nodes, ";
@@ -83,7 +83,7 @@ int main() {
         cout << right << setw(22) << "Treewidth: answer = " << TreewidthAns << ", ";
         cout << "ratio = " << left << setprecision(6) << 1.0*TreewidthAns/totalWeight << ", ";
         cout << "total runtime = " << setprecision(4) << TreewidthTime << ", ";
-        cout << "total decomp time = " << setprecision(4) << TreewidthDecompTime << ".\n";
+        cout << "total decomp overhead = " << setprecision(4) << TreewidthDecompTime << ".\n";
         cout << endl;
     }
     return 0;
