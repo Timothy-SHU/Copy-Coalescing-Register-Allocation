@@ -2,13 +2,10 @@
 #include <iomanip>
 using namespace std;
 
-int numReg = 6;
 string RESULT_DIR = "SPEC2017/";
 
 int main() {
     ifstream configFile("config.txt");
-    configFile >> numReg;
-    RESULT_DIR += "k="+to_string(numReg)+"/";
 
     string str;
     while (configFile >> str) {
@@ -17,46 +14,65 @@ int main() {
         int numGraph = 0, totalSize = 0, mxSize = 0, totalAffDeg = 0, mxTW = 0;
         long long HeuristicAns = 0, ILPAns = 0, TreewidthAns = 0, totalWeight = 0;
         double HeuristicTime = 0, ILPTime = 0, TreewidthTime = 0, TreewidthDecompTime = 0;
-        // long long TreewidthOptAns = 0; double TreewidthOptTime = 0, TreewidthOptDecompTime = 0;
-        for (auto &file : filesystem::directory_iterator(RESULT_DIR+"Heuristic/"+folderName)) {
-            int n, tw = 0; long long ans, tot;
+        for (auto &file : filesystem::directory_iterator(RESULT_DIR+"Heuristic/run-00/"+folderName)) {
+            int n, tw = 0, numRuns; long long ans, tot;
             double avgAff, runtime, decomptime;
             filesystem::path inputFile(file.path());
             string fileName = inputFile.filename();
 
-            ans = tot = runtime = 0;
-            ifstream HeuristicRes(file.path());
-            HeuristicRes >> n >> avgAff >> ans >> tot >> runtime;
+            ifstream GraphStat(file.path());
+            GraphStat >> n >> avgAff >> ans >> tot;
             numGraph++, totalSize += n, mxSize = max(mxSize, n);
             totalAffDeg += (int)(n*avgAff), totalWeight += tot;
-            HeuristicAns += ans, HeuristicTime += runtime;
 
-            ans = tot = runtime = 0;
-            ifstream ILPRes(RESULT_DIR+"ILP/"+folderName+fileName);
-            ILPRes >> n >> avgAff >> ans >> tot >> runtime;
-            ILPAns += ans, ILPTime += runtime;
-            int curILP = ans;
+            numRuns = 0;
+            long long curHeuristicAns = 0;
+            double curHeuristicTime = 0;
+            for (auto &run : filesystem::directory_iterator(RESULT_DIR+"Heuristic")) {
+                numRuns++, ans = tot = runtime = 0;
+                ifstream HeuristicRes(run.path().u8string()+"/"+folderName+fileName);
+                HeuristicRes >> n >> avgAff >> ans >> tot >> runtime;
+                curHeuristicAns = ans, curHeuristicTime += runtime;
+            }
+            HeuristicAns += curHeuristicAns, HeuristicTime += curHeuristicTime/numRuns;
 
-            ans = tot = runtime = 0;
-            ifstream TreewidthRes(RESULT_DIR+"Treewidth/"+folderName+fileName);
-            TreewidthRes >> n >> avgAff >> tw >> ans >> tot >> runtime >> decomptime;
-            mxTW = max(mxTW, tw), TreewidthAns += ans, TreewidthTime += runtime, TreewidthDecompTime += decomptime;
-            int curTW = ans;
+            numRuns = 0;
+            long long curILPAns = 0;
+            double curILPTime = 0;
+            for (auto &run : filesystem::directory_iterator(RESULT_DIR+"ILP")) {
+                numRuns++, ans = tot = runtime = 0;
+                ifstream ILPRes(run.path().u8string()+"/"+folderName+fileName);
+                ILPRes >> n >> avgAff >> ans >> tot >> runtime;
+                curILPAns = ans, curILPTime += runtime;
+            }
+            ILPAns += curILPAns, ILPTime += curILPTime/numRuns;
 
-            int col = -1; TreewidthRes >> col;
-            if (n != 0 && col == -1) cerr << "Treewidth " << str+"/"+fileName << " anomaly!\n";
-            if (curILP != curTW) cerr << "Different answer on "+str+"/"+fileName << endl;
+            numRuns = 0;
+            long long curTreewidthAns = 0; bool isAnomaly = false;
+            double curTreewidthTime = 0, curTreewidthDecompTime = 0;
+            for (auto &run : filesystem::directory_iterator(RESULT_DIR+"Treewidth")) {
+                numRuns++, ans = tot = runtime = 0;
+                ifstream TreewidthRes(run.path().u8string()+"/"+folderName+fileName);
+                TreewidthRes >> n >> avgAff >> tw >> ans >> tot >> runtime >> decomptime;
+                mxTW = max(mxTW, tw), curTreewidthAns = ans;
+                curTreewidthTime += runtime, curTreewidthDecompTime += decomptime;
 
-            /*
-            ans = tot = runtime = 0;
-            ifstream TreewidthOptRes(RESULT_DIR+"Treewidth-opt/"+folderName+fileName);
-            TreewidthOptRes >> n >> avgAff >> tw >> ans >> tot >> runtime >> decomptime;
-            col = -1; TreewidthOptRes >> col;
-            if (n != 0 && col == -1 && str != "502.gcc_r") cerr << "Treewidth-opt " << str+"/"+fileName << " anomaly!\n";
-            mxTW = max(mxTW, tw), TreewidthOptAns += ans, TreewidthOptTime += runtime, TreewidthOptDecompTime += decomptime;
-            */
+                int firstCol = -1; TreewidthRes >> firstCol;
+                if (n > 0 && firstCol == -1) isAnomaly = true;
+            }
+            TreewidthAns += curTreewidthAns;
+            TreewidthTime += curTreewidthTime/numRuns;
+            TreewidthDecompTime += curTreewidthDecompTime/numRuns;
+
+            if (isAnomaly)
+                cerr << "Treewidth allocation anomaly at "+folderName+fileName+"!\n";
+            if (curILPAns != curTreewidthAns)
+                cerr << "Different answer of ILP and Treewidth at "+folderName+fileName+"!\n";
+            if (curTreewidthDecompTime/numRuns > 5)
+                cerr << "Tree decomp running slow (" << curTreewidthDecompTime/numRuns << "s) on "+folderName+fileName+"!\n";
         }
-        cout << str+": " << numGraph << " graphs, " << totalSize << " nodes, max |V| = " << mxSize << ", ";
+        cout << str+": " << numGraph << " graphs, " << totalSize << " nodes, ";
+        cout << "max |V| = " << mxSize << ", avg |V| = " << 1.0*totalSize/numGraph << ", ";
         cout << "avg AffDeg = " << 1.0*totalAffDeg/totalSize << ", max tw = " << mxTW << "." << endl;
         cout << right << setw(22) << "Heuristic: answer = " << HeuristicAns << ", ";
         cout << "ratio = " << left << setprecision(6) << 1.0*HeuristicAns/totalWeight << ", ";
@@ -68,12 +84,6 @@ int main() {
         cout << "ratio = " << left << setprecision(6) << 1.0*TreewidthAns/totalWeight << ", ";
         cout << "total runtime = " << setprecision(4) << TreewidthTime << ", ";
         cout << "total decomp time = " << setprecision(4) << TreewidthDecompTime << ".\n";
-        /*
-        cout << right << setw(22) << "Treewidth-opt: answer = " << TreewidthOptAns << ", ";
-        cout << "ratio = " << left << setprecision(6) << 1.0*TreewidthOptAns/totalWeight << ", ";
-        cout << "total runtime = " << setprecision(4) << TreewidthOptTime << ", ";
-        cout << "total decomp time = " << setprecision(4) << TreewidthOptDecompTime << ".\n";
-        */
         cout << endl;
     }
     return 0;

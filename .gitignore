@@ -1,10 +1,10 @@
 copy-coalescing.pdf
 Copy Coalescing by Graph Recoloring
 
+bench/OCC/PreprocOCC
 bench/SPEC2017/spec2017/
 bench/SPEC2017/input-per-func/
 bench/SPEC2017/cpu2017-1_0_5.iso
-bench/OCC/PrepareOCC
 
 preproc/libCC.so
 preproc/PrelimExpt
@@ -13,21 +13,25 @@ preproc/Preprocess-per-func
 
 algos/checker/data
 algos/checker/checker
+algos/checker/checker_ILP
 algos/checker/BruteForce
 
 algos/ILP/ILP
 algos/Heuristic/Heuristic
 algos/Treewidth/Treewidth
-pace17/flow_cutter_pace17
-
 algos/Experiment
 
+pace17/
+
 results/CollectResults
+results/SPEC2017/Prelim/
 
 graph.txt
 tree.txt
 input.txt
 output.txt
 answer.txt
+
+Archive
 
 *.swp

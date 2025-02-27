@@ -23,7 +23,6 @@ process_argument() {
   # Merge profile data  
   rm "default.prof"
   llvm-profdata merge -output="default.prof" -instr "benchspec/CPU/$arg/run/run_base_refrate_mytest-m64.0000/default.profraw"
-  llvm-profdata merge -output="default.prof" -instr "benchspec/CPU/$arg/run/run_base_refspeed_mytest-m64.0000/default.profraw"
 
   rm -rf "benchspec/CPU/$arg/build"
   rm -rf "benchspec/CPU/$arg/exe"

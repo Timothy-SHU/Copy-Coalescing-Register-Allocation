@@ -1,4 +1,6 @@
 #include <bits/stdc++.h>
+#include <htd/main.hpp>
+#include <htd_io/main.hpp>
 using namespace std;
 typedef long long lnt;
 typedef pair <int, int> pii;
@@ -8,6 +10,9 @@ int numVar, numReg;
 vector <vector <int>> H;
 vector <vector <pii>> A;
 
+unique_ptr <htd::LibraryInstance> manager(htd::createManagementInstance(htd::Id::FIRST));
+htd::IMutableGraph * graph = manager->graphFactory().createInstance();
+
 bool loadGraph() {
     int n, m, k, l; bool flag = true;
     cin >> n >> m >> k, numReg = k;
@@ -16,33 +21,20 @@ bool loadGraph() {
         cin >> l; if (l > k) flag = false; while (l--) cin >> x;
         cin >> l; if (l > k) flag = false; while (l--) cin >> x;
     }
-    int cntEdge = 0; cin >> n, numVar = n;
+    cin >> n, numVar = n;
     H.resize(numVar+1), A.resize(numVar+1);
-    for (int u = 1, v; u <= n; u++) {
-        cin >> l, cntEdge += l;
-        while (l--) cin >> v, H[u].push_back(v);
-    }
-    cin >> m, cntEdge = cntEdge/2+m;
+    graph->addVertices(numVar);
+    for (int u = 1, v; u <= n; u++)
+        for (cin >> l; l > 0; l--)
+            cin >> v, H[u].push_back(v), 
+            graph->addEdge(u, v);
+    cin >> m;
     for (int i = 0, u, v, w; i < m; i++) {
         cin >> u >> v >> w;
         A[u].push_back(make_pair(v, w));
         if (u != v) A[v].push_back(make_pair(u, w));
+        graph->addEdge(u, v);
     }
-
-    ofstream graphFile("graph.txt");
-    if (graphFile.is_open()) {
-        graphFile << "p tw " << n << " " << cntEdge << endl;
-        for (int u = 1; u <= numVar; u++)
-            for (int v : H[u]) if (v >= u)
-                graphFile << u << " " << v << endl;
-        for (int u = 1; u <= numVar; u++)
-            for (pii p : A[u]) if (p.first >= u)
-                graphFile << u << " " << p.first << endl;
-    } else {
-        cerr << "E: Unable to open file 'graph.txt'!\n";
-        return false;
-    }
-    graphFile.close();
 
     cout << numVar << " ";
     if (n == 0) cout << 0 << " ";
@@ -51,80 +43,107 @@ bool loadGraph() {
     return flag;
 }
 
-int numBag, tw;
-vector <int> depth;
-vector <int> bagType;
+/* ============ Tree Decomposition ============ */
+int numBag = 0, tw = -1, rt = -1;
+vector <int> numChild;
 vector <pii> TreeEdge;
 vector <vector <int>> Bag;
 vector <vector <int>> Tree;
 
-void genDecomp() {
-    if (numVar <= 2000 && numReg == 6) SOLVER_TIME_LIMIT = 0.03;
-    else if (numVar <= 6000) SOLVER_TIME_LIMIT = 0.1;
-    else if (numVar <= 20000) SOLVER_TIME_LIMIT = 1;
-    else SOLVER_TIME_LIMIT = 10;
-
-    // cerr << "Time Limit = " << SOLVER_TIME_LIMIT << ". Solving graph.txt... ";
-    system("../pace17/flow_cutter_pace17 < graph.txt > tree.txt &");
-    usleep(SOLVER_TIME_LIMIT*1000000);
-    system("pkill -INT -f ../pace17/flow_cutter_pace17");
-    // cerr << "Completed.";
-
-    std::ifstream treeFile("tree.txt");
-    if (treeFile.is_open()) {
-        std::string str; int l;
-        while (treeFile >> str && str != "td") ;
-        treeFile >> numBag >> tw >> l;
-        if (tw > 0) tw--;
-        Tree.resize(numBag+1);
-        Bag.resize(numBag+1);
-        std::getline(treeFile, str);
-        for (int i = 1; i <= numBag; i++) {
-            std::getline(treeFile, str);
-            size_t pos = str.find(" ");
-            str.erase(0, pos+1);
-            pos = str.find(" ");
-            if (pos == string::npos) continue;
-            int bagID = stoi(str.substr(0, pos));
-            str.erase(0, pos+1);
-            do {
-                pos = str.find(" ");
-                Bag[bagID].push_back(stoi(str.substr(0, pos)));
-                str.erase(0, pos+1);
-            } while (pos != string::npos);
-            sort(Bag[bagID].begin(), Bag[bagID].end());
-            if (adjacent_find(Bag[bagID].begin(), Bag[bagID].end()) != Bag[bagID].end())
-                cerr << "E: Duplicated elements in Bag " << bagID << "!\n";
-        }
-        for (int i = 1, u, v; i < numBag; i++)
-            treeFile >> u >> v, TreeEdge.push_back(make_pair(u, v)), 
-            Tree[u].push_back(v), Tree[v].push_back(u);
-    } else
-        cerr << "E: Unable to open file 'tree.txt'!\n";
-    treeFile.close();
-    system("rm graph.txt tree.txt");
-
-    // cerr << " [" << numBag << " bags, tw = " << tw << "]\n";
-    cout << tw << endl;
+void handleSignal(int sig) {
+    switch (sig) {
+        case SIGINT:
+        case SIGTERM: manager->terminate(); break;
+        default: break;
+    }
+    signal(sig, handleSignal);
 }
 
-void getDepth(int u, int d) {
-    depth[u] = d; int cntChild = 0;
-    for (int v : Tree[u]) if (depth[v] == -1)
-        getDepth(v, d+1), cntChild++;
-    bagType[u] = cntChild;
+bool genDecomp() {
+    auto algo = htd::CombinedWidthMinimizingTreeDecompositionAlgorithm(manager.get());
+    auto adaptive = new htd::AdaptiveWidthMinimizingTreeDecompositionAlgorithm(manager.get());
+
+    auto algo1 = new htd::BucketEliminationTreeDecompositionAlgorithm(manager.get());
+    algo1->setOrderingAlgorithm(new htd::MinDegreeOrderingAlgorithm(manager.get()));
+    adaptive->addDecompositionAlgorithm(algo1);
+
+    auto algo2 = new htd::BucketEliminationTreeDecompositionAlgorithm(manager.get());
+    algo2->setOrderingAlgorithm(new htd::MinFillOrderingAlgorithm(manager.get()));
+    adaptive->addDecompositionAlgorithm(algo2);
+
+    auto algo3 = new htd::BucketEliminationTreeDecompositionAlgorithm(manager.get());
+    algo3->setOrderingAlgorithm(
+        new htd::MaximumCardinalitySearchOrderingAlgorithm(manager.get()));
+    /*
+    adaptive->addDecompositionAlgorithm(
+        algo3, [](const auto &g, const auto &preprocessed) {
+          HTD_UNUSED(g);
+          return preprocessed.vertexCount() <= 10240;
+        });
+    */
+    adaptive->setIterationCount(10);
+    adaptive->setNonImprovementLimit(0);
+    adaptive->setDecisionRounds(5);
+
+    algo.addDecompositionAlgorithm(new htd::TrivialTreeDecompositionAlgorithm(manager.get()));
+    algo.addDecompositionAlgorithm(adaptive);
+    algo.setComputeInducedEdgesEnabled(false);
+
+    auto preprocessor = htd::GraphPreprocessor(manager.get());
+    preprocessor.setPreprocessingStrategy(3);
+    preprocessor.setIterationCount(10);
+    preprocessor.setNonImprovementLimit(0);
+
+    auto preprocessed_graph = preprocessor.prepare(*graph);
+    auto decomp = algo.computeDecomposition(*graph, *preprocessed_graph);
+
+    htd::TreeDecompositionVerifier vfr;
+    if (!vfr.verify(*graph, *decomp)) {
+        std::srand(0);
+        signal(SIGINT, handleSignal);
+        signal(SIGTERM, handleSignal);
+
+        htd::ITreeDecompositionAlgorithm *algo_iter = 
+            manager->treeDecompositionAlgorithmFactory().createInstance();
+
+        for (bool isValid = false; !isValid; ) {
+            if (decomp != nullptr) delete decomp;
+            decomp = algo_iter->computeDecomposition(*graph);
+            isValid = vfr.verify(*graph, *decomp);
+        }
+    }
+
+    unordered_map <htd::vertex_t, int> BagID;
+    if (decomp != nullptr) {
+        // htd_io::HumanReadableExporter exporter;
+        // exporter.write(*decomp, *graph, cerr);
+
+        for (htd::vertex_t v : decomp->vertices()) BagID[v] = ++numBag;
+        rt = BagID[decomp->root()];
+        tw = decomp->maximumBagSize()-1;
+        if (tw == -1) tw = 0;
+
+        Bag.resize(numBag+1), numChild.resize(numBag+1);
+        for (htd::vertex_t v : decomp->vertices()) {
+            int cur = BagID[v];
+            numChild[cur] = decomp->childCount(v);
+            for (int i = 0; i < decomp->childCount(v); i++)
+                TreeEdge.push_back(make_pair(cur, BagID[decomp->childAtPosition(v, i)]));
+            for (int x : decomp->bagContent(v)) Bag[cur].push_back(x);
+            sort(Bag[cur].begin(), Bag[cur].end());
+        }
+        delete decomp;
+    }
+    delete graph;
+
+    cout << tw << endl;
+    return tw != -1;
 }
 
 void niceDecomp() {
-    depth.resize(numBag+1, -1);
-    bagType.resize(numBag+1, 0);
-    for (int i = 1; i <= numBag; i++)
-        if (depth[i] == -1) getDepth(i, 0);
-
-    Tree.clear(), Tree.resize(numBag+1);
+    Tree.resize(numBag+1);
     for (pii e : TreeEdge) {
         int u = e.first, v = e.second;
-        if (depth[u] > depth[v]) swap(u, v);
         if (Bag[u] == Bag[v])
             { Tree[u].push_back(v); continue; }
 
@@ -134,12 +153,12 @@ void niceDecomp() {
         for (int x : Bag[v])
             if (find(Bag[u].begin(), Bag[u].end(), x) != Bag[u].end())
                 Bag[mid].push_back(x);
-        bagType.push_back(1), Tree[mid].push_back(v);
-        if (bagType[u] < 2) Tree[u].push_back(mid);
+        numChild.push_back(1), Tree[mid].push_back(v);
+        if (numChild[u] < 2) Tree[u].push_back(mid);
         else {
             int cpy = ++numBag;
             Tree.push_back(vector <int> ());
-            Bag.push_back(Bag[u]), bagType.push_back(1);
+            Bag.push_back(Bag[u]), numChild.push_back(1);
             Tree[u].push_back(cpy), Tree[cpy].push_back(mid);
         }
     }
@@ -170,6 +189,7 @@ void printTreeStat() {
     cerr << cntMerge << " merge bags." << endl;
 }
 
+/* =========== Generate Valid States ============ */
 vector <lnt> state[16];
 unordered_map <lnt, int> sta2idx[16];
 
@@ -183,8 +203,8 @@ void getStates(int cur, lnt sta, int mx, lnt unit) {
         getStates(cur+1, sta+mx*unit, mx+1, unit<<3);
 }
 
+/* ============ DP on Tree Decomp ============ */
 vector <int> color;
-vector <bool> mark;
 unordered_map <int, vector <int>> witness;
 
 unordered_map <int, int> getAlloc(lnt s, const vector <int> &b) {
@@ -230,9 +250,9 @@ void DFS(int u, vector <int> &f) {
     vector <pii> curH;
     vector <pair <pii, int>> curA;
 
-    mark[u] = true, f.resize(state[Bag[u].size()].size(), 0);
+    f.resize(state[Bag[u].size()].size(), 0);
 
-    if (bagType[u] == 0) {                                    // Leaf Bag
+    if (numChild[u] == 0) {                             // Leaf Bag
         getAllEdges(Bag[u], curH, curA);
         for (int i = 0; i < (int)f.size(); i++) {
             lnt s = state[Bag[u].size()][i];
@@ -245,7 +265,7 @@ void DFS(int u, vector <int> &f) {
                 if (alloc[e.first.first] == alloc[e.first.second])
                     f[i] += e.second;
         }
-    } else if (bagType[u] == 1) {
+    } else if (numChild[u] == 1) {
         int v = Tree[u][0];
         if (Bag[u].size() > Bag[v].size()) {            // Introduce Bag
             vector <int> delta;
@@ -296,17 +316,17 @@ void DFS(int u, vector <int> &f) {
             unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
             for (pair <pii, int> &e : curA)
                 if (alloc[e.first.first] == alloc[e.first.second])
-                    f[i] -= e.second*(bagType[u]-1);
+                    f[i] -= e.second*(numChild[u]-1);
         }
     }
     /*
     cerr << "Bag " << u << ": ";
-    for (int x : Bag[u]) cerr << x << " "; cerr << endl;
-    cerr << bagType[u] << " " << *max_element(f.begin(), f.end()) << endl;
+    for (int x : Bag[u]) cerr << x << " "; cerr << " |  ";
+    cerr << numChild[u] << " " << max_element(f.begin(), f.end())-f.begin() << " " << *max_element(f.begin(), f.end()) << endl;
     */
 }
 
-void traceCol(int u, int i, int fa) {
+void traceCol(int u, int i) {
     lnt s = state[Bag[u].size()][i];
     unordered_map <int, int> alloc = getAlloc(s, Bag[u]);
     vector <int> colMap(numReg, -1);
@@ -318,38 +338,37 @@ void traceCol(int u, int i, int fa) {
             { colMap[p.second] = c, isUsed[c] = true; break; }
     for (pii p : alloc) color[p.first] = colMap[p.second];
     if (witness.find(u) != witness.end()) {
-        for (int v : Tree[u]) if (v != fa)
-            traceCol(v, witness[u][i], u);
+        for (int v : Tree[u])
+            traceCol(v, witness[u][i]);
     } else {
-        for (int v : Tree[u]) if (v != fa) {
+        for (int v : Tree[u]) {
             lnt t = getCompatible(alloc, Bag[v]);
             int j = sta2idx[Bag[v].size()][t];
-            traceCol(v, j, u);
+            traceCol(v, j);
         }
     }
 }
 
 int main() {
-    bool isValid = loadGraph(); genDecomp();
-    if (!isValid) { puts("-1"); return 0; }
+    bool flag = loadGraph();
     clock_t prev = clock();
+    flag &= genDecomp();
+    if (!flag) { puts("-1"); return 0; }
     niceDecomp();
+    double decomptime = 1.0*(clock()-prev)/CLOCKS_PER_SEC;
     // printTree();
     // printTreeStat();
+
     getStates(0, 0, 0, 1);
-   
-    mark.resize(numBag+1), color.resize(numVar+1, -1);
-    int ans = 0;
-    for (int i = 1; i <= numBag; i++) if (!mark[i]) {
-        vector <int> dp; DFS(i, dp);
-        vector <int>::iterator mx = max_element(dp.begin(), dp.end());
-        if (ans == -1 || *mx == -1) ans = -1;
-        else traceCol(i, (int)distance(dp.begin(), mx), 0), ans += *mx;
-    }
+    vector <int> dp; DFS(rt, dp);
+    int ans = *max_element(dp.begin(), dp.end());
+    if (ans == -1) { puts("-1"); return 0; }
+    color.resize(numVar+1, -1);
+    traceCol(rt, (int)distance(dp.begin(), max_element(dp.begin(), dp.end())));
 
     if (ans == -1) { puts("-1"); return 0; }
 
-    double runtime = 1.0*(clock()-prev)/CLOCKS_PER_SEC+SOLVER_TIME_LIMIT;
+    double runtime = 1.0*(clock()-prev)/CLOCKS_PER_SEC;
 
     int totalWeight = 0, validWeight = 0;
     for (int u = 1; u <= numVar; u++)
@@ -361,10 +380,9 @@ int main() {
             if (color[u] == color[p.first])
                 validWeight += p.second;
         }
-    if (validWeight != ans)
-        cerr << "E: Answer doesn't match allocation!\n";
+    if (validWeight != ans) cerr << "E: Answer doesn't match allocation!\n";
     cout << ans << " " << totalWeight << " ";
-    cout << runtime << " " << SOLVER_TIME_LIMIT << endl;
+    cout << runtime << " " << decomptime << endl;
     for (int i = 1; i <= numVar; i++) cout << color[i] << " "; cout << endl;
     return 0;
 }

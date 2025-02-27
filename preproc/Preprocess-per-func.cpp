@@ -4,7 +4,7 @@
 #include <filesystem>
 using namespace std;
 
-int numReg = 6;
+int numReg = 8;
 string IR_DIR = "../bench/SPEC2017/-O1/";
 string INPUT_DIR = "../bench/SPEC2017/input-per-func/";
 
@@ -12,9 +12,6 @@ int main() {
     mkdir(INPUT_DIR.c_str(), 0777);
     ifstream configFile("config.txt");
     configFile >> numReg;
-
-    INPUT_DIR += "k="+to_string(numReg)+"/";
-    mkdir(INPUT_DIR.c_str(), 0777);
 
     string str;
     while (configFile >> str) {

@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <string>
 #include <sys/stat.h>
 #include <filesystem>
 using namespace std;
@@ -9,22 +8,9 @@ string INPUT_DIR = "../bench/SPEC2017/input/";
 string INPUT_PER_FUNC_DIR = "../bench/SPEC2017/input-per-func/";
 string ANSWER_DIR = "../results/SPEC2017/";
 
-int numNode, numVar, numReg = 6, numAff;
+int numNode, numVar, numReg = 8, numAff;
 vector <vector <int>> H;
 vector <pair <pair <int, int>, long long>> aff;
-
-bool isValid(string path) {
-    ifstream graphFile(path);
-    int n, m, k; graphFile >> n >> m >> k;
-    for (int i = 1, l, x; i <= n; i++) {
-        graphFile >> l; while (l--) graphFile >> x;
-        graphFile >> l; if (l > k) return false;
-        while (l--) graphFile >> x;
-        graphFile >> l; if (l > k) return false;
-        while (l--) graphFile >> x;
-    }
-    return true;
-}
 
 bool isFeasible(string path) {
     ifstream ansILP(path);
@@ -34,9 +20,9 @@ bool isFeasible(string path) {
 }
 
 void loadGraph(string path) {
-    int n, m, k, l;
+    int n, m, l;
     ifstream graphFile(path);
-    graphFile >> n >> m >> k;
+    graphFile >> n >> m >> numReg;
     for (int i = 1, x; i <= n; i++) {
         graphFile >> l; while (l--) graphFile >> x;
         graphFile >> l; while (l--) graphFile >> x;
@@ -81,16 +67,13 @@ void clearGraph() {
 }
 
 int main() {
-    mkdir(INPUT_DIR.c_str(), 0777);
     ifstream configFile("config.txt");
-    configFile >> numReg;
 
-    INPUT_DIR += "k="+to_string(numReg)+"/";
-    INPUT_PER_FUNC_DIR += "k="+to_string(numReg)+"/";
-    ANSWER_DIR += "k="+to_string(numReg)+"/Prelim/";
+    ANSWER_DIR += "Prelim/";
     mkdir(INPUT_DIR.c_str(), 0777);
 
     string str;
+    configFile >> str;
     while (configFile >> str) {
         if (str[0] == '#') continue;
         string folderName = str+"/";
@@ -104,7 +87,6 @@ int main() {
             H.push_back(vector <int> ());
             for (auto &graph : filesystem::directory_iterator(INPUT_PER_FUNC_DIR+folderName+fileName)) {
                 string graphName = filesystem::path(graph.path()).filename().stem();
-                // if (isValid(graph.path())) loadGraph(graph.path());
                 if (isFeasible(ANSWER_DIR+folderName+fileName+"/"+graphName))
                     loadGraph(graph.path());
             }
@@ -113,7 +95,7 @@ int main() {
             clearGraph(), cerr << "  Complete." << endl;
         }
 
-        cerr << "Preprocessing merged input for " << str << "......";
+        cerr << "Preprocessing merged input for benchmark " << str << "......";
         H.push_back(vector <int> ());
         for (auto &file : filesystem::directory_iterator(IR_DIR+folderName+"units")) {
             filesystem::path inputFile(file.path());
