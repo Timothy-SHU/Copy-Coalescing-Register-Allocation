@@ -11,7 +11,7 @@ vector <vector <int>> H;
 vector <vector <pii>> A;
 
 unique_ptr <htd::LibraryInstance> manager(htd::createManagementInstance(htd::Id::FIRST));
-htd::IMutableGraph * graph = manager->graphFactory().createInstance();
+htd::IMutableMultiGraph * graph = manager->multiGraphFactory().createInstance();
 
 bool loadGraph() {
     int n, m, k, l; bool flag = true;
@@ -26,14 +26,12 @@ bool loadGraph() {
     graph->addVertices(numVar);
     for (int u = 1, v; u <= n; u++)
         for (cin >> l; l > 0; l--)
-            cin >> v, H[u].push_back(v), 
-            graph->addEdge(u, v);
+            cin >> v, H[u].push_back(v);
     cin >> m;
     for (int i = 0, u, v, w; i < m; i++) {
         cin >> u >> v >> w;
         A[u].push_back(make_pair(v, w));
         if (u != v) A[v].push_back(make_pair(u, w));
-        graph->addEdge(u, v);
     }
 
     cout << numVar << " ";
@@ -60,6 +58,13 @@ void handleSignal(int sig) {
 }
 
 bool genDecomp() {
+    for (int u = 1; u <= numVar; u++) {
+        for (int v : H[u]) if (v > u)
+            graph->addEdge(u, v);
+        for (pii p : A[u]) if (p.first > u)
+            graph->addEdge(u, p.first);
+    }
+
     auto algo = htd::CombinedWidthMinimizingTreeDecompositionAlgorithm(manager.get());
     auto adaptive = new htd::AdaptiveWidthMinimizingTreeDecompositionAlgorithm(manager.get());
 

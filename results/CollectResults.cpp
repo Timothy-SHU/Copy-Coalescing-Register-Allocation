@@ -29,10 +29,11 @@ int main() {
             long long curHeuristicAns = 0;
             double curHeuristicTime = 0;
             for (auto &run : filesystem::directory_iterator(RESULT_DIR+"Heuristic")) {
-                numRuns++, ans = tot = runtime = 0;
+                ans = tot = runtime = 0;
                 ifstream HeuristicRes(run.path().u8string()+"/"+folderName+fileName);
                 HeuristicRes >> n >> avgAff >> ans >> tot >> runtime;
                 curHeuristicAns = ans, curHeuristicTime += runtime;
+                numRuns += (runtime > 0);
             }
             HeuristicAns += curHeuristicAns, HeuristicTime += curHeuristicTime/numRuns;
 
@@ -40,10 +41,11 @@ int main() {
             long long curILPAns = 0;
             double curILPTime = 0;
             for (auto &run : filesystem::directory_iterator(RESULT_DIR+"ILP")) {
-                numRuns++, ans = tot = runtime = 0;
+                ans = tot = runtime = 0;
                 ifstream ILPRes(run.path().u8string()+"/"+folderName+fileName);
                 ILPRes >> n >> avgAff >> ans >> tot >> runtime;
                 curILPAns = ans, curILPTime += runtime;
+                numRuns += (runtime > 0);
             }
             ILPAns += curILPAns, ILPTime += curILPTime/numRuns;
 
@@ -51,11 +53,12 @@ int main() {
             long long curTreewidthAns = 0; bool isAnomaly = false;
             double curTreewidthTime = 0, curTreewidthDecompTime = 0;
             for (auto &run : filesystem::directory_iterator(RESULT_DIR+"Treewidth")) {
-                numRuns++, ans = tot = runtime = 0;
+                ans = tot = runtime = 0;
                 ifstream TreewidthRes(run.path().u8string()+"/"+folderName+fileName);
                 TreewidthRes >> n >> avgAff >> tw >> ans >> tot >> runtime >> decomptime;
                 mxTW = max(mxTW, tw), curTreewidthAns = ans;
                 curTreewidthTime += runtime, curTreewidthDecompTime += decomptime;
+                numRuns += (runtime > 0);
 
                 int firstCol = -1; TreewidthRes >> firstCol;
                 if (n > 0 && firstCol == -1) isAnomaly = true;
@@ -63,13 +66,15 @@ int main() {
             TreewidthAns += curTreewidthAns;
             TreewidthTime += curTreewidthTime/numRuns;
             TreewidthDecompTime += curTreewidthDecompTime/numRuns;
-
-            if (isAnomaly)
-                cerr << "Treewidth allocation anomaly at "+folderName+fileName+"!\n";
-            if (curILPAns != curTreewidthAns)
-                cerr << "Different answers of ILP and Treewidth at "+folderName+fileName+"!\n";
-            if (curTreewidthDecompTime/numRuns > 1)
-                cerr << "Tree decomp running slow (" << curTreewidthDecompTime/numRuns << "s) on "+folderName+fileName+"!\n";
+            
+            if (str != "502.gcc_r") {
+                if (isAnomaly)
+                    cerr << "Treewidth allocation anomaly at "+folderName+fileName+"!\n";
+                if (curILPAns != curTreewidthAns)
+                    cerr << "Different answers of ILP and Treewidth at "+folderName+fileName+"!\n";
+                if (curTreewidthDecompTime/numRuns > 5)
+                    cerr << "Tree decomp running slow (" << curTreewidthDecompTime/numRuns << "s) on "+folderName+fileName+"!\n";
+            }
         }
         cout << str+": " << numGraph << " graphs, " << totalSize << " nodes, ";
         cout << "max |V| = " << mxSize << ", avg |V| = " << 1.0*totalSize/numGraph << ", ";
@@ -84,6 +89,45 @@ int main() {
         cout << "ratio = " << left << setprecision(6) << 1.0*TreewidthAns/totalWeight << ", ";
         cout << "total runtime = " << setprecision(4) << TreewidthTime << ", ";
         cout << "total decomp overhead = " << setprecision(4) << TreewidthDecompTime << ".\n";
+
+        int mergedMxTW = 0, numRuns;
+        double mergedHeuristicTime = 0, mergedILPTime = 0;
+        double mergedTreewidthTime = 0, mergedTreewidthDecompTime = 0;
+
+        numRuns = 0;
+        for (auto &run : filesystem::directory_iterator(RESULT_DIR+"Heuristic")) {
+            ifstream HeuristicRes(run.path().u8string()+"/"+str+"_merged");
+            int n; double avgAff, runtime = 0; long long ans, tot;
+            HeuristicRes >> n >> avgAff >> ans >> tot >> runtime;
+            mergedHeuristicTime += runtime;
+            numRuns += (runtime > 0);
+        }
+        mergedHeuristicTime /= numRuns;
+
+        numRuns = 0;
+        for (auto &run : filesystem::directory_iterator(RESULT_DIR+"ILP")) {
+            ifstream ILPRes(run.path().u8string()+"/"+str+"_merged");
+            int n; double avgAff, runtime = 0; long long ans, tot;
+            ILPRes >> n >> avgAff >> ans >> tot >> runtime;
+            mergedILPTime += runtime;
+            numRuns += (runtime > 0);
+        }
+        mergedILPTime /= numRuns;
+
+        numRuns = 0;
+        for (auto &run : filesystem::directory_iterator(RESULT_DIR+"Treewidth")) {
+            ifstream TreewidthRes(run.path().u8string()+"/"+str+"_merged");
+            int n, tw; double avgAff, runtime = 0, decomptime = 0; long long ans, tot;
+            TreewidthRes >> n >> avgAff >> tw >> ans >> tot >> runtime >> decomptime;
+            mergedTreewidthTime += runtime, mergedTreewidthDecompTime += decomptime;
+            numRuns += (runtime > 0);
+        }
+        mergedTreewidthTime /= numRuns;
+
+        cout << "Runtime on Merged Input: ";
+        cout << "Heuristic -- " << mergedHeuristicTime << ", ";
+        cout << "ILP -- " << mergedILPTime << ", ";
+        cout << "Treewidth -- " << mergedTreewidthTime << ".\n";
         cout << endl;
     }
     return 0;

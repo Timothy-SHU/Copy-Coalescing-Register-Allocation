@@ -18,7 +18,7 @@ int main() {
     string str;
     while (configFile >> str) {
         if (str[0] == '#') continue;
-        for (int T = 10; T < numRuns+10; T++) {
+        for (int T = 0; T < numRuns; T++) {
             string numRunsStr = to_string(T);
             string CUR_RESULT_DIR = RESULT_DIR+"run-";
             CUR_RESULT_DIR += string(2-min(2, (int)numRunsStr.length()), '0')+numRunsStr+"/";
