@@ -12,7 +12,6 @@ This project implements the treewidth-based parameterized algorithm of copy coal
 ## File Structure
 ```
 ParameterizedCopyCoalescing
-│
 └── algos/
 │   └── Heuristic/
 │   └── ILP/
@@ -20,10 +19,10 @@ ParameterizedCopyCoalescing
 │   └── Experiment.cpp
 └── bench/
 │   └── SPEC2017/
-│       └── input/
-│       └── cpu2017-1_0_5.iso
-│       └── myexpcfg.cfg
-│       └── spec2017script.sh
+│   │   └── input/
+│   │   └── cpu2017-1_0_5.iso
+│   │   └── myexpcfg.cfg
+│   │   └── spec2017script.sh
 └── preproc/
 │   └── genCFG.h
 │   └── liveness.h
@@ -33,9 +32,9 @@ ParameterizedCopyCoalescing
 │   └── Preprocess-per-func.cpp
 └── results/
 │   └── SPEC2017/
-│       └── Heuristic/
-│       └── ILP/
-│       └── Treewidth/
+│   │   └── Heuristic/
+│   │   └── ILP/
+│   │   └── Treewidth/
 │   └── CollectResults.cpp
 │   └── results.xls
 └── pace17/ (optional, for flow-cutter solver)
