@@ -1,6 +1,7 @@
 copy-coalescing.pdf
 Copy Coalescing by Graph Recoloring
 
+bench/OCC/
 bench/OCC/PreprocOCC
 bench/SPEC2017/spec2017/
 bench/SPEC2017/input-per-func/
