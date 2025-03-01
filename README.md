@@ -1,10 +1,52 @@
-# Compile SPEC2017 Benchmark
+# Parameterized Copy Coalescing
+
+This project implements the treewidth-based parameterized algorithm of copy coalescing. The experiment is conducted on SPEC2017 benchmark. The programs in the benchmark are compiled to LLVM IR, with graph informations extracted. The performance of the parameterized algorithm, [Hack's heuristic](https://dl.acm.org/doi/10.1145/1375581.1375610), and [ILP-based solution](https://dl.acm.org/doi/10.5555/1759937.1759948) on those instances are compared.
+
+## Dependencies
+- [LLVM-18](https://llvm.org/)
+- The [SPEC CPU 2017](https://www.spec.org/cpu2017/) benchmark (download and place it under `bench/SPEC2017/` folder.
+- [htd](https://github.com/mabseher/htd): a tree / hypertree decomposition solver, which comes with C++ API for developers.
+- [flow-cutter](https://github.com/kit-algo/flow-cutter-pace17) (optional): a fast tree decomposition solver, but needs external file IO (download, compile, and place it under `pace17/` folder.
+
+## File Structure
+```
+ParameterizedCopyCoalescing
+│
+└── algos/
+│   └── Heuristic/
+│   └── ILP/
+│   └── Treewidth/
+│   └── Experiment.cpp
+└── bench/
+│   └── SPEC2017/
+│       └── input/
+│       └── cpu2017-1_0_5.iso
+│       └── myexpcfg.cfg
+│       └── spec2017script.sh
+└── preproc/
+│   └── genCFG.h
+│   └── liveness.h
+│   └── main.cpp
+│   └── PrelimExpt.cpp
+│   └── Preprocess.cpp
+│   └── Preprocess-per-func.cpp
+└── results/
+│   └── SPEC2017/
+│       └── Heuristic/
+│       └── ILP/
+│       └── Treewidth/
+│   └── CollectResults.cpp
+│   └── results.xls
+└── pace17/ (optional, for flow-cutter solver)
+```
+
+## Compile SPEC CPU 2017 Benchmark
 
 Set `EXPER` to the path to the experiment directory containing benchmark ISO (`cpu2017-1_0_5.iso`), and set `LLVM_DIR` to the LLVM installation location.
 
 For instance, 
 ```
-export EXPER=/home/tshu/Documents/CopyCoalescing/bench/SPEC2017
+export EXPER=/path/to/project/bench/SPEC2017
 export LLVM_DIR=/usr/lib/llvm-18/
 ```
 
@@ -30,9 +72,9 @@ chmod +x spec2017script.sh
 
 The script will first profile the benchmarks and then compile them into LLVM IR. The compiled `.ll` files are now under `bench/SPEC2017/-O1/` folder.
 
-# Generate CFG, Interference Graph, and Affinity Relation
+## Generate CFG, Interference Graph, and Affinity Relation
 
-## Standard Input Format
+### Standard Input Format
 The standard input contains CFG, interference graph, and affinity relation, in proper order.
 
 **1. Control-flow Graph (with Liveness Analysis).**  
@@ -49,10 +91,9 @@ For each of the following $n$ lines, the $i$-th line first contains an integer $
 
 **3. Affinity Relation.**  
 The first line contains 1 integer $m$, representing the \# of affinity relations.  
-For each of the following $m$ lines, each line contains 3 integers $u,v,w$, indicating there's an affinity relation between $u$ and $v$ with weight $w$.  
-**TODO.** The profiling is not implemented so all weights are set to 1 for now. Need to replace this with profiled frequency later.
+For each of the following $m$ lines, each line contains 3 integers $u,v,w$, indicating there's an affinity relation between $u$ and $v$ with weight $w$.
 
-## SPEC2017
+### Preprocess SPEC CPU 2017 benchmark
 The LLVM pass for constructing CFG, interference graph, and affinity relation is located in `preproc/` folder. Run the following to compile and run the pass. Notice that the generated graph information for each function is output under `tmp/` folder.
 ```
 cd preproc
@@ -64,7 +105,7 @@ opt -load-pass-plugin ./libCC.so -passes=CC -disable-output input/test.ll
 
 The configurations are set inside `config.txt`, where the first line contains a single integer representing the number of registers allowed, and each of the following lines specifies a benchmark to be preprocessed.
 
-Compile and run `Preprocess.cpp` to generate graph information for all `.ll` files insider SPEC2017 benchmark. The standard input generated are located under `bench/SPEC2017/input/` folder. Each `.ll` file is separated into multiple graph files, where each file corresponds to a function.
+Compile and run `Preprocess-per-func.cpp` to generate graph information for all `.ll` files inside the benchmark. The standard input generated are located under `bench/SPEC2017/input-per-func/` folder. Each `.ll` file is separated into multiple graph files, where each file corresponds to a function.
 ```
 g++ Preprocess-per-func.cpp -o Preprocess-per-func
 ./Preprocess-per-func
@@ -79,7 +120,7 @@ g++ Preprocess.cpp -o Preprocess
 ./Preprocess
 ```
 
-## Visualize CFG (for debugging)
+### Visualize CFG (for debugging)
 Given a `.ll` file, one can generate the corresponding CFG with the following commands.
 Notice that `.main.dot` should be replaced to the dot file generated for the specific function to be visualized.
 ```
@@ -89,7 +130,7 @@ opt -passes=dot-cfg test.ll
 dot -Tpng -o test.png .main.dot
 ```
 
-## Display Profiled Information
+### Display Profiled Information (for debugging)
 The following shows how to profile a program and display counts / branch weights. `llvm-profdata` merges the raw data and show text report. `llvm-cov` displays coverage report and the program side-by-side. Generate LLVM IR with `-fprofile-instr-use` flag inserts profiled info into the `.ll` file.
 ```
 clang++ -O1 -fprofile-instr-generate -fcoverage-mapping test.cpp -o test
@@ -100,9 +141,9 @@ llvm-cov show test -instr-profile=test.prof
 clang++ -O1 -fprofile-instr-use=test.prof -S -emit-llvm test.cpp
 ```
 
-# Copy Coalescing Algorithms
+## Copy Coalescing Algorithms
 
-## Brute-force Checker (for debugging)
+### Brute-force Checker (for debugging)
 The brute-force solver is implemented under `algos/checker/` folder along with a random data generator and a checker program. The data scale is specified in `config.txt`, where the four integers are the number of variables, the number of edges on integerence graph, the number of affinity relations, and the number of registers allowed. The checker compares the output of treewidth-based parameterized algorithm against brute-force result.
 ```
 cd algos/checker
@@ -113,7 +154,7 @@ cd ..
 checker/checker < checker/config.txt
 ```
 
-## Parameterized Algorithm (w/ Treewidth)
+### Parameterized Algorithm (w/ Treewidth)
 The treewidth-based parameterized algorithm is implemented under `algos/Treewidth/` folder. Compile `Treewidth.cpp` and feed in standard input files. `Treewidth_i64.cpp` is the 64-bit long int version for `502.gcc_r` benchmark. The other three files with `_flow-cutter` is the implementation with flow-cutter solver (which needs external file IO for decomposition).
 ```
 cd algos/Treewidth
@@ -127,7 +168,7 @@ The first line contains three integers $n$, $\text{avgAff}$, and $tw$, which are
 The second line contains two integers $ans$, $\text{totalWeight}$, and a float $t$, where $ans$ is the max sum of satisfied affinity relations, $\text{totalWeight}$ is the total sum of all affinity relations, and $t$ is the run time.  
 The third line contains $n$ integers in $[0,k-1]$, representing the register allocated for each variable.
 
-## Hack's Heuristic
+### Hack's Heuristic
 The Hack's heuristic is implemented under `algos/Heuristic/` folder. The parameter $\alpha$ is set to 0.1, as in the original paper. There is no time or depth limit implemented. Compile `Heuristic.cpp` and feed in standard input files.
 ```
 cd algos/Heuristic
@@ -138,7 +179,7 @@ Heuristic/Heuristic < input/000
 
 The output format is almost the same as that of the parameterized algorithm, except that there's no treewidth output in the first line. 
 
-## ILP-based Algorithm
+### ILP-based Algorithm
 Copy coalescing by solving ILP is implmented under `algos/ILP/` folder. It requires CPLEX ILOG Optimizer (academic version 2211). `make.sh` links the libraries and compiles the code. The default location of CPLEX is under `/opt/ibm/ILOG/CPLEX_Studio2211/`. Change it in `make.sh` if it is not the case.
 ```
 cd algos/ILP
@@ -148,19 +189,21 @@ cd ..
 ILP/ILP < input/000
 ```
 
-## Experiment
+### Experiment
 To invoke the three algorithms on the input, compile and run `Experiment.cpp` under `algos/` folder.  
 The configurations are specified inside `config.txt`:
-- The first line contains an integer representing the number of registers allowed;
-- The second line is the name of the algorithm to be invoked: "Heuristic", "ILP", or "Treewidth";
-- The third line is the mode of experiment, either "normal" or "merged", where "normal" means running the algorithm on each program insider the benchmark, and "merged" means passing in all the graphs inside a benchmark as a whole.
+- The first line is the name of the algorithm to be invoked: "Heuristic", "ILP", or "Treewidth";
+- The second line contains the mode of experiment, either "normal" or "merged", where "normal" means running the algorithm on each program insider the benchmark, and "merged" means passing in all the graphs inside a benchmark as a whole; and the integer follows specifies the number of runs to be conducted for this experiment;
+- Starting from the third line, each line contains a string representing a benchmark to be experimented on, where a '#' in at the beginning simply excludes this benchmark.
+
 ```
 cd algos
 g++ Experiment.cpp -o Experiment
 ./Experiment
 ```
 
-## Results
+### Results
 The results are presented under the `results/` folder.  
-`CollectResults.cpp` gathers the result from raw output. The details on how many registers are used and what benchmarks are displayed are specified inside `config.txt`.  
+The `results/SPEC2017/` folder contains all the outputs of all three algorithms.
+`CollectResults.cpp` gathers the result from raw output. The details on which benchmarks are displayed are specified inside `config.txt`.  
 All experiment results are presented inside `results.xls`.
