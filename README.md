@@ -4,9 +4,10 @@ This project implements the treewidth-based parameterized algorithm of copy coal
 
 ## Dependencies
 - [LLVM-18](https://llvm.org/)
-- The [SPEC CPU 2017](https://www.spec.org/cpu2017/) benchmark (download and place it under `bench/SPEC2017/` folder.
+- The [SPEC CPU 2017](https://www.spec.org/cpu2017/) benchmark (download the ISO file and place it under `bench/SPEC2017/` folder).
+- [IBM ILOG CPLEX Optimization Studio](https://www.ibm.com/products/ilog-cplex-optimization-studio) (v22.1.1, academic): standard mathematic programming solver.
 - [htd](https://github.com/mabseher/htd): a tree / hypertree decomposition solver, which comes with C++ API for developers.
-- [flow-cutter](https://github.com/kit-algo/flow-cutter-pace17) (optional): a fast tree decomposition solver, but needs external file IO (download, compile, and place it under `pace17/` folder.
+- [flow-cutter](https://github.com/kit-algo/flow-cutter-pace17) (optional): a fast tree decomposition solver, but needs external file IO (download, compile, and place it under `pace17/` folder).
 
 ## File Structure
 ```
@@ -93,7 +94,7 @@ For each of the following $n$ lines, the $i$-th line first contains an integer $
 The first line contains 1 integer $m$, representing the \# of affinity relations.  
 For each of the following $m$ lines, each line contains 3 integers $u,v,w$, indicating there's an affinity relation between $u$ and $v$ with weight $w$.
 
-### Preprocess SPEC CPU 2017 benchmark
+### Preprocess SPEC CPU 2017 Benchmark
 The LLVM pass for constructing CFG, interference graph, and affinity relation is located in `preproc/` folder. Run the following to compile and run the pass. Notice that the generated graph information for each function is output under `tmp/` folder.
 ```
 cd preproc
@@ -155,13 +156,14 @@ checker/checker < checker/config.txt
 ```
 
 ### Parameterized Algorithm (w/ Treewidth)
-The treewidth-based parameterized algorithm is implemented under `algos/Treewidth/` folder. Compile `Treewidth.cpp` and feed in standard input files. `Treewidth_i64.cpp` is the 64-bit long int version for `502.gcc_r` benchmark. The other three files with `_flow-cutter` is the implementation with flow-cutter solver (which needs external file IO for decomposition).
+The treewidth-based parameterized algorithm is implemented under `algos/Treewidth/` folder. Compile `Treewidth.cpp` and feed in standard input files. The default location of htd is under `/usr/local/`. Change it in `make.sh` if it is not the case.
 ```
 cd algos/Treewidth
 ./make.sh
 cd ..
 Treewidth/Treewidth < input/000
 ```
+`Treewidth_i64.cpp` is the 64-bit long int version for `502.gcc_r` benchmark. The other three files with `_flow-cutter` is the implementation with flow-cutter solver (which needs external file IO for decomposition).
 
 The output consists of three lines.  
 The first line contains three integers $n$, $\text{avgAff}$, and $tw$, which are the number of vertices in the interference graph, the average affinity degree, and the treewidth (given by the solver).  
