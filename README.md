@@ -25,10 +25,10 @@ cd spec2017
 export LLVM_PROFILE_FILE="default.profraw"
 chmod +x spec2017script.sh
 . shrc
-./spec2017script.sh $LLVM_DIR "-O1" 500.perlbench_r 502.gcc_r 505.mcf_r 520.omnetpp_r 523.xalancbmk_r 525.x264_r 531.deepsjeng_r 541.leela_r 557.xz_r 508.namd_r 510.parest_r 511.povray_r 519.lbm_r 526.blender_r 538.imagick_r 544.nab_r 600.perlbench_s 602.gcc_s 605.mcf_s 620.omnetpp_s 623.xalancbmk_s 625.x264_s 631.deepsjeng_s 641.leela_s 657.xz_s 619.lbm_s 638.imagick_s 644.nab_s
+./spec2017script.sh $LLVM_DIR "-O1" 500.perlbench_r 502.gcc_r 505.mcf_r 508.namd_r 510.parest_r 511.povray_r 519.lbm_r 520.omnetpp_r 523.xalancbmk_r 525.x264_r 526.blender_r 531.deepsjeng_r 538.imagick_r 541.leela_r 544.nab_r 557.xz_r
 ```
 
-The script will first profile the benchmarks and then compile them into LLVM IR. The last two benchmarks are huge and takes a long time to profile. The compiled `.ll` files are now under `bench/SPEC2017/-fno-inline_-Os/` folder.
+The script will first profile the benchmarks and then compile them into LLVM IR. The compiled `.ll` files are now under `bench/SPEC2017/-O1/` folder.
 
 # Generate CFG, Interference Graph, and Affinity Relation
 
@@ -79,15 +79,6 @@ g++ Preprocess.cpp -o Preprocess
 ./Preprocess
 ```
 
-## Optimal Coalescing Challenge (Princeton)
-To transform the benchmark into standard input format, compile and run `PrepareOCC.cpp` under `bench/OCC/` folder. The standard input generated are located under `bench/OCC/input/` folder. Notice that the benchmark doesn't contain CFG.
-```
-cd bench/OCC
-mkdir input
-g++ PrepareOCC.cpp -o PrepareOCC
-./PrepareOCC
-```
-
 ## Visualize CFG (for debugging)
 Given a `.ll` file, one can generate the corresponding CFG with the following commands.
 Notice that `.main.dot` should be replaced to the dot file generated for the specific function to be visualized.
@@ -119,20 +110,20 @@ g++ BruteForce.cpp -o BruteForce
 g++ data.cpp -o data
 g++ checker.cpp -o checker
 cd ..
-checker/checker
+checker/checker < checker/config.txt
 ```
 
 ## Parameterized Algorithm (w/ Treewidth)
-The treewidth-based parameterized algorithm is implemented under `algos/Treewidth/` folder. Compile `Treewidth.cpp` and feed in standard input files.
+The treewidth-based parameterized algorithm is implemented under `algos/Treewidth/` folder. Compile `Treewidth.cpp` and feed in standard input files. `Treewidth_i64.cpp` is the 64-bit long int version for `502.gcc_r` benchmark. The other three files with `_flow-cutter` is the implementation with flow-cutter solver (which needs external file IO for decomposition).
 ```
 cd algos/Treewidth
-g++ Treewidth.cpp -o Treewidth
+./make.sh
 cd ..
 Treewidth/Treewidth < input/000
 ```
 
 The output consists of three lines.  
-The first line contains three integers $n$, $\text{avgAff}$, and $tw$, which are the number of vertices in the interference graph, the average affinity degree, and the treewidth (given by the flow-cutter solver).  
+The first line contains three integers $n$, $\text{avgAff}$, and $tw$, which are the number of vertices in the interference graph, the average affinity degree, and the treewidth (given by the solver).  
 The second line contains two integers $ans$, $\text{totalWeight}$, and a float $t$, where $ans$ is the max sum of satisfied affinity relations, $\text{totalWeight}$ is the total sum of all affinity relations, and $t$ is the run time.  
 The third line contains $n$ integers in $[0,k-1]$, representing the register allocated for each variable.
 

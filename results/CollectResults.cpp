@@ -11,7 +11,7 @@ int main() {
     while (configFile >> str) {
         if (str[0] == '#') continue;
         string folderName = str+"/";
-        int numGraph = 0, totalSize = 0, mxSize = 0, totalAffDeg = 0, mxTW = 0;
+        int numGraph = 0, totalSize = 0, mxSize = 0, totalAffDeg = 0, mxTW = 0, cntHybrid = 0;
         long long HeuristicAns = 0, ILPAns = 0, TreewidthAns = 0, totalWeight = 0;
         double HeuristicTime = 0, ILPTime = 0, TreewidthTime = 0, TreewidthDecompTime = 0;
         for (auto &file : filesystem::directory_iterator(RESULT_DIR+"Heuristic/run-00/"+folderName)) {
@@ -32,10 +32,11 @@ int main() {
                 ans = tot = runtime = 0;
                 ifstream HeuristicRes(run.path().u8string()+"/"+folderName+fileName);
                 HeuristicRes >> n >> avgAff >> ans >> tot >> runtime;
-                curHeuristicAns = ans, curHeuristicTime += runtime;
-                numRuns += (runtime > 0);
+                if (runtime < 1e-8) continue;
+                numRuns++, curHeuristicAns = ans, curHeuristicTime += runtime;
             }
-            HeuristicAns += curHeuristicAns, HeuristicTime += curHeuristicTime/numRuns;
+            curHeuristicTime /= numRuns;
+            HeuristicAns += curHeuristicAns, HeuristicTime += curHeuristicTime;
 
             numRuns = 0;
             long long curILPAns = 0;
@@ -44,37 +45,52 @@ int main() {
                 ans = tot = runtime = 0;
                 ifstream ILPRes(run.path().u8string()+"/"+folderName+fileName);
                 ILPRes >> n >> avgAff >> ans >> tot >> runtime;
-                curILPAns = ans, curILPTime += runtime;
-                numRuns += (runtime > 0);
+                if (runtime < 1e-8) continue;
+                numRuns++, curILPAns = ans, curILPTime += runtime;
             }
-            ILPAns += curILPAns, ILPTime += curILPTime/numRuns;
+            curILPTime /= numRuns;
+            ILPAns += curILPAns, ILPTime += curILPTime;
 
             numRuns = 0;
-            long long curTreewidthAns = 0; bool isAnomaly = false;
+            long long curTreewidthAns = 0;
+            bool isAnomaly = false, isHybrid = false;
             double curTreewidthTime = 0, curTreewidthDecompTime = 0;
             for (auto &run : filesystem::directory_iterator(RESULT_DIR+"Treewidth")) {
-                ans = tot = runtime = 0;
+                ans = tot = runtime = decomptime = tw = 0;
                 ifstream TreewidthRes(run.path().u8string()+"/"+folderName+fileName);
                 TreewidthRes >> n >> avgAff >> tw >> ans >> tot >> runtime >> decomptime;
-                mxTW = max(mxTW, tw), curTreewidthAns = ans;
-                curTreewidthTime += runtime, curTreewidthDecompTime += decomptime;
-                numRuns += (runtime > 0);
+                mxTW = max(mxTW, tw);
+                if (tw == 0 && runtime < 1e-8) continue;
+                if (tw <= 11) {
+                    numRuns++, curTreewidthAns = ans;
+                    curTreewidthTime += runtime;
+                    curTreewidthDecompTime += decomptime;
+                    int firstCol = -1; TreewidthRes >> firstCol;
+                    if (n > 0 && firstCol == -1 && runtime > 0) isAnomaly = true;
+                } else {
+                    isHybrid = true, numRuns++;
+                    curTreewidthAns = curILPAns;
+                    curTreewidthDecompTime += decomptime;
+                }
+            }
+            curTreewidthTime /= numRuns, curTreewidthDecompTime /= numRuns;
+            if (!isHybrid) {
+                TreewidthAns += curTreewidthAns;
+                TreewidthTime += curTreewidthTime;
+                TreewidthDecompTime += curTreewidthDecompTime;
+            } else {
+                TreewidthAns += curTreewidthAns;
+                TreewidthTime += curILPTime+curTreewidthDecompTime;
+                TreewidthDecompTime += curTreewidthDecompTime;
+            }
+            cntHybrid += isHybrid;
 
-                int firstCol = -1; TreewidthRes >> firstCol;
-                if (n > 0 && firstCol == -1) isAnomaly = true;
-            }
-            TreewidthAns += curTreewidthAns;
-            TreewidthTime += curTreewidthTime/numRuns;
-            TreewidthDecompTime += curTreewidthDecompTime/numRuns;
-            
-            if (str != "502.gcc_r") {
-                if (isAnomaly)
-                    cerr << "Treewidth allocation anomaly at "+folderName+fileName+"!\n";
-                if (curILPAns != curTreewidthAns)
-                    cerr << "Different answers of ILP and Treewidth at "+folderName+fileName+"!\n";
-                if (curTreewidthDecompTime/numRuns > 5)
-                    cerr << "Tree decomp running slow (" << curTreewidthDecompTime/numRuns << "s) on "+folderName+fileName+"!\n";
-            }
+            if (isAnomaly)
+                cerr << "Treewidth allocation anomaly at "+folderName+fileName+"!\n";
+            if (curILPAns != curTreewidthAns)
+                cerr << "Different answers of ILP and Treewidth at "+folderName+fileName+"!\n";
+            if (curTreewidthDecompTime/numRuns > 5)
+                cerr << "Tree decomp running slow (" << curTreewidthDecompTime/numRuns << "s) on "+folderName+fileName+"!\n";
         }
         cout << str+": " << numGraph << " graphs, " << totalSize << " nodes, ";
         cout << "max |V| = " << mxSize << ", avg |V| = " << 1.0*totalSize/numGraph << ", ";
@@ -88,7 +104,9 @@ int main() {
         cout << right << setw(22) << "Treewidth: answer = " << TreewidthAns << ", ";
         cout << "ratio = " << left << setprecision(6) << 1.0*TreewidthAns/totalWeight << ", ";
         cout << "total runtime = " << setprecision(4) << TreewidthTime << ", ";
-        cout << "total decomp overhead = " << setprecision(4) << TreewidthDecompTime << ".\n";
+        cout << "total decomp overhead = " << setprecision(4) << TreewidthDecompTime << ".";
+        if (cntHybrid > 0) cout << " ILP called on " << cntHybrid << " graphs.";
+        cout << endl;
 
         int mergedMxTW = 0, numRuns;
         double mergedHeuristicTime = 0, mergedILPTime = 0;

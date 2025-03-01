@@ -78,10 +78,12 @@ lnt solveILP() {
         if (solver.getStatus() != IloAlgorithm::Status::Optimal)
             notOptimal = true;
         ret = solver.getObjValue();
-        for (int i = 1; i <= numVar; i++)
+        for (int i = 1; i <= numVar; i++) {
+            vector <IloNum> colVars;
             for (int c = 0; c < numReg; c++)
-                if (solver.getValue(x[i][c]) == 1)
-                    { color[i] = c; break; }
+                colVars.push_back(solver.getValue(x[i][c]));
+            color[i] = max_element(colVars.begin(), colVars.end())-colVars.begin();
+        }
     }
     env.end();
     return ret;
