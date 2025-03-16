@@ -10,17 +10,11 @@ flags=$1
 
 flags_underscored=${flags// /_}
 
-if [[ "$flags" != *"-S -emit-llvm"* ]]; then
-  echo "Error: flags must contain '-S -emit-llvm'"
-  exit 1
-fi
-
-flags=${flags//-S -emit-llvm/}
 flags="$flags -w"
 
 cd mibench2
 
-shift 2
+shift 1
 for arg in "$@"; do
   if [ -d "$arg" ]; then
     echo "Processing directory: $arg"

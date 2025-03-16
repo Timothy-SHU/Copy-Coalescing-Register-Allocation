@@ -6,12 +6,17 @@ bench/OCC/PreprocOCC
 bench/SPEC2017/spec2017/
 bench/SPEC2017/input-per-func/
 bench/SPEC2017/cpu2017-1_0_5.iso
+bench/MiBench/mibench/
+bench/MiBench/input-per-func/
 bench/MiBench/mibench.zip
 
 preproc/libCC.so
 preproc/PrelimExptSPEC
 preproc/PreprocessSPEC
 preproc/PreprocessSPEC-per-func
+preproc/PrelimExptMiBench
+preproc/PreprocessMiBench
+preproc/PreprocessMiBench-per-func
 
 algos/checker/data
 algos/checker/checker
@@ -22,11 +27,14 @@ algos/ILP/ILP
 algos/Heuristic/Heuristic
 algos/Treewidth/Treewidth
 algos/ExperimentSPEC
+algos/ExperimentMiBench
 
 pace17/
 
 results/CollectResultsSPEC
 results/SPEC2017/Prelim/
+results/CollectResultsMiBench
+results/MiBench/Prelim/
 
 graph.txt
 tree.txt
