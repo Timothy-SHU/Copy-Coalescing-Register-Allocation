@@ -9,7 +9,7 @@ string INPUT_DIR = "../bench/SPEC2017/input/";
 string RESULT_DIR = "../results/SPEC2017/";
 
 int main() {
-    ifstream configFile("config.txt");
+    ifstream configFile("config-SPEC.txt");
     configFile >> ALGO >> MODE >> numRuns;
 
     RESULT_DIR += ALGO+"/";

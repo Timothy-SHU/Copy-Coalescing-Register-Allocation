@@ -7,7 +7,7 @@ string INPUT_DIR = "../bench/SPEC2017/input-per-func/";
 string RESULT_DIR = "../results/SPEC2017/";
 
 int main() {
-    ifstream configFile("config.txt");
+    ifstream configFile("config-SPEC.txt");
 
     RESULT_DIR += "Prelim/";
     mkdir(RESULT_DIR.c_str(), 0777);

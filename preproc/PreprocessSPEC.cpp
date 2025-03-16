@@ -67,7 +67,7 @@ void clearGraph() {
 }
 
 int main() {
-    ifstream configFile("config.txt");
+    ifstream configFile("config-SPEC.txt");
 
     ANSWER_DIR += "Prelim/";
     mkdir(INPUT_DIR.c_str(), 0777);

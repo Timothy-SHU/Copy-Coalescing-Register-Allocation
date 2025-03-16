@@ -5,7 +5,7 @@ using namespace std;
 string RESULT_DIR = "SPEC2017/";
 
 int main() {
-    ifstream configFile("config.txt");
+    ifstream configFile("config-SPEC.txt");
 
     string str;
     while (configFile >> str) {

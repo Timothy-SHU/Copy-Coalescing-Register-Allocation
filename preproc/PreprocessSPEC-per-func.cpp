@@ -10,7 +10,7 @@ string INPUT_DIR = "../bench/SPEC2017/input-per-func/";
 
 int main() {
     mkdir(INPUT_DIR.c_str(), 0777);
-    ifstream configFile("config.txt");
+    ifstream configFile("config-SPEC.txt");
     configFile >> numReg;
 
     string str;
