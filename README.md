@@ -5,6 +5,7 @@ This project implements the treewidth-based parameterized algorithm of copy coal
 ## Dependencies
 - [LLVM-18](https://llvm.org/)
 - The [SPEC CPU 2017](https://www.spec.org/cpu2017/) benchmark (download the ISO file and place it under `bench/SPEC2017/` folder).
+- The [MiBench](https://vhosts.eecs.umich.edu/mibench/) benchmark (download the ZIP file and place it under `bench/MiBench/` folder).
 - [IBM ILOG CPLEX Optimization Studio](https://www.ibm.com/products/ilog-cplex-optimization-studio) (v22.1.1, academic): standard mathematic programming solver.
 - [htd](https://github.com/mabseher/htd): a tree / hypertree decomposition solver, which comes with C++ API for developers.
 - [flow-cutter](https://github.com/kit-algo/flow-cutter-pace17) (optional): a fast tree decomposition solver, but needs external file IO (download, compile, and place it under `pace17/` folder).
@@ -16,32 +17,47 @@ ParameterizedCopyCoalescing
 │   └── Heuristic/
 │   └── ILP/
 │   └── Treewidth/
-│   └── Experiment.cpp
+│   └── ExperimentSPEC.cpp
+│   └── ExperimentMiBench.cpp
 └── bench/
 │   └── SPEC2017/
 │   │   └── input/
 │   │   └── cpu2017-1_0_5.iso
 │   │   └── myexpcfg.cfg
 │   │   └── spec2017script.sh
+│   └── MiBench/
+│       └── input/
+│       └── mibench.zip
+│       └── compile_mibench.sh
 └── preproc/
 │   └── genCFG.h
 │   └── liveness.h
 │   └── main.cpp
-│   └── PrelimExpt.cpp
-│   └── Preprocess.cpp
-│   └── Preprocess-per-func.cpp
+│   └── PrelimExptSPEC.cpp
+│   └── PreprocessSPEC.cpp
+│   └── PreprocessSPEC-per-func.cpp
+│   └── PrelimExptMiBench.cpp
+│   └── PreprocessMiBench.cpp
+│   └── PreprocessMiBench-per-func.cpp
 └── results/
 │   └── SPEC2017/
 │   │   └── Heuristic/
 │   │   └── ILP/
 │   │   └── Treewidth/
-│   └── CollectResults.cpp
-│   └── results.xls
+│   └── MiBench/
+│   │   └── Heuristic/
+│   │   └── ILP/
+│   │   └── Treewidth/
+│   └── CollectResultsSPEC.cpp
+│   └── CollectResultsMiBench.cpp
+│   └── resultsSPEC.xls
+│   └── resultsMiBench.xls
 └── pace17/ (optional, for flow-cutter solver)
 ```
 
-## Compile SPEC CPU 2017 Benchmark
+## Compile Benchmarks
 
+### SPEC CPU 2017
 Set `EXPER` to the path to the experiment directory containing benchmark ISO (`cpu2017-1_0_5.iso`), and set `LLVM_DIR` to the LLVM installation location.
 
 For instance, 
@@ -60,17 +76,27 @@ sudo umount $EXPER/mnt
 rm -r mnt
 ```
 
-Now the benchmark is insider folder `spec2017/`. Make sure that `myexpcfg.cfg` and `spec2017script.sh` are at current location. To profile and compile the benchmarks, copy the script inside the folder and run it as below.
+Now the benchmark is inside folder `spec2017/`. Make sure that `myexpcfg.cfg` and `spec2017script.sh` are at current location. To profile and compile the benchmark, copy the script inside the folder and run it as below.
 ```
 cp spec2017script.sh spec2017
 cd spec2017
 export LLVM_PROFILE_FILE="default.profraw"
-chmod +x spec2017script.sh
+chmod u+x spec2017script.sh
 . shrc
 ./spec2017script.sh $LLVM_DIR "-O1" 500.perlbench_r 502.gcc_r 505.mcf_r 508.namd_r 510.parest_r 511.povray_r 519.lbm_r 520.omnetpp_r 523.xalancbmk_r 525.x264_r 526.blender_r 531.deepsjeng_r 538.imagick_r 541.leela_r 544.nab_r 557.xz_r
 ```
 
-The script will first profile the benchmarks and then compile them into LLVM IR. The compiled `.ll` files are now under `bench/SPEC2017/-O1/` folder.
+The script will first profile the sub-benchmarks and then compile them into LLVM IR. The compiled `.ll` files are now under `bench/SPEC2017/-O1/` folder.
+
+### MiBench
+Unzip `mibench.zip` to `mibench/`. Then set `LLPATH` in `mibench/Makefile.config` to the `bin/` folder at LLVM installation location.
+Run `compile_mibench.sh` to generate LLVM IR. For technical reasons, there's no profiling for this benchmark. The compiled `.ll` files are now under `bench/MiBench/-O1/` folder.
+```
+cd bench/MiBench
+unzip mibench.zip
+chmod u+x compile_mibench.sh
+./compile_mibench.sh "-O1" adpcm_c basicmath bitcount blowfish_d CRC32 dijkstra FFT ghostscript gsm ispell jpeg_c jpeg_d lame patricia pgp qsort rijndael rsynth sha stringsearch susan_c tiff2bw tiff2dither tiff2median tiff2rgba typeset
+```
 
 ## Generate CFG, Interference Graph, and Affinity Relation
 
@@ -93,7 +119,7 @@ For each of the following $n$ lines, the $i$-th line first contains an integer $
 The first line contains 1 integer $m$, representing the \# of affinity relations.  
 For each of the following $m$ lines, each line contains 3 integers $u,v,w$, indicating there's an affinity relation between $u$ and $v$ with weight $w$.
 
-### Preprocess SPEC CPU 2017 Benchmark
+### Preprocess Benchmarks
 The LLVM pass for constructing CFG, interference graph, and affinity relation is located in `preproc/` folder. Run the following to compile and run the pass. Notice that the generated graph information for each function is output under `tmp/` folder.
 ```
 cd preproc
@@ -103,21 +129,32 @@ mkdir tmp
 opt -load-pass-plugin ./libCC.so -passes=CC -disable-output input/test.ll
 ```
 
-The configurations are set inside `config.txt`, where the first line contains a single integer representing the number of registers allowed, and each of the following lines specifies a benchmark to be preprocessed.
+We first demonstrate the preprocessing of SPEC CPU 2017 benchmark.
 
-Compile and run `Preprocess-per-func.cpp` to generate graph information for all `.ll` files inside the benchmark. The standard input generated are located under `bench/SPEC2017/input-per-func/` folder. Each `.ll` file is separated into multiple graph files, where each file corresponds to a function.
+The configurations are set inside `config-SPEC.txt`, where the first line contains a single integer representing the number of registers allowed, and each of the following lines specifies a sub-benchmark to be preprocessed.
+
+Compile and run `PreprocessSPEC-per-func.cpp` to generate graph information for all `.ll` files inside the benchmark. The standard input generated are located under `bench/SPEC2017/input-per-func/` folder. Each `.ll` file is separated into multiple graph files, where each file corresponds to a function.
 ```
-g++ Preprocess-per-func.cpp -o Preprocess-per-func
-./Preprocess-per-func
+g++ PreprocessSPEC-per-func.cpp -o PreprocessSPEC-per-func
+./PreprocessSPEC-per-func
 ```
 
-After generating the per-function input, compile and run `PrelimExpt.cpp` to invoke ILP solver on each graph file to remove infeasible graphs. `Preprocess.cpp` then generates the graph information of each `.ll` as one merged graph file under `bench/SPEC2017/input/` folder.
-
+After generating the per-function input, compile and run `PrelimExptSPEC.cpp` to invoke ILP solver on each graph file to remove infeasible graphs. `PreprocessSPEC.cpp` then generates the graph information of each `.ll` as one merged graph file under `bench/SPEC2017/input/` folder.
 ```
-g++ PrelimExpt.cpp -o PrelimExpt
-./PrelimExpt
-g++ Preprocess.cpp -o Preprocess
-./Preprocess
+g++ PrelimExptSPEC.cpp -o PrelimExptSPEC
+./PrelimExptSPEC
+g++ PreprocessSPEC.cpp -o PreprocessSPEC
+./PreprocessSPEC
+```
+
+The preprocessing of MiBench benchmark can be done analogously by compiling and running `PreprocessMiBench-per-func.cpp`, `PrelimExptMibench.cpp`, and `PreprocessMibench.cpp` in order. The configurations are set inside `config-MiBench.txt`, with the same format as `config-SPEC.txt`. The standard graph input are generated under `bench/MiBench/input/` folder.
+```
+g++ PreprocessMiBench-per-func.cpp -o PreprocessMiBench-per-func
+./PreprocessMiBench-per-func
+g++ PrelimExptMiBench.cpp -o PrelimExptMiBench
+./PrelimExptMiBench
+g++ PreprocessMiBench.cpp -o PreprocessMiBench
+./PreprocessMiBench
 ```
 
 ### Visualize CFG (for debugging)
@@ -162,7 +199,7 @@ cd algos/Treewidth
 cd ..
 Treewidth/Treewidth < input/000
 ```
-`Treewidth_i64.cpp` is the 64-bit long int version for `502.gcc_r` benchmark. The other three files with `_flow-cutter` is the implementation with flow-cutter solver (which needs external file IO for decomposition).
+`Treewidth_i64.cpp` is the 64-bit long int version for `SPEC2017/502.gcc_r` sub-benchmark. The other three files with `_flow-cutter` is the implementation with flow-cutter solver (which needs external file IO for decomposition).
 
 The output consists of three lines.  
 The first line contains three integers $n$, $\text{avgAff}$, and $tw$, which are the number of vertices in the interference graph, the average affinity degree, and the treewidth (given by the solver).  
@@ -191,20 +228,21 @@ ILP/ILP < input/000
 ```
 
 ### Experiment
-To invoke the three algorithms on the input, compile and run `Experiment.cpp` under `algos/` folder.  
-The configurations are specified inside `config.txt`:
+To invoke the three algorithms on the input, compile and run `ExperimentSPEC.cpp` and `ExperimentMiBench.cpp` under `algos/` folder.  
+The configurations are specified inside `config-SPEC.txt` and `config-MiBench.txt`:
 - The first line is the name of the algorithm to be invoked: "Heuristic", "ILP", or "Treewidth";
 - The second line contains the mode of experiment, either "normal" or "merged", where "normal" means running the algorithm on each program insider the benchmark, and "merged" means passing in all the graphs inside a benchmark as a whole; and the integer follows specifies the number of runs to be conducted for this experiment;
 - Starting from the third line, each line contains a string representing a benchmark to be experimented on, where a '#' in at the beginning simply excludes this benchmark.
 
 ```
 cd algos
-g++ Experiment.cpp -o Experiment
-./Experiment
+g++ ExperimentSPEC.cpp -o ExperimentSPEC
+./ExperimentSPEC
+g++ ExperimentMiBench.cpp -o ExperimentMiBench
+./ExperimentMiBench
 ```
 
 ### Results
 The results are presented under the `results/` folder.  
-The `results/SPEC2017/` folder contains all the outputs of all three algorithms.
-`CollectResults.cpp` gathers the result from raw output. The details on which benchmarks are displayed are specified inside `config.txt`.  
-All experiment results are presented inside `results.xls`.
+The `results/SPEC2017/` folder (resp. `results/MiBench/` folder) contains all the outputs of all three algorithms on the SPEC CPU 2017 benchmark (resp. MiBench benchmark). `CollectResultsSPEC.cpp` and `CollectResultsMiBench.cpp` then gathers the result from raw output. The details on which sub-benchmarks are displayed are specified inside `config-SPEC.txt` and `config-MiBench`.  
+All experiment results are presented inside `results-SPEC.xls` and `results-MiBench`. Note that the former contains weighted affinity relations, where as the latter contains unweighted affinity relations.
