@@ -9,7 +9,7 @@
 #include "llvm/Analysis/BlockFrequencyInfo.h"
 #include <utility>
 
-int numReg = 6;
+int numReg = 8;
 
 namespace {
 using namespace llvm;

@@ -1,0 +1,16 @@
+#arch
+block
+certs
+crypto
+#drivers
+#fs
+init
+io_uring
+ipc
+#kernel
+lib
+mm
+#net
+rust
+security
+sound

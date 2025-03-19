@@ -1,5 +1,5 @@
-Treewidth
-normal 30
+Heuristic
+normal 1
 500.perlbench_r
 #502.gcc_r
 505.mcf_r

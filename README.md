@@ -6,6 +6,7 @@ This project implements the treewidth-based parameterized algorithm of copy coal
 - [LLVM-18](https://llvm.org/)
 - The [SPEC CPU 2017](https://www.spec.org/cpu2017/) benchmark (download the ISO file and place it under `bench/SPEC2017/` folder).
 - The [MiBench](https://vhosts.eecs.umich.edu/mibench/) benchmark (download the ZIP file and place it under `bench/MiBench/` folder).
+- The source code of [Linux Kernel v6.6.83](https://www.kernel.org/) (download the Tarball and place it under `bench/LinuxKernel/` folder).
 - [IBM ILOG CPLEX Optimization Studio](https://www.ibm.com/products/ilog-cplex-optimization-studio) (v22.1.1, academic): standard mathematic programming solver.
 - [htd](https://github.com/mabseher/htd): a tree / hypertree decomposition solver, which comes with C++ API for developers.
 - [flow-cutter](https://github.com/kit-algo/flow-cutter-pace17) (optional): a fast tree decomposition solver, but needs external file IO (download, compile, and place it under `pace17/` folder).
@@ -26,9 +27,14 @@ ParameterizedCopyCoalescing
 │   │   └── myexpcfg.cfg
 │   │   └── spec2017script.sh
 │   └── MiBench/
+│   │   └── input/
+│   │   └── mibench.zip
+│   │   └── compile_mibench.sh
+│   └── LinuxKernel/
 │       └── input/
-│       └── mibench.zip
-│       └── compile_mibench.sh
+│       └── linux-6.6.83.tar.xz
+│       └── gen_compile_script.go
+│       └── extract_ll.sh
 └── preproc/
 │   └── genCFG.h
 │   └── liveness.h
@@ -98,6 +104,20 @@ chmod u+x compile_mibench.sh
 ./compile_mibench.sh "-O1" adpcm_c basicmath bitcount blowfish_d CRC32 dijkstra FFT ghostscript gsm ispell jpeg_c jpeg_d lame patricia pgp qsort rijndael rsynth sha stringsearch susan_c tiff2bw tiff2dither tiff2median tiff2rgba typeset
 ```
 
+### Linux Kernel v6.6.83
+Extract `linux-6.6.83.tar.xz` to `linux-6.6.83/`. Compile the kernel with make, and run `../gen_compile_script.go` to generate build script for LLVM IR. Then run `build.sh` to compile the kernel. Copy and run `../extract_ll.sh` to extract all `.ll` files into `bench/LinuxKernel/-O1/` folder. For technical reasons, there's no profiling for this benchmark.
+```
+cd bench/LinuxKernel
+tar -xvf linux-6.6.83.tar.xz
+cd linux-6.6.83
+make defconfig
+make LLVM=1 -j16
+go run ../gen_compile_script.go
+bash build.sh
+cp ../extract_ll.sh extract_ll.sh
+bash extract_ll.sh arch block certs crypto drivers fs init io_uring ipc kernel lib mm net rust security sound
+```
+
 ## Generate CFG, Interference Graph, and Affinity Relation
 
 ### Standard Input Format
@@ -147,15 +167,7 @@ g++ PreprocessSPEC.cpp -o PreprocessSPEC
 ./PreprocessSPEC
 ```
 
-The preprocessing of MiBench benchmark can be done analogously by compiling and running `PreprocessMiBench-per-func.cpp`, `PrelimExptMibench.cpp`, and `PreprocessMibench.cpp` in order. The configurations are set inside `config-MiBench.txt`, with the same format as `config-SPEC.txt`. The standard graph input are generated under `bench/MiBench/input/` folder.
-```
-g++ PreprocessMiBench-per-func.cpp -o PreprocessMiBench-per-func
-./PreprocessMiBench-per-func
-g++ PrelimExptMiBench.cpp -o PrelimExptMiBench
-./PrelimExptMiBench
-g++ PreprocessMiBench.cpp -o PreprocessMiBench
-./PreprocessMiBench
-```
+The preprocessing of MiBench benchmark and Linux Kernel can be done analogously.
 
 ### Visualize CFG (for debugging)
 Given a `.ll` file, one can generate the corresponding CFG with the following commands.
@@ -228,8 +240,8 @@ ILP/ILP < input/000
 ```
 
 ### Experiment
-To invoke the three algorithms on the input, compile and run `ExperimentSPEC.cpp` and `ExperimentMiBench.cpp` under `algos/` folder.  
-The configurations are specified inside `config-SPEC.txt` and `config-MiBench.txt`:
+To invoke the three algorithms on the input, compile and run `ExperimentSPEC.cpp`, `ExperimentMiBench`, and `ExperimentLinuxKernel.cpp` under `algos/` folder.  
+The configurations are specified inside `config-SPEC.txt`, `config-MiBench.txt`, and `config-LinuxKernel.txt`:
 - The first line is the name of the algorithm to be invoked: "Heuristic", "ILP", or "Treewidth";
 - The second line contains the mode of experiment, either "normal" or "merged", where "normal" means running the algorithm on each program insider the benchmark, and "merged" means passing in all the graphs inside a benchmark as a whole; and the integer follows specifies the number of runs to be conducted for this experiment;
 - Starting from the third line, each line contains a string representing a benchmark to be experimented on, where a '#' in at the beginning simply excludes this benchmark.
@@ -240,9 +252,11 @@ g++ ExperimentSPEC.cpp -o ExperimentSPEC
 ./ExperimentSPEC
 g++ ExperimentMiBench.cpp -o ExperimentMiBench
 ./ExperimentMiBench
+g++ ExperimentLinuxKernel.cpp -o ExperimentLinuxKernel
+./ExperimentLinuxKernel
 ```
 
 ### Results
 The results are presented under the `results/` folder.  
-The `results/SPEC2017/` folder (resp. `results/MiBench/` folder) contains all the outputs of all three algorithms on the SPEC CPU 2017 benchmark (resp. MiBench benchmark). `CollectResultsSPEC.cpp` and `CollectResultsMiBench.cpp` then gathers the result from raw output. The details on which sub-benchmarks are displayed are specified inside `config-SPEC.txt` and `config-MiBench`.  
-All experiment results are presented inside `results-SPEC.xls` and `results-MiBench`. Note that the former contains weighted affinity relations, where as the latter contains unweighted affinity relations.
+The `results/SPEC2017/` folder (resp. `results/MiBench/` folder or `results/LinuxKernel/` folder) contains all the outputs of all three algorithms on the SPEC CPU 2017 benchmark (resp. MiBench benchmark or Linux Kernel). `CollectResultsSPEC.cpp`, `CollectResultsMiBench.cpp`, and `CollectResultsLinuxKernel.cpp` then gathers the result from raw output. The details on which sub-benchmarks are displayed are specified inside `config-SPEC.txt`, `config-MiBench`, and `config-LinuxKernel`.  
+All experiment results are presented inside `results-SPEC.xls`, `results-MiBench`, and `results-LinuxKernel`. Note that the former contains weighted affinity relations, where as the latter contains unweighted affinity relations.
