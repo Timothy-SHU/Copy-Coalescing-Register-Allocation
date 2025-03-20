@@ -20,6 +20,7 @@ ParameterizedCopyCoalescing
 │   └── Treewidth/
 │   └── ExperimentSPEC.cpp
 │   └── ExperimentMiBench.cpp
+│   └── ExperimentLinuxKernel.cpp
 └── bench/
 │   └── SPEC2017/
 │   │   └── input/
@@ -45,6 +46,9 @@ ParameterizedCopyCoalescing
 │   └── PrelimExptMiBench.cpp
 │   └── PreprocessMiBench.cpp
 │   └── PreprocessMiBench-per-func.cpp
+│   └── PrelimExptLinuxKernel.cpp
+│   └── PreprocessLinuxKernel.cpp
+│   └── PreprocessLinuxKernel-per-func.cpp
 └── results/
 │   └── SPEC2017/
 │   │   └── Heuristic/
@@ -56,8 +60,10 @@ ParameterizedCopyCoalescing
 │   │   └── Treewidth/
 │   └── CollectResultsSPEC.cpp
 │   └── CollectResultsMiBench.cpp
+│   └── CollectResultsLinuxKernel.cpp
 │   └── resultsSPEC.xls
 │   └── resultsMiBench.xls
+│   └── resultsLinuxKernel.xls
 └── pace17/ (optional, for flow-cutter solver)
 ```
 
