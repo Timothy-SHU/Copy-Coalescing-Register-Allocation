@@ -4,9 +4,9 @@ This project implements the treewidth-based parameterized algorithm of copy coal
 
 ## Dependencies
 - [LLVM-18](https://llvm.org/)
-- The [SPEC CPU 2017](https://www.spec.org/cpu2017/) benchmark (download the ISO file and place it under `bench/SPEC2017/` folder).
-- The [MiBench](https://vhosts.eecs.umich.edu/mibench/) benchmark (download the ZIP file and place it under `bench/MiBench/` folder).
-- The source code of [Linux Kernel v6.6.83](https://www.kernel.org/) (download the Tarball and place it under `bench/LinuxKernel/` folder).
+- The [SPEC CPU 2017](https://www.spec.org/cpu2017/) benchmark (download the ISO file and place it under `bench/SPEC2017/`).
+- The [MiBench](https://vhosts.eecs.umich.edu/mibench/) benchmark (download the ZIP file and place it under `bench/MiBench/`).
+- [Linux Kernel v6.6.83](https://www.kernel.org/) source code (download the Tarball and place it under `bench/LinuxKernel/`).
 - [IBM ILOG CPLEX Optimization Studio](https://www.ibm.com/products/ilog-cplex-optimization-studio) (v22.1.1, academic): standard mathematic programming solver.
 - [htd](https://github.com/mabseher/htd): a tree / hypertree decomposition solver, which comes with C++ API for developers.
 - [flow-cutter](https://github.com/kit-algo/flow-cutter-pace17) (optional): a fast tree decomposition solver, but needs external file IO (download, compile, and place it under `pace17/` folder).
@@ -51,13 +51,8 @@ ParameterizedCopyCoalescing
 │   └── PreprocessLinuxKernel-per-func.cpp
 └── results/
 │   └── SPEC2017/
-│   │   └── Heuristic/
-│   │   └── ILP/
-│   │   └── Treewidth/
 │   └── MiBench/
-│   │   └── Heuristic/
-│   │   └── ILP/
-│   │   └── Treewidth/
+│   └── LinuxKernel/
 │   └── CollectResultsSPEC.cpp
 │   └── CollectResultsMiBench.cpp
 │   └── CollectResultsLinuxKernel.cpp
@@ -93,9 +88,8 @@ Now the benchmark is inside folder `spec2017/`. Make sure that `myexpcfg.cfg` an
 cp spec2017script.sh spec2017
 cd spec2017
 export LLVM_PROFILE_FILE="default.profraw"
-chmod u+x spec2017script.sh
 . shrc
-./spec2017script.sh $LLVM_DIR "-O1" 500.perlbench_r 502.gcc_r 505.mcf_r 508.namd_r 510.parest_r 511.povray_r 519.lbm_r 520.omnetpp_r 523.xalancbmk_r 525.x264_r 526.blender_r 531.deepsjeng_r 538.imagick_r 541.leela_r 544.nab_r 557.xz_r
+bash spec2017script.sh $LLVM_DIR "-O1" 500.perlbench_r 502.gcc_r 505.mcf_r 508.namd_r 510.parest_r 511.povray_r 519.lbm_r 520.omnetpp_r 523.xalancbmk_r 525.x264_r 526.blender_r 531.deepsjeng_r 538.imagick_r 541.leela_r 544.nab_r 557.xz_r
 ```
 
 The script will first profile the sub-benchmarks and then compile them into LLVM IR. The compiled `.ll` files are now under `bench/SPEC2017/-O1/` folder.
@@ -106,8 +100,7 @@ Run `compile_mibench.sh` to generate LLVM IR. For technical reasons, there's no 
 ```
 cd bench/MiBench
 unzip mibench.zip
-chmod u+x compile_mibench.sh
-./compile_mibench.sh "-O1" adpcm_c basicmath bitcount blowfish_d CRC32 dijkstra FFT ghostscript gsm ispell jpeg_c jpeg_d lame patricia pgp qsort rijndael rsynth sha stringsearch susan_c tiff2bw tiff2dither tiff2median tiff2rgba typeset
+bash compile_mibench.sh "-O1" adpcm_c basicmath bitcount blowfish_d CRC32 dijkstra FFT ghostscript gsm ispell jpeg_c jpeg_d lame patricia pgp qsort rijndael rsynth sha stringsearch susan_c tiff2bw tiff2dither tiff2median tiff2rgba typeset
 ```
 
 ### Linux Kernel v6.6.83
@@ -174,6 +167,21 @@ g++ PreprocessSPEC.cpp -o PreprocessSPEC
 ```
 
 The preprocessing of MiBench benchmark and Linux Kernel can be done analogously.
+```
+g++ PreprocessMiBench-per-func.cpp -o PreprocessMiBench-per-func
+./PreprocessMiBench-per-func
+g++ PrelimExptMiBench.cpp -o PrelimExptMiBench
+./PrelimExptMiBench
+g++ PreprocessMiBench.cpp -o PreprocessMiBench
+./PreprocessMiBench
+
+g++ PreprocessLinuxKernel-per-func.cpp -o PreprocessLinuxKernel-per-func
+./PreprocessLinuxKernel-per-func
+g++ PrelimExptLinuxKernel.cpp -o PrelimExptLinuxKernel
+./PrelimExptLinuxKernel
+g++ PreprocessLinuxKernel.cpp -o PreprocessLinuxKernel
+./PreprocessLinuxKernel
+```
 
 ### Visualize CFG (for debugging)
 Given a `.ll` file, one can generate the corresponding CFG with the following commands.
@@ -213,7 +221,7 @@ checker/checker < checker/config.txt
 The treewidth-based parameterized algorithm is implemented under `algos/Treewidth/` folder. Compile `Treewidth.cpp` and feed in standard input files. The default location of htd is under `/usr/local/`. Change it in `make.sh` if it is not the case.
 ```
 cd algos/Treewidth
-./make.sh
+bash make.sh
 cd ..
 Treewidth/Treewidth < input/000
 ```
@@ -239,8 +247,7 @@ The output format is almost the same as that of the parameterized algorithm, exc
 Copy coalescing by solving ILP is implmented under `algos/ILP/` folder. It requires CPLEX ILOG Optimizer (academic version 2211). `make.sh` links the libraries and compiles the code. The default location of CPLEX is under `/opt/ibm/ILOG/CPLEX_Studio2211/`. Change it in `make.sh` if it is not the case.
 ```
 cd algos/ILP
-chmod u+x make.sh
-./make.sh
+bash make.sh
 cd ..
 ILP/ILP < input/000
 ```
@@ -265,4 +272,4 @@ g++ ExperimentLinuxKernel.cpp -o ExperimentLinuxKernel
 ### Results
 The results are presented under the `results/` folder.  
 The `results/SPEC2017/` folder (resp. `results/MiBench/` folder or `results/LinuxKernel/` folder) contains all the outputs of all three algorithms on the SPEC CPU 2017 benchmark (resp. MiBench benchmark or Linux Kernel). `CollectResultsSPEC.cpp`, `CollectResultsMiBench.cpp`, and `CollectResultsLinuxKernel.cpp` then gathers the result from raw output. The details on which sub-benchmarks are displayed are specified inside `config-SPEC.txt`, `config-MiBench`, and `config-LinuxKernel`.  
-All experiment results are presented inside `results-SPEC.xls`, `results-MiBench`, and `results-LinuxKernel`. Note that the former contains weighted affinity relations, where as the latter contains unweighted affinity relations.
+All experiment results are presented inside `results-SPEC.xls`, `results-MiBench`, and `results-LinuxKernel`. Note that only the SPEC benchmark contains weighted affinity relations, where as the other two contain unweighted affinity relations.
