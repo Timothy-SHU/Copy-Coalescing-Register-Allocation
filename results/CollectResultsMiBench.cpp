@@ -8,6 +8,8 @@ int main() {
     ifstream configFile("config-MiBench.txt");
 
     string str;
+    long long sumTotalWeight = 0, sumHeuristicAns = 0, sumILPAns = 0;
+    double sumHeuristicTime = 0, sumILPTime = 0, sumTreewidthTime = 0, sumTreewidthDecompTime = 0;
     while (configFile >> str) {
         if (str[0] == '#') continue;
         string folderName = str+"/";
@@ -97,16 +99,24 @@ int main() {
         cout << "avg AffDeg = " << 1.0*totalAffDeg/totalSize << ", max tw = " << mxTW << "." << endl;
         cout << right << setw(22) << "Heuristic: answer = " << HeuristicAns << ", ";
         cout << "ratio = " << left << setprecision(6) << 1.0*HeuristicAns/totalWeight << ", ";
-        cout << "total runtime = " << setprecision(4) << HeuristicTime << ".\n";
+        cout << "total runtime = " << setprecision(6) << HeuristicTime << ".\n";
         cout << right << setw(22) << "ILP: answer = " << ILPAns << ", ";
         cout << "ratio = " << left << setprecision(6) << 1.0*ILPAns/totalWeight << ", ";
-        cout << "total runtime = " << setprecision(4) << ILPTime << ".\n";
+        cout << "total runtime = " << setprecision(8) << ILPTime << ".\n";
         cout << right << setw(22) << "Treewidth: answer = " << TreewidthAns << ", ";
         cout << "ratio = " << left << setprecision(6) << 1.0*TreewidthAns/totalWeight << ", ";
-        cout << "total runtime = " << setprecision(4) << TreewidthTime << ", ";
-        cout << "total decomp overhead = " << setprecision(4) << TreewidthDecompTime << ".";
+        cout << "total runtime = " << setprecision(6) << TreewidthTime << ", ";
+        cout << "total decomp overhead = " << setprecision(6) << TreewidthDecompTime << ".";
         if (cntHybrid > 0) cout << " ILP called on " << cntHybrid << " graphs.";
         cout << endl;
+
+        sumTotalWeight += totalWeight;
+        sumHeuristicAns += HeuristicAns;
+        sumHeuristicTime += HeuristicTime;
+        sumILPAns += ILPAns;
+        sumILPTime += ILPTime;
+        sumTreewidthTime += TreewidthTime;
+        sumTreewidthDecompTime += TreewidthDecompTime;
 
         int mergedMxTW = 0, numRuns;
         double mergedHeuristicTime = 0, mergedILPTime = 0;
@@ -148,5 +158,14 @@ int main() {
         cout << "Treewidth -- " << mergedTreewidthTime << ".\n";
         cout << endl;
     }
+    cout << "Total Weight = " << left << setprecision(6) << sumTotalWeight << ".\n";
+    cout << "Heuristic: total ans = " << left << setprecision(6) << sumHeuristicAns << ", ";
+    cout << "overall ratio = " << left << setprecision(6) << 1.0*sumHeuristicAns/sumTotalWeight << ", ";
+    cout << "total runtime = " << left << setprecision(6) << sumHeuristicTime << ".\n";
+    cout << "ILP: total ans = " << left << setprecision(6) << sumILPAns << ", ";
+    cout << "overall ratio = " << left << setprecision(6) << 1.0*sumILPAns/sumTotalWeight << ", ";
+    cout << "total runtime = " << left << setprecision(8) << sumILPTime << ".\n";
+    cout << "Treewidth: total runtime = " << left << setprecision(6) << sumTreewidthTime << ", ";
+    cout << "total decomp time = " << left << setprecision(6) << sumTreewidthDecompTime << ".\n";
     return 0;
 }

@@ -1,6 +1,6 @@
-# Parameterized Copy Coalescing
+# Copy-Coalescing-Aware Register Allocation
 
-This project implements the treewidth-based parameterized algorithm of copy coalescing. The experiment is conducted on SPEC2017 benchmark. The programs in the benchmark are compiled to LLVM IR, with graph informations extracted. The performance of the parameterized algorithm, [Hack's heuristic](https://dl.acm.org/doi/10.1145/1375581.1375610), and [ILP-based solution](https://dl.acm.org/doi/10.5555/1759937.1759948) on those instances are compared.
+This project implements the treewidth-based parameterized algorithm of copy-coalescing-aware register allocation problem. The experiment is conducted on SPEC CPU 2017 benchmark, MiBench, and Linux Kernel source code. The programs in the benchmark are compiled to LLVM IR, with graph information extracted. The performance of the parameterized algorithm, [Hack's heuristic](https://dl.acm.org/doi/10.1145/1375581.1375610), and [ILP-based solution](https://dl.acm.org/doi/10.5555/1759937.1759948) on those instances are compared.
 
 ## Dependencies
 - [LLVM-18](https://llvm.org/)
