@@ -11,10 +11,14 @@ bench/SPEC2017/input-per-func/
 bench/SPEC2017/cpu2017-1_0_5.iso
 
 bench/MiBench/mibench/
+bench/MiBench/-O1/
+bench/MiBench/input/
 bench/MiBench/input-per-func/
 bench/MiBench/mibench.zip
 
 bench/LinuxKernel/linux-6.6.83/
+bench/LinuxKernel/-O1/
+bench/LinuxKernel/input/
 bench/LinuxKernel/input-per-func/
 bench/LinuxKernel/linux-6.6.83.tar.xz
 
@@ -46,15 +50,23 @@ algos/ExperimentLinuxKernel
 
 pace17/
 
-results/SPEC2017/
-results/MiBench/
-results/LinuxKernel/
 results/CollectResultsSPEC
 results/SPEC2017/Prelim/
+results/SPEC2017/Heuristic/
+results/SPEC2017/ILP/
+results/SPEC2017/Treewidth/
+
 results/CollectResultsMiBench
 results/MiBench/Prelim/
+results/MiBench/Heuristic/
+results/MiBench/ILP/
+results/MiBench/Treewidth/
+
 results/CollectResultsLinuxKernel
 results/LinuxKernel/Prelim/
+results/LinuxKernel/Heuristic/
+results/LinuxKernel/ILP/
+results/LinuxKernel/Treewidth/
 
 graph.txt
 tree.txt
