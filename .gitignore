@@ -5,6 +5,8 @@ bench/OCC/
 bench/OCC/PreprocOCC
 
 bench/SPEC2017/spec2017/
+bench/SPEC2017/-O1/
+bench/SPEC2017/input/
 bench/SPEC2017/input-per-func/
 bench/SPEC2017/cpu2017-1_0_5.iso
 
@@ -44,6 +46,9 @@ algos/ExperimentLinuxKernel
 
 pace17/
 
+results/SPEC2017/
+results/MiBench/
+results/LinuxKernel/
 results/CollectResultsSPEC
 results/SPEC2017/Prelim/
 results/CollectResultsMiBench

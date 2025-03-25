@@ -1,4 +1,4 @@
-# Copy-Coalescing-Aware Register Allocation
+# Optimal Register Allocation with Copy Coalescing
 
 This project implements the treewidth-based parameterized algorithm of copy-coalescing-aware register allocation problem. The experiment is conducted on SPEC CPU 2017 benchmark, MiBench, and Linux Kernel source code. The programs in the benchmark are compiled to LLVM IR, with graph information extracted. The performance of the parameterized algorithm, [Hack's heuristic](https://dl.acm.org/doi/10.1145/1375581.1375610), and [ILP-based solution](https://dl.acm.org/doi/10.5555/1759937.1759948) on those instances are compared.
 
