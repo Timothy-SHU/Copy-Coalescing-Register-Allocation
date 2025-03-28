@@ -13,7 +13,7 @@ This project implements the treewidth-based parameterized algorithm of copy-coal
 
 ## File Structure
 ```
-ParameterizedCopyCoalescing
+Copy-Coalescing-Register-Allocation
 └── algos/
 │   └── Heuristic/
 │   └── ILP/
@@ -53,6 +53,7 @@ ParameterizedCopyCoalescing
 │   └── SPEC2017/
 │   └── MiBench/
 │   └── LinuxKernel/
+│   └── RuntimePlots/
 │   └── CollectResultsSPEC.cpp
 │   └── CollectResultsMiBench.cpp
 │   └── CollectResultsLinuxKernel.cpp

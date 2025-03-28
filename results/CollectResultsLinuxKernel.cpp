@@ -6,6 +6,8 @@ string RESULT_DIR = "LinuxKernel/";
 
 int main() {
     ifstream configFile("config-LinuxKernel.txt");
+    ofstream ILPRecord("RuntimePlots/ILP-LinuxKernel.txt");
+    ofstream TreewidthRecord("RuntimePlots/Treewidth-LinuxKernel.txt");
 
     string str;
     long long sumTotalWeight = 0, sumHeuristicAns = 0, sumILPAns = 0;
@@ -26,6 +28,7 @@ int main() {
             GraphStat >> n >> avgAff >> ans >> tot;
             numGraph++, totalSize += n, mxSize = max(mxSize, n);
             totalAffDeg += (int)(n*avgAff), totalWeight += tot;
+            ILPRecord << n << ' ', TreewidthRecord << n << ' ';
 
             numRuns = 0;
             long long curHeuristicAns = 0;
@@ -52,6 +55,7 @@ int main() {
             }
             curILPTime /= numRuns;
             ILPAns += curILPAns, ILPTime += curILPTime;
+            ILPRecord << curILPTime << endl;
 
             numRuns = 0;
             long long curTreewidthAns = 0;
@@ -80,10 +84,12 @@ int main() {
                 TreewidthAns += curTreewidthAns;
                 TreewidthTime += curTreewidthTime;
                 TreewidthDecompTime += curTreewidthDecompTime;
+                TreewidthRecord << curTreewidthTime << endl;
             } else {
                 TreewidthAns += curTreewidthAns;
                 TreewidthTime += curILPTime+curTreewidthDecompTime;
                 TreewidthDecompTime += curTreewidthDecompTime;
+                TreewidthRecord << curILPTime+curTreewidthDecompTime << endl;
             }
             cntHybrid += isHybrid;
 
